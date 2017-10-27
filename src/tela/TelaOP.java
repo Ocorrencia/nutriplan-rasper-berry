@@ -13,6 +13,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -66,6 +68,8 @@ public class TelaOP extends TelaCadastro {
     Icon iconeUser = new ImageIcon(iconeOperador);
 
     JLabel labelOperador = new JLabel("OPERADOR: 204.417 - JANETE MENDES MACHADO", iconeUser, JLabel.HORIZONTAL);
+
+    public static TecladoVirtual tecladoVirtual;
 
     public static TelaOP getTela() {
         if (tela == null) {
@@ -200,6 +204,7 @@ public class TelaOP extends TelaCadastro {
         this.setSize(800, 480);
         adicionaCampos();
         adicionaBotoes();
+        adicionarListener();
     }
 
     private void adicionaCampos() {
@@ -267,5 +272,15 @@ public class TelaOP extends TelaCadastro {
 
     private void painelBotoes() {
         // painelBotoes.setBorder(BorderFactory.createLineBorder(Color.black));
+    }
+
+    public void adicionarListener() {
+        btnTrocaOperador.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               TecladoVirtual tela = tecladoVirtual.getTela();
+                tela.set("Digite o código do operador");
+            }
+        });
     }
 }

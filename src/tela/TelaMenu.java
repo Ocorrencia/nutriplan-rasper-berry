@@ -34,20 +34,20 @@ public class TelaMenu extends JInternalFrame {
 
     URL urlTopo = getClass().getResource("/imagem/logoSuperior.png");
     URL imagemTimer = getClass().getResource("/imagem/timer.png");
-    URL imagemNext = getClass().getResource("/imagem/next.png");
-    URL imagemBack = getClass().getResource("/imagem/back.png");
-    URL imagemConfig = getClass().getResource("/imagem/config.png");
-    URL imagemPlay = getClass().getResource("/imagem/play.png");
-    URL imagemSair = getClass().getResource("/imagem/timer.png");
+    URL imagemNext = getClass().getResource("/imagens/icons8-next-page.png");
+    URL imagemBack = getClass().getResource("/imagens/icons8-back-to.png");
+    URL imagemConfig = getClass().getResource("/imagens/icons8-settings.png");
+    URL imagemPlay = getClass().getResource("/imagens/icons8-factory.png");
+    URL imagemSair = getClass().getResource("/imagens/icons8-exit-sign-black.png");
     URL iconePrincipal = getClass().getResource("/imagem/timer.png");
     
-    private ImageIcon icoTimer = new ImageIcon(imagemTimer);
-    private ImageIcon icoNext = new ImageIcon(imagemNext);
-    private ImageIcon icoBack = new ImageIcon(imagemBack);
-    private ImageIcon icoConfig = new ImageIcon(imagemConfig);
-    private ImageIcon icoPlay = new ImageIcon(imagemPlay);
-    private ImageIcon icoSair = new ImageIcon(imagemSair);
-    private ImageIcon iconeprincipal = new ImageIcon(urlTopo);
+    private final ImageIcon icoTimer = new ImageIcon(imagemTimer);
+    private final ImageIcon icoNext = new ImageIcon(imagemNext);
+    private final ImageIcon icoBack = new ImageIcon(imagemBack);
+    private final ImageIcon icoConfig = new ImageIcon(imagemConfig);
+    private final ImageIcon icoPlay = new ImageIcon(imagemPlay);
+    private final ImageIcon icoSair = new ImageIcon(imagemSair);
+    private final ImageIcon iconeprincipal = new ImageIcon(urlTopo);
 
     JPanel painelBotoes = new JPanel();
     JPanel painelTitulo = new JPanel();
@@ -60,13 +60,14 @@ public class TelaMenu extends JInternalFrame {
 
     JButton btnIniciar = new JButton("INICIAR", icoPlay);
     JButton btnGenerico = new JButton("TESTES", icoTimer);
-    JButton btnGenerio1 = new JButton("Botão Genérico 1", icoTimer);
+    JButton tecladoVitrual = new JButton("Teclado", icoTimer);
     JButton btnSair = new JButton("SAIR", icoSair);
     JButton btnProximo = new JButton("Próximo", icoNext);
     JButton btnAnterior = new JButton("Anterior", icoBack);
     JButton btnConfig = new JButton("Configuração", icoConfig);
 
     public static TelaMenu tela;
+    public static TecladoVirtual tecladoVirtual;
 
     WebStatusBar statusBar = new WebStatusBar();
     WebStatusBar statusBarSuperior = new WebStatusBar();
@@ -125,8 +126,8 @@ public class TelaMenu extends JInternalFrame {
 
         // adicionando botoes
         painelBotoes.add(btnIniciar);
-        painelBotoes.add(btnGenerico);
-        painelBotoes.add(btnGenerio1);
+        painelBotoes.add(new JButton());
+        painelBotoes.add(new JButton());
         painelBotoes.add(btnSair);
         painelOperacao.add(btnProximo);
         painelOperacao.add(btnAnterior);
@@ -159,6 +160,12 @@ public class TelaMenu extends JInternalFrame {
                 TelaConfig.getTela();
             }
         });
+        tecladoVitrual.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TecladoVirtual.getTela();
+            }
+        });
     }
 
     private void alinhamentoBotoes() {
@@ -171,8 +178,8 @@ public class TelaMenu extends JInternalFrame {
         btnConfig.setVerticalTextPosition(SwingConstants.BOTTOM);
         btnConfig.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        btnGenerio1.setVerticalTextPosition(SwingConstants.BOTTOM);
-        btnGenerio1.setHorizontalTextPosition(SwingConstants.CENTER);
+        tecladoVitrual.setVerticalTextPosition(SwingConstants.BOTTOM);
+        tecladoVitrual.setHorizontalTextPosition(SwingConstants.CENTER);
 
         btnSair.setVerticalTextPosition(SwingConstants.BOTTOM);
         btnSair.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -196,7 +203,7 @@ public class TelaMenu extends JInternalFrame {
         //painelBotoes.setBorder(BorderFactory.createLineBorder(Color.GREEN));
         btnSair.setFont(new Font("Arial", Font.BOLD, 20));
         btnGenerico.setFont(new Font("Arial", Font.BOLD, 20));
-        btnGenerio1.setFont(new Font("Arial", Font.BOLD, 20));
+        tecladoVitrual.setFont(new Font("Arial", Font.BOLD, 20));
         btnIniciar.setFont(new Font("Arial", Font.BOLD, 20));
     }
 

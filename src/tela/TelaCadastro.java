@@ -137,7 +137,6 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         painelComponentes.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, 25));
         painelBotoes.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, 55));
         //  painelDescricaoMaquina.setLayout(new GridLayout(1, 3));
-
         configStatusMaquina();
     }
 
