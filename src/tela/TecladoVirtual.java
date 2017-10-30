@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import net.miginfocom.swing.MigLayout;
+import pojo.Operador;
 
 public class TecladoVirtual extends JInternalFrame {
 
@@ -201,6 +202,8 @@ public class TecladoVirtual extends JInternalFrame {
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Operador op = new Operador();
+                op.getOperador();
             }
         });
         voltar.addActionListener(new ActionListener() {
