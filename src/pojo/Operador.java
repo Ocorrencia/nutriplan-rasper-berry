@@ -5,20 +5,46 @@
  */
 package pojo;
 
-import br.com.senior.services.OpOperadorOutConsultar;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Operador {
 
-    OpOperadorOutConsultar opConsultaOperador = new OpOperadorOutConsultar();
+    String nomOpe;
+    Integer numCad;
+    Integer turTrb;
+    List<Operador> itensOperadores = new ArrayList<Operador>();
 
-    public void getOperador() {
-        br.com.senior.services.G5SeniorServices service = new br.com.senior.services.G5SeniorServices();
+    public List<Operador> getItensOperadores() {
+        return itensOperadores;
+    }
 
-        br.com.senior.services.SapiensSyncnutriplanOp port = service.getSapiensSyncnutriplanOpPort();
+    public void setItensOperadores(List<Operador> itensOperadores) {
+        this.itensOperadores = itensOperadores;
+    }
+    
+    public String getNomOpe() {
+        return nomOpe;
+    }
 
-        br.com.senior.services.OpOperadorIn parameters = new br.com.senior.services.OpOperadorIn();
+    public void setNomOpe(String nomOpe) {
+        this.nomOpe = nomOpe;
+    }
 
-        br.com.senior.services.OpOperadorOut result = port.operador("integracao.op", "ERPintegracao.4651", 0, parameters);
+    public Integer getNumCad() {
+        return numCad;
+    }
+
+    public void setNumCad(Integer numCad) {
+        this.numCad = numCad;
+    }
+
+    public Integer getTurTrb() {
+        return turTrb;
+    }
+
+    public void setTurTrb(Integer turTrb) {
+        this.turTrb = turTrb;
     }
 
 }

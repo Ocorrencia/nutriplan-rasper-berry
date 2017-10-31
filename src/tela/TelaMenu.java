@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import util.Sincronizacao;
 
 /**
  *
@@ -33,7 +34,7 @@ import javax.swing.event.InternalFrameEvent;
 public class TelaMenu extends JInternalFrame {
 
     URL urlTopo = getClass().getResource("/imagem/logoSuperior.png");
-    URL imagemTimer = getClass().getResource("/imagem/timer.png");
+    URL imagemSinc = getClass().getResource("/imagens/icons8-refresh.png");
     URL imagemNext = getClass().getResource("/imagens/icons8-next-page.png");
     URL imagemBack = getClass().getResource("/imagens/icons8-back-to.png");
     URL imagemConfig = getClass().getResource("/imagens/icons8-settings.png");
@@ -41,7 +42,7 @@ public class TelaMenu extends JInternalFrame {
     URL imagemSair = getClass().getResource("/imagens/icons8-exit-sign-black.png");
     URL iconePrincipal = getClass().getResource("/imagem/timer.png");
     
-    private final ImageIcon icoTimer = new ImageIcon(imagemTimer);
+    private final ImageIcon icoSinc = new ImageIcon(imagemSinc);
     private final ImageIcon icoNext = new ImageIcon(imagemNext);
     private final ImageIcon icoBack = new ImageIcon(imagemBack);
     private final ImageIcon icoConfig = new ImageIcon(imagemConfig);
@@ -59,8 +60,8 @@ public class TelaMenu extends JInternalFrame {
     GridLayout layoutRodape = new GridLayout(0, 1);
 
     JButton btnIniciar = new JButton("INICIAR", icoPlay);
-    JButton btnGenerico = new JButton("TESTES", icoTimer);
-    JButton tecladoVitrual = new JButton("Teclado", icoTimer);
+    JButton btnSincronizacao = new JButton("SINCRONIZAÇÃO", icoSinc);
+    JButton tecladoVitrual = new JButton("Teclado", icoSinc);
     JButton btnSair = new JButton("SAIR", icoSair);
     JButton btnProximo = new JButton("Próximo", icoNext);
     JButton btnAnterior = new JButton("Anterior", icoBack);
@@ -126,7 +127,7 @@ public class TelaMenu extends JInternalFrame {
 
         // adicionando botoes
         painelBotoes.add(btnIniciar);
-        painelBotoes.add(new JButton());
+        painelBotoes.add(btnSincronizacao);
         painelBotoes.add(new JButton());
         painelBotoes.add(btnSair);
         painelOperacao.add(btnProximo);
@@ -166,6 +167,13 @@ public class TelaMenu extends JInternalFrame {
                 TecladoVirtual.getTela();
             }
         });
+        btnSincronizacao.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Sincronizacao.sincOperadores();
+            }
+        });
+        
     }
 
     private void alinhamentoBotoes() {
@@ -184,8 +192,8 @@ public class TelaMenu extends JInternalFrame {
         btnSair.setVerticalTextPosition(SwingConstants.BOTTOM);
         btnSair.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        btnGenerico.setVerticalTextPosition(SwingConstants.BOTTOM);
-        btnGenerico.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnSincronizacao.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnSincronizacao.setHorizontalTextPosition(SwingConstants.CENTER);
 
         btnIniciar.setVerticalTextPosition(SwingConstants.BOTTOM);
         btnIniciar.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -202,7 +210,7 @@ public class TelaMenu extends JInternalFrame {
     private void configBotoes() {
         //painelBotoes.setBorder(BorderFactory.createLineBorder(Color.GREEN));
         btnSair.setFont(new Font("Arial", Font.BOLD, 20));
-        btnGenerico.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSincronizacao.setFont(new Font("Arial", Font.BOLD, 20));
         tecladoVitrual.setFont(new Font("Arial", Font.BOLD, 20));
         btnIniciar.setFont(new Font("Arial", Font.BOLD, 20));
     }
