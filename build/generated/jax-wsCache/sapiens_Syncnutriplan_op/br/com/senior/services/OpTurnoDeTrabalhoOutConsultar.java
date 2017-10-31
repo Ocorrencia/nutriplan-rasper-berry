@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="desTrb" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="horFim" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="horIni" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="mensagemRetorno" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="seqHtr" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="tipHtr" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="turTrb" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
@@ -41,6 +42,7 @@ import javax.xml.bind.annotation.XmlType;
     "desTrb",
     "horFim",
     "horIni",
+    "mensagemRetorno",
     "seqHtr",
     "tipHtr",
     "turTrb"
@@ -57,6 +59,8 @@ public class OpTurnoDeTrabalhoOutConsultar {
     protected JAXBElement<Integer> horFim;
     @XmlElementRef(name = "horIni", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> horIni;
+    @XmlElementRef(name = "mensagemRetorno", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> mensagemRetorno;
     @XmlElementRef(name = "seqHtr", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> seqHtr;
     @XmlElementRef(name = "tipHtr", type = JAXBElement.class, required = false)
@@ -182,6 +186,30 @@ public class OpTurnoDeTrabalhoOutConsultar {
      */
     public void setHorIni(JAXBElement<Integer> value) {
         this.horIni = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade mensagemRetorno.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getMensagemRetorno() {
+        return mensagemRetorno;
+    }
+
+    /**
+     * Define o valor da propriedade mensagemRetorno.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setMensagemRetorno(JAXBElement<String> value) {
+        this.mensagemRetorno = value;
     }
 
     /**

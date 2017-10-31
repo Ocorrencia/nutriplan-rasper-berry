@@ -7,6 +7,7 @@ package tela;
 
 import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.progressbar.WebProgressBar;
+import dao.usuarioDao;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -37,7 +38,7 @@ public class TelaSistema extends JFrame implements ActionListener {
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
     public static TelaSistema telaSistema;
     Servidor servidor = new Servidor();
-
+    usuarioDao usu = new usuarioDao();
     public TelaSistema() {
         getContentPane().add(jdp);
         setIconImage(iconeprincipal.getImage());

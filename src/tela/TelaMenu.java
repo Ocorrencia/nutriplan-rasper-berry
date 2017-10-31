@@ -38,7 +38,7 @@ public class TelaMenu extends JInternalFrame {
     URL imagemNext = getClass().getResource("/imagens/icons8-next-page.png");
     URL imagemBack = getClass().getResource("/imagens/icons8-back-to.png");
     URL imagemConfig = getClass().getResource("/imagens/icons8-settings.png");
-    URL imagemPlay = getClass().getResource("/imagens/icons8-factory.png");
+    URL imagemPlay = getClass().getResource("/imagens/icons8-automation.png");
     URL imagemSair = getClass().getResource("/imagens/icons8-exit-sign-black.png");
     URL iconePrincipal = getClass().getResource("/imagem/timer.png");
     

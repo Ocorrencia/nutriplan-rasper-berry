@@ -40,6 +40,15 @@
 <message name="OrdemProducaoResponse">
 <part name="result" type="tns:opOrdemProducaoOut"/>
 </message>
+<message name="Usuario">
+<part name="user" type="xsd:string"/>
+<part name="password" type="xsd:string"/>
+<part name="encryption" type="xsd:int"/>
+<part name="parameters" type="tns:opUsuarioIn"/>
+</message>
+<message name="UsuarioResponse">
+<part name="result" type="tns:opUsuarioOut"/>
+</message>
 <portType name="sapiens_Syncnutriplan_op">
 <operation name="CentroDeRecurso" parameterOrder="user password encryption parameters">
 <input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/CentroDeRecursoRequest" message="tns:CentroDeRecurso"/>
@@ -56,6 +65,10 @@
 <operation name="OrdemProducao" parameterOrder="user password encryption parameters">
 <input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/OrdemProducaoRequest" message="tns:OrdemProducao"/>
 <output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/OrdemProducaoResponse" message="tns:OrdemProducaoResponse"/>
+</operation>
+<operation name="Usuario" parameterOrder="user password encryption parameters">
+<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/UsuarioRequest" message="tns:Usuario"/>
+<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/UsuarioResponse" message="tns:UsuarioResponse"/>
 </operation>
 </portType>
 <binding name="sapiens_Syncnutriplan_opPortBinding" type="tns:sapiens_Syncnutriplan_op">
@@ -88,6 +101,15 @@
 </output>
 </operation>
 <operation name="OrdemProducao">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal" namespace="http://services.senior.com.br"/>
+</input>
+<output>
+<soap:body use="literal" namespace="http://services.senior.com.br"/>
+</output>
+</operation>
+<operation name="Usuario">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal" namespace="http://services.senior.com.br"/>

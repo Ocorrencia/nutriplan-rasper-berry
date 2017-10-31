@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="datMov" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="horMov" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="indDiv" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="mensgemRetorno" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="mensagemRetorno" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="numCad" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="numOrp" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="numSep" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -70,7 +70,7 @@ import javax.xml.bind.annotation.XmlType;
     "datMov",
     "horMov",
     "indDiv",
-    "mensgemRetorno",
+    "mensagemRetorno",
     "numCad",
     "numOrp",
     "numSep",
@@ -115,8 +115,8 @@ public class OpOrdemProducaoInAportamentoProducao {
     protected JAXBElement<String> horMov;
     @XmlElementRef(name = "indDiv", type = JAXBElement.class, required = false)
     protected JAXBElement<String> indDiv;
-    @XmlElementRef(name = "mensgemRetorno", type = JAXBElement.class, required = false)
-    protected JAXBElement<String> mensgemRetorno;
+    @XmlElementRef(name = "mensagemRetorno", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> mensagemRetorno;
     @XmlElementRef(name = "numCad", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> numCad;
     @XmlElementRef(name = "numOrp", type = JAXBElement.class, required = false)
@@ -501,27 +501,27 @@ public class OpOrdemProducaoInAportamentoProducao {
     }
 
     /**
-     * Obtém o valor da propriedade mensgemRetorno.
+     * Obtém o valor da propriedade mensagemRetorno.
      * 
      * @return
      *     possible object is
      *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public JAXBElement<String> getMensgemRetorno() {
-        return mensgemRetorno;
+    public JAXBElement<String> getMensagemRetorno() {
+        return mensagemRetorno;
     }
 
     /**
-     * Define o valor da propriedade mensgemRetorno.
+     * Define o valor da propriedade mensagemRetorno.
      * 
      * @param value
      *     allowed object is
      *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public void setMensgemRetorno(JAXBElement<String> value) {
-        this.mensgemRetorno = value;
+    public void setMensagemRetorno(JAXBElement<String> value) {
+        this.mensagemRetorno = value;
     }
 
     /**

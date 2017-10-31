@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="mensagemRetorno" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="nomOpe" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="numCad" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="turTrb" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
@@ -31,18 +32,45 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "opOperadorOutConsultar", propOrder = {
+    "mensagemRetorno",
     "nomOpe",
     "numCad",
     "turTrb"
 })
 public class OpOperadorOutConsultar {
 
+    @XmlElementRef(name = "mensagemRetorno", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> mensagemRetorno;
     @XmlElementRef(name = "nomOpe", type = JAXBElement.class, required = false)
     protected JAXBElement<String> nomOpe;
     @XmlElementRef(name = "numCad", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> numCad;
     @XmlElementRef(name = "turTrb", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> turTrb;
+
+    /**
+     * Obtém o valor da propriedade mensagemRetorno.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getMensagemRetorno() {
+        return mensagemRetorno;
+    }
+
+    /**
+     * Define o valor da propriedade mensagemRetorno.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setMensagemRetorno(JAXBElement<String> value) {
+        this.mensagemRetorno = value;
+    }
 
     /**
      * Obtém o valor da propriedade nomOpe.

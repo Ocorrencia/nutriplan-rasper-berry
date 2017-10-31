@@ -112,4 +112,26 @@ public interface SapiensSyncnutriplanOp {
         @WebParam(name = "parameters", partName = "parameters")
         OpOrdemProducaoIn parameters);
 
+    /**
+     * 
+     * @param password
+     * @param encryption
+     * @param user
+     * @param parameters
+     * @return
+     *     returns br.com.senior.services.OpUsuarioOut
+     */
+    @WebMethod(operationName = "Usuario")
+    @WebResult(name = "result", partName = "result")
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/UsuarioRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/UsuarioResponse")
+    public OpUsuarioOut usuario(
+        @WebParam(name = "user", partName = "user")
+        String user,
+        @WebParam(name = "password", partName = "password")
+        String password,
+        @WebParam(name = "encryption", partName = "encryption")
+        int encryption,
+        @WebParam(name = "parameters", partName = "parameters")
+        OpUsuarioIn parameters);
+
 }
