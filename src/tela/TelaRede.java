@@ -79,8 +79,8 @@ public class TelaRede extends JInternalFrame {
     }
 
     public TelaRede() {
+        super("Informações de Rede", true, true, true);
         setVisible(true);
-        setTitle("Rede");
         setFrameIcon(iconeprincipal);
         tabbedPane3.setPreferredSize(new Dimension(700, 420));
         tabbedPane3.setTabPlacement(WebTabbedPane.LEFT);
@@ -121,7 +121,7 @@ public class TelaRede extends JInternalFrame {
                 if (Servidor.servidor.getSoTimeout() == 0) {
                     s5.setIcon(iconeError);
                 }
-                
+
             } else {
                 s1.setIcon(iconeError);
                 s2.setIcon(iconeError);

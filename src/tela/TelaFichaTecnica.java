@@ -72,8 +72,8 @@ public class TelaFichaTecnica extends JInternalFrame {
     }
 
     public TelaFichaTecnica() {
+        super("Ficha Técnica", true, true, true);
         setVisible(true);
-        setTitle("Ficha Técnica");
         this.setFrameIcon(iconeprincipal);
 
         this.setSize(700, 420);
