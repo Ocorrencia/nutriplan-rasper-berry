@@ -292,5 +292,12 @@ public class TelaOP extends TelaCadastro {
                 });
             }
         });
+        
+        btnFichaTecnica.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaFichaTecnica.getTela();
+            }
+        });
     }
 }
