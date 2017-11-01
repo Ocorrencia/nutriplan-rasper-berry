@@ -9,6 +9,7 @@ import com.alee.extended.panel.GroupPanel;
 import componente.MeuCampoFormatado;
 import componente.MeuCampoTexto;
 import componente.MeuComboBox;
+import componente.MeuComponente;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -16,6 +17,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.util.Iterator;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,7 +25,9 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import jdk.nashorn.internal.objects.NativeArray;
 import net.miginfocom.swing.MigLayout;
+import pojo.Operador;
 
 public class TelaOP extends TelaCadastro {
 
@@ -278,8 +282,14 @@ public class TelaOP extends TelaCadastro {
         btnTrocaOperador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               TecladoVirtual tela = tecladoVirtual.getTela();
+                TecladoVirtual tela = tecladoVirtual.getTela();
                 tela.set("Digite o código do operador");
+                tela.addInternalFrameListener(new InternalFrameAdapter() {
+                    @Override
+                    public void internalFrameClosed(InternalFrameEvent e) {
+                        System.out.println("valor input " + tela.meuCampoValor.getText());
+                    }
+                });
             }
         });
     }

@@ -39,7 +39,7 @@ public class TecladoVirtual extends JInternalFrame {
     JPanel painelBotoesMig = new JPanel();
     JPanel painelSuperior = new JPanel();
 
-    JTextField meuCampoValor = new JTextField();
+    public JTextField meuCampoValor = new JTextField();
     JButton um = new JButton("1");
     JButton dois = new JButton("2");
     JButton tres = new JButton("3");
@@ -81,6 +81,7 @@ public class TecladoVirtual extends JInternalFrame {
 
     public TecladoVirtual() {
         super("Teclado Virtual", false, false, false, false);
+        this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         montarTela();
         adicionarListener();
     }

@@ -28,6 +28,38 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="opFichaTecnicaIn">
+<xs:sequence>
+<xs:element name="codDer" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="codPro" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="flowInstanceID" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="flowName" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="opFichaTecnicaOut">
+<xs:sequence>
+<xs:element name="consultar" type="tns:opFichaTecnicaOutConsultar" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="erroExecucao" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="opFichaTecnicaOutConsultar">
+<xs:sequence>
+<xs:element name="codCmp" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="derCmp" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="desCmp" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="desDer" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="mensagemRetorno" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="prdQtd" type="xs:double" nillable="true" minOccurs="0"/>
+<xs:element name="qtdTot" type="xs:double" nillable="true" minOccurs="0"/>
+<xs:element name="qtdUti" type="xs:double" nillable="true" minOccurs="0"/>
+<xs:element name="seqMod" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="tipPro" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="uniMe2" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="opCentroDeRecursoIn">
 <xs:sequence>
 <xs:element name="flowInstanceID" type="xs:string" nillable="true" minOccurs="0"/>

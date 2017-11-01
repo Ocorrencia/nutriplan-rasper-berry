@@ -5,6 +5,7 @@
  */
 package util;
 
+import pojoWebService.FichaTecnicaWebService;
 import pojoWebService.OperadorWebService;
 
 /**
@@ -12,9 +13,14 @@ import pojoWebService.OperadorWebService;
  * @author diogo.melo
  */
 public class Sincronizacao {
-    
-    public static void sincOperadores(){
+
+    public static void sincOperadores() {
         OperadorWebService operadorWebService = new OperadorWebService();
         operadorWebService.buscarOperadoresSapiens();
+    }
+
+    public static void sincFichaTecnica() {
+        FichaTecnicaWebService fichaTecnicaWebService = new FichaTecnicaWebService();
+        fichaTecnicaWebService.buscarFichaTenicaSapiens();
     }
 }
