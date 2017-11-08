@@ -36,14 +36,39 @@ public class TelaFichaTecnica extends JInternalFrame {
     JLabel lbProduto = new JLabel("68-735 VASSOURA P/ GRAMA VERDE");
 
     JPanel painelQuantidade = new JPanel();
+
+    JPanel painelConsumo = new JPanel();
     JLabel lbConsumo = new JLabel("Consumo");
+    JLabel campoConsumo = new JLabel("12");
+
+    JPanel painelPerda = new JPanel();
     JLabel lbPerda = new JLabel("Perda");
+    JLabel campoPerda = new JLabel("12");
+
+    JPanel painelTotal = new JPanel();
     JLabel lbTotal = new JLabel("Total");
+    JLabel campoTotal = new JLabel("12");
+
+    JPanel painelUm = new JPanel();
     JLabel lbUm = new JLabel("U.M");
+    JLabel campoUm = new JLabel("12");
+
+    JPanel painelCp = new JPanel();
     JLabel lbCp = new JLabel("C.P");
+    JLabel campoCP = new JLabel("12");
+
+    JPanel painelSeq = new JPanel();
     JLabel lbSeq = new JLabel("Seq");
+    JLabel campoSeq = new JLabel("12");
+
+    JPanel painelCodigo = new JPanel();
     JLabel lbCodigo = new JLabel("Código");
+    JLabel campoCodigo = new JLabel("200");
+
+    JPanel painelComponente = new JPanel();
     JLabel lbDescComponente = new JLabel("Descrição do Componente");
+    JLabel campoDescricaoProduto = new JLabel("200");
+
     JSeparator separador1 = new JSeparator(1);
     JSeparator separador2 = new JSeparator(1);
     JSeparator separador3 = new JSeparator(1);
@@ -84,26 +109,65 @@ public class TelaFichaTecnica extends JInternalFrame {
         this.setLayout(new MigLayout());
 
         painelFichaTecnica.setLayout(new MigLayout());
+        painelQuantidade.setLayout(new MigLayout());
+        painelConsumo.setLayout(new MigLayout());
+        painelTotal.setLayout(new MigLayout());
+        painelUm.setLayout(new MigLayout());
+        painelCp.setLayout(new MigLayout());
+        painelSeq.setLayout(new MigLayout());
+        painelCodigo.setLayout(new MigLayout());
+        painelComponente.setLayout(new MigLayout());
+        painelPerda.setLayout(new MigLayout());
 
         painelFichaTecnica.add(lbFichaTecnica, "align center, wrap");
         painelFichaTecnica.add(separator, "align center, wrap");
         painelFichaTecnica.add(lbProduto);
 
-        painelQuantidade.add(lbConsumo);
+        painelConsumo.add(lbConsumo, "wrap");
+        painelConsumo.add(campoConsumo);
+        painelQuantidade.add(painelConsumo);
+
         painelQuantidade.add(separador1);
-        painelQuantidade.add(lbPerda);
+
+        painelPerda.add(lbPerda, "wrap");
+        painelPerda.add(campoPerda);
+        painelQuantidade.add(painelPerda);
+
         painelQuantidade.add(separador2);
-        painelQuantidade.add(lbTotal);
+
+        painelTotal.add(lbTotal, "wrap");
+        painelTotal.add(campoTotal);
+        painelQuantidade.add(painelTotal);
+
         painelQuantidade.add(separador3);
-        painelQuantidade.add(lbUm);
+
+        painelUm.add(lbUm, "wrap");
+        painelUm.add(campoUm);
+        painelQuantidade.add(painelUm);
+
         painelQuantidade.add(separador4);
-        painelQuantidade.add(lbCp);
+
+        painelCp.add(lbCp, "wrap");
+        painelCp.add(campoCP);
+        painelQuantidade.add(painelCp);
+
         painelQuantidade.add(separador5);
-        painelQuantidade.add(lbSeq);
+
+        painelSeq.add(lbSeq, "wrap");
+        painelSeq.add(campoSeq);
+        painelQuantidade.add(painelSeq);
+
         painelQuantidade.add(separador6);
-        painelQuantidade.add(lbCodigo);
+
+        painelCodigo.add(lbCodigo, "wrap");
+        painelCodigo.add(campoCodigo);
+        painelQuantidade.add(painelCodigo);
+
         painelQuantidade.add(separador7);
-        painelQuantidade.add(lbDescComponente);
+
+        painelComponente.add(lbDescComponente, "wrap");
+        painelComponente.add(campoDescricaoProduto);
+        painelQuantidade.add(painelComponente, "wrap");
 
         separator.setPreferredSize(new Dimension(690, 10));
         lbProduto.setFont(new Font("Arial", Font.BOLD, 14));

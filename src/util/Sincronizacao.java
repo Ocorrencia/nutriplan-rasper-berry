@@ -14,13 +14,13 @@ import pojoWebService.OperadorWebService;
  */
 public class Sincronizacao {
 
-    public static void sincOperadores() {
+    public static boolean sincOperadores() {
         OperadorWebService operadorWebService = new OperadorWebService();
-        operadorWebService.buscarOperadoresSapiens();
+        return operadorWebService.buscarOperadoresSapiens();
     }
 
-    public static void sincFichaTecnica() {
+    public static boolean sincFichaTecnica() {
         FichaTecnicaWebService fichaTecnicaWebService = new FichaTecnicaWebService();
-        fichaTecnicaWebService.buscarFichaTenicaSapiens();
+       return fichaTecnicaWebService.buscarFichaTenicaSapiens();
     }
 }

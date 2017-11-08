@@ -36,6 +36,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import net.miginfocom.swing.MigLayout;
+import static tela.TelaOP.tecladoVirtual;
+import util.Enums;
+import util.Notificacao;
 
 /**
  *
@@ -99,6 +102,8 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     Icon iconeVoltar = new ImageIcon(urlVoltar);
     public JButton btnVoltar1 = new JButton("Voltar", iconeVoltar);
     Icon iconepesquisar = new ImageIcon(urlPesquisarCAD);
+
+    public static TecladoVirtual tecladoVirtual;
 
     public static TelaCadastro getTela() {
         if (tela == null) {
@@ -211,7 +216,20 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaOP.getTela().dispose();
+                /*TecladoVirtual tela = tecladoVirtual.getTela();
+                tela.set("Digite o Código");
+                tela.addInternalFrameListener(new InternalFrameAdapter() {
+                    @Override
+                    public void internalFrameClosed(InternalFrameEvent e) {
+                        if (!tela.meuCampoValor.getText().equals(Enums.SENHA)) {
+                            Notificacao.infoBox("Código Incorreto", false);
+                        } else if (Enums.getSTATUSTELA() == Enums.PRODUCAO) {
+                            TelaOP.getTela();
+                        } else if (Enums.getSTATUSTELA() == Enums.MENU) {
+                            TelaOP.getTela().dispose();
+                        }
+                    }
+                });*/
             }
         });
     }

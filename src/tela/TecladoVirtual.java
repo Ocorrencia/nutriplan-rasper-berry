@@ -5,11 +5,13 @@
  */
 package tela;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,8 +21,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
-import pojoWebService.OperadorWebService;
+import util.Enums;
+import util.Modal;
 
 public class TecladoVirtual extends JInternalFrame {
 
@@ -29,10 +33,10 @@ public class TecladoVirtual extends JInternalFrame {
     URL imagemApagar = getClass().getResource("/imagens/icons8-backspace-filled.png");
     URL imagemOK = getClass().getResource("/imagens/icons8-enter-key.png");
 
-    private ImageIcon icoOK = new ImageIcon(imagemOK);
-    private ImageIcon icoBack = new ImageIcon(imagemVoltar);
-    private ImageIcon icoApagar = new ImageIcon(imagemApagar);
-    private ImageIcon iconeprincipal = new ImageIcon(urlTopo);
+    private final ImageIcon icoOK = new ImageIcon(imagemOK);
+    private final ImageIcon icoBack = new ImageIcon(imagemVoltar);
+    private final ImageIcon icoApagar = new ImageIcon(imagemApagar);
+    private final ImageIcon iconeprincipal = new ImageIcon(urlTopo);
 
     JPanel painelTela = new JPanel();
     JPanel painelBotoesGrid = new JPanel();
@@ -56,10 +60,11 @@ public class TecladoVirtual extends JInternalFrame {
     public JLabel labelInfo = new JLabel("");
     MigLayout migLayout = new MigLayout();
     private static TecladoVirtual tela;
+    String abrirTela;
 
-    public static TecladoVirtual getTela() {
+    public static TecladoVirtual getTela(String mensagem, String abrirTela) {
         if (tela == null) {
-            tela = new TecladoVirtual();
+            tela = new TecladoVirtual(mensagem, abrirTela);
             tela.addInternalFrameListener(new InternalFrameAdapter() {
                 @Override
                 public void internalFrameClosed(InternalFrameEvent e) {
@@ -75,15 +80,27 @@ public class TecladoVirtual extends JInternalFrame {
         return tela;
     }
 
-    public void set(String labelInfo) {
-        this.labelInfo.setText(labelInfo);
-    }
-
-    public TecladoVirtual() {
+    public TecladoVirtual(String mensagem, String abrirTela) {
         super("Teclado Virtual", false, false, false, false);
         this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+        this.labelInfo.setText(mensagem);
+        this.abrirTela = abrirTela;
         montarTela();
         adicionarListener();
+        moveToFront();
+        listenerJInternal();
+        Modal.getTela(this);
+        travarTela();
+    }
+
+    public void travarTela() {
+        BasicInternalFrameUI ui = (javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI();
+        Component cp = ui.getNorthPane();
+        MouseMotionListener[] actions
+                = (MouseMotionListener[]) cp.getListeners(MouseMotionListener.class);
+        for (int i = 0; i < actions.length; i++) {
+            cp.removeMouseMotionListener(actions[i]);
+        }
     }
 
     public void tamanhoBotao() {
@@ -203,14 +220,13 @@ public class TecladoVirtual extends JInternalFrame {
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OperadorWebService op = new OperadorWebService();
-                op.buscarOperadoresSapiens();
+                getTela("", "").dispose();
             }
         });
         voltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                getTela().dispose();
+                getTela("", "").dispose();
             }
         });
         apagar.addActionListener(new ActionListener() {
@@ -218,6 +234,20 @@ public class TecladoVirtual extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 if (meuCampoValor.getText().length() > 0) {
                     meuCampoValor.setText(meuCampoValor.getText().substring(0, meuCampoValor.getText().length() - 1));
+                }
+            }
+        });
+    }
+
+    private void listenerJInternal() {
+        this.addInternalFrameListener(new InternalFrameAdapter() {
+            @Override
+            public void internalFrameClosed(InternalFrameEvent e) {
+                if (meuCampoValor.getText() != "") {
+                    if (abrirTela == Enums.TELAOP) {
+                        TelaOP.getTela();
+                        Modal.getTela(tela).dispose();
+                    }
                 }
             }
         });

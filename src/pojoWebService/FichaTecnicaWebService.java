@@ -26,7 +26,7 @@ public class FichaTecnicaWebService {
     String codPro = "7100101";
     String codDer = "19";
 
-    public void buscarFichaTenicaSapiens() {
+    public boolean buscarFichaTenicaSapiens() {
 
         JAXBElement<String> jaxbCodPro = new JAXBElement(new QName("", "codPro"), String.class, codPro);
         JAXBElement<String> jaxbCodDer = new JAXBElement(new QName("", "codDer"), String.class, codDer);
@@ -44,20 +44,21 @@ public class FichaTecnicaWebService {
             try {
                 Notificacao.infoBox("Não foi possivel executar a sincronização de operadores", false);
                 enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Operadores");
+                return false;
             } catch (MessagingException e) {
+                return false;
             }
         } else {
-            preencherFichaTecnica(result);
+            return preencherFichaTecnica(result);
         }
     }
 
-    public void preencherFichaTecnica(br.com.senior.services.OpFichaTecnicaOut result) {
+    public boolean preencherFichaTecnica(br.com.senior.services.OpFichaTecnicaOut result) {
         List<FichaTecnica> itensFichaTecnica = new ArrayList<FichaTecnica>();
         FichaTecnica fichaTecnica = new FichaTecnica();
 
         for (OpFichaTecnicaOutConsultar objFichaTecnica : result.getConsultar()) {
             fichaTecnica = new FichaTecnica();
-
             fichaTecnica.setCodCmp(objFichaTecnica.getCodCmp().getValue());
             fichaTecnica.setDerCmp(objFichaTecnica.getDerCmp().getValue());
             fichaTecnica.setDesCmp(objFichaTecnica.getDesCmp().getValue());
@@ -71,6 +72,7 @@ public class FichaTecnicaWebService {
             itensFichaTecnica.add(fichaTecnica);
         }
         fichaTecnica.setItensFichaTecnica(itensFichaTecnica);
+        return true;
         //TODO: enviar dados(itensFichaTecnica) para o dao e executar a inclusao no banco
     }
 

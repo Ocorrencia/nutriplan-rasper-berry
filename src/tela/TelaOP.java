@@ -9,7 +9,6 @@ import com.alee.extended.panel.GroupPanel;
 import componente.MeuCampoFormatado;
 import componente.MeuCampoTexto;
 import componente.MeuComboBox;
-import componente.MeuComponente;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -17,17 +16,16 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-import java.util.Iterator;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-import jdk.nashorn.internal.objects.NativeArray;
 import net.miginfocom.swing.MigLayout;
-import pojo.Operador;
+import util.Enums;
 
 public class TelaOP extends TelaCadastro {
 
@@ -40,8 +38,10 @@ public class TelaOP extends TelaCadastro {
 
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
     URL urlIconeInformacao = getClass().getResource("/imagem/iconeSobre.png");
+    URL urlIconePlay = getClass().getResource("/imagens/icons8-circled-play.png");
 
     ImageIcon iconeInformacao = new ImageIcon(urlIconeInformacao);
+    ImageIcon icoPlay = new ImageIcon(urlIconePlay);
 
     final JProgressBar progressBarPerformance = new JProgressBar(0, 100);
     final JProgressBar progressBarQualidade = new JProgressBar(0, 100);
@@ -56,10 +56,11 @@ public class TelaOP extends TelaCadastro {
 
     MeuCampoFormatado operador = new MeuCampoFormatado("Operador:", false, 20);
 
-    JButton btnTrocaOperador = new JButton("TROCA DE OPERADOR");
-    JButton btnTrocaTurno = new JButton("TROCA DE TURNO");
-    JButton btnParadaMaquina = new JButton("PARADA DE MÁQUINA");
-    JButton btnMotivosRefugo = new JButton("MOTIVOS DE REFUGO");
+    // JButton btnIniciarProcesso = new JButton(icoPlay);
+    JButton btnTrocaOperador = new JButton("OPERADOR");
+    JButton btnQualidade = new JButton("QUALIDADE");
+    JButton btnParadaMaquina = new JButton("PARADA");
+    JButton btnMotivosRefugo = new JButton("REFUGO");
     JButton btnFichaTecnica = new JButton("FICHA TÉCNICA");
     JButton btnStatus = new JButton(iconeInformacao);
 
@@ -71,9 +72,11 @@ public class TelaOP extends TelaCadastro {
     URL iconeOperador = getClass().getResource("/imagem/operador.gif");
     Icon iconeUser = new ImageIcon(iconeOperador);
 
-    JLabel labelOperador = new JLabel("OPERADOR: 204.417 - JANETE MENDES MACHADO", iconeUser, JLabel.HORIZONTAL);
+    JLabel labelOperador = new JLabel("OPERADOR:", iconeUser, JLabel.HORIZONTAL);
 
     public static TecladoVirtual tecladoVirtual;
+    public static TelaRefugo telaRefugo;
+    public static TelaApontamentoParada telaParada;
 
     public static TelaOP getTela() {
         if (tela == null) {
@@ -101,9 +104,22 @@ public class TelaOP extends TelaCadastro {
         painelBotoes();
         configBotoes();
         this.setFrameIcon(iconeprincipal);
+        btnQualidade.setEnabled(false);
         campoNomeMaquina.setText("INJETORA 5531");
         campoTurno.setText("1º TURNO");
         campoData.setText("26/06/2017 08:48");
+
+        if (Enums.getSTATUSTELA() == Enums.PRODUCAO) {
+            dados();
+        } else if (Enums.getSTATUSTELA() == Enums.PADRAO) {
+
+        } else if (Enums.getSTATUSTELA() == Enums.MENU) {
+
+        }
+
+    }
+
+    public void dados() {
 
         campoHoras.setText("HORAS RESTANTES: 03:16");
         campoProximoProduto.setText("PRÓXIMO PRODUTO: 68-734 - VASSOURA P/ GRAMA AZUL");
@@ -155,7 +171,7 @@ public class TelaOP extends TelaCadastro {
         iniciarPorcentagemPerformance();
         iniciarPorcentagemEficiencia();
         iniciarPorcentagemQualidade();
-        //FIM       
+        //FIM     
     }
 
     public void iniciarPorcentagemPerformance() {
@@ -248,11 +264,13 @@ public class TelaOP extends TelaCadastro {
     }
 
     public void adicionaBotoes() {
+
         adicionarBotoes(painelBotoes, btnTrocaOperador);
-        adicionarBotoes(painelBotoes, btnTrocaTurno);
+        adicionarBotoes(painelBotoes, btnQualidade);
         adicionarBotoes(painelBotoes, btnParadaMaquina);
         adicionarBotoes(painelBotoes, btnMotivosRefugo);
         adicionarBotoes(painelBotoes, btnFichaTecnica);
+        //adicionarBotoes(painelBotoes, btnIniciarProcesso);
         //adicionarBotoes(painelBotoes, btnStatus);
 
     }
@@ -260,10 +278,18 @@ public class TelaOP extends TelaCadastro {
     private void configBotoes() {
         //painelBotoes.setBorder(BorderFactory.createLineBorder(Color.GREEN));
         btnTrocaOperador.setFont(new Font("Arial", Font.BOLD, 12));
-        btnTrocaTurno.setFont(new Font("Arial", Font.BOLD, 12));
+        btnQualidade.setFont(new Font("Arial", Font.BOLD, 12));
         btnParadaMaquina.setFont(new Font("Arial", Font.BOLD, 12));
         btnMotivosRefugo.setFont(new Font("Arial", Font.BOLD, 12));
         btnFichaTecnica.setFont(new Font("Arial", Font.BOLD, 12));
+
+        campoQuantidadeProgramada.setEditable(false);
+        campoQuantidadeRealizada.setEditable(false);
+        campoPadraoUA.setEditable(false);
+        campoQuantidadeRefugo.setEditable(false);
+        campoCicloPadraoAtual.setEditable(false);
+        campoPesoPadrao.setEditable(false);
+        campoHoras.setEditable(false);
     }
 
     private void painelStatus() {
@@ -282,21 +308,51 @@ public class TelaOP extends TelaCadastro {
         btnTrocaOperador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TecladoVirtual tela = tecladoVirtual.getTela();
+                /*  TecladoVirtual tela = tecladoVirtual.getTela();
                 tela.set("Digite o código do operador");
                 tela.addInternalFrameListener(new InternalFrameAdapter() {
                     @Override
                     public void internalFrameClosed(InternalFrameEvent e) {
-                        System.out.println("valor input " + tela.meuCampoValor.getText());
+                        JOptionPane.showConfirmDialog(null, "2807 - MATÍLIA APARECIDA DA SILVA GIRARDI. \n"
+                                + "               Deseja Continuar?", "Operador Selecionado", JOptionPane.YES_OPTION);
                     }
-                });
+                });*/
             }
         });
-        
+
         btnFichaTecnica.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 TelaFichaTecnica.getTela();
+            }
+        });
+
+        btnMotivosRefugo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaRefugo telaRef = telaRefugo.getTela();
+                /* TecladoVirtual tela = tecladoVirtual.getTela();
+                tela.set("Digite o código de parada");
+                tela.addInternalFrameListener(new InternalFrameAdapter() {
+                    @Override
+                    public void internalFrameClosed(InternalFrameEvent e) {
+                        telaRef.dispose();
+                        JOptionPane.showConfirmDialog(null, "187 - FALTA DE INSUMOS. \n"
+                                + "               Deseja Continuar?", "Operador Selecionado", JOptionPane.YES_OPTION);
+
+                    }
+                });*/
+            }
+        });
+        btnCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        btnParadaMaquina.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaApontamentoParada.getTela();
             }
         });
     }

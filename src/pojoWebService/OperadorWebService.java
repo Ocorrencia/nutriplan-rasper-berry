@@ -21,7 +21,7 @@ public class OperadorWebService {
 
     EnviarEmail enviarEmail = new EnviarEmail();
 
-    public void buscarOperadoresSapiens() {
+    public boolean buscarOperadoresSapiens() {
         br.com.senior.services.G5SeniorServices service = new br.com.senior.services.G5SeniorServices();
         br.com.senior.services.SapiensSyncnutriplanOp port = service.getSapiensSyncnutriplanOpPort();
         br.com.senior.services.OpOperadorIn parameters = new br.com.senior.services.OpOperadorIn();
@@ -30,14 +30,16 @@ public class OperadorWebService {
             try {
                 Notificacao.infoBox("Não foi possivel executar a sincronização de operadores", false);
                 enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Operadores");
+                return false;
             } catch (MessagingException e) {
+                return false;
             }
         } else {
-            preencherOperador(result);
+            return preencherOperador(result);
         }
     }
 
-    public void preencherOperador(br.com.senior.services.OpOperadorOut result) {
+    public boolean preencherOperador(br.com.senior.services.OpOperadorOut result) {
         List<Operador> itensOperadores = new ArrayList<Operador>();
         Operador operador = new Operador();
         for (OpOperadorOutConsultar operadores : result.getConsultar()) {
@@ -48,6 +50,7 @@ public class OperadorWebService {
             itensOperadores.add(operador);
         }
         operador.setItensOperadores(itensOperadores);
+        return true;
         //TODO: enviar dados(itensOperadores) para o dao e executar a inclusao no banco
     }
 }
