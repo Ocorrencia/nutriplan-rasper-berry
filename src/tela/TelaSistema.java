@@ -7,6 +7,7 @@ package tela;
 
 import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.progressbar.WebProgressBar;
+import dao.ControleOperacao;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -20,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -50,19 +52,19 @@ public class TelaSistema extends JFrame {
         setUndecorated(true);
         getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.white));
         setVisible(true);
+        controleDeOperacao();
         setLocationRelativeTo(null);
-        //  servidor.iniciarServidor();
+        //servidor.iniciarServidor();
         travar();
+
     }
 
     public static void main(String args[]) throws IOException {
         try {
             UIManager.setLookAndFeel(new WebLookAndFeel());
             telaSistema = new TelaSistema();
-            Enums.setSTATUSTELA(Enums.MENU);
+            System.gc();
             if (Enums.getSTATUSTELA() == Enums.PRODUCAO) {
-                TelaOP.getTela();
-            } else if (Enums.getSTATUSTELA() == Enums.PADRAO) {
                 TelaOP.getTela();
             } else if (Enums.getSTATUSTELA() == Enums.MENU) {
                 TelaMenu.getTela();
@@ -72,12 +74,36 @@ public class TelaSistema extends JFrame {
                         telaSistema.dispose();
                     }
                 });
+            } else if (Enums.getSTATUSTELA() == Enums.PADRAO) {
+                TelaMenu.getTela();
+                TelaMenu.tela.addInternalFrameListener(new InternalFrameAdapter() {
+                    @Override
+                    public void internalFrameClosed(InternalFrameEvent e) {
+                        telaSistema.dispose();
+                    }
+                });
+            } else if (Enums.getSTATUSTELA() == Enums.FINALIZADO) {
+                TecladoVirtual teclado = TecladoVirtual.getTela("Digite o Operador", Enums.TELAOP);
             }
-
-        } catch (Exception e) {
+        } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void controleDeOperacao() {
+        Enums.setTIPOSISTEMA(Enums.WINDOWS);
+        switch (ControleOperacao.consultar()) {
+            case "PRODUCAO":
+                Enums.setSTATUSTELA(Enums.PRODUCAO);
+                break;
+            case "MENU":
+                Enums.setSTATUSTELA(Enums.MENU);
+                break;
+            case "FINALIZADO":
+                Enums.setSTATUSTELA(Enums.FINALIZADO);
+                break;
+        }
     }
 
     public void fecharTela() {
@@ -89,7 +115,8 @@ public class TelaSistema extends JFrame {
         for (JInternalFrame frame : frames) {
             BasicInternalFrameUI ui = (BasicInternalFrameUI) frame.getUI();
             Component northPane = ui.getNorthPane();
-            MouseMotionListener[] motionListeners = (MouseMotionListener[]) northPane.getListeners(MouseMotionListener.class);
+            MouseMotionListener[] motionListeners = (MouseMotionListener[]) northPane.getListeners(MouseMotionListener.class
+            );
 
             for (MouseMotionListener listener : motionListeners) {
                 northPane.removeMouseMotionListener(listener);

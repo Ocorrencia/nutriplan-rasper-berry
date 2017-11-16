@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/diogo.melo/Documents/NetBeansProjects/NutriplanRB/src/util/BancoDados.java</file>
-            <file>file:/C:/Users/diogo.melo/Documents/NetBeansProjects/NutriplanRB/src/tela/TelaMenu.java</file>
             <file>file:/C:/Users/diogo.melo/Documents/NetBeansProjects/NutriplanRB/src/tela/TelaOP.java</file>
+            <file>file:/C:/Users/diogo.melo/Documents/NetBeansProjects/NutriplanRB/src/pojoWebService/OperadorWebService.java</file>
             <file>file:/C:/Users/diogo.melo/Documents/NetBeansProjects/NutriplanRB/src/tela/TelaSistema.java</file>
-            <file>file:/C:/Users/diogo.melo/Documents/NetBeansProjects/NutriplanRB/src/util/Enums.java</file>
+            <file>file:/C:/Users/diogo.melo/Documents/NetBeansProjects/NutriplanRB/src/tela/TelaApontamentoParada.java</file>
+            <file>file:/C:/Users/diogo.melo/Documents/NetBeansProjects/NutriplanRB/src/tela/TelaAvisoTravamento.java</file>
+            <file>file:/C:/Users/diogo.melo/Documents/NetBeansProjects/NutriplanRB/src/tela/TecladoVirtual.java</file>
         </group>
     </open-files>
 </project-private>

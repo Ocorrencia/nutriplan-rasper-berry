@@ -36,7 +36,7 @@ public class ConfiguracaoBancoDAO {
     public ConfiguracaoBanco consultar() {
         String dados = "";
         try {
-            BufferedReader buffRead = new BufferedReader(new FileReader("src/arquivos/configBanco"));
+            BufferedReader buffRead = new BufferedReader(new FileReader("/home/pi/Documentos/NutriplanRB/configBanco"));
             while (true) {
                 if (dados != null) {
                 } else {
@@ -53,7 +53,7 @@ public class ConfiguracaoBancoDAO {
 
     public boolean alterar() {
         try {
-            BufferedWriter buffWrite = new BufferedWriter(new FileWriter("src/arquivos/configBanco"));
+            BufferedWriter buffWrite = new BufferedWriter(new FileWriter("/home/pi/Documentos/NutriplanRB/configBanco"));
             buffWrite.append(capturarTexto() + "\n");
             buffWrite.close();
             return true;

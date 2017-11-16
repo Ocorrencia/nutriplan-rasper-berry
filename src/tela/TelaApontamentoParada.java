@@ -7,28 +7,30 @@ package tela;
 
 import com.alee.laf.list.WebList;
 import com.alee.laf.text.WebTextField;
-import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
-import static tela.TelaOP.tecladoVirtual;
-import static tela.TelaOP.telaParada;
+import util.Modal;
+import util.Notificacao;
 
 /**
  *
@@ -70,7 +72,7 @@ public class TelaApontamentoParada extends JInternalFrame {
     JScrollPane js = new JScrollPane(webList);
 
     public TelaApontamentoParada() {
-        super("Apontamento de Parada", false, true, false);
+        super("Apontamento de Parada", false, false, false);
         setVisible(true);
         this.setFrameIcon(iconeprincipal);
         this.setSize(600, 320);
@@ -78,6 +80,7 @@ public class TelaApontamentoParada extends JInternalFrame {
         lista();
         config();
         listener();
+        travarTela();
         //   cronometro();
     }
 
@@ -96,7 +99,22 @@ public class TelaApontamentoParada extends JInternalFrame {
         TelaSistema.jdp.setSelectedFrame(telaAP);
         TelaSistema.jdp.moveToFront(telaAP);
         TelaSistema.centraliza(telaAP);
+        if (Modal.telaPai == null) {
+            Modal.getTela(telaAP).moveToFront();
+        } else {
+            Modal.telaPai = telaAP;
+        }
         return telaAP;
+    }
+
+    public void travarTela() {
+        BasicInternalFrameUI ui = (javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI();
+        Component cp = ui.getNorthPane();
+        MouseMotionListener[] actions
+                = (MouseMotionListener[]) cp.getListeners(MouseMotionListener.class);
+        for (int i = 0; i < actions.length; i++) {
+            cp.removeMouseMotionListener(actions[i]);
+        }
     }
 
     public void lista() {
@@ -109,16 +127,20 @@ public class TelaApontamentoParada extends JInternalFrame {
     public void listener() {
         campoApontamento.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-               /* TecladoVirtual tela = tecladoVirtual.getTela();
-                tela.set("Digite o código do apontamento de parada");
-                tela.addInternalFrameListener(new InternalFrameAdapter() {
-                    @Override
-                    public void internalFrameClosed(InternalFrameEvent e) {
-                        if (!tela.meuCampoValor.getText().isEmpty()) {
-                            campoApontamento.setText(tela.meuCampoValor.getText());
+                if (campoApontamento.getText().isEmpty()) {
+                    TecladoVirtual tela = TecladoVirtual.getTela("Digite o código do apontamento de parada", null);
+                    tela.addInternalFrameListener(new InternalFrameAdapter() {
+                        @Override
+                        public void internalFrameClosed(InternalFrameEvent e) {
+                            if (!tela.meuCampoValor.getText().isEmpty()) {
+                                Modal.telaPai = telaAP;
+                                campoApontamento.setText(tela.meuCampoValor.getText());
+                            } else {
+                                Modal.telaPai = telaAP;
+                            }
                         }
-                    }
-                });*/
+                    });
+                }
             }
         });
         webList.addListSelectionListener(new ListSelectionListener() {
@@ -130,26 +152,15 @@ public class TelaApontamentoParada extends JInternalFrame {
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               /* if (campoApontamento.getText() == "") {
-                    /*TecladoVirtual tela = tecladoVirtual.getTela();
-                    tela.set("Digite o código de parada");
-                    tela.addInternalFrameListener(new InternalFrameAdapter() {
-                        @Override
-                        public void internalFrameClosed(InternalFrameEvent e) {
-                            int resp = JOptionPane.showConfirmDialog(null, "1023 - FALTA DE INSUMOS. \n"
-                                    + "               Deseja Continuar?", "Operador Selecionado", JOptionPane.YES_OPTION);
-                            if (resp == 0) {
-                                telaAP.dispose();
-                                TelaAvisoTravamento.getTela();
-                            }
-                        }
-                    });
-                } else {
+                if (!"".equals(campoApontamento.getText())) {
+                    TelaApontamentoParada.getTela().dispose();
                     TelaAvisoTravamento.getTela();
-                    telaAP.dispose();
-                }*/
+                } else {
+                    Notificacao.infoBox("Digite ou Selecione um código de parada!", false);
+                }
             }
         });
+
     }
 
     public void cronometro() {

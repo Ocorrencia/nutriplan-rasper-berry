@@ -5,22 +5,24 @@
  */
 package tela;
 
-import com.alee.laf.rootpane.WebDialog;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
-import static tela.TelaApontamentoParada.telaAP;
+import util.Modal;
 
 /**
  *
@@ -43,7 +45,6 @@ public class TelaAvisoTravamento extends JInternalFrame {
     public static TelaAvisoTravamento telaAviso;
 
     public TelaAvisoTravamento() {
-        setTitle("Aviso travamento operacional");
         JPanel painelInfo = new JPanel();
         setVisible(true);
         setResizable(false);
@@ -63,7 +64,19 @@ public class TelaAvisoTravamento extends JInternalFrame {
         painelInfo.add(btnIniciar, "align center");
         add(painelInfo);
         listener();
+        travarTela();
+        setTitle("Aviso travamento operacional");
         pack();
+    }
+
+    public void travarTela() {
+        BasicInternalFrameUI ui = (javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI();
+        Component cp = ui.getNorthPane();
+        MouseMotionListener[] actions
+                = (MouseMotionListener[]) cp.getListeners(MouseMotionListener.class);
+        for (int i = 0; i < actions.length; i++) {
+            cp.removeMouseMotionListener(actions[i]);
+        }
     }
 
     public static TelaAvisoTravamento getTela() {
@@ -81,15 +94,37 @@ public class TelaAvisoTravamento extends JInternalFrame {
         TelaSistema.jdp.setSelectedFrame(telaAviso);
         TelaSistema.jdp.moveToFront(telaAviso);
         TelaSistema.centraliza(telaAviso);
+        if (Modal.telaPai == null) {
+            Modal.getTela(telaAviso).moveToFront();
+        } else {
+            Modal.telaPai = telaAviso;
+        }
         return telaAviso;
     }
 
     public void listener() {
-        btnIniciar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
+        btnIniciar.addActionListener((ActionEvent e) -> {
+            dispose();
+            Modal.getTela(telaAviso).dispose();
+            TecladoVirtual tela = TecladoVirtual.getTela("Digite o Operador", null);
+            tela.addInternalFrameListener(new InternalFrameAdapter() {
+                @Override
+                public void internalFrameClosed(InternalFrameEvent e) {
+                    if (!tela.meuCampoValor.getText().isEmpty()) {
+                        int options;
+                        options = JOptionPane.showConfirmDialog(null, "          2807 - MATÍLIA APARECIDA DA SILVA GIRARDI\".\n"
+                                + "                       Deseja Continuar?                            ", "OPERADOR SELECIONADO", JOptionPane.YES_NO_OPTION);
+                        if (options == JOptionPane.YES_OPTION) {
+                            TelaOP.getTela().labelOperador.setText("2807 - MATÍLIA APARECIDA DA SILVA GIRARDI");
+                            TelaAvisoInicioProducao.getTela();
+                        } else {
+                            TelaAvisoTravamento.getTela();
+                        }
+                    } else {
+                        TelaAvisoTravamento.getTela();
+                    }
+                }
+            });
         });
     }
 }

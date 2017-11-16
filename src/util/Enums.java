@@ -5,6 +5,9 @@
  */
 package util;
 
+import java.util.TimerTask;
+import tela.TelaApontamentoParada;
+
 /**
  *
  * @author diogo.melo
@@ -14,9 +17,25 @@ public class Enums {
     public static int STATUSTELA;
     public static int PRODUCAO = 1;
     public static int PADRAO = 0;
+    public static int FINALIZADO = 3;
     public static int MENU = 2;
     public static String SENHA = "00";
     public static String TELAOP = "TELAOP";
+    public static String TELAMENU = "TELAMENU";
+    public static String TELAAP = "TELAMENU";
+    public static String TIPOSISTEMA;
+    public static String RASPERBERRY = "RASPERBERRY";
+    public static String WINDOWS = "WINDOWS";
+    public static int REFUGOSNAOIDENTIFICADOS = 0;
+    public static int REFUGOSJUSTIFICADOS = 0;
+
+    public static String getTIPOSISTEMA() {
+        return TIPOSISTEMA;
+    }
+
+    public static void setTIPOSISTEMA(String TIPOSISTEMA) {
+        Enums.TIPOSISTEMA = TIPOSISTEMA;
+    }
 
     public static int getSTATUSTELA() {
         return STATUSTELA;

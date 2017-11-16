@@ -118,33 +118,18 @@ public class TelaConfig extends TelaCadastro {
     }
 
     private void adicionarListeners() {
-        btnIncluir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                incluir();
-            }
+        btnIncluir.addActionListener((ActionEvent e) -> {
+            incluir();
         });
 
-        btnAlterar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        btnAlterar.addActionListener((ActionEvent e) -> {
         });
-        btnExcluir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        btnExcluir.addActionListener((ActionEvent e) -> {
         });
-        botaocancelar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        botaocancelar.addActionListener((ActionEvent e) -> {
         });
-        btnVoltar1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TelaConfig.tela.dispose();;
-            }
+        btnVoltar1.addActionListener((ActionEvent e) -> {
+            TelaConfig.tela.dispose();
         });
     }
 

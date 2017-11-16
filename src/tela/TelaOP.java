@@ -26,6 +26,8 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import net.miginfocom.swing.MigLayout;
 import util.Enums;
+import util.Modal;
+import util.Notificacao;
 
 public class TelaOP extends TelaCadastro {
 
@@ -91,7 +93,7 @@ public class TelaOP extends TelaCadastro {
             TelaSistema.jdp.add(tela);
         }
         TelaSistema.jdp.setSelectedFrame(tela);
-        TelaSistema.jdp.moveToFront(tela);
+        //  TelaSistema.jdp.moveToFront(tela);
         TelaSistema.centraliza(tela);
         return tela;
     }
@@ -108,15 +110,20 @@ public class TelaOP extends TelaCadastro {
         campoNomeMaquina.setText("INJETORA 5531");
         campoTurno.setText("1º TURNO");
         campoData.setText("26/06/2017 08:48");
+        tela = this;
+        controleTelas();
+    }
 
+    public void controleTelas() {
         if (Enums.getSTATUSTELA() == Enums.PRODUCAO) {
             dados();
+            TelaApontamentoParada.getTela().moveToFront();
         } else if (Enums.getSTATUSTELA() == Enums.PADRAO) {
-
         } else if (Enums.getSTATUSTELA() == Enums.MENU) {
-
+        } else if (Enums.getSTATUSTELA() == Enums.FINALIZADO) {
+            Modal.getTela(tela).setVisible(true);
+            TelaAvisoInicioProducao.getTela();
         }
-
     }
 
     public void dados() {
@@ -305,55 +312,68 @@ public class TelaOP extends TelaCadastro {
     }
 
     public void adicionarListener() {
-        btnTrocaOperador.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                /*  TecladoVirtual tela = tecladoVirtual.getTela();
-                tela.set("Digite o código do operador");
-                tela.addInternalFrameListener(new InternalFrameAdapter() {
+        comboOp.addActionListener((ActionEvent e) -> {
+            if (Enums.REFUGOSNAOIDENTIFICADOS > 0) {
+                Notificacao.infoBox("Existem Refugos não Justificados!", false);
+            }
+        });
+        btnTrocaOperador.addActionListener((ActionEvent e) -> {
+            if (Enums.REFUGOSNAOIDENTIFICADOS > 0) {
+                Notificacao.infoBox("Existem Refugos não Justificados!", false);
+
+            } else {
+                TecladoVirtual tela1 = TecladoVirtual.getTela("Digite o Operador", null);
+                tela1.addInternalFrameListener(new InternalFrameAdapter() {
                     @Override
                     public void internalFrameClosed(InternalFrameEvent e) {
-                        JOptionPane.showConfirmDialog(null, "2807 - MATÍLIA APARECIDA DA SILVA GIRARDI. \n"
-                                + "               Deseja Continuar?", "Operador Selecionado", JOptionPane.YES_OPTION);
+                        if (!tela1.meuCampoValor.getText().isEmpty()) {
+                            int options;
+                            options = JOptionPane.showConfirmDialog(null, "          2807 - MATÍLIA APARECIDA DA SILVA GIRARDI\".\n"
+                                    + "                       Deseja Continuar?                            ", "OPERADOR SELECIONADO", JOptionPane.YES_NO_OPTION);
+                            if (options == JOptionPane.YES_OPTION) {
+                                labelOperador.setText("2807 - MATÍLIA APARECIDA DA SILVA GIRARDI");
+                                Modal.getTela(tela1).dispose();
+                            } else {
+                                Modal.getTela(tela1).dispose();
+                            }
+                        } else {
+                            Notificacao.infoBox("Nenhum operador Selecionado!", false);
+                            Modal.getTela(tela1).dispose();
+                        }
                     }
-                });*/
+                });
             }
         });
 
-        btnFichaTecnica.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TelaFichaTecnica.getTela();
-            }
+        btnFichaTecnica.addActionListener((ActionEvent e) -> {
+            TelaFichaTecnica.getTela();
         });
 
-        btnMotivosRefugo.addActionListener(new ActionListener() {
+        btnMotivosRefugo.addActionListener((ActionEvent e) -> {
+            TelaRefugo telaRef = telaRefugo.getTela();
+            telaRef.addInternalFrameListener(new InternalFrameAdapter() {
+                @Override
+                public void internalFrameClosed(InternalFrameEvent e) {
+                    Modal.getTela(null).dispose();
+                }
+            });
+            /* TecladoVirtual tela = tecladoVirtual.getTela();
+            tela.set("Digite o código de parada");
+            tela.addInternalFrameListener(new InternalFrameAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                TelaRefugo telaRef = telaRefugo.getTela();
-                /* TecladoVirtual tela = tecladoVirtual.getTela();
-                tela.set("Digite o código de parada");
-                tela.addInternalFrameListener(new InternalFrameAdapter() {
-                    @Override
-                    public void internalFrameClosed(InternalFrameEvent e) {
-                        telaRef.dispose();
-                        JOptionPane.showConfirmDialog(null, "187 - FALTA DE INSUMOS. \n"
-                                + "               Deseja Continuar?", "Operador Selecionado", JOptionPane.YES_OPTION);
-
-                    }
-                });*/
+            public void internalFrameClosed(InternalFrameEvent e) {
+            telaRef.dispose();
+            JOptionPane.showConfirmDialog(null, "187 - FALTA DE INSUMOS. \n"
+            + "               Deseja Continuar?", "Operador Selecionado", JOptionPane.YES_OPTION);
+            
             }
+            });*/
         });
-        btnCancelar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        btnCancelar.addActionListener((ActionEvent e) -> {
         });
-        btnParadaMaquina.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TelaApontamentoParada.getTela();
-            }
+        btnParadaMaquina.addActionListener((ActionEvent e) -> {
+            Modal.getTela(tela).setVisible(true);
+            TelaApontamentoParada.getTela();
         });
     }
 }

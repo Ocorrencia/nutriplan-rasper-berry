@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,8 +33,8 @@ public class TelaRede extends JInternalFrame {
     private final ImageIcon iconeprincipal = new ImageIcon(urlTopo);
     URL urlError = getClass().getResource("/imagens/icons8-disconnected.png");
     URL urlCon = getClass().getResource("/imagens/icons8-connected.png");
-    private ImageIcon iconeError = new ImageIcon(urlError);
-    private ImageIcon iconeConnected = new ImageIcon(urlCon);
+    private final ImageIcon iconeError = new ImageIcon(urlError);
+    private final ImageIcon iconeConnected = new ImageIcon(urlCon);
     WebTabbedPane tabbedPane3 = new WebTabbedPane();
     private static TelaRede tela;
     JButton btnVoltar = new JButton();
@@ -60,6 +61,12 @@ public class TelaRede extends JInternalFrame {
     JLabel lbTimeOutD = new JLabel();
 
     /**/
+
+    /**
+     *
+     * @return
+     */
+
     public static TelaRede getTela() {
         if (tela == null) {
             tela = new TelaRede();
@@ -129,7 +136,7 @@ public class TelaRede extends JInternalFrame {
                 s4.setIcon(iconeError);
                 s5.setIcon(iconeError);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -163,11 +170,8 @@ public class TelaRede extends JInternalFrame {
     }
 
     private void adicionarListener() {
-        btnVoltar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
+        btnVoltar.addActionListener((ActionEvent e) -> {
+            dispose();
         });
     }
 }

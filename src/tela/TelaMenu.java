@@ -19,16 +19,13 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-import static tela.TelaOP.tecladoVirtual;
 import util.Enums;
 import util.Notificacao;
 import util.Sincronizacao;
@@ -162,71 +159,46 @@ public class TelaMenu extends JInternalFrame {
     }
 
     private void iniciarListeners() {
-        btnOP.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TecladoVirtual.getTela("Selecione o Operador", Enums.TELAOP);
-            }
+        btnOP.addActionListener((ActionEvent e) -> {
+            TecladoVirtual.getTela("Selecione o Operador", Enums.TELAOP);
         });
-        btnSair.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                getTela().dispose();
-            }
+        btnSair.addActionListener((ActionEvent e) -> {
+            getTela().dispose();
         });
-        btnConfig.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TelaConfig.getTela();
-            }
+        btnConfig.addActionListener((ActionEvent e) -> {
+            TelaConfig.getTela();
         });
-        tecladoVitrual.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                /*   TecladoVirtual.getTela();*/
-            }
+        tecladoVitrual.addActionListener((ActionEvent e) -> {
+            /*   TecladoVirtual.getTela();*/
         });
-        btnSincronizacao.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!Sincronizacao.sincOperadores()) {
-                    Notificacao.infoBox("Ocorreu um erro ao sincronizar os operadores", false);
-                } else if (!Sincronizacao.sincFichaTecnica()) {
-                    Notificacao.infoBox("Ocorreu um erro ao sincronizar a ficha técnica", false);
-                } else if (true) {
-                    Notificacao.infoBox("Sincronização Efetuada com Sucesso", true);
-                }
+        btnSincronizacao.addActionListener((ActionEvent e) -> {
+            if (!Sincronizacao.sincOperadores()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar os operadores", false);
+            } else if (!Sincronizacao.sincFichaTecnica()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar a ficha técnica", false);
+            } else if (true) {
+                Notificacao.infoBox("Sincronização Efetuada com Sucesso", true);
             }
         });
 
-        btnRede.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TelaRede.getTela();
-            }
+        btnRede.addActionListener((ActionEvent e) -> {
+            TelaRede.getTela();
         });
-        btnProximo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (Component component : getContentPane().getComponents()) {
-                    if (component.equals(painelBotoes)) {
-                        getContentPane().remove(painelBotoes);
-                        getContentPane().add("Center", painelBotoes1);
-                        getContentPane().repaint();
-                    }
+        btnProximo.addActionListener((ActionEvent e) -> {
+            for (Component component1 : getContentPane().getComponents()) {
+                if (component1.equals(painelBotoes)) {
+                    getContentPane().remove(painelBotoes);
+                    getContentPane().add("Center", painelBotoes1);
+                    getContentPane().repaint();
                 }
-
             }
         });
-        btnAnterior.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (Component component : getContentPane().getComponents()) {
-                    if (component.equals(painelBotoes1)) {
-                        getContentPane().remove(painelBotoes1);
-                        getContentPane().add("Center", painelBotoes);
-                        getContentPane().repaint();
-                    }
+        btnAnterior.addActionListener((ActionEvent e) -> {
+            for (Component component1 : getContentPane().getComponents()) {
+                if (component1.equals(painelBotoes1)) {
+                    getContentPane().remove(painelBotoes1);
+                    getContentPane().add("Center", painelBotoes);
+                    getContentPane().repaint();
                 }
             }
         });

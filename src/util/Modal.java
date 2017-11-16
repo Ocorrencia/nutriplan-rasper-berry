@@ -13,12 +13,10 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 import tela.TelaSistema;
 
 /**
@@ -29,8 +27,8 @@ public class Modal extends JInternalFrame {
 
     private final AlphaComposite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
     private static Modal tela;
-    JInternalFrame telaPai;
-    final JPanel panel = new TransparentPanel();
+    public static JInternalFrame telaPai;
+    JPanel panel = new TransparentPanel();
 
     public static Modal getTela(JInternalFrame telaPai) {
         if (tela == null) {
@@ -60,9 +58,7 @@ public class Modal extends JInternalFrame {
         setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         setVisible(true);
-        moveToFront();
         listener();
-     
     }
 
     @Override
@@ -77,11 +73,13 @@ public class Modal extends JInternalFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
+                System.out.println("tela pai" + telaPai.getTitle());
                 telaPai.moveToFront();
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                System.out.println("tela pai" + telaPai.getTitle());
                 telaPai.moveToFront();
             }
         });
