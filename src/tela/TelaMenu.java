@@ -11,6 +11,7 @@ import com.alee.extended.statusbar.WebStatusBar;
 import com.alee.extended.statusbar.WebStatusLabel;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.toolbar.WebToolBar;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -25,6 +26,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import util.Enums;
+import util.Notificacao;
+import util.Sincronizacao;
 
 /**
  *
@@ -33,15 +37,17 @@ import javax.swing.event.InternalFrameEvent;
 public class TelaMenu extends JInternalFrame {
 
     URL urlTopo = getClass().getResource("/imagem/logoSuperior.png");
-    URL imagemTimer = getClass().getResource("/imagem/timer.png");
-    URL imagemNext = getClass().getResource("/imagens/icons8-next-page.png");
-    URL imagemBack = getClass().getResource("/imagens/icons8-back-to.png");
-    URL imagemConfig = getClass().getResource("/imagens/icons8-settings.png");
-    URL imagemPlay = getClass().getResource("/imagens/icons8-factory.png");
+    URL imagemSinc = getClass().getResource("/imagens/icons8-synchronize.png");
+    URL imagemRede = getClass().getResource("/imagens/icons8-network-cable.png");
+    URL imagemNext = getClass().getResource("/imagens/icons8-more-than.png");
+    URL imagemBack = getClass().getResource("/imagens/icons8-back.png");
+    URL imagemConfig = getClass().getResource("/imagens/icons8-database-administrator.png");
+    URL imagemPlay = getClass().getResource("/imagens/icons8-automation.png");
     URL imagemSair = getClass().getResource("/imagens/icons8-exit-sign-black.png");
     URL iconePrincipal = getClass().getResource("/imagem/timer.png");
-    
-    private final ImageIcon icoTimer = new ImageIcon(imagemTimer);
+
+    private final ImageIcon icoSinc = new ImageIcon(imagemSinc);
+    private final ImageIcon icoRede = new ImageIcon(imagemRede);
     private final ImageIcon icoNext = new ImageIcon(imagemNext);
     private final ImageIcon icoBack = new ImageIcon(imagemBack);
     private final ImageIcon icoConfig = new ImageIcon(imagemConfig);
@@ -50,6 +56,7 @@ public class TelaMenu extends JInternalFrame {
     private final ImageIcon iconeprincipal = new ImageIcon(urlTopo);
 
     JPanel painelBotoes = new JPanel();
+    JPanel painelBotoes1 = new JPanel();
     JPanel painelTitulo = new JPanel();
     JPanel painelRodape = new JPanel();
     JPanel painelOperacao = new JPanel();
@@ -58,9 +65,10 @@ public class TelaMenu extends JInternalFrame {
     GridLayout layoutTitulo = new GridLayout(0, 1);
     GridLayout layoutRodape = new GridLayout(0, 1);
 
-    JButton btnIniciar = new JButton("INICIAR", icoPlay);
-    JButton btnGenerico = new JButton("TESTES", icoTimer);
-    JButton tecladoVitrual = new JButton("Teclado", icoTimer);
+    JButton btnOP = new JButton("ORDEM \n PRODUÇÃO", icoPlay);
+    JButton btnSincronizacao = new JButton("SINCRONIZAÇÃO", icoSinc);
+    JButton btnRede = new JButton("REDE", icoRede);
+    JButton tecladoVitrual = new JButton("Teclado", icoSinc);
     JButton btnSair = new JButton("SAIR", icoSair);
     JButton btnProximo = new JButton("Próximo", icoNext);
     JButton btnAnterior = new JButton("Anterior", icoBack);
@@ -109,26 +117,35 @@ public class TelaMenu extends JInternalFrame {
 
         // adicionando layout
         painelBotoes.setLayout(new GridLayout());
+        painelBotoes1.setLayout(new GridLayout());
         //  painelTitulo.setLayout(layoutTitulo);
         painelRodape.setLayout(layoutRodape);
 
         // adicionando colunas paineis botao 
         painelBotoes.setLayout(new GridLayout(2, 2));
+        painelBotoes1.setLayout(new GridLayout(2, 2));
 
         //adicionando colunas painel operacao
         painelOperacao.setLayout(new GridLayout(3, 1));
 
         // tamanho dos painels
         painelBotoes.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, 50));
+        painelBotoes1.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, 50));
         painelRodape.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, 50));
         painelTitulo.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, 50));
         painelOperacao.setPreferredSize(new Dimension(200, Toolkit.getDefaultToolkit().getScreenSize().height));
 
         // adicionando botoes
-        painelBotoes.add(btnIniciar);
-        painelBotoes.add(new JButton());
-        painelBotoes.add(new JButton());
+        painelBotoes.add(btnOP);
+        painelBotoes.add(btnSincronizacao);
+        painelBotoes.add(btnRede);
         painelBotoes.add(btnSair);
+
+        painelBotoes1.add(new JButton());
+        painelBotoes1.add(new JButton());
+        painelBotoes1.add(new JButton());
+        painelBotoes1.add(new JButton());
+
         painelOperacao.add(btnProximo);
         painelOperacao.add(btnAnterior);
         painelOperacao.add(btnConfig);
@@ -142,28 +159,47 @@ public class TelaMenu extends JInternalFrame {
     }
 
     private void iniciarListeners() {
-        btnIniciar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TelaOP.getTela();
+        btnOP.addActionListener((ActionEvent e) -> {
+            TecladoVirtual.getTela("Selecione o Operador", Enums.TELAOP);
+        });
+        btnSair.addActionListener((ActionEvent e) -> {
+            getTela().dispose();
+        });
+        btnConfig.addActionListener((ActionEvent e) -> {
+            TelaConfig.getTela();
+        });
+        tecladoVitrual.addActionListener((ActionEvent e) -> {
+            /*   TecladoVirtual.getTela();*/
+        });
+        btnSincronizacao.addActionListener((ActionEvent e) -> {
+            if (!Sincronizacao.sincOperadores()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar os operadores", false);
+            } else if (!Sincronizacao.sincFichaTecnica()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar a ficha técnica", false);
+            } else if (true) {
+                Notificacao.infoBox("Sincronização Efetuada com Sucesso", true);
             }
         });
-        btnSair.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                getTela().dispose();
+
+        btnRede.addActionListener((ActionEvent e) -> {
+            TelaRede.getTela();
+        });
+        btnProximo.addActionListener((ActionEvent e) -> {
+            for (Component component1 : getContentPane().getComponents()) {
+                if (component1.equals(painelBotoes)) {
+                    getContentPane().remove(painelBotoes);
+                    getContentPane().add("Center", painelBotoes1);
+                    getContentPane().repaint();
+                }
             }
         });
-        btnConfig.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TelaConfig.getTela();
-            }
-        });
-        tecladoVitrual.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TecladoVirtual.getTela();
+        btnAnterior.addActionListener((ActionEvent e) -> {
+            for (Component component1 : getContentPane().getComponents()) {
+                if (component1.equals(painelBotoes1)) {
+                    getContentPane().remove(painelBotoes1);
+                    getContentPane().add("Center", painelBotoes);
+                    getContentPane().repaint();
+                }
             }
         });
     }
@@ -184,11 +220,14 @@ public class TelaMenu extends JInternalFrame {
         btnSair.setVerticalTextPosition(SwingConstants.BOTTOM);
         btnSair.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        btnGenerico.setVerticalTextPosition(SwingConstants.BOTTOM);
-        btnGenerico.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnSincronizacao.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnSincronizacao.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        btnIniciar.setVerticalTextPosition(SwingConstants.BOTTOM);
-        btnIniciar.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnRede.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnRede.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        btnOP.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnOP.setHorizontalTextPosition(SwingConstants.CENTER);
     }
 
     private void configTitulo() {
@@ -202,9 +241,10 @@ public class TelaMenu extends JInternalFrame {
     private void configBotoes() {
         //painelBotoes.setBorder(BorderFactory.createLineBorder(Color.GREEN));
         btnSair.setFont(new Font("Arial", Font.BOLD, 20));
-        btnGenerico.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSincronizacao.setFont(new Font("Arial", Font.BOLD, 20));
+        btnRede.setFont(new Font("Arial", Font.BOLD, 20));
         tecladoVitrual.setFont(new Font("Arial", Font.BOLD, 20));
-        btnIniciar.setFont(new Font("Arial", Font.BOLD, 20));
+        btnOP.setFont(new Font("Arial", Font.BOLD, 20));
     }
 
     private void configRodape() {

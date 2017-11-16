@@ -5,10 +5,9 @@
  */
 package util;
 
-import java.io.BufferedWriter;
-import java.io.DataOutputStream;
-import java.io.OutputStreamWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -20,41 +19,59 @@ import java.util.Scanner;
 public class Servidor {
 
     private PrintWriter out;
+    public static ServerSocket servidor;
+    public static Socket cliente;
 
     public Servidor() {
-        iniciarServidor();
+        try {
+            InetAddress addr = InetAddress.getByName("10.1.1.234");
+            servidor = new ServerSocket(12000, 1000, addr);
+            System.out.println("SERVIDOR RASPERBERRY INICIADO...");
+            iniciarServidor();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void iniciarServidor() {
         try {
-            ServerSocket servidor = new ServerSocket(12000);
-            System.out.println("SERVIDOR RASPERBERRY INICIADO...");
             new Thread() {
                 @Override
                 public void run() {
                     try {
                         while (true) {
-                            Socket cliente = servidor.accept();
-                            
+                            Socket cliente;
+                            cliente = servidor.accept();
                             Scanner entrada = new Scanner(cliente.getInputStream());
                             while (entrada.hasNextLine()) {
                                 System.out.println(entrada.nextLine());
                             }
-
-                            out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(cliente.getOutputStream())), true);
-                            out.print("teste");
-                            out.flush();
-                            
                             entrada.close();
                             cliente.close();
                             iniciarServidor();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (IOException e) {
                     }
                 }
             }.start();
         } catch (Exception e) {
         }
     }
+
+    public ServerSocket getServidor() {
+        return servidor;
+    }
+
+    public void setServidor(ServerSocket servidor) {
+        this.servidor = servidor;
+    }
+
+    public Socket getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Socket cliente) {
+        this.cliente = cliente;
+    }
+
 }

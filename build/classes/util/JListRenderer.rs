@@ -1,2 +1,0 @@
-util.MyCellRenderer
-util.JListRenderer

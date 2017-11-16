@@ -10,13 +10,10 @@ import com.alee.laf.text.WebTextField;
 import com.alee.laf.toolbar.WebToolBar;
 import componente.MensagensSistema;
 import componente.MeuComponente;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -33,9 +30,9 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import net.miginfocom.swing.MigLayout;
+import util.Enums;
 
 /**
  *
@@ -100,6 +97,8 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     public JButton btnVoltar1 = new JButton("Voltar", iconeVoltar);
     Icon iconepesquisar = new ImageIcon(urlPesquisarCAD);
 
+    public static TecladoVirtual tecladoVirtual;
+
     public static TelaCadastro getTela() {
         if (tela == null) {
             tela = new TelaCadastro("teste");
@@ -153,7 +152,7 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
 
             rotulo.setFont(new Font("Arial", Font.BOLD, tamanhoFonte));
             painel.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width - larguraPainel, alturaPainel));
-            if (alinhamento != "") {
+            if (!"".equals(alinhamento)) {
                 painel.setLayout(new MigLayout());
                 painel.add(rotulo, "align right");
             }
@@ -164,7 +163,7 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         } else {
             painel.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width - larguraPainel, alturaPainel));
             painel.add(componente);
-            if (tituloPainel != "") {
+            if (!"".equals(tituloPainel)) {
                 painel.setBorder(BorderFactory.createTitledBorder(tituloPainel));
             }
             painelComponentes.add(painel, "cell " + coluna + " " + linha + " " + tamanhoCampoLargura + " " + tamanhoCampoAltura + "");
@@ -201,18 +200,29 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         tollBarBotoes.addSeparator();
         tollBarBotoes.add(btnCancelar);
 
-        btnCancelar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // JOptionPane.showMessageDialog(null, "OPERADOR: 204.417 - JANETE MENDES M ACHADO \n PRIORIDADE MÁQUINA: 6º");
-            }
+        btnCancelar.addActionListener((ActionEvent e) -> {
+            // JOptionPane.showMessageDialog(null, "OPERADOR: 204.417 - JANETE MENDES M ACHADO \n PRIORIDADE MÁQUINA: 6º");
         });
 
-        btnVoltar.addActionListener(new ActionListener() {
+        btnVoltar.addActionListener((ActionEvent e) -> {
+            Enums.setSTATUSTELA(Enums.MENU);
+            TecladoVirtual.getTela("Digite o Código", Enums.TELAMENU);
+            //   Enums.setSTATUSTELA(Enums.MENU);
+            
+            /*TecladoVirtual tela = tecladoVirtual.getTela();
+            tela.set("Digite o Código");
+            tela.addInternalFrameListener(new InternalFrameAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                TelaOP.getTela().dispose();
+            public void internalFrameClosed(InternalFrameEvent e) {
+            if (!tela.meuCampoValor.getText().equals(Enums.SENHA)) {
+            Notificacao.infoBox("Código Incorreto", false);
+            } else if (Enums.getSTATUSTELA() == Enums.PRODUCAO) {
+            TelaOP.getTela();
+            } else if (Enums.getSTATUSTELA() == Enums.MENU) {
+            TelaOP.getTela().dispose();
             }
+            }
+            });*/
         });
     }
 
@@ -223,6 +233,7 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         painel.add(painelComp);
     }
 
+    @Override
     public void pack() {
         super.pack();
         setSize(getSize().width, getSize().height + 10);
