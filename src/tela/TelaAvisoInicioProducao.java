@@ -9,21 +9,18 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
-import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
-import util.Cronometro;
+import util.Enums;
 import util.Modal;
 
 /**
@@ -36,7 +33,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
 
     JLabel lbParada = new JLabel("INÍCIO DE PRODUÇÃO");
-    JLabel lbTempo = new JLabel("00:00:0");
+    JLabel lbTempo = new JLabel("00:00:00");
     JLabel lbTipo = new JLabel("");
 
     URL urlTimeWarning = getClass().getResource("/imagens/icons8-potted-plant.png");
@@ -67,7 +64,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         add(painelInfo);
         listener();
         travarTela();
-        setTitle("INÍCiO DE PRODUÇÃO");
+        setTitle("INÍCIO DE PRODUÇÃO");
         pack();
     }
 
@@ -101,6 +98,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         } else {
             Modal.telaPai = telaInicio;
         }
+        Enums.setSTATUSTELA(Enums.AVISOINICIOPRODUCAO);
         return telaInicio;
     }
 
@@ -109,6 +107,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
             dispose();
             Modal.getTela(telaInicio).setVisible(false);
             //   Cronometro.iniciaCronometro(10000);
+            Enums.setSTATUSTELA(Enums.LIBERADOPRODUCAO);
         });
     }
 }

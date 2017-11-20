@@ -18,9 +18,8 @@ public class BancoDados {
     public static Connection getConexao() {
         try {
             if (conexao == null) {
-                Class.forName("org.firebirdsql.jdbc.FBDriver");
-                conexao = DriverManager.getConnection("jdbc:firebirdsql://localhost:3050/" + System.getProperty("user.dir")
-                        + "/DGI.FDB?defaultResultSetHoldable=True;lc_ctype=ISO8859_1", "SYSDBA", "masterkey");
+                Class.forName("com.mysql.jdbc.Driver");
+                conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/nutri_op?zeroDateTimeBehavior=convertToNull", "admin", "admin");
             }
             return conexao;
         } catch (ClassNotFoundException e) {

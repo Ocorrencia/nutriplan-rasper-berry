@@ -8,7 +8,6 @@ package util;
 import java.net.Authenticator;
 import java.util.Date;
 import java.util.Properties;
-import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;

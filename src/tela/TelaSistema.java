@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tela;
 
 import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.progressbar.WebProgressBar;
-import dao.ControleOperacao;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -26,23 +20,18 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import util.Enums;
+import util.Servidor;
 
-/**
- *
- * @author diogo.melo
- */
 public class TelaSistema extends JFrame {
 
     public static MeuJDesktopPane jdp = new MeuJDesktopPane();
     final WebProgressBar progressBar = new WebProgressBar(0, 100);
-    //private boolean increasing = true;
     JPanel jPanelProgressBar = new JPanel();
     URL urlTopo = getClass().getResource("/imagem/iconePrincipal.png");
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
     public static TelaSistema telaSistema;
-    //Servidor servidor = new Servidor();
-    //usuarioDao usu = new usuarioDao();
     Enums consta;
+    Servidor servidor = new Servidor();
 
     public TelaSistema() {
         getContentPane().add(jdp);
@@ -54,9 +43,8 @@ public class TelaSistema extends JFrame {
         setVisible(true);
         controleDeOperacao();
         setLocationRelativeTo(null);
-        //servidor.iniciarServidor();
+        servidor.iniciarServidor();
         travar();
-
     }
 
     public static void main(String args[]) throws IOException {
@@ -67,14 +55,6 @@ public class TelaSistema extends JFrame {
             if (Enums.getSTATUSTELA() == Enums.PRODUCAO) {
                 TelaOP.getTela();
             } else if (Enums.getSTATUSTELA() == Enums.MENU) {
-                TelaMenu.getTela();
-                TelaMenu.tela.addInternalFrameListener(new InternalFrameAdapter() {
-                    @Override
-                    public void internalFrameClosed(InternalFrameEvent e) {
-                        telaSistema.dispose();
-                    }
-                });
-            } else if (Enums.getSTATUSTELA() == Enums.PADRAO) {
                 TelaMenu.getTela();
                 TelaMenu.tela.addInternalFrameListener(new InternalFrameAdapter() {
                     @Override
@@ -93,7 +73,7 @@ public class TelaSistema extends JFrame {
 
     public void controleDeOperacao() {
         Enums.setTIPOSISTEMA(Enums.WINDOWS);
-        switch (ControleOperacao.consultar()) {
+        /* switch (ControleOperacao.consultar()) {
             case "PRODUCAO":
                 Enums.setSTATUSTELA(Enums.PRODUCAO);
                 break;
@@ -104,6 +84,7 @@ public class TelaSistema extends JFrame {
                 Enums.setSTATUSTELA(Enums.FINALIZADO);
                 break;
         }
+    }*/
     }
 
     public void fecharTela() {

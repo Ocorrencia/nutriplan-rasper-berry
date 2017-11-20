@@ -1,12 +1,9 @@
 
 package br.com.senior.services;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlType;
 
@@ -21,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="aportamentoProducao" type="{http://services.senior.com.br}opOrdemProducaoInAportamentoProducao" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="codCre" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="flowInstanceID" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="flowName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
@@ -34,46 +31,41 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "opOrdemProducaoIn", propOrder = {
-    "aportamentoProducao",
+    "codCre",
     "flowInstanceID",
     "flowName"
 })
 public class OpOrdemProducaoIn {
 
-    @XmlElement(nillable = true)
-    protected List<OpOrdemProducaoInAportamentoProducao> aportamentoProducao;
+    @XmlElementRef(name = "codCre", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> codCre;
     @XmlElementRef(name = "flowInstanceID", type = JAXBElement.class, required = false)
     protected JAXBElement<String> flowInstanceID;
     @XmlElementRef(name = "flowName", type = JAXBElement.class, required = false)
     protected JAXBElement<String> flowName;
 
     /**
-     * Gets the value of the aportamentoProducao property.
+     * Obtém o valor da propriedade codCre.
      * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the aportamentoProducao property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getAportamentoProducao().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link OpOrdemProducaoInAportamentoProducao }
-     * 
-     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
      */
-    public List<OpOrdemProducaoInAportamentoProducao> getAportamentoProducao() {
-        if (aportamentoProducao == null) {
-            aportamentoProducao = new ArrayList<OpOrdemProducaoInAportamentoProducao>();
-        }
-        return this.aportamentoProducao;
+    public JAXBElement<String> getCodCre() {
+        return codCre;
+    }
+
+    /**
+     * Define o valor da propriedade codCre.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setCodCre(JAXBElement<String> value) {
+        this.codCre = value;
     }
 
     /**

@@ -31,12 +31,12 @@ public interface SapiensSyncnutriplanOp {
      * @param user
      * @param parameters
      * @return
-     *     returns br.com.senior.services.OpTurnoDeTrabalhoOut
+     *     returns br.com.senior.services.OpTurnoDeTrabalhoXHorariosOut
      */
-    @WebMethod(operationName = "TurnoDeTrabalho")
+    @WebMethod(operationName = "TurnoDeTrabalho_x_Horarios")
     @WebResult(name = "result", partName = "result")
-    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/TurnoDeTrabalhoRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/TurnoDeTrabalhoResponse")
-    public OpTurnoDeTrabalhoOut turnoDeTrabalho(
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/TurnoDeTrabalho_x_HorariosRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/TurnoDeTrabalho_x_HorariosResponse")
+    public OpTurnoDeTrabalhoXHorariosOut turnoDeTrabalhoXHorarios(
         @WebParam(name = "user", partName = "user")
         String user,
         @WebParam(name = "password", partName = "password")
@@ -44,7 +44,7 @@ public interface SapiensSyncnutriplanOp {
         @WebParam(name = "encryption", partName = "encryption")
         int encryption,
         @WebParam(name = "parameters", partName = "parameters")
-        OpTurnoDeTrabalhoIn parameters);
+        OpTurnoDeTrabalhoXHorariosIn parameters);
 
     /**
      * 
@@ -75,12 +75,12 @@ public interface SapiensSyncnutriplanOp {
      * @param user
      * @param parameters
      * @return
-     *     returns br.com.senior.services.OpOperadorOut
+     *     returns br.com.senior.services.OpApontamentoProducaoOut
      */
-    @WebMethod(operationName = "Operador")
+    @WebMethod(operationName = "ApontamentoProducao")
     @WebResult(name = "result", partName = "result")
-    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/OperadorRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/OperadorResponse")
-    public OpOperadorOut operador(
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoProducaoRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoProducaoResponse")
+    public OpApontamentoProducaoOut apontamentoProducao(
         @WebParam(name = "user", partName = "user")
         String user,
         @WebParam(name = "password", partName = "password")
@@ -88,7 +88,29 @@ public interface SapiensSyncnutriplanOp {
         @WebParam(name = "encryption", partName = "encryption")
         int encryption,
         @WebParam(name = "parameters", partName = "parameters")
-        OpOperadorIn parameters);
+        OpApontamentoProducaoIn parameters);
+
+    /**
+     * 
+     * @param password
+     * @param encryption
+     * @param user
+     * @param parameters
+     * @return
+     *     returns br.com.senior.services.OpFichaTecnicaOut
+     */
+    @WebMethod(operationName = "FichaTecnica")
+    @WebResult(name = "result", partName = "result")
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/FichaTecnicaRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/FichaTecnicaResponse")
+    public OpFichaTecnicaOut fichaTecnica(
+        @WebParam(name = "user", partName = "user")
+        String user,
+        @WebParam(name = "password", partName = "password")
+        String password,
+        @WebParam(name = "encryption", partName = "encryption")
+        int encryption,
+        @WebParam(name = "parameters", partName = "parameters")
+        OpFichaTecnicaIn parameters);
 
     /**
      * 
@@ -119,12 +141,12 @@ public interface SapiensSyncnutriplanOp {
      * @param user
      * @param parameters
      * @return
-     *     returns br.com.senior.services.OpFichaTecnicaOut
+     *     returns br.com.senior.services.OpOperadorOut
      */
-    @WebMethod(operationName = "FichaTecnica")
+    @WebMethod(operationName = "Operador")
     @WebResult(name = "result", partName = "result")
-    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/FichaTecnicaRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/FichaTecnicaResponse")
-    public OpFichaTecnicaOut fichaTecnica(
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/OperadorRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/OperadorResponse")
+    public OpOperadorOut operador(
         @WebParam(name = "user", partName = "user")
         String user,
         @WebParam(name = "password", partName = "password")
@@ -132,7 +154,7 @@ public interface SapiensSyncnutriplanOp {
         @WebParam(name = "encryption", partName = "encryption")
         int encryption,
         @WebParam(name = "parameters", partName = "parameters")
-        OpFichaTecnicaIn parameters);
+        OpOperadorIn parameters);
 
     /**
      * 

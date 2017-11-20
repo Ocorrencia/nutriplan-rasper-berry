@@ -6,11 +6,14 @@
 package util;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +21,6 @@ import java.util.Scanner;
  */
 public class Servidor {
 
-    private PrintWriter out;
     public static ServerSocket servidor;
     public static Socket cliente;
 
@@ -28,8 +30,21 @@ public class Servidor {
             servidor = new ServerSocket(12000, 1000, addr);
             System.out.println("SERVIDOR RASPERBERRY INICIADO...");
             iniciarServidor();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void enviar() {
+        try {
+            Socket cliente = new Socket("paulo", 12345);
+            try (ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream())) {
+                Date data_atual = (Date) entrada.readObject();
+                JOptionPane.showMessageDialog(null, "Data recebida do servidor:" + data_atual.toString());
+            }
+            System.out.println("Conexão encerrada");
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
         }
     }
 
@@ -42,11 +57,11 @@ public class Servidor {
                         while (true) {
                             Socket cliente;
                             cliente = servidor.accept();
-                            Scanner entrada = new Scanner(cliente.getInputStream());
-                            while (entrada.hasNextLine()) {
-                                System.out.println(entrada.nextLine());
+                            try (Scanner entrada = new Scanner(cliente.getInputStream())) {
+                                while (entrada.hasNextLine()) {
+                                    System.out.println(entrada.nextLine());
+                                }
                             }
-                            entrada.close();
                             cliente.close();
                             iniciarServidor();
                         }
@@ -63,7 +78,7 @@ public class Servidor {
     }
 
     public void setServidor(ServerSocket servidor) {
-        this.servidor = servidor;
+        Servidor.servidor = servidor;
     }
 
     public Socket getCliente() {
@@ -71,7 +86,7 @@ public class Servidor {
     }
 
     public void setCliente(Socket cliente) {
-        this.cliente = cliente;
+        Servidor.cliente = cliente;
     }
 
 }

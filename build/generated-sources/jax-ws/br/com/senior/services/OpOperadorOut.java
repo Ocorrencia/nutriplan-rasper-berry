@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="consultar" type="{http://services.senior.com.br}opOperadorOutConsultar" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="erroExecucao" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="mensagemRetorno" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -34,7 +35,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "opOperadorOut", propOrder = {
     "consultar",
-    "erroExecucao"
+    "erroExecucao",
+    "mensagemRetorno"
 })
 public class OpOperadorOut {
 
@@ -42,6 +44,8 @@ public class OpOperadorOut {
     protected List<OpOperadorOutConsultar> consultar;
     @XmlElementRef(name = "erroExecucao", type = JAXBElement.class, required = false)
     protected JAXBElement<String> erroExecucao;
+    @XmlElementRef(name = "mensagemRetorno", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> mensagemRetorno;
 
     /**
      * Gets the value of the consultar property.
@@ -94,6 +98,30 @@ public class OpOperadorOut {
      */
     public void setErroExecucao(JAXBElement<String> value) {
         this.erroExecucao = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade mensagemRetorno.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getMensagemRetorno() {
+        return mensagemRetorno;
+    }
+
+    /**
+     * Define o valor da propriedade mensagemRetorno.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setMensagemRetorno(JAXBElement<String> value) {
+        this.mensagemRetorno = value;
     }
 
 }

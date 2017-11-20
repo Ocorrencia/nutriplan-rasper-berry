@@ -29,6 +29,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
+import util.Enums;
 import util.Modal;
 import util.Notificacao;
 
@@ -104,6 +105,7 @@ public class TelaApontamentoParada extends JInternalFrame {
         } else {
             Modal.telaPai = telaAP;
         }
+        Enums.setSTATUSTELA(Enums.APONTAMENTODEPARADA);
         return telaAP;
     }
 
@@ -128,7 +130,7 @@ public class TelaApontamentoParada extends JInternalFrame {
         campoApontamento.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (campoApontamento.getText().isEmpty()) {
-                    TecladoVirtual tela = TecladoVirtual.getTela("Digite o código do apontamento de parada", null);
+                    TecladoVirtual tela = TecladoVirtual.getTela("Digite o código do apontamento de parada", "");
                     tela.addInternalFrameListener(new InternalFrameAdapter() {
                         @Override
                         public void internalFrameClosed(InternalFrameEvent e) {

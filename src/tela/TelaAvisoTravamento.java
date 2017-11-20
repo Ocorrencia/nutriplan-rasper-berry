@@ -9,7 +9,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import javax.swing.ImageIcon;
@@ -22,6 +21,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
+import util.Enums;
 import util.Modal;
 
 /**
@@ -99,6 +99,7 @@ public class TelaAvisoTravamento extends JInternalFrame {
         } else {
             Modal.telaPai = telaAviso;
         }
+        Enums.setSTATUSTELA(Enums.AVISOTRAVAMENTO);
         return telaAviso;
     }
 
@@ -106,7 +107,7 @@ public class TelaAvisoTravamento extends JInternalFrame {
         btnIniciar.addActionListener((ActionEvent e) -> {
             dispose();
             Modal.getTela(telaAviso).dispose();
-            TecladoVirtual tela = TecladoVirtual.getTela("Digite o Operador", null);
+            TecladoVirtual tela = TecladoVirtual.getTela("Digite o Operador", "");
             tela.addInternalFrameListener(new InternalFrameAdapter() {
                 @Override
                 public void internalFrameClosed(InternalFrameEvent e) {

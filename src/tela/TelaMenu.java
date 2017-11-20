@@ -97,6 +97,7 @@ public class TelaMenu extends JInternalFrame {
         TelaSistema.jdp.setSelectedFrame(tela);
         TelaSistema.jdp.moveToFront(tela);
         TelaSistema.centraliza(tela);
+        Enums.setSTATUSTELA(Enums.ADMIN);
         return tela;
     }
 

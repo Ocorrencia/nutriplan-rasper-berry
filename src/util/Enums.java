@@ -5,8 +5,8 @@
  */
 package util;
 
-import java.util.TimerTask;
-import tela.TelaApontamentoParada;
+import dao.ControleOperacaoDao;
+import pojo.ControleOperacao;
 
 /**
  *
@@ -15,10 +15,18 @@ import tela.TelaApontamentoParada;
 public class Enums {
 
     public static int STATUSTELA;
-    public static int PRODUCAO = 1;
-    public static int PADRAO = 0;
+
+    public static int MENU = 1;
+    public static int PRODUCAO = 2;
+    public static int LIBERADOPRODUCAO = 10;
     public static int FINALIZADO = 3;
-    public static int MENU = 2;
+    public static int APONTAMENTODEPARADA = 4;
+    public static int AVISOTRAVAMENTO = 5;
+    public static int CONFIGURACAO = 6;
+    public static int REFUGO = 7;
+    public static int ADMIN = 8;
+    public static int AVISOINICIOPRODUCAO = 9;
+
     public static String SENHA = "00";
     public static String TELAOP = "TELAOP";
     public static String TELAMENU = "TELAMENU";
@@ -29,6 +37,9 @@ public class Enums {
     public static int REFUGOSNAOIDENTIFICADOS = 0;
     public static int REFUGOSJUSTIFICADOS = 0;
 
+    static ControleOperacao controleOperacao = new ControleOperacao();
+    static ControleOperacaoDao controleOperacaoDao = new ControleOperacaoDao(controleOperacao);
+
     public static String getTIPOSISTEMA() {
         return TIPOSISTEMA;
     }
@@ -38,11 +49,20 @@ public class Enums {
     }
 
     public static int getSTATUSTELA() {
-        return STATUSTELA;
+        controleOperacaoDao.consultar();
+        return controleOperacao.getCodOpe();
     }
 
     public static void setSTATUSTELA(int STATUSTELA) {
         Enums.STATUSTELA = STATUSTELA;
+        controleOperacao.setCodOpe(STATUSTELA);
+        if (Enums.STATUSTELA == Enums.PRODUCAO && (getSTATUSTELA() == Enums.AVISOINICIOPRODUCAO || getSTATUSTELA() == Enums.AVISOTRAVAMENTO)) {
+        } else if (Enums.STATUSTELA == Enums.LIBERADOPRODUCAO) {
+            controleOperacao.setCodOpe(Enums.PRODUCAO);
+            controleOperacaoDao.incluir();
+        } else {
+            controleOperacaoDao.incluir();
+        }
     }
 
     public static int getPRODUCAO() {
@@ -51,14 +71,6 @@ public class Enums {
 
     public static void setPRODUCAO(int PRODUCAO) {
         Enums.PRODUCAO = PRODUCAO;
-    }
-
-    public static int getPADRAO() {
-        return PADRAO;
-    }
-
-    public static void setPADRAO(int PADRAO) {
-        Enums.PADRAO = PADRAO;
     }
 
 }

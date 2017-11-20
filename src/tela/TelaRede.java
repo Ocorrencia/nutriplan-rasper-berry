@@ -7,10 +7,11 @@ package tela;
 
 import com.alee.extended.label.WebStepLabel;
 import com.alee.laf.tabbedpane.WebTabbedPane;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.net.URL;
 import javax.swing.ImageIcon;
@@ -20,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
 import util.Servidor;
 
@@ -37,7 +39,7 @@ public class TelaRede extends JInternalFrame {
     private final ImageIcon iconeConnected = new ImageIcon(urlCon);
     WebTabbedPane tabbedPane3 = new WebTabbedPane();
     private static TelaRede tela;
-    JButton btnVoltar = new JButton();
+    JButton btnVoltar = new JButton("SAIR");
 
     /*SOFTWARE*/
     WebStepLabel s1 = new WebStepLabel();
@@ -61,12 +63,10 @@ public class TelaRede extends JInternalFrame {
     JLabel lbTimeOutD = new JLabel();
 
     /**/
-
     /**
      *
      * @return
      */
-
     public static TelaRede getTela() {
         if (tela == null) {
             tela = new TelaRede();
@@ -90,12 +90,13 @@ public class TelaRede extends JInternalFrame {
         setVisible(true);
         setFrameIcon(iconeprincipal);
         tabbedPane3.setPreferredSize(new Dimension(700, 420));
+        //btnVoltar.seth(new Dimension(700, 40));
         tabbedPane3.setTabPlacement(WebTabbedPane.LEFT);
         this.add(tabbedPane3);
 
         tabbedPane3.addTab("Software", painelServidor());
         tabbedPane3.addTab("Raspberry Pi", painelRasper());
-
+        travarTela();
         pack();
         setInfo();
         adicionarListener();
@@ -159,7 +160,7 @@ public class TelaRede extends JInternalFrame {
         painelServidor.add(s5);
         painelServidor.add(tamanhoFonte(lbTimeOut), "gapleft 20");
         painelServidor.add(tamanhoFonte(lbTimeOutD), "wrap");
-        painelServidor.add(btnVoltar);
+        painelServidor.add(btnVoltar, "span");
         return painelServidor;
     }
 
@@ -167,6 +168,16 @@ public class TelaRede extends JInternalFrame {
         JPanel painelRasper = new JPanel();
 
         return painelRasper;
+    }
+
+    public void travarTela() {
+        BasicInternalFrameUI ui = (javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI();
+        Component cp = ui.getNorthPane();
+        MouseMotionListener[] actions
+                = (MouseMotionListener[]) cp.getListeners(MouseMotionListener.class);
+        for (MouseMotionListener action : actions) {
+            cp.removeMouseMotionListener(action);
+        }
     }
 
     private void adicionarListener() {

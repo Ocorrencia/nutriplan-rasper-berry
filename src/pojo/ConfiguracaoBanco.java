@@ -11,80 +11,59 @@ package pojo;
  */
 public class ConfiguracaoBanco {
 
-    private String servidor;
-    private String porta;
-    private String url;
-    private String user;
-    private String senha;
+    String codBan = "1";
+    String serBan;
+    String porBan;
+    String urlBan;
+    String useBan;
+    String senBan;
 
-    /**
-     * @return the servidor
-     */
-    public String getServidor() {
-        return servidor;
+    public String getCodBan() {
+        return codBan;
     }
 
-    /**
-     * @param servidor the servidor to set
-     */
-    public void setServidor(String servidor) {
-        this.servidor = servidor;
+    public void setCodBan(String codBan) {
+        this.codBan = codBan;
     }
 
-    /**
-     * @return the porta
-     */
-    public String getPorta() {
-        return porta;
+    public String getSerBan() {
+        return serBan;
     }
 
-    /**
-     * @param porta the porta to set
-     */
-    public void setPorta(String porta) {
-        this.porta = porta;
+    public void setSerBan(String serBan) {
+        this.serBan = serBan;
     }
 
-    /**
-     * @return the url
-     */
-    public String getUrl() {
-        return url;
+    public String getPorBan() {
+        return porBan;
     }
 
-    /**
-     * @param url the url to set
-     */
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPorBan(String porBan) {
+        this.porBan = porBan;
     }
 
-    /**
-     * @return the user
-     */
-    public String getUser() {
-        return user;
+    public String getUrlBan() {
+        return urlBan;
     }
 
-    /**
-     * @param user the user to set
-     */
-    public void setUser(String user) {
-        this.user = user;
+    public void setUrlBan(String urlBan) {
+        this.urlBan = urlBan;
     }
 
-    /**
-     * @return the senha
-     */
-    public String getSenha() {
-        return senha;
+    public String getUseBan() {
+        return useBan;
     }
 
-    /**
-     * @param senha the senha to set
-     */
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setUseBan(String useBan) {
+        this.useBan = useBan;
+    }
+
+    public String getSenBan() {
+        return senBan;
+    }
+
+    public void setSenBan(String senBan) {
+        this.senBan = senBan;
     }
 
 }

@@ -10,7 +10,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import javax.swing.ImageIcon;
@@ -216,10 +215,12 @@ public class TecladoVirtual extends JInternalFrame {
             @Override
             public void internalFrameClosed(InternalFrameEvent e) {
                 Modal.telaPai.moveToFront();
+
                 if (!meuCampoValor.getText().isEmpty()) {
-                    if (abrirTela == null ? Enums.TELAOP == null : abrirTela.equals(Enums.TELAOP)) {
+                    /* -------------------------------------- */
+                    if (abrirTela.equals(Enums.TELAOP)) {
                         if ("".equals(meuCampoValor.getText())) {
-                            TecladoVirtual.getTela("Selecione o Operador", Enums.TELAOP);
+                            TecladoVirtual.getTela("Digite o Operador", Enums.TELAOP);
                             return;
                         } else {
                             int options;
@@ -236,6 +237,7 @@ public class TecladoVirtual extends JInternalFrame {
                         }
 
                     }
+                    /* -------------------------------------- */
                     if (abrirTela.equals(Enums.TELAMENU)) {
                         if (!meuCampoValor.getText().equals(Enums.SENHA)) {
                             Notificacao.infoBox("Código Incorreto", false);
@@ -248,6 +250,7 @@ public class TecladoVirtual extends JInternalFrame {
                             return;
                         }
                     }
+                    /* -------------------------------------- */
                     if (abrirTela == null ? Enums.TELAAP == null : abrirTela.equals(Enums.TELAAP)) {
                         int resp = JOptionPane.showConfirmDialog(null, "ESSE 1023 - FALTA DE INSUMOS. \n"
                                 + "               Deseja Continuar?", "APONTAMENTO DE PARADA", JOptionPane.YES_OPTION);
@@ -257,6 +260,7 @@ public class TecladoVirtual extends JInternalFrame {
                             TelaAvisoTravamento.getTela();
                         }
                     }
+                    /* -------------------------------------- */
                 } else {
                     TecladoVirtual.getTela("Selecione o Operador", Enums.TELAOP);
                 }

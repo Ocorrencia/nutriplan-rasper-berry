@@ -26,8 +26,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="desPro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="desPrxDer" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="desPrxPro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="mensagemRetorno" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="numOrp" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="numPri" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="prxDer" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="prxPro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="qtdMax" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
@@ -51,8 +51,8 @@ import javax.xml.bind.annotation.XmlType;
     "desPro",
     "desPrxDer",
     "desPrxPro",
-    "mensagemRetorno",
     "numOrp",
+    "numPri",
     "prxDer",
     "prxPro",
     "qtdMax",
@@ -77,10 +77,10 @@ public class OpOrdemProducaoOutConsultar {
     protected JAXBElement<String> desPrxDer;
     @XmlElementRef(name = "desPrxPro", type = JAXBElement.class, required = false)
     protected JAXBElement<String> desPrxPro;
-    @XmlElementRef(name = "mensagemRetorno", type = JAXBElement.class, required = false)
-    protected JAXBElement<String> mensagemRetorno;
     @XmlElementRef(name = "numOrp", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> numOrp;
+    @XmlElementRef(name = "numPri", type = JAXBElement.class, required = false)
+    protected JAXBElement<Integer> numPri;
     @XmlElementRef(name = "prxDer", type = JAXBElement.class, required = false)
     protected JAXBElement<String> prxDer;
     @XmlElementRef(name = "prxPro", type = JAXBElement.class, required = false)
@@ -285,30 +285,6 @@ public class OpOrdemProducaoOutConsultar {
     }
 
     /**
-     * Obtém o valor da propriedade mensagemRetorno.
-     * 
-     * @return
-     *     possible object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
-     *     
-     */
-    public JAXBElement<String> getMensagemRetorno() {
-        return mensagemRetorno;
-    }
-
-    /**
-     * Define o valor da propriedade mensagemRetorno.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
-     *     
-     */
-    public void setMensagemRetorno(JAXBElement<String> value) {
-        this.mensagemRetorno = value;
-    }
-
-    /**
      * Obtém o valor da propriedade numOrp.
      * 
      * @return
@@ -330,6 +306,30 @@ public class OpOrdemProducaoOutConsultar {
      */
     public void setNumOrp(JAXBElement<Integer> value) {
         this.numOrp = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade numPri.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public JAXBElement<Integer> getNumPri() {
+        return numPri;
+    }
+
+    /**
+     * Define o valor da propriedade numPri.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public void setNumPri(JAXBElement<Integer> value) {
+        this.numPri = value;
     }
 
     /**

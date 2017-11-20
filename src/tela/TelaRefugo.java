@@ -82,6 +82,7 @@ public class TelaRefugo extends JInternalFrame {
             Modal.telaPai = tela;
             tela.moveToFront();
         }
+        Enums.setSTATUSTELA(Enums.REFUGO);
         return tela;
     }
 

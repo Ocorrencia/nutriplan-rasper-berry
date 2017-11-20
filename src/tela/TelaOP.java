@@ -95,6 +95,7 @@ public class TelaOP extends TelaCadastro {
         TelaSistema.jdp.setSelectedFrame(tela);
         //  TelaSistema.jdp.moveToFront(tela);
         TelaSistema.centraliza(tela);
+        Enums.setSTATUSTELA(Enums.PRODUCAO);
         return tela;
     }
 
@@ -118,7 +119,6 @@ public class TelaOP extends TelaCadastro {
         if (Enums.getSTATUSTELA() == Enums.PRODUCAO) {
             dados();
             TelaApontamentoParada.getTela().moveToFront();
-        } else if (Enums.getSTATUSTELA() == Enums.PADRAO) {
         } else if (Enums.getSTATUSTELA() == Enums.MENU) {
         } else if (Enums.getSTATUSTELA() == Enums.FINALIZADO) {
             Modal.getTela(tela).setVisible(true);
@@ -355,6 +355,7 @@ public class TelaOP extends TelaCadastro {
                 @Override
                 public void internalFrameClosed(InternalFrameEvent e) {
                     Modal.getTela(null).dispose();
+                    Enums.setSTATUSTELA(Enums.LIBERADOPRODUCAO);
                 }
             });
             /* TecladoVirtual tela = tecladoVirtual.getTela();

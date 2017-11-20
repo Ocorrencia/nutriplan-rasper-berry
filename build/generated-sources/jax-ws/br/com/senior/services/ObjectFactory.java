@@ -24,49 +24,51 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _OpOrdemProducaoInFlowName_QNAME = new QName("", "flowName");
-    private final static QName _OpOrdemProducaoInFlowInstanceID_QNAME = new QName("", "flowInstanceID");
-    private final static QName _OpOrdemProducaoOutConsultarCodDer_QNAME = new QName("", "codDer");
+    private final static QName _OpCentroDeRecursoOutConsultarCodCre_QNAME = new QName("", "codCre");
+    private final static QName _OpCentroDeRecursoOutConsultarCodEtg_QNAME = new QName("", "codEtg");
+    private final static QName _OpCentroDeRecursoOutConsultarDesCre_QNAME = new QName("", "desCre");
+    private final static QName _OpTurnoDeTrabalhoXHorariosOutMensagemRetorno_QNAME = new QName("", "mensagemRetorno");
+    private final static QName _OpTurnoDeTrabalhoXHorariosOutErroExecucao_QNAME = new QName("", "erroExecucao");
+    private final static QName _OpFichaTecnicaInCodDer_QNAME = new QName("", "codDer");
+    private final static QName _OpFichaTecnicaInFlowName_QNAME = new QName("", "flowName");
+    private final static QName _OpFichaTecnicaInFlowInstanceID_QNAME = new QName("", "flowInstanceID");
+    private final static QName _OpFichaTecnicaInCodPro_QNAME = new QName("", "codPro");
+    private final static QName _OpTurnoDeTrabalhoXHorariosOutConsultarHorIni_QNAME = new QName("", "horIni");
+    private final static QName _OpTurnoDeTrabalhoXHorariosOutConsultarHorFim_QNAME = new QName("", "horFim");
+    private final static QName _OpTurnoDeTrabalhoXHorariosOutConsultarSeqHtr_QNAME = new QName("", "seqHtr");
+    private final static QName _OpTurnoDeTrabalhoXHorariosOutConsultarTipHtr_QNAME = new QName("", "tipHtr");
+    private final static QName _OpTurnoDeTrabalhoXHorariosOutConsultarTurTrb_QNAME = new QName("", "turTrb");
+    private final static QName _OpApontamentoProducaoOutApontarHorMov_QNAME = new QName("", "horMov");
+    private final static QName _OpApontamentoProducaoOutApontarCodRef_QNAME = new QName("", "codRef");
+    private final static QName _OpApontamentoProducaoOutApontarCodDiv_QNAME = new QName("", "codDiv");
+    private final static QName _OpApontamentoProducaoOutApontarCodLot_QNAME = new QName("", "codLot");
+    private final static QName _OpApontamentoProducaoOutApontarCodCcu_QNAME = new QName("", "codCcu");
+    private final static QName _OpApontamentoProducaoOutApontarQtdIql_QNAME = new QName("", "qtdIql");
+    private final static QName _OpApontamentoProducaoOutApontarDatMov_QNAME = new QName("", "datMov");
+    private final static QName _OpApontamentoProducaoOutApontarCodEsp_QNAME = new QName("", "codEsp");
+    private final static QName _OpApontamentoProducaoOutApontarQtdRe1_QNAME = new QName("", "qtdRe1");
+    private final static QName _OpApontamentoProducaoOutApontarQtdRe2_QNAME = new QName("", "qtdRe2");
+    private final static QName _OpApontamentoProducaoOutApontarIndDiv_QNAME = new QName("", "indDiv");
+    private final static QName _OpApontamentoProducaoOutApontarQtdRe3_QNAME = new QName("", "qtdRe3");
+    private final static QName _OpApontamentoProducaoOutApontarCodMdv_QNAME = new QName("", "codMdv");
+    private final static QName _OpApontamentoProducaoOutApontarNumOrp_QNAME = new QName("", "numOrp");
+    private final static QName _OpApontamentoProducaoOutApontarCodDft_QNAME = new QName("", "codDft");
+    private final static QName _OpApontamentoProducaoOutApontarNumSep_QNAME = new QName("", "numSep");
+    private final static QName _OpApontamentoProducaoOutApontarSeqRoe_QNAME = new QName("", "seqRoe");
+    private final static QName _OpApontamentoProducaoOutApontarCodOri_QNAME = new QName("", "codOri");
+    private final static QName _OpApontamentoProducaoOutApontarQtdRfg_QNAME = new QName("", "qtdRfg");
+    private final static QName _OpApontamentoProducaoOutApontarNumCad_QNAME = new QName("", "numCad");
+    private final static QName _OpApontamentoProducaoOutApontarTipOpr_QNAME = new QName("", "tipOpr");
     private final static QName _OpOrdemProducaoOutConsultarPrxDer_QNAME = new QName("", "prxDer");
     private final static QName _OpOrdemProducaoOutConsultarQtdMax_QNAME = new QName("", "qtdMax");
     private final static QName _OpOrdemProducaoOutConsultarDesPrxPro_QNAME = new QName("", "desPrxPro");
     private final static QName _OpOrdemProducaoOutConsultarPrxPro_QNAME = new QName("", "prxPro");
     private final static QName _OpOrdemProducaoOutConsultarDesPrxDer_QNAME = new QName("", "desPrxDer");
-    private final static QName _OpOrdemProducaoOutConsultarCodPro_QNAME = new QName("", "codPro");
-    private final static QName _OpOrdemProducaoOutConsultarMensagemRetorno_QNAME = new QName("", "mensagemRetorno");
     private final static QName _OpOrdemProducaoOutConsultarDesPro_QNAME = new QName("", "desPro");
     private final static QName _OpOrdemProducaoOutConsultarCicPad_QNAME = new QName("", "cicPad");
-    private final static QName _OpOrdemProducaoOutConsultarCodOri_QNAME = new QName("", "codOri");
     private final static QName _OpOrdemProducaoOutConsultarDesDer_QNAME = new QName("", "desDer");
-    private final static QName _OpOrdemProducaoOutConsultarQtdRfg_QNAME = new QName("", "qtdRfg");
     private final static QName _OpOrdemProducaoOutConsultarQtdPrv_QNAME = new QName("", "qtdPrv");
-    private final static QName _OpOrdemProducaoOutConsultarNumOrp_QNAME = new QName("", "numOrp");
-    private final static QName _OpOperadorOutErroExecucao_QNAME = new QName("", "erroExecucao");
-    private final static QName _OpOperadorOutConsultarNumCad_QNAME = new QName("", "numCad");
-    private final static QName _OpOperadorOutConsultarTurTrb_QNAME = new QName("", "turTrb");
-    private final static QName _OpOperadorOutConsultarNomOpe_QNAME = new QName("", "nomOpe");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoHorMov_QNAME = new QName("", "horMov");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoCodRef_QNAME = new QName("", "codRef");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoCodDiv_QNAME = new QName("", "codDiv");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoCodLot_QNAME = new QName("", "codLot");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoCodCre_QNAME = new QName("", "codCre");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoCodCcu_QNAME = new QName("", "codCcu");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoQtdIql_QNAME = new QName("", "qtdIql");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoDatMov_QNAME = new QName("", "datMov");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoCodEqp_QNAME = new QName("", "codEqp");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoQtdRe1_QNAME = new QName("", "qtdRe1");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoQtdRe2_QNAME = new QName("", "qtdRe2");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoIndDiv_QNAME = new QName("", "indDiv");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoQtdRe3_QNAME = new QName("", "qtdRe3");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoCodMdv_QNAME = new QName("", "codMdv");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoCodDft_QNAME = new QName("", "codDft");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoNumSep_QNAME = new QName("", "numSep");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoSeqRot_QNAME = new QName("", "seqRot");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoCodEtg_QNAME = new QName("", "codEtg");
-    private final static QName _OpOrdemProducaoInAportamentoProducaoTipOpr_QNAME = new QName("", "tipOpr");
-    private final static QName _OpUsuarioOutConsultarCodUsu_QNAME = new QName("", "codUsu");
-    private final static QName _OpUsuarioOutConsultarIntNet_QNAME = new QName("", "intNet");
-    private final static QName _OpUsuarioOutConsultarNomUsu_QNAME = new QName("", "nomUsu");
+    private final static QName _OpOrdemProducaoOutConsultarNumPri_QNAME = new QName("", "numPri");
     private final static QName _OpFichaTecnicaOutConsultarSeqMod_QNAME = new QName("", "seqMod");
     private final static QName _OpFichaTecnicaOutConsultarCodCmp_QNAME = new QName("", "codCmp");
     private final static QName _OpFichaTecnicaOutConsultarPrdQtd_QNAME = new QName("", "prdQtd");
@@ -76,12 +78,10 @@ public class ObjectFactory {
     private final static QName _OpFichaTecnicaOutConsultarDesCmp_QNAME = new QName("", "desCmp");
     private final static QName _OpFichaTecnicaOutConsultarQtdTot_QNAME = new QName("", "qtdTot");
     private final static QName _OpFichaTecnicaOutConsultarTipPro_QNAME = new QName("", "tipPro");
-    private final static QName _OpCentroDeRecursoOutConsultarDesCre_QNAME = new QName("", "desCre");
-    private final static QName _OpTurnoDeTrabalhoOutConsultarHorIni_QNAME = new QName("", "horIni");
-    private final static QName _OpTurnoDeTrabalhoOutConsultarHorFim_QNAME = new QName("", "horFim");
-    private final static QName _OpTurnoDeTrabalhoOutConsultarSeqHtr_QNAME = new QName("", "seqHtr");
-    private final static QName _OpTurnoDeTrabalhoOutConsultarTipHtr_QNAME = new QName("", "tipHtr");
-    private final static QName _OpTurnoDeTrabalhoOutConsultarDesTrb_QNAME = new QName("", "desTrb");
+    private final static QName _OpUsuarioOutConsultarCodUsu_QNAME = new QName("", "codUsu");
+    private final static QName _OpUsuarioOutConsultarIntNet_QNAME = new QName("", "intNet");
+    private final static QName _OpUsuarioOutConsultarNomUsu_QNAME = new QName("", "nomUsu");
+    private final static QName _OpOperadorOutConsultarNomOpe_QNAME = new QName("", "nomOpe");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.senior.services
@@ -91,19 +91,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OpTurnoDeTrabalhoOutConsultar }
-     * 
-     */
-    public OpTurnoDeTrabalhoOutConsultar createOpTurnoDeTrabalhoOutConsultar() {
-        return new OpTurnoDeTrabalhoOutConsultar();
-    }
-
-    /**
      * Create an instance of {@link OpCentroDeRecursoIn }
      * 
      */
     public OpCentroDeRecursoIn createOpCentroDeRecursoIn() {
         return new OpCentroDeRecursoIn();
+    }
+
+    /**
+     * Create an instance of {@link OpApontamentoProducaoInApontar }
+     * 
+     */
+    public OpApontamentoProducaoInApontar createOpApontamentoProducaoInApontar() {
+        return new OpApontamentoProducaoInApontar();
+    }
+
+    /**
+     * Create an instance of {@link OpTurnoDeTrabalhoXHorariosOutConsultar }
+     * 
+     */
+    public OpTurnoDeTrabalhoXHorariosOutConsultar createOpTurnoDeTrabalhoXHorariosOutConsultar() {
+        return new OpTurnoDeTrabalhoXHorariosOutConsultar();
     }
 
     /**
@@ -123,6 +131,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link OpApontamentoProducaoOutApontar }
+     * 
+     */
+    public OpApontamentoProducaoOutApontar createOpApontamentoProducaoOutApontar() {
+        return new OpApontamentoProducaoOutApontar();
+    }
+
+    /**
      * Create an instance of {@link OpCentroDeRecursoOut }
      * 
      */
@@ -139,6 +155,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link OpTurnoDeTrabalhoXHorariosOut }
+     * 
+     */
+    public OpTurnoDeTrabalhoXHorariosOut createOpTurnoDeTrabalhoXHorariosOut() {
+        return new OpTurnoDeTrabalhoXHorariosOut();
+    }
+
+    /**
      * Create an instance of {@link OpOperadorOut }
      * 
      */
@@ -147,27 +171,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OpTurnoDeTrabalhoIn }
-     * 
-     */
-    public OpTurnoDeTrabalhoIn createOpTurnoDeTrabalhoIn() {
-        return new OpTurnoDeTrabalhoIn();
-    }
-
-    /**
      * Create an instance of {@link OpFichaTecnicaOut }
      * 
      */
     public OpFichaTecnicaOut createOpFichaTecnicaOut() {
         return new OpFichaTecnicaOut();
-    }
-
-    /**
-     * Create an instance of {@link OpOrdemProducaoInAportamentoProducao }
-     * 
-     */
-    public OpOrdemProducaoInAportamentoProducao createOpOrdemProducaoInAportamentoProducao() {
-        return new OpOrdemProducaoInAportamentoProducao();
     }
 
     /**
@@ -184,6 +192,14 @@ public class ObjectFactory {
      */
     public OpOrdemProducaoOutConsultar createOpOrdemProducaoOutConsultar() {
         return new OpOrdemProducaoOutConsultar();
+    }
+
+    /**
+     * Create an instance of {@link OpApontamentoProducaoIn }
+     * 
+     */
+    public OpApontamentoProducaoIn createOpApontamentoProducaoIn() {
+        return new OpApontamentoProducaoIn();
     }
 
     /**
@@ -211,14 +227,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OpTurnoDeTrabalhoOut }
-     * 
-     */
-    public OpTurnoDeTrabalhoOut createOpTurnoDeTrabalhoOut() {
-        return new OpTurnoDeTrabalhoOut();
-    }
-
-    /**
      * Create an instance of {@link OpOrdemProducaoIn }
      * 
      */
@@ -243,21 +251,505 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link OpApontamentoProducaoOut }
      * 
      */
-    @XmlElementDecl(namespace = "", name = "flowName", scope = OpOrdemProducaoIn.class)
-    public JAXBElement<String> createOpOrdemProducaoInFlowName(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInFlowName_QNAME, String.class, OpOrdemProducaoIn.class, value);
+    public OpApontamentoProducaoOut createOpApontamentoProducaoOut() {
+        return new OpApontamentoProducaoOut();
+    }
+
+    /**
+     * Create an instance of {@link OpTurnoDeTrabalhoXHorariosIn }
+     * 
+     */
+    public OpTurnoDeTrabalhoXHorariosIn createOpTurnoDeTrabalhoXHorariosIn() {
+        return new OpTurnoDeTrabalhoXHorariosIn();
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "flowInstanceID", scope = OpOrdemProducaoIn.class)
-    public JAXBElement<String> createOpOrdemProducaoInFlowInstanceID(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInFlowInstanceID_QNAME, String.class, OpOrdemProducaoIn.class, value);
+    @XmlElementDecl(namespace = "", name = "codCre", scope = OpCentroDeRecursoOutConsultar.class)
+    public JAXBElement<String> createOpCentroDeRecursoOutConsultarCodCre(String value) {
+        return new JAXBElement<String>(_OpCentroDeRecursoOutConsultarCodCre_QNAME, String.class, OpCentroDeRecursoOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codEtg", scope = OpCentroDeRecursoOutConsultar.class)
+    public JAXBElement<Integer> createOpCentroDeRecursoOutConsultarCodEtg(Integer value) {
+        return new JAXBElement<Integer>(_OpCentroDeRecursoOutConsultarCodEtg_QNAME, Integer.class, OpCentroDeRecursoOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "desCre", scope = OpCentroDeRecursoOutConsultar.class)
+    public JAXBElement<String> createOpCentroDeRecursoOutConsultarDesCre(String value) {
+        return new JAXBElement<String>(_OpCentroDeRecursoOutConsultarDesCre_QNAME, String.class, OpCentroDeRecursoOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpTurnoDeTrabalhoXHorariosOut.class)
+    public JAXBElement<String> createOpTurnoDeTrabalhoXHorariosOutMensagemRetorno(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutMensagemRetorno_QNAME, String.class, OpTurnoDeTrabalhoXHorariosOut.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "erroExecucao", scope = OpTurnoDeTrabalhoXHorariosOut.class)
+    public JAXBElement<String> createOpTurnoDeTrabalhoXHorariosOutErroExecucao(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutErroExecucao_QNAME, String.class, OpTurnoDeTrabalhoXHorariosOut.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codDer", scope = OpFichaTecnicaIn.class)
+    public JAXBElement<String> createOpFichaTecnicaInCodDer(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInCodDer_QNAME, String.class, OpFichaTecnicaIn.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "flowName", scope = OpFichaTecnicaIn.class)
+    public JAXBElement<String> createOpFichaTecnicaInFlowName(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowName_QNAME, String.class, OpFichaTecnicaIn.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "flowInstanceID", scope = OpFichaTecnicaIn.class)
+    public JAXBElement<String> createOpFichaTecnicaInFlowInstanceID(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowInstanceID_QNAME, String.class, OpFichaTecnicaIn.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codPro", scope = OpFichaTecnicaIn.class)
+    public JAXBElement<String> createOpFichaTecnicaInCodPro(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInCodPro_QNAME, String.class, OpFichaTecnicaIn.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codCre", scope = OpTurnoDeTrabalhoXHorariosIn.class)
+    public JAXBElement<String> createOpTurnoDeTrabalhoXHorariosInCodCre(String value) {
+        return new JAXBElement<String>(_OpCentroDeRecursoOutConsultarCodCre_QNAME, String.class, OpTurnoDeTrabalhoXHorariosIn.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "flowName", scope = OpTurnoDeTrabalhoXHorariosIn.class)
+    public JAXBElement<String> createOpTurnoDeTrabalhoXHorariosInFlowName(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowName_QNAME, String.class, OpTurnoDeTrabalhoXHorariosIn.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "flowInstanceID", scope = OpTurnoDeTrabalhoXHorariosIn.class)
+    public JAXBElement<String> createOpTurnoDeTrabalhoXHorariosInFlowInstanceID(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowInstanceID_QNAME, String.class, OpTurnoDeTrabalhoXHorariosIn.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "flowName", scope = OpUsuarioIn.class)
+    public JAXBElement<String> createOpUsuarioInFlowName(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowName_QNAME, String.class, OpUsuarioIn.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "flowInstanceID", scope = OpUsuarioIn.class)
+    public JAXBElement<String> createOpUsuarioInFlowInstanceID(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowInstanceID_QNAME, String.class, OpUsuarioIn.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "flowName", scope = OpApontamentoProducaoIn.class)
+    public JAXBElement<String> createOpApontamentoProducaoInFlowName(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowName_QNAME, String.class, OpApontamentoProducaoIn.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "flowInstanceID", scope = OpApontamentoProducaoIn.class)
+    public JAXBElement<String> createOpApontamentoProducaoInFlowInstanceID(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowInstanceID_QNAME, String.class, OpApontamentoProducaoIn.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpCentroDeRecursoOut.class)
+    public JAXBElement<String> createOpCentroDeRecursoOutMensagemRetorno(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutMensagemRetorno_QNAME, String.class, OpCentroDeRecursoOut.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "erroExecucao", scope = OpCentroDeRecursoOut.class)
+    public JAXBElement<String> createOpCentroDeRecursoOutErroExecucao(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutErroExecucao_QNAME, String.class, OpCentroDeRecursoOut.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "horIni", scope = OpTurnoDeTrabalhoXHorariosOutConsultar.class)
+    public JAXBElement<Integer> createOpTurnoDeTrabalhoXHorariosOutConsultarHorIni(Integer value) {
+        return new JAXBElement<Integer>(_OpTurnoDeTrabalhoXHorariosOutConsultarHorIni_QNAME, Integer.class, OpTurnoDeTrabalhoXHorariosOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codCre", scope = OpTurnoDeTrabalhoXHorariosOutConsultar.class)
+    public JAXBElement<String> createOpTurnoDeTrabalhoXHorariosOutConsultarCodCre(String value) {
+        return new JAXBElement<String>(_OpCentroDeRecursoOutConsultarCodCre_QNAME, String.class, OpTurnoDeTrabalhoXHorariosOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "horFim", scope = OpTurnoDeTrabalhoXHorariosOutConsultar.class)
+    public JAXBElement<Integer> createOpTurnoDeTrabalhoXHorariosOutConsultarHorFim(Integer value) {
+        return new JAXBElement<Integer>(_OpTurnoDeTrabalhoXHorariosOutConsultarHorFim_QNAME, Integer.class, OpTurnoDeTrabalhoXHorariosOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "seqHtr", scope = OpTurnoDeTrabalhoXHorariosOutConsultar.class)
+    public JAXBElement<Integer> createOpTurnoDeTrabalhoXHorariosOutConsultarSeqHtr(Integer value) {
+        return new JAXBElement<Integer>(_OpTurnoDeTrabalhoXHorariosOutConsultarSeqHtr_QNAME, Integer.class, OpTurnoDeTrabalhoXHorariosOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "tipHtr", scope = OpTurnoDeTrabalhoXHorariosOutConsultar.class)
+    public JAXBElement<String> createOpTurnoDeTrabalhoXHorariosOutConsultarTipHtr(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutConsultarTipHtr_QNAME, String.class, OpTurnoDeTrabalhoXHorariosOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codEtg", scope = OpTurnoDeTrabalhoXHorariosOutConsultar.class)
+    public JAXBElement<Integer> createOpTurnoDeTrabalhoXHorariosOutConsultarCodEtg(Integer value) {
+        return new JAXBElement<Integer>(_OpCentroDeRecursoOutConsultarCodEtg_QNAME, Integer.class, OpTurnoDeTrabalhoXHorariosOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "turTrb", scope = OpTurnoDeTrabalhoXHorariosOutConsultar.class)
+    public JAXBElement<Integer> createOpTurnoDeTrabalhoXHorariosOutConsultarTurTrb(Integer value) {
+        return new JAXBElement<Integer>(_OpTurnoDeTrabalhoXHorariosOutConsultarTurTrb_QNAME, Integer.class, OpTurnoDeTrabalhoXHorariosOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpOrdemProducaoOut.class)
+    public JAXBElement<String> createOpOrdemProducaoOutMensagemRetorno(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutMensagemRetorno_QNAME, String.class, OpOrdemProducaoOut.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "erroExecucao", scope = OpOrdemProducaoOut.class)
+    public JAXBElement<String> createOpOrdemProducaoOutErroExecucao(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutErroExecucao_QNAME, String.class, OpOrdemProducaoOut.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "horMov", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarHorMov(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarHorMov_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codRef", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarCodRef(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodRef_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codDer", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarCodDer(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInCodDer_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codDiv", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarCodDiv(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodDiv_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codLot", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarCodLot(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodLot_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codCre", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoOutApontarCodCre(Integer value) {
+        return new JAXBElement<Integer>(_OpCentroDeRecursoOutConsultarCodCre_QNAME, Integer.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codCcu", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarCodCcu(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodCcu_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Double }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "qtdIql", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<Double> createOpApontamentoProducaoOutApontarQtdIql(Double value) {
+        return new JAXBElement<Double>(_OpApontamentoProducaoOutApontarQtdIql_QNAME, Double.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "turTrb", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoOutApontarTurTrb(Integer value) {
+        return new JAXBElement<Integer>(_OpTurnoDeTrabalhoXHorariosOutConsultarTurTrb_QNAME, Integer.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "datMov", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarDatMov(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarDatMov_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codEsp", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarCodEsp(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodEsp_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarMensagemRetorno(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutMensagemRetorno_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Double }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "qtdRe1", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<Double> createOpApontamentoProducaoOutApontarQtdRe1(Double value) {
+        return new JAXBElement<Double>(_OpApontamentoProducaoOutApontarQtdRe1_QNAME, Double.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Double }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "qtdRe2", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<Double> createOpApontamentoProducaoOutApontarQtdRe2(Double value) {
+        return new JAXBElement<Double>(_OpApontamentoProducaoOutApontarQtdRe2_QNAME, Double.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "indDiv", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarIndDiv(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarIndDiv_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Double }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "qtdRe3", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<Double> createOpApontamentoProducaoOutApontarQtdRe3(Double value) {
+        return new JAXBElement<Double>(_OpApontamentoProducaoOutApontarQtdRe3_QNAME, Double.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codMdv", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarCodMdv(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodMdv_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "numOrp", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoOutApontarNumOrp(Integer value) {
+        return new JAXBElement<Integer>(_OpApontamentoProducaoOutApontarNumOrp_QNAME, Integer.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codDft", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarCodDft(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodDft_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "numSep", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarNumSep(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarNumSep_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "seqRoe", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoOutApontarSeqRoe(Integer value) {
+        return new JAXBElement<Integer>(_OpApontamentoProducaoOutApontarSeqRoe_QNAME, Integer.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codPro", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarCodPro(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInCodPro_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codOri", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutApontarCodOri(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodOri_QNAME, String.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Double }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "qtdRfg", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<Double> createOpApontamentoProducaoOutApontarQtdRfg(Double value) {
+        return new JAXBElement<Double>(_OpApontamentoProducaoOutApontarQtdRfg_QNAME, Double.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "numCad", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoOutApontarNumCad(Integer value) {
+        return new JAXBElement<Integer>(_OpApontamentoProducaoOutApontarNumCad_QNAME, Integer.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codEtg", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoOutApontarCodEtg(Integer value) {
+        return new JAXBElement<Integer>(_OpCentroDeRecursoOutConsultarCodEtg_QNAME, Integer.class, OpApontamentoProducaoOutApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "tipOpr", scope = OpApontamentoProducaoOutApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoOutApontarTipOpr(Integer value) {
+        return new JAXBElement<Integer>(_OpApontamentoProducaoOutApontarTipOpr_QNAME, Integer.class, OpApontamentoProducaoOutApontar.class, value);
     }
 
     /**
@@ -266,7 +758,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "flowName", scope = OpCentroDeRecursoIn.class)
     public JAXBElement<String> createOpCentroDeRecursoInFlowName(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInFlowName_QNAME, String.class, OpCentroDeRecursoIn.class, value);
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowName_QNAME, String.class, OpCentroDeRecursoIn.class, value);
     }
 
     /**
@@ -275,7 +767,16 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "flowInstanceID", scope = OpCentroDeRecursoIn.class)
     public JAXBElement<String> createOpCentroDeRecursoInFlowInstanceID(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInFlowInstanceID_QNAME, String.class, OpCentroDeRecursoIn.class, value);
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowInstanceID_QNAME, String.class, OpCentroDeRecursoIn.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "erroExecucao", scope = OpApontamentoProducaoOut.class)
+    public JAXBElement<String> createOpApontamentoProducaoOutErroExecucao(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutErroExecucao_QNAME, String.class, OpApontamentoProducaoOut.class, value);
     }
 
     /**
@@ -284,7 +785,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "codDer", scope = OpOrdemProducaoOutConsultar.class)
     public JAXBElement<String> createOpOrdemProducaoOutConsultarCodDer(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarCodDer_QNAME, String.class, OpOrdemProducaoOutConsultar.class, value);
+        return new JAXBElement<String>(_OpFichaTecnicaInCodDer_QNAME, String.class, OpOrdemProducaoOutConsultar.class, value);
     }
 
     /**
@@ -338,16 +839,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "codPro", scope = OpOrdemProducaoOutConsultar.class)
     public JAXBElement<String> createOpOrdemProducaoOutConsultarCodPro(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarCodPro_QNAME, String.class, OpOrdemProducaoOutConsultar.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpOrdemProducaoOutConsultar.class)
-    public JAXBElement<String> createOpOrdemProducaoOutConsultarMensagemRetorno(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarMensagemRetorno_QNAME, String.class, OpOrdemProducaoOutConsultar.class, value);
+        return new JAXBElement<String>(_OpFichaTecnicaInCodPro_QNAME, String.class, OpOrdemProducaoOutConsultar.class, value);
     }
 
     /**
@@ -374,7 +866,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "codOri", scope = OpOrdemProducaoOutConsultar.class)
     public JAXBElement<String> createOpOrdemProducaoOutConsultarCodOri(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarCodOri_QNAME, String.class, OpOrdemProducaoOutConsultar.class, value);
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodOri_QNAME, String.class, OpOrdemProducaoOutConsultar.class, value);
     }
 
     /**
@@ -392,7 +884,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "qtdRfg", scope = OpOrdemProducaoOutConsultar.class)
     public JAXBElement<Double> createOpOrdemProducaoOutConsultarQtdRfg(Double value) {
-        return new JAXBElement<Double>(_OpOrdemProducaoOutConsultarQtdRfg_QNAME, Double.class, OpOrdemProducaoOutConsultar.class, value);
+        return new JAXBElement<Double>(_OpApontamentoProducaoOutApontarQtdRfg_QNAME, Double.class, OpOrdemProducaoOutConsultar.class, value);
     }
 
     /**
@@ -408,342 +900,261 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
      * 
      */
+    @XmlElementDecl(namespace = "", name = "numPri", scope = OpOrdemProducaoOutConsultar.class)
+    public JAXBElement<Integer> createOpOrdemProducaoOutConsultarNumPri(Integer value) {
+        return new JAXBElement<Integer>(_OpOrdemProducaoOutConsultarNumPri_QNAME, Integer.class, OpOrdemProducaoOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
     @XmlElementDecl(namespace = "", name = "numOrp", scope = OpOrdemProducaoOutConsultar.class)
     public JAXBElement<Integer> createOpOrdemProducaoOutConsultarNumOrp(Integer value) {
-        return new JAXBElement<Integer>(_OpOrdemProducaoOutConsultarNumOrp_QNAME, Integer.class, OpOrdemProducaoOutConsultar.class, value);
+        return new JAXBElement<Integer>(_OpApontamentoProducaoOutApontarNumOrp_QNAME, Integer.class, OpOrdemProducaoOutConsultar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "erroExecucao", scope = OpOperadorOut.class)
-    public JAXBElement<String> createOpOperadorOutErroExecucao(String value) {
-        return new JAXBElement<String>(_OpOperadorOutErroExecucao_QNAME, String.class, OpOperadorOut.class, value);
+    @XmlElementDecl(namespace = "", name = "horMov", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarHorMov(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarHorMov_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "flowName", scope = OpUsuarioIn.class)
-    public JAXBElement<String> createOpUsuarioInFlowName(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInFlowName_QNAME, String.class, OpUsuarioIn.class, value);
+    @XmlElementDecl(namespace = "", name = "codRef", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarCodRef(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodRef_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "flowInstanceID", scope = OpUsuarioIn.class)
-    public JAXBElement<String> createOpUsuarioInFlowInstanceID(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInFlowInstanceID_QNAME, String.class, OpUsuarioIn.class, value);
+    @XmlElementDecl(namespace = "", name = "codDer", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarCodDer(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInCodDer_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpOperadorOutConsultar.class)
-    public JAXBElement<String> createOpOperadorOutConsultarMensagemRetorno(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarMensagemRetorno_QNAME, String.class, OpOperadorOutConsultar.class, value);
+    @XmlElementDecl(namespace = "", name = "codDiv", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarCodDiv(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodDiv_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "codLot", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarCodLot(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodLot_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "numCad", scope = OpOperadorOutConsultar.class)
-    public JAXBElement<Integer> createOpOperadorOutConsultarNumCad(Integer value) {
-        return new JAXBElement<Integer>(_OpOperadorOutConsultarNumCad_QNAME, Integer.class, OpOperadorOutConsultar.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "turTrb", scope = OpOperadorOutConsultar.class)
-    public JAXBElement<Integer> createOpOperadorOutConsultarTurTrb(Integer value) {
-        return new JAXBElement<Integer>(_OpOperadorOutConsultarTurTrb_QNAME, Integer.class, OpOperadorOutConsultar.class, value);
+    @XmlElementDecl(namespace = "", name = "codCre", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoInApontarCodCre(Integer value) {
+        return new JAXBElement<Integer>(_OpCentroDeRecursoOutConsultarCodCre_QNAME, Integer.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "nomOpe", scope = OpOperadorOutConsultar.class)
-    public JAXBElement<String> createOpOperadorOutConsultarNomOpe(String value) {
-        return new JAXBElement<String>(_OpOperadorOutConsultarNomOpe_QNAME, String.class, OpOperadorOutConsultar.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "horMov", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoHorMov(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInAportamentoProducaoHorMov_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "codRef", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoCodRef(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInAportamentoProducaoCodRef_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "codDer", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoCodDer(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarCodDer_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "codDiv", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoCodDiv(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInAportamentoProducaoCodDiv_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "codLot", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoCodLot(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInAportamentoProducaoCodLot_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "codCre", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<Integer> createOpOrdemProducaoInAportamentoProducaoCodCre(Integer value) {
-        return new JAXBElement<Integer>(_OpOrdemProducaoInAportamentoProducaoCodCre_QNAME, Integer.class, OpOrdemProducaoInAportamentoProducao.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "codCcu", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoCodCcu(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInAportamentoProducaoCodCcu_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "codCcu", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarCodCcu(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodCcu_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Double }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "qtdIql", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<Double> createOpOrdemProducaoInAportamentoProducaoQtdIql(Double value) {
-        return new JAXBElement<Double>(_OpOrdemProducaoInAportamentoProducaoQtdIql_QNAME, Double.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "qtdIql", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<Double> createOpApontamentoProducaoInApontarQtdIql(Double value) {
+        return new JAXBElement<Double>(_OpApontamentoProducaoOutApontarQtdIql_QNAME, Double.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "turTrb", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<Integer> createOpOrdemProducaoInAportamentoProducaoTurTrb(Integer value) {
-        return new JAXBElement<Integer>(_OpOperadorOutConsultarTurTrb_QNAME, Integer.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "turTrb", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoInApontarTurTrb(Integer value) {
+        return new JAXBElement<Integer>(_OpTurnoDeTrabalhoXHorariosOutConsultarTurTrb_QNAME, Integer.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "datMov", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoDatMov(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInAportamentoProducaoDatMov_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "datMov", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarDatMov(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarDatMov_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoMensagemRetorno(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarMensagemRetorno_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "codEsp", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarCodEsp(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodEsp_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "codEqp", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoCodEqp(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInAportamentoProducaoCodEqp_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarMensagemRetorno(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutMensagemRetorno_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Double }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "qtdRe1", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<Double> createOpOrdemProducaoInAportamentoProducaoQtdRe1(Double value) {
-        return new JAXBElement<Double>(_OpOrdemProducaoInAportamentoProducaoQtdRe1_QNAME, Double.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "qtdRe1", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<Double> createOpApontamentoProducaoInApontarQtdRe1(Double value) {
+        return new JAXBElement<Double>(_OpApontamentoProducaoOutApontarQtdRe1_QNAME, Double.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Double }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "qtdRe2", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<Double> createOpOrdemProducaoInAportamentoProducaoQtdRe2(Double value) {
-        return new JAXBElement<Double>(_OpOrdemProducaoInAportamentoProducaoQtdRe2_QNAME, Double.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "qtdRe2", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<Double> createOpApontamentoProducaoInApontarQtdRe2(Double value) {
+        return new JAXBElement<Double>(_OpApontamentoProducaoOutApontarQtdRe2_QNAME, Double.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "indDiv", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoIndDiv(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInAportamentoProducaoIndDiv_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "indDiv", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarIndDiv(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarIndDiv_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Double }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "qtdRe3", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<Double> createOpOrdemProducaoInAportamentoProducaoQtdRe3(Double value) {
-        return new JAXBElement<Double>(_OpOrdemProducaoInAportamentoProducaoQtdRe3_QNAME, Double.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "qtdRe3", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<Double> createOpApontamentoProducaoInApontarQtdRe3(Double value) {
+        return new JAXBElement<Double>(_OpApontamentoProducaoOutApontarQtdRe3_QNAME, Double.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "codMdv", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoCodMdv(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInAportamentoProducaoCodMdv_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "codMdv", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarCodMdv(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodMdv_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "numOrp", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<Integer> createOpOrdemProducaoInAportamentoProducaoNumOrp(Integer value) {
-        return new JAXBElement<Integer>(_OpOrdemProducaoOutConsultarNumOrp_QNAME, Integer.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "numOrp", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoInApontarNumOrp(Integer value) {
+        return new JAXBElement<Integer>(_OpApontamentoProducaoOutApontarNumOrp_QNAME, Integer.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "codDft", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoCodDft(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInAportamentoProducaoCodDft_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "codDft", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarCodDft(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodDft_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "numSep", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoNumSep(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInAportamentoProducaoNumSep_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "numSep", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarNumSep(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarNumSep_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "seqRoe", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoInApontarSeqRoe(Integer value) {
+        return new JAXBElement<Integer>(_OpApontamentoProducaoOutApontarSeqRoe_QNAME, Integer.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "codPro", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoCodPro(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarCodPro_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "codPro", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarCodPro(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInCodPro_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "codOri", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<String> createOpOrdemProducaoInAportamentoProducaoCodOri(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarCodOri_QNAME, String.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "codOri", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<String> createOpApontamentoProducaoInApontarCodOri(String value) {
+        return new JAXBElement<String>(_OpApontamentoProducaoOutApontarCodOri_QNAME, String.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Double }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "qtdRfg", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<Double> createOpOrdemProducaoInAportamentoProducaoQtdRfg(Double value) {
-        return new JAXBElement<Double>(_OpOrdemProducaoOutConsultarQtdRfg_QNAME, Double.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "qtdRfg", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<Double> createOpApontamentoProducaoInApontarQtdRfg(Double value) {
+        return new JAXBElement<Double>(_OpApontamentoProducaoOutApontarQtdRfg_QNAME, Double.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "numCad", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<Integer> createOpOrdemProducaoInAportamentoProducaoNumCad(Integer value) {
-        return new JAXBElement<Integer>(_OpOperadorOutConsultarNumCad_QNAME, Integer.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "numCad", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoInApontarNumCad(Integer value) {
+        return new JAXBElement<Integer>(_OpApontamentoProducaoOutApontarNumCad_QNAME, Integer.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "seqRot", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<Integer> createOpOrdemProducaoInAportamentoProducaoSeqRot(Integer value) {
-        return new JAXBElement<Integer>(_OpOrdemProducaoInAportamentoProducaoSeqRot_QNAME, Integer.class, OpOrdemProducaoInAportamentoProducao.class, value);
+    @XmlElementDecl(namespace = "", name = "codEtg", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoInApontarCodEtg(Integer value) {
+        return new JAXBElement<Integer>(_OpCentroDeRecursoOutConsultarCodEtg_QNAME, Integer.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "codEtg", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<Integer> createOpOrdemProducaoInAportamentoProducaoCodEtg(Integer value) {
-        return new JAXBElement<Integer>(_OpOrdemProducaoInAportamentoProducaoCodEtg_QNAME, Integer.class, OpOrdemProducaoInAportamentoProducao.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "tipOpr", scope = OpOrdemProducaoInAportamentoProducao.class)
-    public JAXBElement<Integer> createOpOrdemProducaoInAportamentoProducaoTipOpr(Integer value) {
-        return new JAXBElement<Integer>(_OpOrdemProducaoInAportamentoProducaoTipOpr_QNAME, Integer.class, OpOrdemProducaoInAportamentoProducao.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "flowName", scope = OpTurnoDeTrabalhoIn.class)
-    public JAXBElement<String> createOpTurnoDeTrabalhoInFlowName(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInFlowName_QNAME, String.class, OpTurnoDeTrabalhoIn.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "flowInstanceID", scope = OpTurnoDeTrabalhoIn.class)
-    public JAXBElement<String> createOpTurnoDeTrabalhoInFlowInstanceID(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInFlowInstanceID_QNAME, String.class, OpTurnoDeTrabalhoIn.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "erroExecucao", scope = OpCentroDeRecursoOut.class)
-    public JAXBElement<String> createOpCentroDeRecursoOutErroExecucao(String value) {
-        return new JAXBElement<String>(_OpOperadorOutErroExecucao_QNAME, String.class, OpCentroDeRecursoOut.class, value);
+    @XmlElementDecl(namespace = "", name = "tipOpr", scope = OpApontamentoProducaoInApontar.class)
+    public JAXBElement<Integer> createOpApontamentoProducaoInApontarTipOpr(Integer value) {
+        return new JAXBElement<Integer>(_OpApontamentoProducaoOutApontarTipOpr_QNAME, Integer.class, OpApontamentoProducaoInApontar.class, value);
     }
 
     /**
@@ -752,7 +1163,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "flowName", scope = OpOperadorIn.class)
     public JAXBElement<String> createOpOperadorInFlowName(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInFlowName_QNAME, String.class, OpOperadorIn.class, value);
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowName_QNAME, String.class, OpOperadorIn.class, value);
     }
 
     /**
@@ -761,115 +1172,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "flowInstanceID", scope = OpOperadorIn.class)
     public JAXBElement<String> createOpOperadorInFlowInstanceID(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInFlowInstanceID_QNAME, String.class, OpOperadorIn.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpUsuarioOutConsultar.class)
-    public JAXBElement<String> createOpUsuarioOutConsultarMensagemRetorno(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarMensagemRetorno_QNAME, String.class, OpUsuarioOutConsultar.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "codUsu", scope = OpUsuarioOutConsultar.class)
-    public JAXBElement<Integer> createOpUsuarioOutConsultarCodUsu(Integer value) {
-        return new JAXBElement<Integer>(_OpUsuarioOutConsultarCodUsu_QNAME, Integer.class, OpUsuarioOutConsultar.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "intNet", scope = OpUsuarioOutConsultar.class)
-    public JAXBElement<String> createOpUsuarioOutConsultarIntNet(String value) {
-        return new JAXBElement<String>(_OpUsuarioOutConsultarIntNet_QNAME, String.class, OpUsuarioOutConsultar.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "nomUsu", scope = OpUsuarioOutConsultar.class)
-    public JAXBElement<String> createOpUsuarioOutConsultarNomUsu(String value) {
-        return new JAXBElement<String>(_OpUsuarioOutConsultarNomUsu_QNAME, String.class, OpUsuarioOutConsultar.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "codDer", scope = OpFichaTecnicaIn.class)
-    public JAXBElement<String> createOpFichaTecnicaInCodDer(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarCodDer_QNAME, String.class, OpFichaTecnicaIn.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "flowName", scope = OpFichaTecnicaIn.class)
-    public JAXBElement<String> createOpFichaTecnicaInFlowName(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInFlowName_QNAME, String.class, OpFichaTecnicaIn.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "flowInstanceID", scope = OpFichaTecnicaIn.class)
-    public JAXBElement<String> createOpFichaTecnicaInFlowInstanceID(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInFlowInstanceID_QNAME, String.class, OpFichaTecnicaIn.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "codPro", scope = OpFichaTecnicaIn.class)
-    public JAXBElement<String> createOpFichaTecnicaInCodPro(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarCodPro_QNAME, String.class, OpFichaTecnicaIn.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "erroExecucao", scope = OpFichaTecnicaOut.class)
-    public JAXBElement<String> createOpFichaTecnicaOutErroExecucao(String value) {
-        return new JAXBElement<String>(_OpOperadorOutErroExecucao_QNAME, String.class, OpFichaTecnicaOut.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "erroExecucao", scope = OpUsuarioOut.class)
-    public JAXBElement<String> createOpUsuarioOutErroExecucao(String value) {
-        return new JAXBElement<String>(_OpOperadorOutErroExecucao_QNAME, String.class, OpUsuarioOut.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "erroExecucao", scope = OpOrdemProducaoOut.class)
-    public JAXBElement<String> createOpOrdemProducaoOutErroExecucao(String value) {
-        return new JAXBElement<String>(_OpOperadorOutErroExecucao_QNAME, String.class, OpOrdemProducaoOut.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "erroExecucao", scope = OpTurnoDeTrabalhoOut.class)
-    public JAXBElement<String> createOpTurnoDeTrabalhoOutErroExecucao(String value) {
-        return new JAXBElement<String>(_OpOperadorOutErroExecucao_QNAME, String.class, OpTurnoDeTrabalhoOut.class, value);
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowInstanceID_QNAME, String.class, OpOperadorIn.class, value);
     }
 
     /**
@@ -878,7 +1181,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpFichaTecnicaOutConsultar.class)
     public JAXBElement<String> createOpFichaTecnicaOutConsultarMensagemRetorno(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarMensagemRetorno_QNAME, String.class, OpFichaTecnicaOutConsultar.class, value);
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutMensagemRetorno_QNAME, String.class, OpFichaTecnicaOutConsultar.class, value);
     }
 
     /**
@@ -975,117 +1278,126 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpCentroDeRecursoOutConsultar.class)
-    public JAXBElement<String> createOpCentroDeRecursoOutConsultarMensagemRetorno(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarMensagemRetorno_QNAME, String.class, OpCentroDeRecursoOutConsultar.class, value);
+    @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpOperadorOut.class)
+    public JAXBElement<String> createOpOperadorOutMensagemRetorno(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutMensagemRetorno_QNAME, String.class, OpOperadorOut.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "codCre", scope = OpCentroDeRecursoOutConsultar.class)
-    public JAXBElement<String> createOpCentroDeRecursoOutConsultarCodCre(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInAportamentoProducaoCodCre_QNAME, String.class, OpCentroDeRecursoOutConsultar.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "codEtg", scope = OpCentroDeRecursoOutConsultar.class)
-    public JAXBElement<Integer> createOpCentroDeRecursoOutConsultarCodEtg(Integer value) {
-        return new JAXBElement<Integer>(_OpOrdemProducaoInAportamentoProducaoCodEtg_QNAME, Integer.class, OpCentroDeRecursoOutConsultar.class, value);
+    @XmlElementDecl(namespace = "", name = "erroExecucao", scope = OpOperadorOut.class)
+    public JAXBElement<String> createOpOperadorOutErroExecucao(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutErroExecucao_QNAME, String.class, OpOperadorOut.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "desCre", scope = OpCentroDeRecursoOutConsultar.class)
-    public JAXBElement<String> createOpCentroDeRecursoOutConsultarDesCre(String value) {
-        return new JAXBElement<String>(_OpCentroDeRecursoOutConsultarDesCre_QNAME, String.class, OpCentroDeRecursoOutConsultar.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "horIni", scope = OpTurnoDeTrabalhoOutConsultar.class)
-    public JAXBElement<Integer> createOpTurnoDeTrabalhoOutConsultarHorIni(Integer value) {
-        return new JAXBElement<Integer>(_OpTurnoDeTrabalhoOutConsultarHorIni_QNAME, Integer.class, OpTurnoDeTrabalhoOutConsultar.class, value);
+    @XmlElementDecl(namespace = "", name = "erroExecucao", scope = OpUsuarioOut.class)
+    public JAXBElement<String> createOpUsuarioOutErroExecucao(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutErroExecucao_QNAME, String.class, OpUsuarioOut.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpTurnoDeTrabalhoOutConsultar.class)
-    public JAXBElement<String> createOpTurnoDeTrabalhoOutConsultarMensagemRetorno(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoOutConsultarMensagemRetorno_QNAME, String.class, OpTurnoDeTrabalhoOutConsultar.class, value);
+    @XmlElementDecl(namespace = "", name = "codCre", scope = OpOrdemProducaoIn.class)
+    public JAXBElement<String> createOpOrdemProducaoInCodCre(String value) {
+        return new JAXBElement<String>(_OpCentroDeRecursoOutConsultarCodCre_QNAME, String.class, OpOrdemProducaoIn.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "codCre", scope = OpTurnoDeTrabalhoOutConsultar.class)
-    public JAXBElement<String> createOpTurnoDeTrabalhoOutConsultarCodCre(String value) {
-        return new JAXBElement<String>(_OpOrdemProducaoInAportamentoProducaoCodCre_QNAME, String.class, OpTurnoDeTrabalhoOutConsultar.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "horFim", scope = OpTurnoDeTrabalhoOutConsultar.class)
-    public JAXBElement<Integer> createOpTurnoDeTrabalhoOutConsultarHorFim(Integer value) {
-        return new JAXBElement<Integer>(_OpTurnoDeTrabalhoOutConsultarHorFim_QNAME, Integer.class, OpTurnoDeTrabalhoOutConsultar.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "seqHtr", scope = OpTurnoDeTrabalhoOutConsultar.class)
-    public JAXBElement<Integer> createOpTurnoDeTrabalhoOutConsultarSeqHtr(Integer value) {
-        return new JAXBElement<Integer>(_OpTurnoDeTrabalhoOutConsultarSeqHtr_QNAME, Integer.class, OpTurnoDeTrabalhoOutConsultar.class, value);
+    @XmlElementDecl(namespace = "", name = "flowName", scope = OpOrdemProducaoIn.class)
+    public JAXBElement<String> createOpOrdemProducaoInFlowName(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowName_QNAME, String.class, OpOrdemProducaoIn.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "tipHtr", scope = OpTurnoDeTrabalhoOutConsultar.class)
-    public JAXBElement<String> createOpTurnoDeTrabalhoOutConsultarTipHtr(String value) {
-        return new JAXBElement<String>(_OpTurnoDeTrabalhoOutConsultarTipHtr_QNAME, String.class, OpTurnoDeTrabalhoOutConsultar.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "codEtg", scope = OpTurnoDeTrabalhoOutConsultar.class)
-    public JAXBElement<Integer> createOpTurnoDeTrabalhoOutConsultarCodEtg(Integer value) {
-        return new JAXBElement<Integer>(_OpOrdemProducaoInAportamentoProducaoCodEtg_QNAME, Integer.class, OpTurnoDeTrabalhoOutConsultar.class, value);
+    @XmlElementDecl(namespace = "", name = "flowInstanceID", scope = OpOrdemProducaoIn.class)
+    public JAXBElement<String> createOpOrdemProducaoInFlowInstanceID(String value) {
+        return new JAXBElement<String>(_OpFichaTecnicaInFlowInstanceID_QNAME, String.class, OpOrdemProducaoIn.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "desTrb", scope = OpTurnoDeTrabalhoOutConsultar.class)
-    public JAXBElement<String> createOpTurnoDeTrabalhoOutConsultarDesTrb(String value) {
-        return new JAXBElement<String>(_OpTurnoDeTrabalhoOutConsultarDesTrb_QNAME, String.class, OpTurnoDeTrabalhoOutConsultar.class, value);
+    @XmlElementDecl(namespace = "", name = "mensagemRetorno", scope = OpUsuarioOutConsultar.class)
+    public JAXBElement<String> createOpUsuarioOutConsultarMensagemRetorno(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutMensagemRetorno_QNAME, String.class, OpUsuarioOutConsultar.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "turTrb", scope = OpTurnoDeTrabalhoOutConsultar.class)
-    public JAXBElement<Integer> createOpTurnoDeTrabalhoOutConsultarTurTrb(Integer value) {
-        return new JAXBElement<Integer>(_OpOperadorOutConsultarTurTrb_QNAME, Integer.class, OpTurnoDeTrabalhoOutConsultar.class, value);
+    @XmlElementDecl(namespace = "", name = "codUsu", scope = OpUsuarioOutConsultar.class)
+    public JAXBElement<Integer> createOpUsuarioOutConsultarCodUsu(Integer value) {
+        return new JAXBElement<Integer>(_OpUsuarioOutConsultarCodUsu_QNAME, Integer.class, OpUsuarioOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "intNet", scope = OpUsuarioOutConsultar.class)
+    public JAXBElement<String> createOpUsuarioOutConsultarIntNet(String value) {
+        return new JAXBElement<String>(_OpUsuarioOutConsultarIntNet_QNAME, String.class, OpUsuarioOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "nomUsu", scope = OpUsuarioOutConsultar.class)
+    public JAXBElement<String> createOpUsuarioOutConsultarNomUsu(String value) {
+        return new JAXBElement<String>(_OpUsuarioOutConsultarNomUsu_QNAME, String.class, OpUsuarioOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "erroExecucao", scope = OpFichaTecnicaOut.class)
+    public JAXBElement<String> createOpFichaTecnicaOutErroExecucao(String value) {
+        return new JAXBElement<String>(_OpTurnoDeTrabalhoXHorariosOutErroExecucao_QNAME, String.class, OpFichaTecnicaOut.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "numCad", scope = OpOperadorOutConsultar.class)
+    public JAXBElement<Integer> createOpOperadorOutConsultarNumCad(Integer value) {
+        return new JAXBElement<Integer>(_OpApontamentoProducaoOutApontarNumCad_QNAME, Integer.class, OpOperadorOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "turTrb", scope = OpOperadorOutConsultar.class)
+    public JAXBElement<Integer> createOpOperadorOutConsultarTurTrb(Integer value) {
+        return new JAXBElement<Integer>(_OpTurnoDeTrabalhoXHorariosOutConsultarTurTrb_QNAME, Integer.class, OpOperadorOutConsultar.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "nomOpe", scope = OpOperadorOutConsultar.class)
+    public JAXBElement<String> createOpOperadorOutConsultarNomOpe(String value) {
+        return new JAXBElement<String>(_OpOperadorOutConsultarNomOpe_QNAME, String.class, OpOperadorOutConsultar.class, value);
     }
 
 }

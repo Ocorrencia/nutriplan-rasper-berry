@@ -7,18 +7,17 @@ package tela;
 
 import componente.MeuCampoFormatado;
 import componente.MeuCampoSenha;
-import dao.ConfiguracaoBancoDAO;
+import dao.ConfiguracaoBancoDao;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import pojo.ConfiguracaoBanco;
-import util.Notificacao;
+import util.Enums;
 
 /**
- * ainelCom
+ *
  *
  * @author diogo.melo
  */
@@ -31,7 +30,7 @@ public class TelaConfig extends TelaCadastro {
     MeuCampoFormatado campoURL = new MeuCampoFormatado("URL:", true, 40);
     MeuCampoSenha campoSenha = new MeuCampoSenha(true, "Senha:");
     ConfiguracaoBanco configBanco = new ConfiguracaoBanco();
-    ConfiguracaoBancoDAO configBancoDAO = new ConfiguracaoBancoDAO();
+    ConfiguracaoBancoDao configBancoDAO = new ConfiguracaoBancoDao(configBanco);
 
     public static TelaConfig getTela() {
         if (tela == null) {
@@ -48,6 +47,7 @@ public class TelaConfig extends TelaCadastro {
         TelaSistema.jdp.setSelectedFrame(tela);
         TelaSistema.jdp.moveToFront(tela);
         TelaSistema.centraliza(tela);
+        Enums.setSTATUSTELA(Enums.CONFIGURACAO);
         return tela;
     }
 
@@ -70,7 +70,7 @@ public class TelaConfig extends TelaCadastro {
         setVisible(true);
         this.setSize(800, 480);
         this.getContentPane().remove(painelDescricaoMaquina);
-        // painelDescricaoMaquina.removeAll();;
+        // painelDescricaoMaquina.removeAll();
     }
 
     private void adicionarComponentes() {
@@ -95,19 +95,19 @@ public class TelaConfig extends TelaCadastro {
     }
 
     public void setPersistencia() {
-        configBanco.setServidor((String) campoServidor.getValor());
-        configBanco.setPorta((String) campoPorta.getValor());
-        configBanco.setUrl((String) campoURL.getValor());
-        configBanco.setUser((String) campoUser.getValor());
-        configBanco.setSenha((String) campoSenha.getValor());
+        configBanco.setSerBan((String) campoServidor.getValor());
+        configBanco.setPorBan((String) campoPorta.getValor());
+        configBanco.setUrlBan((String) campoURL.getValor());
+        configBanco.setUseBan((String) campoUser.getValor());
+        configBanco.setSenBan((String) campoSenha.getValor());
     }
 
     public void setGUI() {
-        campoServidor.setValor((String) configBanco.getServidor());
-        campoPorta.setValor((String) configBanco.getPorta());
-        campoURL.setValor((String) configBanco.getUrl());
-        campoUser.setValor((String) configBanco.getUser());
-        campoSenha.setValor((String) configBanco.getSenha());
+        campoServidor.setValor((String) configBanco.getSerBan());
+        campoPorta.setValor((String) configBanco.getPorBan());
+        campoURL.setValor((String) configBanco.getUrlBan());
+        campoUser.setValor((String) configBanco.getSerBan());
+        campoSenha.setValor((String) configBanco.getSenBan());
     }
 
     public void habilitaBotoes() {
@@ -121,7 +121,6 @@ public class TelaConfig extends TelaCadastro {
         btnIncluir.addActionListener((ActionEvent e) -> {
             incluir();
         });
-
         btnAlterar.addActionListener((ActionEvent e) -> {
         });
         btnExcluir.addActionListener((ActionEvent e) -> {
@@ -136,18 +135,12 @@ public class TelaConfig extends TelaCadastro {
     public void incluir() {
         if (validarCampos()) {
             setPersistencia();
-            configBancoDAO.setPOJO(configBanco);
-            if (configBancoDAO.alterar()) {
-                Notificacao.infoBox("Gravado com Sucesso", true);
-            } else {
-                Notificacao.infoBox("Erro ao Gravar", false);
-            }
+            configBancoDAO.incluir();
         }
     }
 
     public void consultar() {
         configBancoDAO.consultar();
-        configBanco = configBancoDAO.getPOJO();
         setGUI();
     }
 }
