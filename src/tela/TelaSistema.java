@@ -19,11 +19,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import util.Consulta;
 import util.Enums;
+import util.Notificacao;
 import util.Servidor;
 
 public class TelaSistema extends JFrame {
-
+    
     public static MeuJDesktopPane jdp = new MeuJDesktopPane();
     final WebProgressBar progressBar = new WebProgressBar(0, 100);
     JPanel jPanelProgressBar = new JPanel();
@@ -32,7 +34,7 @@ public class TelaSistema extends JFrame {
     public static TelaSistema telaSistema;
     Enums consta;
     Servidor servidor = new Servidor();
-
+    
     public TelaSistema() {
         getContentPane().add(jdp);
         setIconImage(iconeprincipal.getImage());
@@ -46,7 +48,7 @@ public class TelaSistema extends JFrame {
         servidor.iniciarServidor();
         travar();
     }
-
+    
     public static void main(String args[]) throws IOException {
         try {
             UIManager.setLookAndFeel(new WebLookAndFeel());
@@ -54,7 +56,7 @@ public class TelaSistema extends JFrame {
             System.gc();
             if (Enums.getSTATUSTELA() == Enums.PRODUCAO) {
                 TelaOP.getTela();
-            } else if (Enums.getSTATUSTELA() == Enums.MENU) {
+            } else if (Enums.getSTATUSTELA() == Enums.MENU || Enums.getSTATUSTELA() == Enums.ADMIN) {
                 TelaMenu.getTela();
                 TelaMenu.tela.addInternalFrameListener(new InternalFrameAdapter() {
                     @Override
@@ -68,9 +70,9 @@ public class TelaSistema extends JFrame {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-
+        
     }
-
+    
     public void controleDeOperacao() {
         Enums.setTIPOSISTEMA(Enums.WINDOWS);
         /* switch (ControleOperacao.consultar()) {
@@ -86,11 +88,11 @@ public class TelaSistema extends JFrame {
         }
     }*/
     }
-
+    
     public void fecharTela() {
         this.dispose();
     }
-
+    
     public void travar() {
         JInternalFrame[] frames = TelaSistema.jdp.getAllFrames();
         for (JInternalFrame frame : frames) {
@@ -98,13 +100,13 @@ public class TelaSistema extends JFrame {
             Component northPane = ui.getNorthPane();
             MouseMotionListener[] motionListeners = (MouseMotionListener[]) northPane.getListeners(MouseMotionListener.class
             );
-
+            
             for (MouseMotionListener listener : motionListeners) {
                 northPane.removeMouseMotionListener(listener);
             }
         }
     }
-
+    
     public static void centraliza(JInternalFrame janela) {
         int larguraDesk = jdp.getWidth();
         int alturaDesk = jdp.getHeight();
@@ -112,7 +114,7 @@ public class TelaSistema extends JFrame {
         int alturaIFrame = janela.getHeight();
         janela.setLocation(larguraDesk / 2 - larguraIFrame / 2, alturaDesk / 2 - alturaIFrame / 2);
     }
-
+    
     public static void centralizaJPanel(JPanel janela) {
         int larguraDesk = jdp.getWidth();
         int alturaDesk = jdp.getHeight();
@@ -120,7 +122,7 @@ public class TelaSistema extends JFrame {
         int alturaIFrame = janela.getHeight();
         janela.setLocation(larguraDesk / 2 - larguraIFrame / 2, alturaDesk / 2 - alturaIFrame / 2);
     }
-
+    
     public static void centralizaJDialog(JDialog janela) {
         int larguraDesk = jdp.getWidth();
         int alturaDesk = jdp.getHeight();
@@ -128,5 +130,5 @@ public class TelaSistema extends JFrame {
         int alturaIFrame = janela.getHeight();
         janela.setLocation(larguraDesk / 2 - larguraIFrame / 2, alturaDesk / 2 - alturaIFrame / 2);
     }
-
+    
 }

@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="codCre" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="codEtg" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="desCre" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="statusRegistro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,7 +34,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "opCentroDeRecursoOutConsultar", propOrder = {
     "codCre",
     "codEtg",
-    "desCre"
+    "desCre",
+    "statusRegistro"
 })
 public class OpCentroDeRecursoOutConsultar {
 
@@ -43,6 +45,8 @@ public class OpCentroDeRecursoOutConsultar {
     protected JAXBElement<Integer> codEtg;
     @XmlElementRef(name = "desCre", type = JAXBElement.class, required = false)
     protected JAXBElement<String> desCre;
+    @XmlElementRef(name = "statusRegistro", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> statusRegistro;
 
     /**
      * Obtém o valor da propriedade codCre.
@@ -114,6 +118,30 @@ public class OpCentroDeRecursoOutConsultar {
      */
     public void setDesCre(JAXBElement<String> value) {
         this.desCre = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade statusRegistro.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getStatusRegistro() {
+        return statusRegistro;
+    }
+
+    /**
+     * Define o valor da propriedade statusRegistro.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setStatusRegistro(JAXBElement<String> value) {
+        this.statusRegistro = value;
     }
 
 }

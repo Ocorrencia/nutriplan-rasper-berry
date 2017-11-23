@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="qtdTot" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="qtdUti" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="seqMod" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="statusRegistro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="tipPro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="uniMe2" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
@@ -48,6 +49,7 @@ import javax.xml.bind.annotation.XmlType;
     "qtdTot",
     "qtdUti",
     "seqMod",
+    "statusRegistro",
     "tipPro",
     "uniMe2"
 })
@@ -71,6 +73,8 @@ public class OpFichaTecnicaOutConsultar {
     protected JAXBElement<Double> qtdUti;
     @XmlElementRef(name = "seqMod", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> seqMod;
+    @XmlElementRef(name = "statusRegistro", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> statusRegistro;
     @XmlElementRef(name = "tipPro", type = JAXBElement.class, required = false)
     protected JAXBElement<String> tipPro;
     @XmlElementRef(name = "uniMe2", type = JAXBElement.class, required = false)
@@ -290,6 +294,30 @@ public class OpFichaTecnicaOutConsultar {
      */
     public void setSeqMod(JAXBElement<Integer> value) {
         this.seqMod = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade statusRegistro.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getStatusRegistro() {
+        return statusRegistro;
+    }
+
+    /**
+     * Define o valor da propriedade statusRegistro.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setStatusRegistro(JAXBElement<String> value) {
+        this.statusRegistro = value;
     }
 
     /**

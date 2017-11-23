@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="nomOpe" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="numCad" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="statusRegistro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="turTrb" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "opOperadorOutConsultar", propOrder = {
     "nomOpe",
     "numCad",
+    "statusRegistro",
     "turTrb"
 })
 public class OpOperadorOutConsultar {
@@ -41,6 +43,8 @@ public class OpOperadorOutConsultar {
     protected JAXBElement<String> nomOpe;
     @XmlElementRef(name = "numCad", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> numCad;
+    @XmlElementRef(name = "statusRegistro", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> statusRegistro;
     @XmlElementRef(name = "turTrb", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> turTrb;
 
@@ -90,6 +94,30 @@ public class OpOperadorOutConsultar {
      */
     public void setNumCad(JAXBElement<Integer> value) {
         this.numCad = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade statusRegistro.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getStatusRegistro() {
+        return statusRegistro;
+    }
+
+    /**
+     * Define o valor da propriedade statusRegistro.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setStatusRegistro(JAXBElement<String> value) {
+        this.statusRegistro = value;
     }
 
     /**

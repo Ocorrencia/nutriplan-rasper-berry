@@ -6,8 +6,10 @@
 package tela;
 
 import com.alee.laf.separator.WebSeparator;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -16,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -99,7 +102,7 @@ public class TelaFichaTecnica extends JInternalFrame {
         super("Ficha Técnica", true, true, true);
         setVisible(true);
         this.setFrameIcon(iconeprincipal);
-
+        travarTela();
         this.setSize(700, 420);
         initComponente();
     }
@@ -175,5 +178,15 @@ public class TelaFichaTecnica extends JInternalFrame {
 
         add(painelFichaTecnica, "wrap");
         add(painelQuantidade);
+    }
+
+    public void travarTela() {
+        BasicInternalFrameUI ui = (javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI();
+        Component cp = ui.getNorthPane();
+        MouseMotionListener[] actions
+                = (MouseMotionListener[]) cp.getListeners(MouseMotionListener.class);
+        for (MouseMotionListener action : actions) {
+            cp.removeMouseMotionListener(action);
+        }
     }
 }

@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import util.Consulta;
 import util.Enums;
 import util.Notificacao;
 import util.Sincronizacao;
@@ -45,7 +46,9 @@ public class TelaMenu extends JInternalFrame {
     URL imagemPlay = getClass().getResource("/imagens/icons8-automation.png");
     URL imagemSair = getClass().getResource("/imagens/icons8-exit-sign-black.png");
     URL iconePrincipal = getClass().getResource("/imagem/timer.png");
+    URL imagemMaquina = getClass().getResource("/imagens/icons8-engineering-80.png");
 
+    private final ImageIcon iconeMaquina = new ImageIcon(imagemMaquina);
     private final ImageIcon icoSinc = new ImageIcon(imagemSinc);
     private final ImageIcon icoRede = new ImageIcon(imagemRede);
     private final ImageIcon icoNext = new ImageIcon(imagemNext);
@@ -73,6 +76,7 @@ public class TelaMenu extends JInternalFrame {
     JButton btnProximo = new JButton("Próximo", icoNext);
     JButton btnAnterior = new JButton("Anterior", icoBack);
     JButton btnConfig = new JButton("Configuração", icoConfig);
+    JButton btnMaquina = new JButton("MÁQUINA", iconeMaquina);
 
     public static TelaMenu tela;
     public static TecladoVirtual tecladoVirtual;
@@ -142,7 +146,7 @@ public class TelaMenu extends JInternalFrame {
         painelBotoes.add(btnRede);
         painelBotoes.add(btnSair);
 
-        painelBotoes1.add(new JButton());
+        painelBotoes1.add(btnMaquina);
         painelBotoes1.add(new JButton());
         painelBotoes1.add(new JButton());
         painelBotoes1.add(new JButton());
@@ -160,6 +164,9 @@ public class TelaMenu extends JInternalFrame {
     }
 
     private void iniciarListeners() {
+        btnMaquina.addActionListener((ActionEvent e) -> {
+            TelaMaquina.getTela();
+        });
         btnOP.addActionListener((ActionEvent e) -> {
             TecladoVirtual.getTela("Selecione o Operador", Enums.TELAOP);
         });
@@ -173,9 +180,15 @@ public class TelaMenu extends JInternalFrame {
             /*   TecladoVirtual.getTela();*/
         });
         btnSincronizacao.addActionListener((ActionEvent e) -> {
+          /*  if (Consulta.CONSULTASTRING("OP000MAQ", "CODMAQ", "1 = 1").equals("VAZIO")) {
+                Notificacao.infoBox("Vincule o Software com a Máquina", true);
+                return;
+            }*/
             if (!Sincronizacao.sincOperadores()) {
                 Notificacao.infoBox("Ocorreu um erro ao sincronizar os operadores", false);
             } else if (!Sincronizacao.sincFichaTecnica()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar a ficha técnica", false);
+            } else if (!Sincronizacao.sincCentroRecurso()) {
                 Notificacao.infoBox("Ocorreu um erro ao sincronizar a ficha técnica", false);
             } else if (true) {
                 Notificacao.infoBox("Sincronização Efetuada com Sucesso", true);
@@ -229,6 +242,9 @@ public class TelaMenu extends JInternalFrame {
 
         btnOP.setVerticalTextPosition(SwingConstants.BOTTOM);
         btnOP.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        btnMaquina.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnMaquina.setHorizontalTextPosition(SwingConstants.CENTER);
     }
 
     private void configTitulo() {
@@ -246,6 +262,7 @@ public class TelaMenu extends JInternalFrame {
         btnRede.setFont(new Font("Arial", Font.BOLD, 20));
         tecladoVitrual.setFont(new Font("Arial", Font.BOLD, 20));
         btnOP.setFont(new Font("Arial", Font.BOLD, 20));
+        btnMaquina.setFont(new Font("Arial", Font.BOLD, 20));
     }
 
     private void configRodape() {

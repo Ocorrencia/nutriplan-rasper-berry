@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="codCre" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="flowInstanceID" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="flowName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
@@ -30,15 +31,42 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "opOperadorIn", propOrder = {
+    "codCre",
     "flowInstanceID",
     "flowName"
 })
 public class OpOperadorIn {
 
+    @XmlElementRef(name = "codCre", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> codCre;
     @XmlElementRef(name = "flowInstanceID", type = JAXBElement.class, required = false)
     protected JAXBElement<String> flowInstanceID;
     @XmlElementRef(name = "flowName", type = JAXBElement.class, required = false)
     protected JAXBElement<String> flowName;
+
+    /**
+     * Obtém o valor da propriedade codCre.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getCodCre() {
+        return codCre;
+    }
+
+    /**
+     * Define o valor da propriedade codCre.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setCodCre(JAXBElement<String> value) {
+        this.codCre = value;
+    }
 
     /**
      * Obtém o valor da propriedade flowInstanceID.

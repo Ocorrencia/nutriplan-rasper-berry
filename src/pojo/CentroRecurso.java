@@ -14,10 +14,19 @@ import java.util.List;
  */
 public class CentroRecurso {
 
+    int codEmp;
     String codCre;
     Integer codEtg;
     String descCre;
     List<CentroRecurso> itensCentroRecurso = new ArrayList<CentroRecurso>();
+
+    public int getCodEmp() {
+        return codEmp;
+    }
+
+    public void setCodEmp(int codEmp) {
+        this.codEmp = codEmp;
+    }
 
     public List<CentroRecurso> getItensCentroRecurso() {
         return itensCentroRecurso;

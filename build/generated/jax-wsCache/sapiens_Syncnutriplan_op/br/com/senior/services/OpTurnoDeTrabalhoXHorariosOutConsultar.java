@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="horFim" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="horIni" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="seqHtr" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="statusRegistro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="tipHtr" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="turTrb" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *       &lt;/sequence>
@@ -40,6 +41,7 @@ import javax.xml.bind.annotation.XmlType;
     "horFim",
     "horIni",
     "seqHtr",
+    "statusRegistro",
     "tipHtr",
     "turTrb"
 })
@@ -55,6 +57,8 @@ public class OpTurnoDeTrabalhoXHorariosOutConsultar {
     protected JAXBElement<Integer> horIni;
     @XmlElementRef(name = "seqHtr", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> seqHtr;
+    @XmlElementRef(name = "statusRegistro", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> statusRegistro;
     @XmlElementRef(name = "tipHtr", type = JAXBElement.class, required = false)
     protected JAXBElement<String> tipHtr;
     @XmlElementRef(name = "turTrb", type = JAXBElement.class, required = false)
@@ -178,6 +182,30 @@ public class OpTurnoDeTrabalhoXHorariosOutConsultar {
      */
     public void setSeqHtr(JAXBElement<Integer> value) {
         this.seqHtr = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade statusRegistro.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getStatusRegistro() {
+        return statusRegistro;
+    }
+
+    /**
+     * Define o valor da propriedade statusRegistro.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setStatusRegistro(JAXBElement<String> value) {
+        this.statusRegistro = value;
     }
 
     /**

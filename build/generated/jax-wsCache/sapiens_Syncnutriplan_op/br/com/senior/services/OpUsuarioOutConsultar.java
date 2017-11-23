@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="intNet" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="mensagemRetorno" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="nomUsu" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="statusRegistro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +36,8 @@ import javax.xml.bind.annotation.XmlType;
     "codUsu",
     "intNet",
     "mensagemRetorno",
-    "nomUsu"
+    "nomUsu",
+    "statusRegistro"
 })
 public class OpUsuarioOutConsultar {
 
@@ -47,6 +49,8 @@ public class OpUsuarioOutConsultar {
     protected JAXBElement<String> mensagemRetorno;
     @XmlElementRef(name = "nomUsu", type = JAXBElement.class, required = false)
     protected JAXBElement<String> nomUsu;
+    @XmlElementRef(name = "statusRegistro", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> statusRegistro;
 
     /**
      * Obtém o valor da propriedade codUsu.
@@ -142,6 +146,30 @@ public class OpUsuarioOutConsultar {
      */
     public void setNomUsu(JAXBElement<String> value) {
         this.nomUsu = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade statusRegistro.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getStatusRegistro() {
+        return statusRegistro;
+    }
+
+    /**
+     * Define o valor da propriedade statusRegistro.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setStatusRegistro(JAXBElement<String> value) {
+        this.statusRegistro = value;
     }
 
 }

@@ -8,6 +8,8 @@ package pojoWebService;
 import br.com.senior.services.OpOperadorOutConsultar;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import pojo.Operador;
 import util.EnviarEmail;
@@ -22,21 +24,31 @@ public class OperadorWebService {
     EnviarEmail enviarEmail = new EnviarEmail();
 
     public boolean buscarOperadoresSapiens() {
-        br.com.senior.services.G5SeniorServices service = new br.com.senior.services.G5SeniorServices();
-        br.com.senior.services.SapiensSyncnutriplanOp port = service.getSapiensSyncnutriplanOpPort();
-        br.com.senior.services.OpOperadorIn parameters = new br.com.senior.services.OpOperadorIn();
-        br.com.senior.services.OpOperadorOut result = port.operador("integracao.op", "ERPintegracao.4651", 0, parameters);
-        if (result.getErroExecucao().getValue() != null) {
-            try {
-                Notificacao.infoBox("Não foi possivel executar a sincronização de operadores", false);
-                enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Operadores");
-                return false;
-            } catch (MessagingException e) {
-                return false;
+        try {
+
+            br.com.senior.services.G5SeniorServices service = new br.com.senior.services.G5SeniorServices();
+            br.com.senior.services.SapiensSyncnutriplanOp port = service.getSapiensSyncnutriplanOpPort();
+            br.com.senior.services.OpOperadorIn parameters = new br.com.senior.services.OpOperadorIn();
+            br.com.senior.services.OpOperadorOut result = port.operador("integracao.op", "ERPintegracao.4651", 0, parameters);
+            if (result.getErroExecucao().getValue() != null) {
+                try {
+                    Notificacao.infoBox("Não foi possivel executar a sincronização de operadores", false);
+                    enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Operadores");
+                    return false;
+                } catch (MessagingException e) {
+                    return false;
+                }
+            } else {
+                return preencherOperador(result);
             }
-        } else {
-            return preencherOperador(result);
+        } catch (Exception e) {
+            try {
+                enviarEmail.enviaEmail(e.getMessage(), "ERRO DE CONEXÃO COM O SAPIENS");
+            } catch (MessagingException ex) {
+                Logger.getLogger(OperadorWebService.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        return false;
     }
 
     public boolean preencherOperador(br.com.senior.services.OpOperadorOut result) {
@@ -44,6 +56,7 @@ public class OperadorWebService {
         Operador operador = new Operador();
         for (OpOperadorOutConsultar operadores : result.getConsultar()) {
             operador = new Operador();
+            System.out.println(operadores.getNomOpe().getValue());
             operador.setNomOpe(operadores.getNomOpe().getValue());
             operador.setNumCad(operadores.getNumCad().getValue());
             operador.setTurTrb(operadores.getTurTrb().getValue());

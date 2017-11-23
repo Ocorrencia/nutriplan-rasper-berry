@@ -30,6 +30,33 @@ public class OrdemProducao {
     Double qtdPrv;
     Double qtdRfg;
     List<OrdemProducao> itensOrdemProducao = new ArrayList<OrdemProducao>();
+    int codEmp;
+    int seqRot;
+    int seqEtr;
+
+    public int getSeqRot() {
+        return seqRot;
+    }
+
+    public void setSeqRot(int seqRot) {
+        this.seqRot = seqRot;
+    }
+
+    public int getSeqEtr() {
+        return seqEtr;
+    }
+
+    public void setSeqEtr(int seqEtr) {
+        this.seqEtr = seqEtr;
+    }
+
+    public int getCodEmp() {
+        return codEmp;
+    }
+
+    public void setCodEmp(int codEmp) {
+        this.codEmp = codEmp;
+    }
 
     public Double getCicPad() {
         return cicPad;
@@ -159,5 +186,4 @@ public class OrdemProducao {
         this.itensOrdemProducao = itensOrdemProducao;
     }
 
-    
 }

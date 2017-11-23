@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="qtdMax" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="qtdPrv" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="qtdRfg" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
+ *         &lt;element name="statusRegistro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -57,7 +58,8 @@ import javax.xml.bind.annotation.XmlType;
     "prxPro",
     "qtdMax",
     "qtdPrv",
-    "qtdRfg"
+    "qtdRfg",
+    "statusRegistro"
 })
 public class OpOrdemProducaoOutConsultar {
 
@@ -91,6 +93,8 @@ public class OpOrdemProducaoOutConsultar {
     protected JAXBElement<Double> qtdPrv;
     @XmlElementRef(name = "qtdRfg", type = JAXBElement.class, required = false)
     protected JAXBElement<Double> qtdRfg;
+    @XmlElementRef(name = "statusRegistro", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> statusRegistro;
 
     /**
      * Obtém o valor da propriedade cicPad.
@@ -450,6 +454,30 @@ public class OpOrdemProducaoOutConsultar {
      */
     public void setQtdRfg(JAXBElement<Double> value) {
         this.qtdRfg = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade statusRegistro.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getStatusRegistro() {
+        return statusRegistro;
+    }
+
+    /**
+     * Define o valor da propriedade statusRegistro.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setStatusRegistro(JAXBElement<String> value) {
+        this.statusRegistro = value;
     }
 
 }

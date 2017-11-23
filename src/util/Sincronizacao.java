@@ -5,6 +5,7 @@
  */
 package util;
 
+import pojoWebService.CentroRecursoWebService;
 import pojoWebService.FichaTecnicaWebService;
 import pojoWebService.OperadorWebService;
 
@@ -19,8 +20,14 @@ public class Sincronizacao {
         return operadorWebService.buscarOperadoresSapiens();
     }
 
+    public static boolean sincCentroRecurso() {
+        CentroRecursoWebService centroRecursoWebService = new CentroRecursoWebService();
+        return centroRecursoWebService.buscarCentroRecurso();
+    }
+
     public static boolean sincFichaTecnica() {
         FichaTecnicaWebService fichaTecnicaWebService = new FichaTecnicaWebService();
-       return fichaTecnicaWebService.buscarFichaTenicaSapiens();
+        return fichaTecnicaWebService.buscarFichaTenicaSapiens();
     }
+    
 }

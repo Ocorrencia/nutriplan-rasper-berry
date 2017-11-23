@@ -10,10 +10,19 @@ import java.util.List;
 
 public class Operador {
 
+    int codEmp;
     String nomOpe;
     Integer numCad;
     Integer turTrb;
     List<Operador> itensOperadores = new ArrayList<Operador>();
+
+    public int getCodEmp() {
+        return codEmp;
+    }
+
+    public void setCodEmp(int codEmp) {
+        this.codEmp = codEmp;
+    }
 
     public List<Operador> getItensOperadores() {
         return itensOperadores;
@@ -22,7 +31,7 @@ public class Operador {
     public void setItensOperadores(List<Operador> itensOperadores) {
         this.itensOperadores = itensOperadores;
     }
-    
+
     public String getNomOpe() {
         return nomOpe;
     }
