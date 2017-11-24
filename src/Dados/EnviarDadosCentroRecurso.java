@@ -17,9 +17,15 @@ import util.ConexaoMysql;
  */
 public class EnviarDadosCentroRecurso {
 
-    private final String INCLUIRSQL = "INSERT INTO NUTRI_OP_SINC.OP725CRE VALUES(?,?,?)";
-    private final String ATUALIZARTABELAPADRAO = "INSERT IGNORE INTO NUTRI_OP.op725cre SELECT * FROM NUTRI_OP_SINC.op725cre";
-    private final String LIMPARTABELA = "DELETE FROM NUTRI_OP_SINC.OP725CRE";
+    private final String INCLUIRSQL = "INSERT INTO nutri_op_sinc.op725cre VALUES(?,?,?,?)";
+    private final String ATUALIZARTABELAPADRAO = "INSERT IGNORE\n"
+            + "   INTO nutri_op.op725cre\n"
+            + " SELECT *\n"
+            + "   FROM nutri_op_sinc.op725cre\n"
+            + "      ;\n"
+            + "      \n"
+            + "      ";
+    private final String LIMPARTABELA = "DELETE FROM nutri_op_sinc.op725cre";
     List<CentroRecurso> centroRecursoObj = new ArrayList<CentroRecurso>();
 
     public void EnviarDadosCentroRecurso(List<CentroRecurso> centroRecursoObj) {
@@ -32,10 +38,10 @@ public class EnviarDadosCentroRecurso {
         try {
             PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(INCLUIRSQL);
             for (CentroRecurso centroRecurso : centroRecursoObj) {
-
-                ps.setString(1, centroRecurso.getCodCre());
-                ps.setString(2, centroRecurso.getDescCre());
-                ps.setInt(3, centroRecurso.getCodEtg());
+                ps.setInt(1, centroRecurso.getCodEmp() + 1);
+                ps.setString(2, centroRecurso.getCodCre());
+                ps.setString(3, centroRecurso.getDescCre());
+                ps.setInt(4, centroRecurso.getCodEtg());
                 ps.executeUpdate();
             }
             ConexaoMysql.FecharConexao();

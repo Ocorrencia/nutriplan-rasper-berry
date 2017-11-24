@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="codEmp" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="nomOpe" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="numCad" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="statusRegistro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -32,6 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "opOperadorOutConsultar", propOrder = {
+    "codEmp",
     "nomOpe",
     "numCad",
     "statusRegistro",
@@ -39,6 +41,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class OpOperadorOutConsultar {
 
+    @XmlElementRef(name = "codEmp", type = JAXBElement.class, required = false)
+    protected JAXBElement<Integer> codEmp;
     @XmlElementRef(name = "nomOpe", type = JAXBElement.class, required = false)
     protected JAXBElement<String> nomOpe;
     @XmlElementRef(name = "numCad", type = JAXBElement.class, required = false)
@@ -47,6 +51,30 @@ public class OpOperadorOutConsultar {
     protected JAXBElement<String> statusRegistro;
     @XmlElementRef(name = "turTrb", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> turTrb;
+
+    /**
+     * Obtém o valor da propriedade codEmp.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public JAXBElement<Integer> getCodEmp() {
+        return codEmp;
+    }
+
+    /**
+     * Define o valor da propriedade codEmp.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public void setCodEmp(JAXBElement<Integer> value) {
+        this.codEmp = value;
+    }
 
     /**
      * Obtém o valor da propriedade nomOpe.

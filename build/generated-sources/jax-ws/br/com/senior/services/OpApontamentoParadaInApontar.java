@@ -9,12 +9,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java de opApontamentoProducaoOutApontar complex type.
+ * <p>Classe Java de opApontamentoParadaInApontar complex type.
  * 
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="opApontamentoProducaoOutApontar">
+ * &lt;complexType name="opApontamentoParadaInApontar">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -26,14 +26,13 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="codEsp" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="codEtg" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="codLot" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="codMdv" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="codMtv" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="codOri" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="codPro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="codRef" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="datMov" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="horMov" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="indDiv" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="mensagemRetorno" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="numCad" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="numOrp" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="numSep" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -54,7 +53,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "opApontamentoProducaoOutApontar", propOrder = {
+@XmlType(name = "opApontamentoParadaInApontar", propOrder = {
     "codCcu",
     "codCre",
     "codDer",
@@ -63,14 +62,13 @@ import javax.xml.bind.annotation.XmlType;
     "codEsp",
     "codEtg",
     "codLot",
-    "codMdv",
+    "codMtv",
     "codOri",
     "codPro",
     "codRef",
     "datMov",
     "horMov",
     "indDiv",
-    "mensagemRetorno",
     "numCad",
     "numOrp",
     "numSep",
@@ -83,7 +81,7 @@ import javax.xml.bind.annotation.XmlType;
     "tipOpr",
     "turTrb"
 })
-public class OpApontamentoProducaoOutApontar {
+public class OpApontamentoParadaInApontar {
 
     @XmlElementRef(name = "codCcu", type = JAXBElement.class, required = false)
     protected JAXBElement<String> codCcu;
@@ -101,8 +99,8 @@ public class OpApontamentoProducaoOutApontar {
     protected JAXBElement<Integer> codEtg;
     @XmlElementRef(name = "codLot", type = JAXBElement.class, required = false)
     protected JAXBElement<String> codLot;
-    @XmlElementRef(name = "codMdv", type = JAXBElement.class, required = false)
-    protected JAXBElement<String> codMdv;
+    @XmlElementRef(name = "codMtv", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> codMtv;
     @XmlElementRef(name = "codOri", type = JAXBElement.class, required = false)
     protected JAXBElement<String> codOri;
     @XmlElementRef(name = "codPro", type = JAXBElement.class, required = false)
@@ -115,8 +113,6 @@ public class OpApontamentoProducaoOutApontar {
     protected JAXBElement<String> horMov;
     @XmlElementRef(name = "indDiv", type = JAXBElement.class, required = false)
     protected JAXBElement<String> indDiv;
-    @XmlElementRef(name = "mensagemRetorno", type = JAXBElement.class, required = false)
-    protected JAXBElement<String> mensagemRetorno;
     @XmlElementRef(name = "numCad", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> numCad;
     @XmlElementRef(name = "numOrp", type = JAXBElement.class, required = false)
@@ -333,27 +329,27 @@ public class OpApontamentoProducaoOutApontar {
     }
 
     /**
-     * Obtém o valor da propriedade codMdv.
+     * Obtém o valor da propriedade codMtv.
      * 
      * @return
      *     possible object is
      *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public JAXBElement<String> getCodMdv() {
-        return codMdv;
+    public JAXBElement<String> getCodMtv() {
+        return codMtv;
     }
 
     /**
-     * Define o valor da propriedade codMdv.
+     * Define o valor da propriedade codMtv.
      * 
      * @param value
      *     allowed object is
      *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public void setCodMdv(JAXBElement<String> value) {
-        this.codMdv = value;
+    public void setCodMtv(JAXBElement<String> value) {
+        this.codMtv = value;
     }
 
     /**
@@ -498,30 +494,6 @@ public class OpApontamentoProducaoOutApontar {
      */
     public void setIndDiv(JAXBElement<String> value) {
         this.indDiv = value;
-    }
-
-    /**
-     * Obtém o valor da propriedade mensagemRetorno.
-     * 
-     * @return
-     *     possible object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
-     *     
-     */
-    public JAXBElement<String> getMensagemRetorno() {
-        return mensagemRetorno;
-    }
-
-    /**
-     * Define o valor da propriedade mensagemRetorno.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
-     *     
-     */
-    public void setMensagemRetorno(JAXBElement<String> value) {
-        this.mensagemRetorno = value;
     }
 
     /**

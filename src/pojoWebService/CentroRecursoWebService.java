@@ -64,7 +64,6 @@ public class CentroRecursoWebService {
         CentroRecurso centroRecurso = new CentroRecurso();
         for (OpCentroDeRecursoOutConsultar itemCentroRecurso : result.getConsultar()) {
             centroRecurso = new CentroRecurso();
-            System.out.println(itemCentroRecurso.getCodCre().getValue());
             centroRecurso.setCodCre(itemCentroRecurso.getCodCre().getValue());
             centroRecurso.setCodEtg(itemCentroRecurso.getCodEtg().getValue());
             centroRecurso.setDescCre(itemCentroRecurso.getDesCre().getValue());

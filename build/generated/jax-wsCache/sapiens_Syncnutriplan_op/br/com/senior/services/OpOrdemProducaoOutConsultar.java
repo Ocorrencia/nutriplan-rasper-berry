@@ -20,9 +20,12 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="cicPad" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="codDer" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="codEmp" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="codEtg" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="codOri" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="codPro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="desDer" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="desEtg" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="desPro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="desPrxDer" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="desPrxPro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -33,6 +36,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="qtdMax" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="qtdPrv" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="qtdRfg" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
+ *         &lt;element name="seqRot" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="sfxEtr" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="statusRegistro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -46,9 +51,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "opOrdemProducaoOutConsultar", propOrder = {
     "cicPad",
     "codDer",
+    "codEmp",
+    "codEtg",
     "codOri",
     "codPro",
     "desDer",
+    "desEtg",
     "desPro",
     "desPrxDer",
     "desPrxPro",
@@ -59,6 +67,8 @@ import javax.xml.bind.annotation.XmlType;
     "qtdMax",
     "qtdPrv",
     "qtdRfg",
+    "seqRot",
+    "sfxEtr",
     "statusRegistro"
 })
 public class OpOrdemProducaoOutConsultar {
@@ -67,12 +77,18 @@ public class OpOrdemProducaoOutConsultar {
     protected JAXBElement<Double> cicPad;
     @XmlElementRef(name = "codDer", type = JAXBElement.class, required = false)
     protected JAXBElement<String> codDer;
+    @XmlElementRef(name = "codEmp", type = JAXBElement.class, required = false)
+    protected JAXBElement<Integer> codEmp;
+    @XmlElementRef(name = "codEtg", type = JAXBElement.class, required = false)
+    protected JAXBElement<Integer> codEtg;
     @XmlElementRef(name = "codOri", type = JAXBElement.class, required = false)
     protected JAXBElement<String> codOri;
     @XmlElementRef(name = "codPro", type = JAXBElement.class, required = false)
     protected JAXBElement<String> codPro;
     @XmlElementRef(name = "desDer", type = JAXBElement.class, required = false)
     protected JAXBElement<String> desDer;
+    @XmlElementRef(name = "desEtg", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> desEtg;
     @XmlElementRef(name = "desPro", type = JAXBElement.class, required = false)
     protected JAXBElement<String> desPro;
     @XmlElementRef(name = "desPrxDer", type = JAXBElement.class, required = false)
@@ -93,6 +109,10 @@ public class OpOrdemProducaoOutConsultar {
     protected JAXBElement<Double> qtdPrv;
     @XmlElementRef(name = "qtdRfg", type = JAXBElement.class, required = false)
     protected JAXBElement<Double> qtdRfg;
+    @XmlElementRef(name = "seqRot", type = JAXBElement.class, required = false)
+    protected JAXBElement<Integer> seqRot;
+    @XmlElementRef(name = "sfxEtr", type = JAXBElement.class, required = false)
+    protected JAXBElement<Integer> sfxEtr;
     @XmlElementRef(name = "statusRegistro", type = JAXBElement.class, required = false)
     protected JAXBElement<String> statusRegistro;
 
@@ -142,6 +162,54 @@ public class OpOrdemProducaoOutConsultar {
      */
     public void setCodDer(JAXBElement<String> value) {
         this.codDer = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade codEmp.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public JAXBElement<Integer> getCodEmp() {
+        return codEmp;
+    }
+
+    /**
+     * Define o valor da propriedade codEmp.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public void setCodEmp(JAXBElement<Integer> value) {
+        this.codEmp = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade codEtg.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public JAXBElement<Integer> getCodEtg() {
+        return codEtg;
+    }
+
+    /**
+     * Define o valor da propriedade codEtg.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public void setCodEtg(JAXBElement<Integer> value) {
+        this.codEtg = value;
     }
 
     /**
@@ -214,6 +282,30 @@ public class OpOrdemProducaoOutConsultar {
      */
     public void setDesDer(JAXBElement<String> value) {
         this.desDer = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade desEtg.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getDesEtg() {
+        return desEtg;
+    }
+
+    /**
+     * Define o valor da propriedade desEtg.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setDesEtg(JAXBElement<String> value) {
+        this.desEtg = value;
     }
 
     /**
@@ -454,6 +546,54 @@ public class OpOrdemProducaoOutConsultar {
      */
     public void setQtdRfg(JAXBElement<Double> value) {
         this.qtdRfg = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade seqRot.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public JAXBElement<Integer> getSeqRot() {
+        return seqRot;
+    }
+
+    /**
+     * Define o valor da propriedade seqRot.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public void setSeqRot(JAXBElement<Integer> value) {
+        this.seqRot = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade sfxEtr.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public JAXBElement<Integer> getSfxEtr() {
+        return sfxEtr;
+    }
+
+    /**
+     * Define o valor da propriedade sfxEtr.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public void setSfxEtr(JAXBElement<Integer> value) {
+        this.sfxEtr = value;
     }
 
     /**

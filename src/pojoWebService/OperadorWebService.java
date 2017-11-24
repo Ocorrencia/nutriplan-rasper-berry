@@ -5,13 +5,17 @@
  */
 package pojoWebService;
 
+import Dados.EnviarDadosOperador;
 import br.com.senior.services.OpOperadorOutConsultar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 import pojo.Operador;
+import util.Consulta;
 import util.EnviarEmail;
 import util.Notificacao;
 
@@ -22,14 +26,22 @@ import util.Notificacao;
 public class OperadorWebService {
 
     EnviarEmail enviarEmail = new EnviarEmail();
+    String codCre;
+    EnviarDadosOperador enviarDados = new EnviarDadosOperador();
 
     public boolean buscarOperadoresSapiens() {
         try {
 
+            codCre = Consulta.CONSULTASTRING("OP000maq", "CODCRE", "1 = 1");
+
+            JAXBElement<String> jaxbCodCre = new JAXBElement(new QName("", "codCre"), String.class, codCre);
+
             br.com.senior.services.G5SeniorServices service = new br.com.senior.services.G5SeniorServices();
             br.com.senior.services.SapiensSyncnutriplanOp port = service.getSapiensSyncnutriplanOpPort();
             br.com.senior.services.OpOperadorIn parameters = new br.com.senior.services.OpOperadorIn();
+            parameters.setCodCre(jaxbCodCre);
             br.com.senior.services.OpOperadorOut result = port.operador("integracao.op", "ERPintegracao.4651", 0, parameters);
+
             if (result.getErroExecucao().getValue() != null) {
                 try {
                     Notificacao.infoBox("Não foi possivel executar a sincronização de operadores", false);
@@ -63,6 +75,7 @@ public class OperadorWebService {
             itensOperadores.add(operador);
         }
         operador.setItensOperadores(itensOperadores);
+        enviarDados.EnviarDadosOperador(itensOperadores);
         return true;
         //TODO: enviar dados(itensOperadores) para o dao e executar a inclusao no banco
     }

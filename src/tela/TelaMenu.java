@@ -17,7 +17,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,7 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-import util.Consulta;
 import util.Enums;
 import util.Notificacao;
 import util.Sincronizacao;
@@ -180,16 +178,20 @@ public class TelaMenu extends JInternalFrame {
             /*   TecladoVirtual.getTela();*/
         });
         btnSincronizacao.addActionListener((ActionEvent e) -> {
-          /*  if (Consulta.CONSULTASTRING("OP000MAQ", "CODMAQ", "1 = 1").equals("VAZIO")) {
+            /*  if (Consulta.CONSULTASTRING("OP000MAQ", "CODMAQ", "1 = 1").equals("VAZIO")) {
                 Notificacao.infoBox("Vincule o Software com a Máquina", true);
                 return;
             }*/
-            if (!Sincronizacao.sincOperadores()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar os operadores", false);
+            if (!Sincronizacao.sincCentroRecurso()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar o centro de recurso", false);
             } else if (!Sincronizacao.sincFichaTecnica()) {
                 Notificacao.infoBox("Ocorreu um erro ao sincronizar a ficha técnica", false);
-            } else if (!Sincronizacao.sincCentroRecurso()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar a ficha técnica", false);
+            } else if (!Sincronizacao.sincTurno()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar o turno", false);
+            } else if (!Sincronizacao.sincOperadores()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar os operadores", false);
+            } else if (!Sincronizacao.sincMotivoParada()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar os motivo de parada", false);
             } else if (true) {
                 Notificacao.infoBox("Sincronização Efetuada com Sucesso", true);
             }

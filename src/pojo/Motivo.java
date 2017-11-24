@@ -5,6 +5,9 @@
  */
 package pojo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author diogo.melo
@@ -12,10 +15,28 @@ package pojo;
 public class Motivo {
 
     int codEmp;
-    int codMtv;
+    String codMtv;
     String desMtv;
     int codAmp;
     String desAmp;
+    String statusRegistro;
+    List<Motivo> itensMotivo = new ArrayList<Motivo>();
+
+    public List<Motivo> getItensMotivo() {
+        return itensMotivo;
+    }
+
+    public void setItensMotivo(List<Motivo> itensMotivo) {
+        this.itensMotivo = itensMotivo;
+    }
+
+    public String getStatusRegistro() {
+        return statusRegistro;
+    }
+
+    public void setStatusRegistro(String statusRegistro) {
+        this.statusRegistro = statusRegistro;
+    }
 
     public int getCodEmp() {
         return codEmp;
@@ -25,11 +46,11 @@ public class Motivo {
         this.codEmp = codEmp;
     }
 
-    public int getCodMtv() {
+    public String getCodMtv() {
         return codMtv;
     }
 
-    public void setCodMtv(int codMtv) {
+    public void setCodMtv(String codMtv) {
         this.codMtv = codMtv;
     }
 

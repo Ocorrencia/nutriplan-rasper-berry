@@ -24,9 +24,9 @@ import util.Notificacao;
  */
 public class MaquinaDao {
 
-    private final String INCLUIRSQL = "INSERT INTO OP000MAQ VALUES(?,?,?)";
-    private final String ALTERARSQL = "UPDATE OP000MAQ SET CODCRE = ?, IPMAQ = ? WHERE CODMAQ = 1";
-    private final String CONSULTARSQL = "SELECT * FROM OP000MAQ";
+    private final String INCLUIRSQL = "INSERT INTO nutri_op.op000maq VALUES(?,?,?)";
+    private final String ALTERARSQL = "UPDATE nutri_op.op000maq SET CODCRE = ?, IPMAQ = ? WHERE CODMAQ = 1";
+    private final String CONSULTARSQL = "SELECT * FROM nutri_op.op000maq";
 
     Maquina maq = new Maquina();
     EnviarEmail enviarEmail = new EnviarEmail();

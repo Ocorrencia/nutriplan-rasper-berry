@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="codCre" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="codEmp" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="codEtg" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="horFim" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="horIni" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
@@ -37,6 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "opTurnoDeTrabalhoXHorariosOutConsultar", propOrder = {
     "codCre",
+    "codEmp",
     "codEtg",
     "horFim",
     "horIni",
@@ -49,6 +51,8 @@ public class OpTurnoDeTrabalhoXHorariosOutConsultar {
 
     @XmlElementRef(name = "codCre", type = JAXBElement.class, required = false)
     protected JAXBElement<String> codCre;
+    @XmlElementRef(name = "codEmp", type = JAXBElement.class, required = false)
+    protected JAXBElement<Integer> codEmp;
     @XmlElementRef(name = "codEtg", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> codEtg;
     @XmlElementRef(name = "horFim", type = JAXBElement.class, required = false)
@@ -86,6 +90,30 @@ public class OpTurnoDeTrabalhoXHorariosOutConsultar {
      */
     public void setCodCre(JAXBElement<String> value) {
         this.codCre = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade codEmp.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public JAXBElement<Integer> getCodEmp() {
+        return codEmp;
+    }
+
+    /**
+     * Define o valor da propriedade codEmp.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public void setCodEmp(JAXBElement<Integer> value) {
+        this.codEmp = value;
     }
 
     /**

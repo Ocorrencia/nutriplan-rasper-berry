@@ -7,7 +7,9 @@ package util;
 
 import pojoWebService.CentroRecursoWebService;
 import pojoWebService.FichaTecnicaWebService;
+import pojoWebService.MotivoParadaWebService;
 import pojoWebService.OperadorWebService;
+import pojoWebService.TurnoWebService;
 
 /**
  *
@@ -29,5 +31,14 @@ public class Sincronizacao {
         FichaTecnicaWebService fichaTecnicaWebService = new FichaTecnicaWebService();
         return fichaTecnicaWebService.buscarFichaTenicaSapiens();
     }
-    
+
+    public static boolean sincTurno() {
+        TurnoWebService turnoWebService = new TurnoWebService();
+        return turnoWebService.buscarTurnoSapiens();
+    }
+
+    public static boolean sincMotivoParada() {
+        MotivoParadaWebService motivoParadaWebService = new MotivoParadaWebService();
+        return motivoParadaWebService.buscarMotivoParadaSapiens();
+    }
 }

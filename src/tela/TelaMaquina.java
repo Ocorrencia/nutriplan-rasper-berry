@@ -28,7 +28,7 @@ import util.Enums;
  */
 public class TelaMaquina extends TelaCadastro {
     
-    MeuComboBox campoNomeMaquina = new MeuComboBox("SELECT * FROM OP725CRE", true, "Máquina:");
+    MeuComboBox campoNomeMaquina = new MeuComboBox("SELECT CODCRE, DESCRE FROM OP725CRE", true, "Máquina:");
     MeuCampoFormatado campoIpMaquina = new MeuCampoFormatado("IP:", true, 30);
     private static TelaMaquina tela;
     URL urlTopo = getClass().getResource("/imagem/iconePrincipal.png");

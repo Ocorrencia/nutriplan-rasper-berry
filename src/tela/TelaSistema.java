@@ -19,9 +19,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import util.Consulta;
 import util.Enums;
-import util.Notificacao;
 import util.Servidor;
 
 public class TelaSistema extends JFrame {
@@ -33,7 +31,7 @@ public class TelaSistema extends JFrame {
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
     public static TelaSistema telaSistema;
     Enums consta;
-    Servidor servidor = new Servidor();
+    //Servidor servidor = new Servidor();
     
     public TelaSistema() {
         getContentPane().add(jdp);
@@ -45,7 +43,7 @@ public class TelaSistema extends JFrame {
         setVisible(true);
         controleDeOperacao();
         setLocationRelativeTo(null);
-        servidor.iniciarServidor();
+       // servidor.iniciarServidor();
         travar();
     }
     

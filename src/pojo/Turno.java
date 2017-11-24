@@ -5,6 +5,9 @@
  */
 package pojo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author diogo.melo
@@ -13,6 +16,15 @@ public class Turno {
 
     int turTrb;
     String desTrb;
+    List<Turno> itensTurno = new ArrayList<Turno>();
+
+    public List<Turno> getItensTurno() {
+        return itensTurno;
+    }
+
+    public void setItensTurno(List<Turno> itensTurno) {
+        this.itensTurno = itensTurno;
+    }
 
     public int getTurTrb() {
         return turTrb;

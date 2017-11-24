@@ -24,9 +24,9 @@ import util.Notificacao;
 public class ConfiguracaoBancoDao {
 
     ConfiguracaoBanco configBanco = new ConfiguracaoBanco();
-    private final String INCLUIRSQL = "INSERT INTO OP000BAN VALUES(?,?,?,?,?,?)";
-    private final String CONSULTARSQL = "SELECT SERBAN, PORBAN, URLBAN, USEBAN, SENBAN FROM OP000BAN WHERE CODBAN = 1;";
-    private final String ALTERARSQL = "UPDATE OP000BAN SET SERBAN = ?, PORBAN = ?,URLBAN = ?, USEBAN= ?, SENBAN =? WHERE CODBAN = 1";
+    private final String INCLUIRSQL = "INSERT INTO nutri_op.op000ban VALUES(?,?,?,?,?,?)";
+    private final String CONSULTARSQL = "SELECT SERBAN, PORBAN, URLBAN, USEBAN, SENBAN FROM nutri_op.op000ban WHERE CODBAN = 1;";
+    private final String ALTERARSQL = "UPDATE nutri_op.op000ban SET SERBAN = ?, PORBAN = ?,URLBAN = ?, USEBAN= ?, SENBAN =? WHERE CODBAN = 1";
 
     EnviarEmail enviarEmail = new EnviarEmail();
 

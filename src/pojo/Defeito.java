@@ -5,15 +5,27 @@
  */
 package pojo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author diogo.melo
  */
-public class Defeitos {
+public class Defeito {
 
     int codEmp;
     String codDft;
     String desDft;
+    List<Defeito> itensDefeito = new ArrayList<Defeito>();
+
+    public List<Defeito> getItensDefeito() {
+        return itensDefeito;
+    }
+
+    public void setItensDefeito(List<Defeito> itensDefeito) {
+        this.itensDefeito = itensDefeito;
+    }
 
     public int getCodEmp() {
         return codEmp;

@@ -33,6 +33,43 @@ public class OrdemProducao {
     int codEmp;
     int seqRot;
     int seqEtr;
+    int codEtg;
+    String desEtg;
+    int numPri;
+
+    public int getNumPri() {
+        return numPri;
+    }
+
+    public void setNumPri(int numPri) {
+        this.numPri = numPri;
+    }
+
+    public String getDesEtg() {
+        return desEtg;
+    }
+
+    public void setDesEtg(String desEtg) {
+        this.desEtg = desEtg;
+    }
+
+    public int getCodEtg() {
+        return codEtg;
+    }
+
+    public void setCodEtg(int codEtg) {
+        this.codEtg = codEtg;
+    }
+
+    String statusRegistro;
+
+    public String getStatusRegistro() {
+        return statusRegistro;
+    }
+
+    public void setStatusRegistro(String statusRegistro) {
+        this.statusRegistro = statusRegistro;
+    }
 
     public int getSeqRot() {
         return seqRot;

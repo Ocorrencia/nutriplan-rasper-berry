@@ -14,7 +14,9 @@ import java.util.List;
  */
 public class TurnoTrabalho {
 
+    int codEmp;
     String codCre;
+    String statusRegistro;
     Integer codEtg;
     String desTrb;
     Integer horFim;
@@ -24,6 +26,22 @@ public class TurnoTrabalho {
     Integer turTrb;
 
     List<TurnoTrabalho> itensTurnoTrabalho = new ArrayList<TurnoTrabalho>();
+
+    public String getStatusRegistro() {
+        return statusRegistro;
+    }
+
+    public void setStatusRegistro(String statusRegistro) {
+        this.statusRegistro = statusRegistro;
+    }
+
+    public int getCodEmp() {
+        return codEmp;
+    }
+
+    public void setCodEmp(int codEmp) {
+        this.codEmp = codEmp;
+    }
 
     public String getCodCre() {
         return codCre;

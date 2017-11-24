@@ -26,8 +26,8 @@ import util.Notificacao;
 public class ControleOperacaoDao {
 
     ControleOperacao controleOperacao = new ControleOperacao();
-    private final String INCLUIRSQL = "INSERT INTO OP000COP VALUES(?,?,?,?)";
-    private final String CONSULTARSQL = "SELECT CODCOP, CODOPE, HOROPE, DATAOPE FROM NUTRI_OP.OP000COP ORDER BY CODCOP DESC LIMIT 1";
+    private final String INCLUIRSQL = "INSERT INTO nutri_op.op000cop VALUES(?,?,?,?)";
+    private final String CONSULTARSQL = "SELECT CODCOP, CODOPE, HOROPE, DATAOPE FROM nutri_op.op000cop ORDER BY CODCOP DESC LIMIT 1";
     Date date = new Date();
     Calendar hoje = Calendar.getInstance();
     EnviarEmail enviarEmail = new EnviarEmail();

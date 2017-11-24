@@ -21,7 +21,7 @@ import util.Notificacao;
  */
 public class EventosDao {
 
-    private final String INCLUIRSQL = "INSERT INTO OP000EVE VALUES(?,?,?)";
+    private final String INCLUIRSQL = "INSERT INTO nutri_op.op000eve VALUES(?,?,?)";
 
     Eventos eventos = new Eventos();
     EnviarEmail enviarEmail = new EnviarEmail();
