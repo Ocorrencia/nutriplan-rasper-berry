@@ -26,6 +26,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import util.Enums;
+import util.Modal;
 import util.Notificacao;
 import util.Sincronizacao;
 
@@ -161,7 +162,37 @@ public class TelaMenu extends JInternalFrame {
         iniciarListeners();
     }
 
+    public class MyRunnable implements Runnable {
+
+        public void run() {
+
+            TelaLoading tela1 = TelaLoading.getTela();
+            Modal.getTela(tela1).setVisible(true);
+            tela1.moveToFront();
+            if (!Sincronizacao.sincCentroRecurso()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar o centro de recurso", false);
+            } else if (!Sincronizacao.sincFichaTecnica()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar a ficha técnica", false);
+            } else if (!Sincronizacao.sincTurno()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar o turno", false);
+            } else if (!Sincronizacao.sintTurnoTrabalho()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar o turno de trabalho", false);
+            } else if (!Sincronizacao.sincOperadores()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar os operadores", false);
+            } else if (!Sincronizacao.sincMotivoParada()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar os motivo de parada", false);
+            } else if (!Sincronizacao.sincOrdemProducao()) {
+                Notificacao.infoBox("Ocorreu um erro ao sincronizar a ordem de produção", false);
+            } else if (true) {
+                Notificacao.infoBox("Sincronização Efetuada com Sucesso", true);
+                TelaLoading.getTela().dispose();
+                Modal.getTela(tela1).dispose();
+            }
+        }
+    }
+
     private void iniciarListeners() {
+
         btnMaquina.addActionListener((ActionEvent e) -> {
             TelaMaquina.getTela();
         });
@@ -178,23 +209,7 @@ public class TelaMenu extends JInternalFrame {
             /*   TecladoVirtual.getTela();*/
         });
         btnSincronizacao.addActionListener((ActionEvent e) -> {
-            /*  if (Consulta.CONSULTASTRING("OP000MAQ", "CODMAQ", "1 = 1").equals("VAZIO")) {
-                Notificacao.infoBox("Vincule o Software com a Máquina", true);
-                return;
-            }*/
-            if (!Sincronizacao.sincCentroRecurso()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar o centro de recurso", false);
-            } else if (!Sincronizacao.sincFichaTecnica()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar a ficha técnica", false);
-            } else if (!Sincronizacao.sincTurno()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar o turno", false);
-            } else if (!Sincronizacao.sincOperadores()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar os operadores", false);
-            } else if (!Sincronizacao.sincMotivoParada()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar os motivo de parada", false);
-            } else if (true) {
-                Notificacao.infoBox("Sincronização Efetuada com Sucesso", true);
-            }
+            new Thread(new MyRunnable()).start();
         });
 
         btnRede.addActionListener((ActionEvent e) -> {
@@ -273,5 +288,16 @@ public class TelaMenu extends JInternalFrame {
         memoryBar.setPreferredWidth(memoryBar.getPreferredSize().width + 20);
         statusBar.add(memoryBar, ToolbarLayout.END);
         painelRodape.add(statusBar);
+
+    }
+
+    public class load implements Runnable {
+
+        public void run() {
+            while (true) {
+                TelaLoading.getTela();
+            }
+
+        }
     }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import util.BancoDados;
+import util.ConexaoMysql;
 
 public class MeuComboBox extends JComboBox<Object> implements MeuComponente {
     private String sql;
@@ -47,7 +47,7 @@ public class MeuComboBox extends JComboBox<Object> implements MeuComponente {
             if (sql == null) {
                 return;
             }
-            ResultSet rs = BancoDados.executaQuery(sql);
+            ResultSet rs = ConexaoMysql.executaQuery(sql);
             while (rs.next()) {
                 pk.add(rs.getInt(1));
                 addItem(rs.getString(2));

@@ -73,13 +73,11 @@ public class Modal extends JInternalFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                System.out.println("tela pai" + telaPai.getTitle());
                 telaPai.moveToFront();
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("tela pai" + telaPai.getTitle());
                 telaPai.moveToFront();
             }
         });

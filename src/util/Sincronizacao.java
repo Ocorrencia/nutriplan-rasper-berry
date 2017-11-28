@@ -9,6 +9,8 @@ import pojoWebService.CentroRecursoWebService;
 import pojoWebService.FichaTecnicaWebService;
 import pojoWebService.MotivoParadaWebService;
 import pojoWebService.OperadorWebService;
+import pojoWebService.OrdemProducaoWebService;
+import pojoWebService.TurnoTrabalhoWebService;
 import pojoWebService.TurnoWebService;
 
 /**
@@ -27,6 +29,11 @@ public class Sincronizacao {
         return centroRecursoWebService.buscarCentroRecurso();
     }
 
+    public static boolean sintTurnoTrabalho() {
+        TurnoTrabalhoWebService centroRecursoWebService = new TurnoTrabalhoWebService();
+        return centroRecursoWebService.buscarTurnoTrabalho();
+    }
+
     public static boolean sincFichaTecnica() {
         FichaTecnicaWebService fichaTecnicaWebService = new FichaTecnicaWebService();
         return fichaTecnicaWebService.buscarFichaTenicaSapiens();
@@ -40,5 +47,10 @@ public class Sincronizacao {
     public static boolean sincMotivoParada() {
         MotivoParadaWebService motivoParadaWebService = new MotivoParadaWebService();
         return motivoParadaWebService.buscarMotivoParadaSapiens();
+    }
+
+    public static boolean sincOrdemProducao() {
+        OrdemProducaoWebService motivoParadaWebService = new OrdemProducaoWebService();
+        return motivoParadaWebService.buscarOrdemProducaoSapiens();
     }
 }

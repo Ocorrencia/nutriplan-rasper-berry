@@ -32,7 +32,7 @@ public class OperadorWebService {
     public boolean buscarOperadoresSapiens() {
         try {
 
-            codCre = Consulta.CONSULTASTRING("OP000maq", "CODCRE", "1 = 1");
+            codCre = Consulta.CONSULTASTRING("op000maq", "CODCRE", "1 = 1");
 
             JAXBElement<String> jaxbCodCre = new JAXBElement(new QName("", "codCre"), String.class, codCre);
 

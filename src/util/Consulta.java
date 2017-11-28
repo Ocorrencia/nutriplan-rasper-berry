@@ -9,6 +9,7 @@ import dao.EventosDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
@@ -24,11 +25,11 @@ public class Consulta {
     public static String CONSULTASTRING(String tabela, String coluna, String where) {
         String sql = "SELECT " + coluna + " FROM " + tabela + " WHERE " + where + "";
         try {
-            PreparedStatement ps = BancoDados.getConexao().prepareStatement(sql);
+            PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getString(1);
-            }else{
+            } else {
                 return "VAZIO";
             }
         } catch (SQLException e) {
@@ -43,7 +44,47 @@ public class Consulta {
         return "VAZIO";
     }
 
-    public static int CONSULTAINT() {
+    public static int CONSULTAINT(String tabela, String coluna, String where) {
+        String sql = "SELECT " + coluna + " FROM " + tabela + " WHERE " + where + "";
+        try {
+            PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
+            try {
+                enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");
+            } catch (MessagingException ex) {
+                Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return 0;
     }
+
+    public static ArrayList<Integer> CONSULTAARRAYINT(String tabela, String coluna, String where) {
+        String sql = "SELECT " + coluna + " FROM " + tabela + " WHERE " + where + "";
+        ArrayList<Integer> lista = new ArrayList<Integer>();
+        try {
+            PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                lista.add(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
+            try {
+                enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");
+            } catch (MessagingException ex) {
+                Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return lista;
+    }
+    
 }

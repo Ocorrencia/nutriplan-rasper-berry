@@ -37,7 +37,7 @@ public class MaquinaDao {
 
     public void INCLUIR() {
         try {
-            if (Consulta.CONSULTASTRING("OP000MAQ", "CODMAQ", "1 = 1").equals("VAZIO")) {
+            if (Consulta.CONSULTASTRING("nutri_op.op000maq", "CODMAQ", "1 = 1").equals("VAZIO")) {
                 PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(INCLUIRSQL);
                 ps.setInt(1, 1);
                 ps.setInt(2, maq.getCodCre());

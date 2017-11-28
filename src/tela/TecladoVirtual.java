@@ -23,6 +23,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
+import util.Consulta;
 import util.Enums;
 import util.Modal;
 import util.Notificacao;
@@ -223,14 +224,22 @@ public class TecladoVirtual extends JInternalFrame {
                             TecladoVirtual.getTela("Digite o Operador", Enums.TELAOP);
                             return;
                         } else {
+                            String nomeOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NOMOPE", "" + meuCampoValor.getText() + " = NUMCAD");
+                            String codigoOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NUMCAD", "" + meuCampoValor.getText() + " = NUMCAD");
+
+                            if (codigoOperador.equals("VAZIO")) {
+                                Notificacao.infoBox("Operador não encontrado!", false);
+                                TecladoVirtual.getTela("Digite o Operador", Enums.TELAOP);
+                                return;
+                            }
+
                             int options;
-                            options = JOptionPane.showConfirmDialog(null, "          2807 - MATÍLIA APARECIDA DA SILVA GIRARDI\".\n"
-                                    + "                       Deseja Continuar?                            ", "OPERADOR SELECIONADO", JOptionPane.YES_NO_OPTION);
+                            options = JOptionPane.showConfirmDialog(null, "" + codigoOperador + " - " + "" + nomeOperador + "", "OPERADOR SELECIONADO", JOptionPane.YES_NO_OPTION);
                             if (options == JOptionPane.YES_OPTION) {
                                 Enums.setSTATUSTELA(Enums.getSTATUSTELA() == Enums.PRODUCAO ? Enums.PRODUCAO : Enums.FINALIZADO);
                                 Modal.getTela(tela).dispose();
                                 TelaOP.getTela();
-                                TelaOP.getTela().labelOperador.setText("2807 - MATÍLIA APARECIDA DA SILVA GIRARDI");
+                                TelaOP.getTela().labelOperador.setText("" + codigoOperador + " - " + "" + nomeOperador + "");
                             } else {
                                 TecladoVirtual.getTela("Selecione o Operador", Enums.TELAOP);
                             }

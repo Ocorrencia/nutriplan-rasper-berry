@@ -5,14 +5,17 @@
  */
 package pojoWebService;
 
+import Dados.EnviarDadosOrdemProducao;
 import br.com.senior.services.OpOrdemProducaoOutConsultar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
-import pojo.Operador;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 import pojo.OrdemProducao;
+import util.Consulta;
 import util.EnviarEmail;
 import util.Notificacao;
 
@@ -23,12 +26,19 @@ import util.Notificacao;
 public class OrdemProducaoWebService {
 
     EnviarEmail enviarEmail = new EnviarEmail();
+    EnviarDadosOrdemProducao enviarDados = new EnviarDadosOrdemProducao();
+    String codCre;
 
-    public boolean buscarOrdemProducaoapiens() {
+    public boolean buscarOrdemProducaoSapiens() {
         try {
+            codCre = Consulta.CONSULTASTRING("nutri_op.op000maq", "CODCRE", "1 = 1");
+
+            JAXBElement<String> jaxbCodCre = new JAXBElement(new QName("", "codCre"), String.class, codCre);
+
             br.com.senior.services.G5SeniorServices service = new br.com.senior.services.G5SeniorServices();
             br.com.senior.services.SapiensSyncnutriplanOp port = service.getSapiensSyncnutriplanOpPort();
             br.com.senior.services.OpOrdemProducaoIn parameters = new br.com.senior.services.OpOrdemProducaoIn();
+            parameters.setCodCre(jaxbCodCre);
             br.com.senior.services.OpOrdemProducaoOut result = port.ordemProducao("integracao.op", "ERPintegracao.4651", 0, parameters);
 
             if (result.getErroExecucao().getValue() != null) {
@@ -57,6 +67,7 @@ public class OrdemProducaoWebService {
         OrdemProducao ordemProducao = new OrdemProducao();
         for (OpOrdemProducaoOutConsultar ordemProducaoobj : result.getConsultar()) {
             ordemProducao = new OrdemProducao();
+            System.out.println("Ordem produção" + (ordemProducaoobj.getDesDer().getValue()));
             ordemProducao.setCicPad(ordemProducaoobj.getCicPad().getValue());
             ordemProducao.setCodDer(ordemProducaoobj.getCodDer().getValue());
             ordemProducao.setCodEmp(ordemProducaoobj.getCodEmp().getValue());
@@ -79,6 +90,7 @@ public class OrdemProducaoWebService {
             itensOrdemProducao.add(ordemProducao);
         }
         ordemProducao.setItensOrdemProducao(itensOrdemProducao);
+        enviarDados.EnviarDadosOperador(itensOrdemProducao);
         return true;
         //TODO: enviar dados(itensOperadores) para o dao e executar a inclusao no banco
     }

@@ -33,6 +33,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import net.miginfocom.swing.MigLayout;
 import util.Enums;
+import util.Modal;
+import util.Notificacao;
+import util.Sincronizacao;
 
 /**
  *
@@ -208,7 +211,7 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
             Enums.setSTATUSTELA(Enums.MENU);
             TecladoVirtual.getTela("Digite o Código", Enums.TELAMENU);
             //   Enums.setSTATUSTELA(Enums.MENU);
-            
+
             /*TecladoVirtual tela = tecladoVirtual.getTela();
             tela.set("Digite o Código");
             tela.addInternalFrameListener(new InternalFrameAdapter() {
@@ -242,6 +245,14 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    public class MyRunnable implements Runnable {
+
+        @Override
+        public void run() {
+            
+        }
     }
 
     private void configLabelsStatus() {

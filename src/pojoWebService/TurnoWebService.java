@@ -60,7 +60,7 @@ public class TurnoWebService {
         for (OpListaTurnoOutConsultar listaTurno : result.getConsultar()) {
             turno = new Turno();
             System.out.println(listaTurno.getDesTrb().getValue());
-            turno.setDesTrb(listaTurno.getDesTrb().getValue());
+            turno.setDesTrb(listaTurno.getDesTrb().getValue().toUpperCase());
             turno.setTurTrb(listaTurno.getTurTrb().getValue());
             itensTurno.add(turno);
         }

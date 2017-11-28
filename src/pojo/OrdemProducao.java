@@ -29,6 +29,7 @@ public class OrdemProducao {
     Double qtdMax;
     Double qtdPrv;
     Double qtdRfg;
+    Double qtdRe1;
     List<OrdemProducao> itensOrdemProducao = new ArrayList<OrdemProducao>();
     int codEmp;
     int seqRot;
@@ -36,6 +37,14 @@ public class OrdemProducao {
     int codEtg;
     String desEtg;
     int numPri;
+
+    public Double getQtdRe1() {
+        return qtdRe1;
+    }
+
+    public void setQtdRe1(Double qtdRe1) {
+        this.qtdRe1 = qtdRe1;
+    }
 
     public int getNumPri() {
         return numPri;

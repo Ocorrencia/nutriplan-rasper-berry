@@ -41,7 +41,7 @@ public class EnviarDadosTurno {
             PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(INCLUIRSQL);
             for (Turno turno : turno) {
                 ps.setInt(1, turno.getTurTrb());
-                ps.setString(2, turno.getDesTrb());
+                ps.setString(2, turno.getDesTrb().toUpperCase());
                 ps.executeUpdate();
             }
             ConexaoMysql.FecharConexao();

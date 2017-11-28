@@ -7,7 +7,9 @@ package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -28,9 +30,9 @@ public class ConexaoMysql {
         try {
             String driverName = "com.mysql.jdbc.Driver";
             Class.forName(driverName);
-            String url = "jdbc:mysql://localhost:3306/nutri_op?zeroDateTimeBehavior=convertToNull";
+            String url = "jdbc:mysql://10.1.6.103/nutri_op?zeroDateTimeBehavior=convertToNull";
             String username = "root";        //nome de um usuário de seu BD      
-            String password = "root";      //sua senha de acesso
+            String password = "suporte";      //sua senha de acesso
             connection = DriverManager.getConnection(url, username, password);
             //Testa sua conexão//  
             if (connection != null) {
@@ -44,6 +46,16 @@ public class ConexaoMysql {
             return null;
         } catch (SQLException e) {
             System.out.println("Nao foi possivel conectar ao Banco de Dados.");
+            return null;
+        }
+    }
+
+    public static ResultSet executaQuery(String sql) {
+        try {
+            Statement stmt = ConexaoMysql.getConexaoMySQL().createStatement();
+            return stmt.executeQuery(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }

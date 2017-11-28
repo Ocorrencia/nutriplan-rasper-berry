@@ -15,7 +15,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import util.BancoDados;
+import util.ConexaoMysql;
 
 public class MeuComboPesquisa extends JPanel implements MeuComponente {
 
@@ -71,7 +71,7 @@ public class MeuComboPesquisa extends JPanel implements MeuComponente {
             if (sql == null) {
                 return;
             }
-            ResultSet rs = BancoDados.executaQuery(sql);
+            ResultSet rs = ConexaoMysql.executaQuery(sql);
             while (rs.next()) {
                 pk.add(rs.getInt(1));
                 combo.addItem(rs.getString(2));

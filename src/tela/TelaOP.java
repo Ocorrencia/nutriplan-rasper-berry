@@ -14,8 +14,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,9 +30,13 @@ import javax.swing.JProgressBar;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import net.miginfocom.swing.MigLayout;
+import pojo.TurnoTrabalho;
+import util.Consulta;
 import util.Enums;
 import util.Modal;
 import util.Notificacao;
+import pojo.TurnoTrabalho;
+import dao.TurnoDao;
 
 public class TelaOP extends TelaCadastro {
 
@@ -79,6 +88,10 @@ public class TelaOP extends TelaCadastro {
     public static TecladoVirtual tecladoVirtual;
     public static TelaRefugo telaRefugo;
     public static TelaApontamentoParada telaParada;
+    String codCre = "";
+
+    TurnoTrabalho turnoTrabalho = new TurnoTrabalho();
+    TurnoDao turnoDao = new TurnoDao(turnoTrabalho);
 
     public static TelaOP getTela() {
         if (tela == null) {
@@ -108,11 +121,72 @@ public class TelaOP extends TelaCadastro {
         configBotoes();
         this.setFrameIcon(iconeprincipal);
         btnQualidade.setEnabled(false);
-        campoNomeMaquina.setText("INJETORA 5531");
-        campoTurno.setText("1º TURNO");
-        campoData.setText("26/06/2017 08:48");
+        codCre = Consulta.CONSULTASTRING("nutri_op.op000maq", "CODCRE", "1 = 1");
+        campoNomeMaquina.setText(Consulta.CONSULTASTRING("nutri_op.op725cre", "DESCRE", "CODCRE = " + codCre + ""));
+        new Thread(new Relogio()).start();
         tela = this;
         controleTelas();
+
+        consultarTurno();
+        inicarVerificacaoTurno();
+
+    }
+
+    public void inicarVerificacaoTurno() {
+        final long time = 60000; // a cada X ms
+        Timer timer = new Timer();
+
+        TimerTask tarefa = new TimerTask() {
+            public void run() {
+                try {
+                    turnoTrabalho.setItensTurnoTrabalho(turnoDao.consultar());
+                    for (TurnoTrabalho turnoTrabalho1 : turnoTrabalho.getItensTurnoTrabalho()) {
+                        long timeInMillisAtual = System.currentTimeMillis();
+                        Calendar dataAtual = Calendar.getInstance();
+                        dataAtual.setTimeInMillis(timeInMillisAtual);
+                        SimpleDateFormat datFormatAtual = new SimpleDateFormat("HH");
+                        if (Integer.parseInt(datFormatAtual.format(dataAtual.getTime())) >= turnoTrabalho1.getHorIni() && Integer.parseInt(datFormatAtual.format(dataAtual.getTime())) < turnoTrabalho1.getHorFim()) {
+                            campoTurno.setText(turnoTrabalho1.getDesTrb());
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(tarefa, time, time);
+    }
+
+    public void consultarTurno() {
+        try {
+            turnoTrabalho.setItensTurnoTrabalho(turnoDao.consultar());
+            for (TurnoTrabalho turnoTrabalho1 : turnoTrabalho.getItensTurnoTrabalho()) {
+                long timeInMillisAtual = System.currentTimeMillis();
+                Calendar dataAtual = Calendar.getInstance();
+                dataAtual.setTimeInMillis(timeInMillisAtual);
+                SimpleDateFormat datFormatAtual = new SimpleDateFormat("HH");
+                if (Integer.parseInt(datFormatAtual.format(dataAtual.getTime())) >= turnoTrabalho1.getHorIni() && Integer.parseInt(datFormatAtual.format(dataAtual.getTime())) < turnoTrabalho1.getHorFim()) {
+                    campoTurno.setText(turnoTrabalho1.getDesTrb());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public class Relogio implements Runnable {
+
+        public void run() {
+            while (true) {
+                campoData.setText(getDateTime());
+            }
+        }
+    }
+
+    private String getDateTime() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 
     public void controleTelas() {
@@ -327,11 +401,19 @@ public class TelaOP extends TelaCadastro {
                     @Override
                     public void internalFrameClosed(InternalFrameEvent e) {
                         if (!tela1.meuCampoValor.getText().isEmpty()) {
+                            String nomeOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NOMOPE", "" + tela1.meuCampoValor.getText() + " = NUMCAD");
+                            String codigoOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NUMCAD", "" + tela1.meuCampoValor.getText() + " = NUMCAD");
+
+                            if (codigoOperador.equals("VAZIO")) {
+                                Notificacao.infoBox("Operador não encontrado!", false);
+                                TecladoVirtual.getTela("Digite o Operador", Enums.TELAOP);
+                                return;
+                            }
+
                             int options;
-                            options = JOptionPane.showConfirmDialog(null, "          2807 - MATÍLIA APARECIDA DA SILVA GIRARDI\".\n"
-                                    + "                       Deseja Continuar?                            ", "OPERADOR SELECIONADO", JOptionPane.YES_NO_OPTION);
+                            options = JOptionPane.showConfirmDialog(null, "" + codigoOperador + " - " + "" + nomeOperador + "", "OPERADOR SELECIONADO", JOptionPane.YES_NO_OPTION);
                             if (options == JOptionPane.YES_OPTION) {
-                                labelOperador.setText("2807 - MATÍLIA APARECIDA DA SILVA GIRARDI");
+                                TelaOP.getTela().labelOperador.setText("" + codigoOperador + " - " + "" + nomeOperador + "");
                                 Modal.getTela(tela1).dispose();
                             } else {
                                 Modal.getTela(tela1).dispose();

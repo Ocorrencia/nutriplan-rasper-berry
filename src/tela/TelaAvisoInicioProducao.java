@@ -86,6 +86,8 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
                 public void internalFrameClosed(InternalFrameEvent e) {
                     TelaSistema.jdp.remove(telaInicio);
                     telaInicio = null;
+                    
+                    
                 }
             });
             TelaSistema.jdp.add(telaInicio);

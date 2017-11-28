@@ -5,6 +5,7 @@
  */
 package pojoWebService;
 
+import Dados.EnviarDadosTurnoTrabalho;
 import br.com.senior.services.OpFichaTecnicaOutConsultar;
 import br.com.senior.services.OpTurnoDeTrabalhoXHorariosOut;
 import br.com.senior.services.OpTurnoDeTrabalhoXHorariosOutConsultar;
@@ -27,9 +28,10 @@ public class TurnoTrabalhoWebService {
 
     EnviarEmail enviarEmail = new EnviarEmail();
     String codCre;
+    EnviarDadosTurnoTrabalho enviarDados = new EnviarDadosTurnoTrabalho();
 
     public boolean buscarTurnoTrabalho() {
-        codCre = Consulta.CONSULTASTRING("OP000maq", "CODCRE", "1 = 1");
+        codCre = Consulta.CONSULTASTRING("nutri_op.op000maq", "CODCRE", "1 = 1");
         JAXBElement<String> jaxbCodCre = new JAXBElement(new QName("", "codCre"), String.class, codCre);
 
         br.com.senior.services.G5SeniorServices service = new br.com.senior.services.G5SeniorServices();
@@ -72,8 +74,8 @@ public class TurnoTrabalhoWebService {
             itensTurnoTrabalho.add(turnoTrabalho);
         }
         turnoTrabalho.setItensTurnoTrabalho(itensTurnoTrabalho);
+        enviarDados.EnviarDadosTurnoTrabalho(itensTurnoTrabalho);
         return true;
-        //TODO: enviar dados(itensFichaTecnica) para o dao e executar a inclusao no banco
     }
 
 }
