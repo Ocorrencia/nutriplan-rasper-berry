@@ -24,7 +24,6 @@ public class Enums {
     public static int AVISOTRAVAMENTO = 5;
     public static int CONFIGURACAO = 6;
     public static int REFUGO = 7;
-    public static int ADMIN = 8;
     public static int AVISOINICIOPRODUCAO = 9;
 
     public static String SENHA = "00";

@@ -37,7 +37,25 @@ public class OrdemProducao {
     int codEtg;
     String desEtg;
     int numPri;
+    double pesPad;
+    double capsMt;
 
+    public double getPesPad() {
+        return pesPad;
+    }
+
+    public void setPesPad(double pesPad) {
+        this.pesPad = pesPad;
+    }
+
+    public double getCapsMt() {
+        return capsMt;
+    }
+
+    public void setCapsMt(double capsMt) {
+        this.capsMt = capsMt;
+    }
+    
     public Double getQtdRe1() {
         return qtdRe1;
     }

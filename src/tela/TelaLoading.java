@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
 import util.Enums;
@@ -28,7 +29,7 @@ import util.Modal;
  *
  * @author diogo.melo
  */
-public class TelaLoading extends JInternalFrame {
+public class TelaLoading extends JInternalFrame implements InternalFrameListener {
 
     URL urlTopo = getClass().getResource("/imagem/iconePrincipal.png");
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
@@ -45,9 +46,11 @@ public class TelaLoading extends JInternalFrame {
     public static TelaLoading telaInicio;
 
     WebProgressBar load = new WebProgressBar();
+    static TelaLoading tela;
+    static Modal modal = new Modal(tela);
 
-    public TelaLoading() {
-        setTitle("AGUARDE...");
+    public TelaLoading(String mensagem) {
+        setTitle("LOADING..");
         JPanel painelInfo = new JPanel();
         setVisible(true);
         setResizable(false);
@@ -59,7 +62,7 @@ public class TelaLoading extends JInternalFrame {
 
         load.setIndeterminate(true);
         load.setStringPainted(true);
-        load.setString("Carregando dados da Sincronização..");
+        load.setString(mensagem);
 
         painelInfo.setLayout(new MigLayout());
         this.setFrameIcon(iconeprincipal);
@@ -80,9 +83,9 @@ public class TelaLoading extends JInternalFrame {
         }
     }
 
-    public static TelaLoading getTela() {
+    public static TelaLoading getTela(String mensagem) {
         if (telaInicio == null) {
-            telaInicio = new TelaLoading();
+            telaInicio = new TelaLoading(mensagem);
             telaInicio.addInternalFrameListener(new InternalFrameAdapter() {
                 @Override
                 public void internalFrameClosed(InternalFrameEvent e) {
@@ -96,12 +99,16 @@ public class TelaLoading extends JInternalFrame {
         TelaSistema.jdp.moveToFront(telaInicio);
         TelaSistema.centraliza(telaInicio);
         if (Modal.telaPai == null) {
-            Modal.getTela(telaInicio).moveToFront();
+            modal.getTela(tela).moveToFront();
         } else {
-            Modal.telaPai = telaInicio;
+            modal.telaPai = tela;
         }
-        Enums.setSTATUSTELA(Enums.MENU);
+        // Enums.setSTATUSTELA(Enums.MENU);
         return telaInicio;
+    }
+
+    public static void fechar() {
+        telaInicio.dispose();
     }
 
     public void listener() {
@@ -111,5 +118,34 @@ public class TelaLoading extends JInternalFrame {
             //   Cronometro.iniciaCronometro(10000);
             Enums.setSTATUSTELA(Enums.LIBERADOPRODUCAO);
         });
+    }
+
+    @Override
+    public void internalFrameOpened(InternalFrameEvent e) {
+    }
+
+    @Override
+    public void internalFrameClosing(InternalFrameEvent e) {
+    }
+
+    @Override
+    public void internalFrameClosed(InternalFrameEvent e) {
+        modal.dispose();
+    }
+
+    @Override
+    public void internalFrameIconified(InternalFrameEvent e) {
+    }
+
+    @Override
+    public void internalFrameDeiconified(InternalFrameEvent e) {
+    }
+
+    @Override
+    public void internalFrameActivated(InternalFrameEvent e) {
+    }
+
+    @Override
+    public void internalFrameDeactivated(InternalFrameEvent e) {
     }
 }

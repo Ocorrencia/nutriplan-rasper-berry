@@ -5,6 +5,8 @@
  */
 package tela;
 
+import componente.MeuComboBox;
+import dao.OrdemProducaoDao;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -20,8 +22,11 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
+import pojo.OrdemProducao;
+import util.Cronometro;
 import util.Enums;
 import util.Modal;
+import util.Notificacao;
 
 /**
  *
@@ -35,6 +40,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
     JLabel lbParada = new JLabel("INÍCIO DE PRODUÇÃO");
     JLabel lbTempo = new JLabel("00:00:00");
     JLabel lbTipo = new JLabel("");
+    JLabel lbOrdemProducao = new JLabel("Ordem Produção");
 
     URL urlTimeWarning = getClass().getResource("/imagens/icons8-potted-plant.png");
     ImageIcon icoWarning = new ImageIcon(urlTimeWarning);
@@ -42,6 +48,11 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
     JLabel iconeWarning = new JLabel(icoWarning);
     JButton btnIniciar = new JButton("INICIAR");
     public static TelaAvisoInicioProducao telaInicio;
+
+    MeuComboBox comboOp = new MeuComboBox("SELECT NUMORP ,CONCAT(CODDER, ' - ', CODPRO, ' - ', DESPRO, ' ', DESDER) as PRODUTO  FROM nutri_op.op900qdo order by numpri", true, "OPS");
+
+    OrdemProducao ordemProducao = new OrdemProducao();
+    OrdemProducaoDao ordemProducaoDao = new OrdemProducaoDao(ordemProducao);
 
     public TelaAvisoInicioProducao() {
         JPanel painelInfo = new JPanel();
@@ -53,18 +64,27 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         lbParada.setFont(new Font("Arial", Font.BOLD, 20));
         lbTempo.setFont(new Font("Arial", Font.BOLD, 16));
         lbTipo.setFont(new Font("Arial", Font.BOLD, 16));
+        btnIniciar.setFont(new Font("Arial", Font.BOLD, 16));
 
         painelInfo.setLayout(new MigLayout());
         this.setFrameIcon(iconeprincipal);
         painelInfo.add(iconeWarning, "align center,wrap");
         painelInfo.add(lbParada, "align center,wrap");
         painelInfo.add(lbTempo, "align center,wrap");
+        painelInfo.add(new JLabel(" "), "align center,wrap");
+        painelInfo.add(lbOrdemProducao, "align center, wrap");
+        painelInfo.add(comboOp, "align center, wrap");
         painelInfo.add(lbTipo, "align center, wrap");
         painelInfo.add(btnIniciar, "align center");
         add(painelInfo);
         listener();
         travarTela();
         setTitle("INÍCIO DE PRODUÇÃO");
+
+        comboOp.setFont(new Font("Arial", Font.BOLD, 20));
+        comboOp.setPreferredSize(new Dimension(550, 60));
+        btnIniciar.setPreferredSize(new Dimension(550, 60));
+        comboOp.setSelectedIndex(-1);
         pack();
     }
 
@@ -86,8 +106,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
                 public void internalFrameClosed(InternalFrameEvent e) {
                     TelaSistema.jdp.remove(telaInicio);
                     telaInicio = null;
-                    
-                    
+
                 }
             });
             TelaSistema.jdp.add(telaInicio);
@@ -106,10 +125,36 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
 
     public void listener() {
         btnIniciar.addActionListener((ActionEvent e) -> {
+            if (comboOp.getSelectedIndex() == -1) {
+                Notificacao.infoBox("Selecione uma Ordem de Produção", false);
+                return;
+            }
+            
             dispose();
+            
             Modal.getTela(telaInicio).setVisible(false);
-            //   Cronometro.iniciaCronometro(10000);
+            
+            Cronometro.iniciaCronometro(3600000);
+            
             Enums.setSTATUSTELA(Enums.LIBERADOPRODUCAO);
+
+            ordemProducao.setNumOrp((Integer) comboOp.getValor());
+            ordemProducao = ordemProducaoDao.consultaOrdemProducao(ordemProducao.getNumOrp());
+
+            TelaOP.getTela().campoOp.setText(ordemProducao.getCodDer() + " - " + ordemProducao.getCodPro() + " - " + ordemProducao.getDesPro() + " " + ordemProducao.getDesDer());
+            TelaOP.tela.setOrdemProducao(ordemProducao);
         });
     }
+
+    /* private String getDateTime() {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    private String getDate() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }*/
 }

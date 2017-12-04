@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="qtdRe2" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="qtdRe3" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="qtdRfg" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
- *         &lt;element name="seqRoe" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="seqRot" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="tipOpr" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="turTrb" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *       &lt;/sequence>
@@ -77,7 +77,7 @@ import javax.xml.bind.annotation.XmlType;
     "qtdRe2",
     "qtdRe3",
     "qtdRfg",
-    "seqRoe",
+    "seqRot",
     "tipOpr",
     "turTrb"
 })
@@ -129,8 +129,8 @@ public class OpApontamentoParadaInApontar {
     protected JAXBElement<Double> qtdRe3;
     @XmlElementRef(name = "qtdRfg", type = JAXBElement.class, required = false)
     protected JAXBElement<Double> qtdRfg;
-    @XmlElementRef(name = "seqRoe", type = JAXBElement.class, required = false)
-    protected JAXBElement<Integer> seqRoe;
+    @XmlElementRef(name = "seqRot", type = JAXBElement.class, required = false)
+    protected JAXBElement<Integer> seqRot;
     @XmlElementRef(name = "tipOpr", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> tipOpr;
     @XmlElementRef(name = "turTrb", type = JAXBElement.class, required = false)
@@ -689,27 +689,27 @@ public class OpApontamentoParadaInApontar {
     }
 
     /**
-     * Obtém o valor da propriedade seqRoe.
+     * Obtém o valor da propriedade seqRot.
      * 
      * @return
      *     possible object is
      *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
      *     
      */
-    public JAXBElement<Integer> getSeqRoe() {
-        return seqRoe;
+    public JAXBElement<Integer> getSeqRot() {
+        return seqRot;
     }
 
     /**
-     * Define o valor da propriedade seqRoe.
+     * Define o valor da propriedade seqRot.
      * 
      * @param value
      *     allowed object is
      *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
      *     
      */
-    public void setSeqRoe(JAXBElement<Integer> value) {
-        this.seqRoe = value;
+    public void setSeqRot(JAXBElement<Integer> value) {
+        this.seqRot = value;
     }
 
     /**

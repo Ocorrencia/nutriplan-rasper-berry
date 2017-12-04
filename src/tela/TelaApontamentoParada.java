@@ -7,13 +7,12 @@ package tela;
 
 import com.alee.laf.list.WebList;
 import com.alee.laf.text.WebTextField;
+import dao.MotivoDao;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -52,24 +51,9 @@ public class TelaApontamentoParada extends JInternalFrame {
 
     final WebTextField campoApontamento = new WebTextField();
     JButton ok = new JButton("", icoOK);
+    MotivoDao motivoDao = new MotivoDao();
 
-    private static String[] createSampleData() {
-        return new String[]{"1000 - START",
-            "1001 - SETUP",
-            "1002 - TROCA DE PENEIRA",
-            "1003 - PERIFÉRICOS",
-            "1004 - REGULAGEM",
-            "1005 - MANUTENÇÃO MECÂNICA",
-            "1006 - ABSENTEÍSMO",
-            "1007 - MATÉRIA-PRIMA",
-            "1007 - MATÉRIA-PRIMA",
-            "1007 - MATÉRIA-PRIMA",
-            "1007 - MATÉRIA-PRIMA",
-            "1007 - MATÉRIA-PRIMA",
-            "1007 - MATÉRIA-PRIMA",
-            "1008 - MANUTENÇÃO DE MOLDE",};
-    }
-    WebList webList = new WebList(createSampleData());
+    WebList webList = new WebList(motivoDao.consultar());
     JScrollPane js = new JScrollPane(webList);
 
     public TelaApontamentoParada() {
@@ -82,7 +66,6 @@ public class TelaApontamentoParada extends JInternalFrame {
         config();
         listener();
         travarTela();
-        //   cronometro();
     }
 
     public static TelaApontamentoParada getTela() {
@@ -123,7 +106,6 @@ public class TelaApontamentoParada extends JInternalFrame {
         webList.setVisibleRowCount(4);
         webList.setSelectedIndex(0);
         webList.setEditable(false);
-
     }
 
     public void listener() {
@@ -165,19 +147,10 @@ public class TelaApontamentoParada extends JInternalFrame {
 
     }
 
-    public void cronometro() {
-        long time, time1;
-        time = System.currentTimeMillis();
-        do {
-            time1 = System.currentTimeMillis();
-            System.out.println("tempo" + time1);
-        } while ((time1 - time) < (10 * 1000));
-        System.out.println("Pronto!");
-    }
-
     public void config() {
         campoApontamento.setPreferredSize(new Dimension(500, 40));
-        webList.setPreferredSize(580, 200);
+        //webList.setPreferredSize(570, 190);
+        js.setPreferredSize(new Dimension(580, 190));
     }
 
     private void initiComponents() {
@@ -186,7 +159,7 @@ public class TelaApontamentoParada extends JInternalFrame {
 
         painelCampo.add(campoApontamento);
         painelCampo.add(ok);
-        painelLista.add(webList);
+        painelLista.add(js);
 
         setLayout(new MigLayout());
         add(painelCampo, "wrap");

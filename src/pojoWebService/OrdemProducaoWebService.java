@@ -72,13 +72,16 @@ public class OrdemProducaoWebService {
             ordemProducao.setCodDer(ordemProducaoobj.getCodDer().getValue());
             ordemProducao.setCodEmp(ordemProducaoobj.getCodEmp().getValue());
             ordemProducao.setCodEtg(ordemProducaoobj.getCodEtg().getValue());
+            ordemProducao.setSeqRot(ordemProducaoobj.getSeqRot().getValue());
             ordemProducao.setCodOri(ordemProducaoobj.getCodOri().getValue());
             ordemProducao.setCodPro(ordemProducaoobj.getCodPro().getValue());
             ordemProducao.setDesDer(ordemProducaoobj.getDesDer().getValue());
             ordemProducao.setDesEtg(ordemProducaoobj.getDesEtg().getValue());
             ordemProducao.setDesPro(ordemProducaoobj.getDesPro().getValue());
             ordemProducao.setDesPrxDer(ordemProducaoobj.getDesPrxDer().getValue());
-            ordemProducao.setDesPrxDer(ordemProducaoobj.getDesPrxPro().getValue());
+            System.out.println("getDesPrxDer" + (ordemProducaoobj.getDesPrxDer().getValue()));
+            ordemProducao.setDesPrxPro(ordemProducaoobj.getDesPrxPro().getValue());
+            System.out.println("getDesPrxPro" + (ordemProducaoobj.getDesPrxPro().getValue()));
             ordemProducao.setNumOrp(ordemProducaoobj.getNumOrp().getValue());
             ordemProducao.setNumPri(ordemProducaoobj.getNumPri().getValue());
             ordemProducao.setPrxDer(ordemProducaoobj.getPrxDer().getValue());
@@ -86,12 +89,12 @@ public class OrdemProducaoWebService {
             ordemProducao.setQtdMax(ordemProducaoobj.getQtdMax().getValue());
             ordemProducao.setQtdPrv(ordemProducaoobj.getQtdPrv().getValue());
             ordemProducao.setQtdRfg(ordemProducaoobj.getQtdRfg().getValue());
+            ordemProducao.setPesPad(ordemProducaoobj.getPesPad().getValue());
+            ordemProducao.setCapsMt(ordemProducaoobj.getCapSmt().getValue());
             ordemProducao.setStatusRegistro(ordemProducaoobj.getStatusRegistro().getValue());
             itensOrdemProducao.add(ordemProducao);
         }
-        ordemProducao.setItensOrdemProducao(itensOrdemProducao);
-        enviarDados.EnviarDadosOperador(itensOrdemProducao);
+        enviarDados.EnviarDadosOrdemProducao(itensOrdemProducao);
         return true;
-        //TODO: enviar dados(itensOperadores) para o dao e executar a inclusao no banco
     }
 }

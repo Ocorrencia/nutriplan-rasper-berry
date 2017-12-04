@@ -50,7 +50,7 @@ public class Sincronizacao {
     }
 
     public static boolean sincOrdemProducao() {
-        OrdemProducaoWebService motivoParadaWebService = new OrdemProducaoWebService();
-        return motivoParadaWebService.buscarOrdemProducaoSapiens();
+        OrdemProducaoWebService odemProducaoWebService = new OrdemProducaoWebService();
+        return odemProducaoWebService.buscarOrdemProducaoSapiens();
     }
 }

@@ -86,5 +86,5 @@ public class Consulta {
         }
         return lista;
     }
-    
+
 }

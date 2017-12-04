@@ -38,7 +38,7 @@ public class EnviarDadosOperador {
         try {
             PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(INCLUIRSQL);
             for (Operador operador : operador) {
-                ps.setInt(1, operador.getCodEmp() + 1);
+                ps.setInt(1, operador.getCodEmp());
                 ps.setInt(2, operador.getNumCad());
                 ps.setString(3, operador.getNomOpe());
                 ps.setInt(4, operador.getTurTrb());

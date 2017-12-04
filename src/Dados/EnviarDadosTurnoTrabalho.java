@@ -41,7 +41,7 @@ public class EnviarDadosTurnoTrabalho {
             PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(INCLUIRSQL);
             for (TurnoTrabalho turnoTrabalho : turnTrabalho) {
                 System.out.println("turno trabalho " + turnoTrabalho.getTipHtr());
-                ps.setInt(1, turnoTrabalho.getCodEmp() + 1);
+                ps.setInt(1, turnoTrabalho.getCodEmp());
                 ps.setInt(2, turnoTrabalho.getCodEtg());
                 ps.setString(3, turnoTrabalho.getCodCre());
                 ps.setInt(4, turnoTrabalho.getTurTrb());

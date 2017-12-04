@@ -38,7 +38,7 @@ public class EnviarDadosCentroRecurso {
         try {
             PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(INCLUIRSQL);
             for (CentroRecurso centroRecurso : centroRecursoObj) {
-                ps.setInt(1, centroRecurso.getCodEmp() + 1);
+                ps.setInt(1, centroRecurso.getCodEmp());
                 ps.setString(2, centroRecurso.getCodCre());
                 ps.setString(3, centroRecurso.getDescCre());
                 ps.setInt(4, centroRecurso.getCodEtg());

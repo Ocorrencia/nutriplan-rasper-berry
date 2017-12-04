@@ -7,13 +7,15 @@ package util;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import tela.TelaApontamentoParada;
+import tela.TelaOP;
+import static tela.TelaOP.tela;
 
 /**
  *
@@ -59,7 +61,31 @@ public class Servidor {
                             cliente = servidor.accept();
                             try (Scanner entrada = new Scanner(cliente.getInputStream())) {
                                 while (entrada.hasNextLine()) {
-                                    System.out.println(entrada.nextLine());
+                                    String dados = entrada.nextLine();
+                                    System.out.println(dados);
+                                    if (!dados.equals("")) {
+                                        switch (dados) {
+                                            case "1":
+                                                DadosRaspberry.QUANTIDADEPRODUZIDA = DadosRaspberry.QUANTIDADEPRODUZIDA + 1;
+                                                TelaOP.getTela().controleProducao();
+                                                break;
+                                            case "2":
+                                                Modal.getTela(tela).setVisible(true);
+                                                TelaApontamentoParada.getTela();
+                                                break;
+                                            case "3":
+                                                break;
+                                            case "4":
+                                                break;
+                                            case "5":
+                                                break;
+                                            case "6":
+                                                break;
+                                            case "7":
+                                                break;
+                                        }
+
+                                    }
                                 }
                             }
                             cliente.close();

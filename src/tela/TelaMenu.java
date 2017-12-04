@@ -100,7 +100,7 @@ public class TelaMenu extends JInternalFrame {
         TelaSistema.jdp.setSelectedFrame(tela);
         TelaSistema.jdp.moveToFront(tela);
         TelaSistema.centraliza(tela);
-        Enums.setSTATUSTELA(Enums.ADMIN);
+        Enums.setSTATUSTELA(Enums.MENU);
         return tela;
     }
 
@@ -166,7 +166,7 @@ public class TelaMenu extends JInternalFrame {
 
         public void run() {
 
-            TelaLoading tela1 = TelaLoading.getTela();
+            TelaLoading tela1 = TelaLoading.getTela("Carrengando dados via WEBSERVICE...");
             Modal.getTela(tela1).setVisible(true);
             tela1.moveToFront();
             if (!Sincronizacao.sincCentroRecurso()) {
@@ -185,7 +185,7 @@ public class TelaMenu extends JInternalFrame {
                 Notificacao.infoBox("Ocorreu um erro ao sincronizar a ordem de produção", false);
             } else if (true) {
                 Notificacao.infoBox("Sincronização Efetuada com Sucesso", true);
-                TelaLoading.getTela().dispose();
+                tela1.getTela("").dispose();
                 Modal.getTela(tela1).dispose();
             }
         }
@@ -295,7 +295,7 @@ public class TelaMenu extends JInternalFrame {
 
         public void run() {
             while (true) {
-                TelaLoading.getTela();
+                TelaLoading.getTela("");
             }
 
         }

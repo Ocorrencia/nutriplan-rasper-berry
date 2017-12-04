@@ -19,7 +19,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import pojoWebService.MovimentoOrdemProducaoWebService;
 import util.Enums;
+import util.Servidor;
 
 public class TelaSistema extends JFrame {
 
@@ -30,7 +32,7 @@ public class TelaSistema extends JFrame {
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
     public static TelaSistema telaSistema;
     Enums consta;
-    //Servidor servidor = new Servidor();
+    Servidor servidor = new Servidor();
 
     public TelaSistema() {
         getContentPane().add(jdp);
@@ -42,8 +44,8 @@ public class TelaSistema extends JFrame {
         setVisible(true);
         controleDeOperacao();
         setLocationRelativeTo(null);
-        // servidor.iniciarServidor();
-       // verificarTurno.inicarVerificacao();
+        servidor.iniciarServidor();
+        // verificarTurno.inicarVerificacao();
         travar();
     }
 
@@ -52,9 +54,11 @@ public class TelaSistema extends JFrame {
             UIManager.setLookAndFeel(new WebLookAndFeel());
             telaSistema = new TelaSistema();
             System.gc();
-            if (Enums.getSTATUSTELA() == Enums.PRODUCAO) {
+            Enums.STATUSTELA = Enums.getSTATUSTELA();
+
+            if (Enums.STATUSTELA == Enums.PRODUCAO || Enums.STATUSTELA == Enums.APONTAMENTODEPARADA) {
                 TelaOP.getTela();
-            } else if (Enums.getSTATUSTELA() == Enums.MENU || Enums.getSTATUSTELA() == Enums.ADMIN) {
+            } else if (Enums.getSTATUSTELA() == Enums.MENU) {
                 TelaMenu.getTela();
                 TelaMenu.tela.addInternalFrameListener(new InternalFrameAdapter() {
                     @Override

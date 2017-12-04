@@ -17,7 +17,7 @@ import util.ConexaoMysql;
  */
 public class EnviarDadosOrdemProducao {
 
-    private final String INCLUIRSQL = "INSERT INTO nutri_op_sinc.op900qdo VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private final String INCLUIRSQL = "INSERT INTO nutri_op_sinc.op900qdo VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final String ATUALIZARTABELAPADRAO = "INSERT IGNORE\n"
             + "   INTO nutri_op.op900qdo\n"
             + " SELECT *\n"
@@ -28,7 +28,7 @@ public class EnviarDadosOrdemProducao {
     private final String LIMPARTABELA = "DELETE FROM nutri_op_sinc.op900qdo";
     List<OrdemProducao> ordemProducao = new ArrayList<OrdemProducao>();
 
-    public void EnviarDadosOperador(List<OrdemProducao> ordemProducaoObj) {
+    public void EnviarDadosOrdemProducao(List<OrdemProducao> ordemProducaoObj) {
         this.ordemProducao = ordemProducaoObj;
         enviarDados();
     }
@@ -38,7 +38,7 @@ public class EnviarDadosOrdemProducao {
         try {
             PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(INCLUIRSQL);
             for (OrdemProducao op : ordemProducao) {
-                ps.setInt(1, op.getCodEmp() + 1);
+                ps.setInt(1, op.getCodEmp());
                 ps.setString(2, op.getCodOri());
                 ps.setInt(3, op.getNumOrp());
                 ps.setString(4, op.getCodPro());
@@ -55,8 +55,11 @@ public class EnviarDadosOrdemProducao {
                 ps.setString(15, op.getDesDer());
                 ps.setString(16, op.getPrxPro());
                 ps.setString(17, op.getPrxDer());
-                ps.setString(18, op.getPrxPro());
-                ps.setString(19, op.getPrxDer());
+                ps.setString(18, op.getDesPrxDer());
+                ps.setString(19, op.getDesPrxPro());
+                ps.setInt(20, op.getNumPri());
+                ps.setDouble(21, op.getCapsMt());
+                ps.setDouble(22, op.getPesPad());
                 ps.executeUpdate();
             }
             ConexaoMysql.FecharConexao();

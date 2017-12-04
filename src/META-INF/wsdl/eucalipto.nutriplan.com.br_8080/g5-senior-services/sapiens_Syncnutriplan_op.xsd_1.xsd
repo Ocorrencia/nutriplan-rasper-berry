@@ -128,6 +128,7 @@
 <xs:element name="datMov" type="xs:string" nillable="true" minOccurs="0"/>
 <xs:element name="horMov" type="xs:string" nillable="true" minOccurs="0"/>
 <xs:element name="indDiv" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="mensagemRetorno" type="xs:string" nillable="true" minOccurs="0"/>
 <xs:element name="numCad" type="xs:int" nillable="true" minOccurs="0"/>
 <xs:element name="numOrp" type="xs:int" nillable="true" minOccurs="0"/>
 <xs:element name="numSep" type="xs:string" nillable="true" minOccurs="0"/>
@@ -136,7 +137,8 @@
 <xs:element name="qtdRe2" type="xs:double" nillable="true" minOccurs="0"/>
 <xs:element name="qtdRe3" type="xs:double" nillable="true" minOccurs="0"/>
 <xs:element name="qtdRfg" type="xs:double" nillable="true" minOccurs="0"/>
-<xs:element name="seqRoe" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="seqRot" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="sequenciaMovimento" type="xs:int" nillable="true" minOccurs="0"/>
 <xs:element name="tipOpr" type="xs:int" nillable="true" minOccurs="0"/>
 <xs:element name="turTrb" type="xs:int" nillable="true" minOccurs="0"/>
 </xs:sequence>
@@ -144,8 +146,42 @@
 
 <xs:complexType name="opApontamentoProducaoOut">
 <xs:sequence>
+<xs:element name="apontar" type="tns:opApontamentoProducaoOutApontar" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 <xs:element name="erroExecucao" type="xs:string" nillable="true" minOccurs="0"/>
 <xs:element name="respostaApontar" type="tns:opApontamentoProducaoOutRespostaApontar" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="opApontamentoProducaoOutApontar">
+<xs:sequence>
+<xs:element name="codCcu" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="codCre" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="codDer" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="codDft" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="codDiv" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="codEsp" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="codEtg" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="codLot" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="codMtv" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="codOri" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="codPro" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="codRef" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="datMov" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="horMov" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="indDiv" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="mensagemRetorno" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="numCad" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="numOrp" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="numSep" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="qtdIql" type="xs:double" nillable="true" minOccurs="0"/>
+<xs:element name="qtdRe1" type="xs:double" nillable="true" minOccurs="0"/>
+<xs:element name="qtdRe2" type="xs:double" nillable="true" minOccurs="0"/>
+<xs:element name="qtdRe3" type="xs:double" nillable="true" minOccurs="0"/>
+<xs:element name="qtdRfg" type="xs:double" nillable="true" minOccurs="0"/>
+<xs:element name="seqRot" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="sequenciaMovimento" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="tipOpr" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="turTrb" type="xs:int" nillable="true" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -214,7 +250,7 @@
 <xs:element name="qtdRe2" type="xs:double" nillable="true" minOccurs="0"/>
 <xs:element name="qtdRe3" type="xs:double" nillable="true" minOccurs="0"/>
 <xs:element name="qtdRfg" type="xs:double" nillable="true" minOccurs="0"/>
-<xs:element name="seqRoe" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="seqRot" type="xs:int" nillable="true" minOccurs="0"/>
 <xs:element name="tipOpr" type="xs:int" nillable="true" minOccurs="0"/>
 <xs:element name="turTrb" type="xs:int" nillable="true" minOccurs="0"/>
 </xs:sequence>
@@ -300,6 +336,7 @@
 
 <xs:complexType name="opOrdemProducaoOutConsultar">
 <xs:sequence>
+<xs:element name="capSmt" type="xs:double" nillable="true" minOccurs="0"/>
 <xs:element name="cicPad" type="xs:double" nillable="true" minOccurs="0"/>
 <xs:element name="codDer" type="xs:string" nillable="true" minOccurs="0"/>
 <xs:element name="codEmp" type="xs:int" nillable="true" minOccurs="0"/>
@@ -313,6 +350,7 @@
 <xs:element name="desPrxPro" type="xs:string" nillable="true" minOccurs="0"/>
 <xs:element name="numOrp" type="xs:int" nillable="true" minOccurs="0"/>
 <xs:element name="numPri" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="pesPad" type="xs:double" nillable="true" minOccurs="0"/>
 <xs:element name="prxDer" type="xs:string" nillable="true" minOccurs="0"/>
 <xs:element name="prxPro" type="xs:string" nillable="true" minOccurs="0"/>
 <xs:element name="qtdMax" type="xs:double" nillable="true" minOccurs="0"/>

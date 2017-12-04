@@ -21,12 +21,30 @@ public class MovimentoOrdemProducao {
     int seqMov;
     int seqRot;
     String datMov;
-    int horMov;
+    String horMov;
+    String horMovFirst;
     int numCad;
     float qtdRe1;
     float qtdRfg;
     int expErp;
     String codDdft;
+    int turTrb;
+
+    public String getHorMovFirst() {
+        return horMovFirst;
+    }
+
+    public void setHorMovFirst(String horMovFirst) {
+        this.horMovFirst = horMovFirst;
+    }
+
+    public int getTurTrb() {
+        return turTrb;
+    }
+
+    public void setTurTrb(int turTrb) {
+        this.turTrb = turTrb;
+    }
 
     public int getCodEmp() {
         return codEmp;
@@ -108,11 +126,11 @@ public class MovimentoOrdemProducao {
         this.datMov = datMov;
     }
 
-    public int getHorMov() {
+    public String getHorMov() {
         return horMov;
     }
 
-    public void setHorMov(int horMov) {
+    public void setHorMov(String horMov) {
         this.horMov = horMov;
     }
 
@@ -155,6 +173,5 @@ public class MovimentoOrdemProducao {
     public void setCodDdft(String codDdft) {
         this.codDdft = codDdft;
     }
-    
-    
+
 }

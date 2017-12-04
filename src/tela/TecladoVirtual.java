@@ -234,12 +234,19 @@ public class TecladoVirtual extends JInternalFrame {
                             }
 
                             int options;
-                            options = JOptionPane.showConfirmDialog(null, "" + codigoOperador + " - " + "" + nomeOperador + "", "OPERADOR SELECIONADO", JOptionPane.YES_NO_OPTION);
+                            
+                            String operador = "" + codigoOperador + " - " + "" + nomeOperador + "";
+                            JLabel labelOperador = new JLabel(operador);
+                            labelOperador.setFont(new Font("Arial", Font.BOLD, 16));
+                            
+                            options = JOptionPane.showConfirmDialog(null, labelOperador, "OPERADOR SELECIONADO", JOptionPane.YES_NO_OPTION);
                             if (options == JOptionPane.YES_OPTION) {
                                 Enums.setSTATUSTELA(Enums.getSTATUSTELA() == Enums.PRODUCAO ? Enums.PRODUCAO : Enums.FINALIZADO);
                                 Modal.getTela(tela).dispose();
                                 TelaOP.getTela();
                                 TelaOP.getTela().labelOperador.setText("" + codigoOperador + " - " + "" + nomeOperador + "");
+                                TelaOP.getTela().operadorPOJO.setNumCad(Integer.parseInt(codigoOperador));
+                                TelaOP.getTela().operadorPOJO.setNomOpe(nomeOperador);
                             } else {
                                 TecladoVirtual.getTela("Selecione o Operador", Enums.TELAOP);
                             }

@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="capSmt" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="cicPad" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="codDer" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="codEmp" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
@@ -31,6 +32,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="desPrxPro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="numOrp" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="numPri" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="pesPad" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="prxDer" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="prxPro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="qtdMax" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
@@ -49,6 +51,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "opOrdemProducaoOutConsultar", propOrder = {
+    "capSmt",
     "cicPad",
     "codDer",
     "codEmp",
@@ -62,6 +65,7 @@ import javax.xml.bind.annotation.XmlType;
     "desPrxPro",
     "numOrp",
     "numPri",
+    "pesPad",
     "prxDer",
     "prxPro",
     "qtdMax",
@@ -73,6 +77,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class OpOrdemProducaoOutConsultar {
 
+    @XmlElementRef(name = "capSmt", type = JAXBElement.class, required = false)
+    protected JAXBElement<Double> capSmt;
     @XmlElementRef(name = "cicPad", type = JAXBElement.class, required = false)
     protected JAXBElement<Double> cicPad;
     @XmlElementRef(name = "codDer", type = JAXBElement.class, required = false)
@@ -99,6 +105,8 @@ public class OpOrdemProducaoOutConsultar {
     protected JAXBElement<Integer> numOrp;
     @XmlElementRef(name = "numPri", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> numPri;
+    @XmlElementRef(name = "pesPad", type = JAXBElement.class, required = false)
+    protected JAXBElement<Double> pesPad;
     @XmlElementRef(name = "prxDer", type = JAXBElement.class, required = false)
     protected JAXBElement<String> prxDer;
     @XmlElementRef(name = "prxPro", type = JAXBElement.class, required = false)
@@ -115,6 +123,30 @@ public class OpOrdemProducaoOutConsultar {
     protected JAXBElement<Integer> sfxEtr;
     @XmlElementRef(name = "statusRegistro", type = JAXBElement.class, required = false)
     protected JAXBElement<String> statusRegistro;
+
+    /**
+     * Obtém o valor da propriedade capSmt.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link Double }{@code >}
+     *     
+     */
+    public JAXBElement<Double> getCapSmt() {
+        return capSmt;
+    }
+
+    /**
+     * Define o valor da propriedade capSmt.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link Double }{@code >}
+     *     
+     */
+    public void setCapSmt(JAXBElement<Double> value) {
+        this.capSmt = value;
+    }
 
     /**
      * Obtém o valor da propriedade cicPad.
@@ -426,6 +458,30 @@ public class OpOrdemProducaoOutConsultar {
      */
     public void setNumPri(JAXBElement<Integer> value) {
         this.numPri = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade pesPad.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link Double }{@code >}
+     *     
+     */
+    public JAXBElement<Double> getPesPad() {
+        return pesPad;
+    }
+
+    /**
+     * Define o valor da propriedade pesPad.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link Double }{@code >}
+     *     
+     */
+    public void setPesPad(JAXBElement<Double> value) {
+        this.pesPad = value;
     }
 
     /**
