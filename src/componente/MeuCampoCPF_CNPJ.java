@@ -21,7 +21,6 @@ public class MeuCampoCPF_CNPJ extends MeuCampoFormatado implements CaretListener
                 mf.uninstall();
                 mf = new MaskFormatter("##.###.###/####-##");
                 mf.setPlaceholderCharacter('_');
-                mf.install(this);
             }catch(ParseException e){
                 e.printStackTrace();
             }
@@ -31,7 +30,6 @@ public class MeuCampoCPF_CNPJ extends MeuCampoFormatado implements CaretListener
                 mf.uninstall();
                 mf = new MaskFormatter("###.###.###-##");
                 mf.setPlaceholderCharacter('_');
-                mf.install(this);
             }catch(ParseException e){
                 e.printStackTrace();
             }

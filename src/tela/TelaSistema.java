@@ -1,6 +1,5 @@
 package tela;
 
-import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.progressbar.WebProgressBar;
 import java.awt.Color;
 import java.awt.Component;
@@ -19,7 +18,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import pojoWebService.MovimentoOrdemProducaoWebService;
 import util.Enums;
 import util.Servidor;
 
@@ -49,9 +47,8 @@ public class TelaSistema extends JFrame {
         travar();
     }
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         try {
-            UIManager.setLookAndFeel(new WebLookAndFeel());
             telaSistema = new TelaSistema();
             System.gc();
             Enums.STATUSTELA = Enums.getSTATUSTELA();
@@ -67,9 +64,9 @@ public class TelaSistema extends JFrame {
                     }
                 });
             } else if (Enums.getSTATUSTELA() == Enums.FINALIZADO) {
-                TecladoVirtual teclado = TecladoVirtual.getTela("Digite o Operador", Enums.TELAOP);
+                TecladoVirtual teclado = TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
             }
-        } catch (UnsupportedLookAndFeelException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

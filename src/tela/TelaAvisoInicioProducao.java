@@ -6,6 +6,7 @@
 package tela;
 
 import componente.MeuComboBox;
+import dao.MovimentoOrdemProducaoDao;
 import dao.OrdemProducaoDao;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -22,8 +23,11 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
+import pojo.MovimentoOrdemProducao;
 import pojo.OrdemProducao;
+import util.Consulta;
 import util.Cronometro;
+import util.DadosRaspberry;
 import util.Enums;
 import util.Modal;
 import util.Notificacao;
@@ -40,7 +44,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
     JLabel lbParada = new JLabel("INÍCIO DE PRODUÇÃO");
     JLabel lbTempo = new JLabel("00:00:00");
     JLabel lbTipo = new JLabel("");
-    JLabel lbOrdemProducao = new JLabel("Ordem Produção");
+    JLabel lbOrdemProducao = new JLabel("ORDEM DE PRODUÇÃO");
 
     URL urlTimeWarning = getClass().getResource("/imagens/icons8-potted-plant.png");
     ImageIcon icoWarning = new ImageIcon(urlTimeWarning);
@@ -54,6 +58,9 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
     OrdemProducao ordemProducao = new OrdemProducao();
     OrdemProducaoDao ordemProducaoDao = new OrdemProducaoDao(ordemProducao);
 
+    MovimentoOrdemProducao mvp = new MovimentoOrdemProducao();
+    MovimentoOrdemProducaoDao mvpDao = new MovimentoOrdemProducaoDao(mvp);
+
     public TelaAvisoInicioProducao() {
         JPanel painelInfo = new JPanel();
         setVisible(true);
@@ -61,10 +68,11 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         setTitle("AVISO");
         btnIniciar.setPreferredSize(new Dimension(80, 40));
 
-        lbParada.setFont(new Font("Arial", Font.BOLD, 20));
-        lbTempo.setFont(new Font("Arial", Font.BOLD, 16));
-        lbTipo.setFont(new Font("Arial", Font.BOLD, 16));
-        btnIniciar.setFont(new Font("Arial", Font.BOLD, 16));
+        lbParada.setFont(new Font("Arial", Font.BOLD, 42));
+        lbTempo.setFont(new Font("Arial", Font.BOLD, 30));
+        lbTipo.setFont(new Font("Arial", Font.BOLD, 40));
+        lbOrdemProducao.setFont(new Font("Arial", Font.BOLD, 30));
+        btnIniciar.setFont(new Font("Arial", Font.BOLD, 40));
 
         painelInfo.setLayout(new MigLayout());
         this.setFrameIcon(iconeprincipal);
@@ -81,11 +89,19 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         travarTela();
         setTitle("INÍCIO DE PRODUÇÃO");
 
-        comboOp.setFont(new Font("Arial", Font.BOLD, 20));
-        comboOp.setPreferredSize(new Dimension(550, 60));
-        btnIniciar.setPreferredSize(new Dimension(550, 60));
+        comboOp.setFont(new Font("Arial", Font.BOLD, 30));
+        comboOp.setPreferredSize(new Dimension(700, 60));
+        btnIniciar.setPreferredSize(new Dimension(700, 60));
         comboOp.setSelectedIndex(-1);
+        verificarOps();
         pack();
+    }
+
+    private void verificarOps() {
+        String numOrp = Consulta.CONSULTASTRING("nutri_op.op900qdo", "NUMORP", "STATUS = 1");
+        if (!"VAZIO".equals(numOrp)) {
+            comboOp.setSql("SELECT NUMORP ,CONCAT(CODDER, ' - ', CODPRO, ' - ', DESPRO, ' ', DESDER) as PRODUTO FROM nutri_op.op900qdo WHERE NUMORP = " + numOrp + " order by numpri");
+        }
     }
 
     public void travarTela() {
@@ -119,7 +135,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         } else {
             Modal.telaPai = telaInicio;
         }
-        Enums.setSTATUSTELA(Enums.AVISOINICIOPRODUCAO);
+        Enums.setSTATUSTELA(Enums.FINALIZADO);
         return telaInicio;
     }
 
@@ -129,19 +145,25 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
                 Notificacao.infoBox("Selecione uma Ordem de Produção", false);
                 return;
             }
-            
+
             dispose();
-            
             Modal.getTela(telaInicio).setVisible(false);
-            
             Cronometro.iniciaCronometro(3600000);
-            
+
             Enums.setSTATUSTELA(Enums.LIBERADOPRODUCAO);
 
             ordemProducao.setNumOrp((Integer) comboOp.getValor());
+
+            Consulta.UPDATE("nutri_op.op900qdo", "STATUS = 1", "NUMORP = " + ordemProducao.getNumOrp() + "");
+
             ordemProducao = ordemProducaoDao.consultaOrdemProducao(ordemProducao.getNumOrp());
 
+            mvp = mvpDao.consultaMovimentoOrdemPRoducao();
+            DadosRaspberry.QUANTIDADEPRODUZIDA = (int) mvp.getQtdRe1();
+            DadosRaspberry.SEQUENCIA = (int) mvp.getSeqMov();
+
             TelaOP.getTela().campoOp.setText(ordemProducao.getCodDer() + " - " + ordemProducao.getCodPro() + " - " + ordemProducao.getDesPro() + " " + ordemProducao.getDesDer());
+            TelaOP.tela.setMvp(mvp);
             TelaOP.tela.setOrdemProducao(ordemProducao);
         });
     }

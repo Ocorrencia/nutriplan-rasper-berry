@@ -72,8 +72,8 @@ public class TelaMenu extends JInternalFrame {
     JButton btnRede = new JButton("REDE", icoRede);
     JButton tecladoVitrual = new JButton("Teclado", icoSinc);
     JButton btnSair = new JButton("SAIR", icoSair);
-    JButton btnProximo = new JButton("Próximo", icoNext);
-    JButton btnAnterior = new JButton("Anterior", icoBack);
+    JButton btnProximo = new JButton("PRÓXIMO", icoNext);
+    JButton btnAnterior = new JButton("ANTERIOR", icoBack);
     JButton btnConfig = new JButton("Configuração", icoConfig);
     JButton btnMaquina = new JButton("MÁQUINA", iconeMaquina);
 
@@ -169,6 +169,7 @@ public class TelaMenu extends JInternalFrame {
             TelaLoading tela1 = TelaLoading.getTela("Carrengando dados via WEBSERVICE...");
             Modal.getTela(tela1).setVisible(true);
             tela1.moveToFront();
+            Modal.telaPai = tela1;
             if (!Sincronizacao.sincCentroRecurso()) {
                 Notificacao.infoBox("Ocorreu um erro ao sincronizar o centro de recurso", false);
             } else if (!Sincronizacao.sincFichaTecnica()) {
@@ -197,7 +198,7 @@ public class TelaMenu extends JInternalFrame {
             TelaMaquina.getTela();
         });
         btnOP.addActionListener((ActionEvent e) -> {
-            TecladoVirtual.getTela("Selecione o Operador", Enums.TELAOP);
+            TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
         });
         btnSair.addActionListener((ActionEvent e) -> {
             getTela().dispose();
@@ -274,12 +275,15 @@ public class TelaMenu extends JInternalFrame {
 
     private void configBotoes() {
         //painelBotoes.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        btnSair.setFont(new Font("Arial", Font.BOLD, 20));
-        btnSincronizacao.setFont(new Font("Arial", Font.BOLD, 20));
-        btnRede.setFont(new Font("Arial", Font.BOLD, 20));
-        tecladoVitrual.setFont(new Font("Arial", Font.BOLD, 20));
-        btnOP.setFont(new Font("Arial", Font.BOLD, 20));
-        btnMaquina.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSair.setFont(new Font("Arial", Font.BOLD, 22));
+        btnSincronizacao.setFont(new Font("Arial", Font.BOLD, 22));
+        btnRede.setFont(new Font("Arial", Font.BOLD, 22));
+        tecladoVitrual.setFont(new Font("Arial", Font.BOLD, 22));
+        btnOP.setFont(new Font("Arial", Font.BOLD, 22));
+        btnMaquina.setFont(new Font("Arial", Font.BOLD, 22));
+        btnProximo.setFont(new Font("Arial", Font.BOLD, 20));
+        btnAnterior.setFont(new Font("Arial", Font.BOLD, 20));
+        btnConfig.setFont(new Font("Arial", Font.BOLD, 18));
     }
 
     private void configRodape() {

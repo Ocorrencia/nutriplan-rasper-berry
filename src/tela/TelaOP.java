@@ -7,6 +7,7 @@ package tela;
 
 import com.alee.extended.panel.GroupPanel;
 import componente.MeuCampoFormatado;
+import componente.MeuCampoGenerico;
 import componente.MeuCampoTexto;
 import dao.MovimentoOrdemProducaoDao;
 import dao.OrdemProducaoDao;
@@ -18,7 +19,6 @@ import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,7 +27,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import net.miginfocom.swing.MigLayout;
@@ -37,8 +36,9 @@ import util.Modal;
 import util.Notificacao;
 import pojo.TurnoTrabalho;
 import dao.TurnoDao;
-import java.sql.Time;
-import java.util.Locale;
+import java.util.Calendar;
+import javax.swing.BorderFactory;
+import javax.swing.JTextField;
 import org.joda.time.DateTime;
 import pojo.MovimentoOrdemProducao;
 import pojo.Operador;
@@ -50,7 +50,7 @@ public class TelaOP extends TelaCadastro {
 
     public static TelaOP tela;
 
-    MeuCampoFormatado campoOp = new MeuCampoFormatado("OP:", false, 50);
+    MeuCampoFormatado campoOp = new MeuCampoFormatado("", false, 50);
 
     URL urlTopo = getClass().getResource("/imagem/iconePrincipal.png");
     URL urlTopoLogo = getClass().getResource("/imagem/logoSuperior.png");
@@ -62,16 +62,12 @@ public class TelaOP extends TelaCadastro {
     ImageIcon iconeInformacao = new ImageIcon(urlIconeInformacao);
     ImageIcon icoPlay = new ImageIcon(urlIconePlay);
 
-    final JProgressBar progressBarPerformance = new JProgressBar(0, 100);
-    final JProgressBar progressBarQualidade = new JProgressBar(0, 100);
-    final JProgressBar progressBarEficiencia = new JProgressBar(0, 100);
-
-    MeuCampoFormatado campoQuantidadeProgramada = new MeuCampoFormatado("Quantidade Programada:", false, 20);
-    MeuCampoFormatado campoQuantidadeRefugo = new MeuCampoFormatado("Quantidade Refugos:", false, 20);
-    MeuCampoFormatado campoQuantidadeRealizada = new MeuCampoFormatado("Quantidade Realizada:", false, 20);
-    MeuCampoFormatado campoCicloPadraoAtual = new MeuCampoFormatado("Ciclo Padrão/Atual:", false, 20);
-    MeuCampoFormatado campoPadraoUA = new MeuCampoFormatado("Padrão U.A:", false, 20);
-    MeuCampoFormatado campoPesoPadrao = new MeuCampoFormatado("Peso Padrão:", false, 20);
+    MeuCampoGenerico campoQuantidadeProgramada = new MeuCampoGenerico("Quantidade Programada:", false, 20);
+    MeuCampoGenerico campoQuantidadeRefugo = new MeuCampoGenerico("Quantidade Refugos:", false, 20);
+    MeuCampoGenerico campoQuantidadeRealizada = new MeuCampoGenerico("Quantidade Realizada:", false, 20);
+    MeuCampoGenerico campoCicloPadraoAtual = new MeuCampoGenerico("Ciclo Padrão/Atual:", false, 20);
+    MeuCampoGenerico campoPadraoUA = new MeuCampoGenerico("Padrão U.A:", false, 20);
+    MeuCampoGenerico campoPesoPadrao = new MeuCampoGenerico("Peso Padrão:", false, 20);
 
     MeuCampoFormatado operador = new MeuCampoFormatado("Operador:", false, 20);
 
@@ -90,8 +86,11 @@ public class TelaOP extends TelaCadastro {
 
     URL iconeOperador = getClass().getResource("/imagem/operador.gif");
     Icon iconeUser = new ImageIcon(iconeOperador);
+    URL iconePrioridade = getClass().getResource("/imagens/icons8-high-priority-16.png");
+    Icon iconPrioridade = new ImageIcon(iconePrioridade);
 
     JLabel labelOperador = new JLabel("OPERADOR:", iconeUser, JLabel.HORIZONTAL);
+    JLabel labelPrioridade = new JLabel("PRIORIDADE: 1º", iconPrioridade, JLabel.HORIZONTAL);
 
     public static TecladoVirtual tecladoVirtual;
     public static TelaRefugo telaRefugo;
@@ -109,8 +108,13 @@ public class TelaOP extends TelaCadastro {
 
     public static Operador operadorPOJO = new Operador();
 
+    boolean retorno = true;
     int codigoTurno = 0;
     String horaInicial = "";
+
+    DateTime dt3 = new DateTime();
+    DateTime dt4 = new DateTime();
+
     DateTime dt1 = new DateTime();
     DateTime dt2 = new DateTime();
     DateTime tempo = new DateTime();
@@ -140,8 +144,8 @@ public class TelaOP extends TelaCadastro {
 
     public TelaOP() {
         super("Iniciar Apontamento de Produção");
-        iniciarComponentes();
         configBotoes();
+        iniciarComponentes();
         this.setFrameIcon(iconeprincipal);
         btnQualidade.setEnabled(false);
         codCre = Consulta.CONSULTASTRING("nutri_op.op000maq", "CODCRE", "1 = 1");
@@ -154,6 +158,14 @@ public class TelaOP extends TelaCadastro {
         consultarTurno();
         enviarApontamentoProducao();
         iniciarVerificacaoTurno();
+    }
+
+    public MovimentoOrdemProducao getMvp() {
+        return mvp;
+    }
+
+    public void setMvp(MovimentoOrdemProducao mvp) {
+        this.mvp = mvp;
     }
 
     public OrdemProducao getOrdemProducao() {
@@ -174,11 +186,21 @@ public class TelaOP extends TelaCadastro {
                 try {
                     turnoTrabalho.setItensTurnoTrabalho(turnoDao.consultar());
                     for (TurnoTrabalho turnoTrabalho1 : turnoTrabalho.getItensTurnoTrabalho()) {
+
+                        SimpleDateFormat datFormatAtual = new SimpleDateFormat("HH");
                         long timeInMillisAtual = System.currentTimeMillis();
                         Calendar dataAtual = Calendar.getInstance();
                         dataAtual.setTimeInMillis(timeInMillisAtual);
-                        SimpleDateFormat datFormatAtual = new SimpleDateFormat("HH");
-                        if (Integer.parseInt(datFormatAtual.format(dataAtual.getTime())) >= turnoTrabalho1.getHorIni() && Integer.parseInt(datFormatAtual.format(dataAtual.getTime())) < turnoTrabalho1.getHorFim()) {
+
+                        dt3 = new DateTime()
+                                .withHourOfDay(Integer.parseInt(turnoTrabalho1.getHorIni().substring(0, 2)))
+                                .withMinuteOfHour(Integer.parseInt(turnoTrabalho1.getHorIni().substring(3, 5)));
+
+                        dt4 = new DateTime()
+                                .withHourOfDay(Integer.parseInt(turnoTrabalho1.getHorFim().substring(0, 2)))
+                                .withMinuteOfHour(Integer.parseInt(turnoTrabalho1.getHorFim().substring(3, 5)));
+
+                        if (dataAtual.getTimeInMillis() >= dt3.getMillis() && dataAtual.getTimeInMillis() < dt4.getMillis()) {
                             campoTurno.setText(turnoTrabalho1.getDesTrb());
                             codigoTurno = turnoTrabalho1.getTurTrb();
                         }
@@ -195,11 +217,21 @@ public class TelaOP extends TelaCadastro {
         try {
             turnoTrabalho.setItensTurnoTrabalho(turnoDao.consultar());
             for (TurnoTrabalho turnoTrabalho1 : turnoTrabalho.getItensTurnoTrabalho()) {
+
+                SimpleDateFormat datFormatAtual = new SimpleDateFormat("HH");
                 long timeInMillisAtual = System.currentTimeMillis();
                 Calendar dataAtual = Calendar.getInstance();
                 dataAtual.setTimeInMillis(timeInMillisAtual);
-                SimpleDateFormat datFormatAtual = new SimpleDateFormat("HH");
-                if (Integer.parseInt(datFormatAtual.format(dataAtual.getTime())) >= turnoTrabalho1.getHorIni() && Integer.parseInt(datFormatAtual.format(dataAtual.getTime())) < turnoTrabalho1.getHorFim()) {
+
+                dt3 = new DateTime()
+                        .withHourOfDay(Integer.parseInt(turnoTrabalho1.getHorIni().substring(0, 2)))
+                        .withMinuteOfHour(Integer.parseInt(turnoTrabalho1.getHorIni().substring(3, 5)));
+
+                dt4 = new DateTime()
+                        .withHourOfDay(Integer.parseInt(turnoTrabalho1.getHorFim().substring(0, 2)))
+                        .withMinuteOfHour(Integer.parseInt(turnoTrabalho1.getHorFim().substring(3, 5)));
+
+                if (dataAtual.getTimeInMillis() >= dt3.getMillis() && dataAtual.getTimeInMillis() < dt4.getMillis()) {
                     campoTurno.setText(turnoTrabalho1.getDesTrb());
                     codigoTurno = turnoTrabalho1.getTurTrb();
                 }
@@ -210,6 +242,12 @@ public class TelaOP extends TelaCadastro {
     }
 
     public String getDateTime() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public String getDate() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         return dateFormat.format(date);
@@ -229,7 +267,6 @@ public class TelaOP extends TelaCadastro {
 
     public void controleTelas() {
         if (Enums.STATUSTELA == Enums.PRODUCAO || Enums.STATUSTELA == Enums.APONTAMENTODEPARADA) {
-            dados();
             TelaApontamentoParada.getTela().moveToFront();
         } else if (Enums.getSTATUSTELA() == Enums.MENU) {
         } else if (Enums.STATUSTELA == Enums.FINALIZADO) {
@@ -243,12 +280,13 @@ public class TelaOP extends TelaCadastro {
         campoQuantidadeProgramada.setText(ordemProducao.getQtdPrv() + "UN");
         campoQuantidadeRefugo.setText(ordemProducao.getQtdRfg() + "UN");
         campoCicloPadraoAtual.setText(ordemProducao.getCicPad() + "S");
-        campoQuantidadeRealizada.setText(ordemProducao.getQtdRe1() + "UN");
+        campoQuantidadeProgramada.setText(((int) Math.round(ordemProducao.getQtdPrv())) + " UN");
         campoHoras.setFont(new Font("Arial", Font.BOLD, 15));
         campoProximoProduto.setFont(new Font("Arial", Font.BOLD, 15));
-        campoOp.setFont(new Font("Arial", Font.BOLD, 15));
-        campoPesoPadrao.setText(ordemProducao.getPesPad() + "");
-        campoPadraoUA.setText(ordemProducao.getQtdMax() + "");
+        campoOp.setFont(new Font("Arial", Font.BOLD, 30));
+        campoPesoPadrao.setText(ordemProducao.getPesPad() + " KG");
+        campoPadraoUA.setText(((int) Math.round(ordemProducao.getQtdMax())) + " UN");
+        campoQuantidadeRealizada.setText(DadosRaspberry.QUANTIDADEPRODUZIDA + " UN");
         calcularHorasRestantes();
     }
 
@@ -275,7 +313,8 @@ public class TelaOP extends TelaCadastro {
         return String.valueOf(n);
     }
 
-    public void dados() {
+
+    /*public void dados() {
 
         campoHoras.setText("HORAS RESTANTES: 03:16");
         campoProximoProduto.setText("PRÓXIMO PRODUTO: 68-734 - VASSOURA P/ GRAMA AZUL");
@@ -318,8 +357,7 @@ public class TelaOP extends TelaCadastro {
         iniciarPorcentagemEficiencia();
         iniciarPorcentagemQualidade();
         //FIM     
-    }
-
+    }*/
     public class Relogio implements Runnable {
 
         public void run() {
@@ -339,30 +377,27 @@ public class TelaOP extends TelaCadastro {
 
     private void adicionaCampos() {
         //  painelComponentes.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        painelComponentes.setLayout(new MigLayout());
-        migLayout(0, 0, 12, 6, 1, 50, 40, campoOp, "", "");
-        migLayout(0, 1, 12, 0, 1, 60, 40, campoQuantidadeProgramada, "", "");
-        migLayout(2, 1, 12, 0, 1, 60, 40, campoQuantidadeRealizada, "", "");
-        migLayout(4, 1, 12, 0, 1, 60, 40, campoPadraoUA, "", "");
-        migLayout(0, 2, 12, 0, 1, 60, 40, campoQuantidadeRefugo, "", "");
-        migLayout(2, 2, 12, 0, 1, 60, 40, campoCicloPadraoAtual, "", "");
-        migLayout(4, 2, 12, 0, 1, 60, 40, campoPesoPadrao, "", "");
-        migLayout(0, 5, 12, 0, 1, 40, 40, campoHoras, "", "");
-        migLayout(1, 5, 12, 4, 1, 40, 40, campoProximoProduto, "", "");
-        migLayout(0, 8, 0, 2, 1, 50, 40, progressBarPerformance, "Performance", "");
-        migLayout(2, 8, 0, 2, 1, 50, 40, progressBarQualidade, "Qualidade", "");
-        migLayout(4, 8, 0, 2, 1, 50, 40, progressBarEficiencia, "Eficiência", "");
-        migLayout(0, 9, 0, 4, 0, 40, 40, labelOperador, "", "");
+        painelComponentes.setLayout(new MigLayout(""));
+        migLayout(0, 0, 12, 6, 1, 55, 25, campoOp, "Raised", "");
+        migLayout(0, 1, 12, 0, 1, 80, 40, campoQuantidadeProgramada, "Raised", "");
+        migLayout(2, 1, 12, 0, 1, 80, 40, campoQuantidadeRealizada, "Raised", "");
+        migLayout(4, 1, 12, 0, 1, 80, 40, campoPadraoUA, "Raised", "");
+        migLayout(0, 2, 12, 0, 1, 80, 40, campoQuantidadeRefugo, "Raised", "");
+        migLayout(2, 2, 12, 0, 1, 80, 40, campoCicloPadraoAtual, "Raised", "");
+        migLayout(4, 2, 12, 0, 1, 80, 40, campoPesoPadrao, "Raised", "");
+        migLayout(0, 5, 12, 0, 1, 40, 40, campoHoras, "Raised", "");
+        migLayout(1, 5, 12, 4, 1, 40, 40, campoProximoProduto, "Raised", "");
+        migLayout(0, 9, 0, 4, 0, 40, 40, labelOperador, "Operador", "");
+        migLayout(0, 9, 0, 4, 0, 40, 40, labelPrioridade, "Prioridade", "");
 
         campoOp.setPreferredSize(new Dimension(550, 30));
 
-        campoQuantidadeProgramada.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width - 200, 28));
+        /* campoQuantidadeProgramada.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width - 200, 28));
         campoQuantidadeRealizada.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width - 200, 28));
         campoPadraoUA.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width - 200, 28));
         campoQuantidadeRefugo.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width - 200, 28));
         campoCicloPadraoAtual.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width - 200, 28));
-        campoPesoPadrao.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width - 200, 28));
-
+        campoPesoPadrao.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width - 200, 28));*/
         campoHoras.setPreferredSize(new Dimension(220, 20));
         campoProximoProduto.setPreferredSize(new Dimension(500, 20));
 
@@ -380,9 +415,14 @@ public class TelaOP extends TelaCadastro {
         adicionarBotoes(painelBotoes, btnParadaMaquina);
         adicionarBotoes(painelBotoes, btnMotivosRefugo);
         adicionarBotoes(painelBotoes, btnFichaTecnica);
-        //adicionarBotoes(painelBotoes, btnIniciarProcesso);
-        //adicionarBotoes(painelBotoes, btnStatus);
+    }
 
+    public void removerFundo(JTextField campo) {
+        campo.setBackground(new Color(0, 0, 0, 0));
+        campo.setBorder(null);
+        campo.setOpaque(false);
+        campo.setEditable(false);
+        campo.setFocusable(false);
     }
 
     private void configBotoes() {
@@ -392,14 +432,31 @@ public class TelaOP extends TelaCadastro {
         btnParadaMaquina.setFont(new Font("Arial", Font.BOLD, 12));
         btnMotivosRefugo.setFont(new Font("Arial", Font.BOLD, 12));
         btnFichaTecnica.setFont(new Font("Arial", Font.BOLD, 12));
+        
+        btnTrocaOperador.setFont(new Font("Arial", Font.BOLD, 17));
+        btnQualidade.setFont(new Font("Arial", Font.BOLD, 17));
+        btnParadaMaquina.setFont(new Font("Arial", Font.BOLD, 17));
+        btnMotivosRefugo.setFont(new Font("Arial", Font.BOLD, 17));
+        btnFichaTecnica.setFont(new Font("Arial", Font.BOLD, 17));
 
-        campoQuantidadeProgramada.setEditable(false);
-        campoQuantidadeRealizada.setEditable(false);
-        campoPadraoUA.setEditable(false);
-        campoQuantidadeRefugo.setEditable(false);
-        campoCicloPadraoAtual.setEditable(false);
-        campoPesoPadrao.setEditable(false);
-        campoHoras.setEditable(false);
+        campoOp.setFont(new Font("Arial", Font.BOLD, 45));
+        labelPrioridade.setFont(new Font("Arial", Font.BOLD, 20));
+        labelOperador.setFont(new Font("Arial", Font.BOLD, 20));
+        campoQuantidadeProgramada.setFont(new Font("Arial", Font.BOLD, 45));
+        campoQuantidadeRealizada.setFont(new Font("Arial", Font.BOLD, 45));
+        campoPadraoUA.setFont(new Font("Arial", Font.BOLD, 45));
+        campoQuantidadeRefugo.setFont(new Font("Arial", Font.BOLD, 45));
+        campoCicloPadraoAtual.setFont(new Font("Arial", Font.BOLD, 45));
+        campoPesoPadrao.setFont(new Font("Arial", Font.BOLD, 45));
+
+        
+        
+        removerFundo(campoQuantidadeProgramada);
+        removerFundo(campoQuantidadeRealizada);
+        removerFundo(campoPadraoUA);
+        removerFundo(campoQuantidadeRefugo);
+        removerFundo(campoCicloPadraoAtual);
+        removerFundo(campoPesoPadrao);
     }
 
     public void adicionarListener() {
@@ -413,7 +470,7 @@ public class TelaOP extends TelaCadastro {
                 Notificacao.infoBox("Existem Refugos não Justificados!", false);
 
             } else {
-                TecladoVirtual tela1 = TecladoVirtual.getTela("Digite o Operador", null);
+                TecladoVirtual tela1 = TecladoVirtual.getTela("DIGITE O OPERADOR", null);
                 tela1.addInternalFrameListener(new InternalFrameAdapter() {
                     @Override
                     public void internalFrameClosed(InternalFrameEvent e) {
@@ -423,7 +480,7 @@ public class TelaOP extends TelaCadastro {
 
                             if (codigoOperador.equals("VAZIO")) {
                                 Notificacao.infoBox("Operador não encontrado!", false);
-                                TecladoVirtual.getTela("Digite o Operador", Enums.TELAOP);
+                                TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
                                 return;
                             }
 
@@ -475,6 +532,7 @@ public class TelaOP extends TelaCadastro {
             Modal.getTela(tela).setVisible(true);
             TelaApontamentoParada.getTela();
         });
+
     }
 
     public void controleProducao() {
@@ -484,122 +542,38 @@ public class TelaOP extends TelaCadastro {
         mvp.setCodEtg(ordemProducao.getCodEtg() + "");
         mvp.setCodOri(ordemProducao.getCodOri());
         mvp.setCodPro(ordemProducao.getCodPro());
-        mvp.setDatMov(getDateTime());
+        mvp.setDatMov(getDate());
         mvp.setExpErp(0);
         mvp.setHorMov(getTime());
         mvp.setNumCad(operadorPOJO.getNumCad());
         mvp.setNumOrp(ordemProducao.getNumOrp());
         campoQuantidadeRealizada.setText(DadosRaspberry.QUANTIDADEPRODUZIDA + " UN");
+        DadosRaspberry.SEQUENCIA = DadosRaspberry.SEQUENCIA + 1;
         mvp.setQtdRe1(Float.parseFloat(campoQuantidadeRealizada.getText().replace("UN", "")));
         mvp.setQtdRfg(Float.parseFloat(campoQuantidadeRefugo.getText().replace("UN", "")));
         mvp.setSeqEtr(ordemProducao.getSeqEtr());
-        DadosRaspberry.SEQUENCIA = DadosRaspberry.SEQUENCIA + 1;
-        mvp.setSeqMov(DadosRaspberry.SEQUENCIA);
         mvp.setSeqRot(ordemProducao.getSeqRot());
         mvp.setTurTrb(codigoTurno);
-        mvpDao.setMp(mvp);
+        mvpDao.setMvp(mvp);
         mvpDao.INCLUIR();
         calcularHorasRestantes();
-        /* iniciarPorcentagemPerformance();
-        iniciarPorcentagemQualidade();
-        iniciarPorcentagemEficiencia();*/
     }
 
     public void enviarApontamentoProducao() {
-        final long time = 20000; // a cada X ms
+        final long time = 40000; // a cada X ms
         Timer timer = new Timer();
+
         TimerTask tarefa = new TimerTask() {
             public void run() {
                 try {
-                    mvWebService.enviarMovimentoOrdemProducaoSapiens();
+                    if (retorno) {
+                        retorno = mvWebService.enviarMovimentoOrdemProducaoSapiens();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         };
         timer.scheduleAtFixedRate(tarefa, time, time);
-    }
-
-    public int calculoPerformance() {
-
-        cicloAtual = 9000;
-        mvp.setHorMovFirst(Consulta.CONSULTASTRING("nutri_op.op900eoq", "HORMOV", "SEQMOV = 1").equals("") ? getTime() : Consulta.CONSULTASTRING("nutri_op.op900eoq", "HORMOV", "SEQMOV = 1"));
-
-        dt2 = new DateTime();
-
-        dt1 = new DateTime()
-                .withHourOfDay(Integer.parseInt(mvp.getHorMovFirst().substring(0, 2)))
-                .withMinuteOfHour(Integer.parseInt(mvp.getHorMovFirst().substring(3, 5)))
-                .withSecondOfMinute(Integer.parseInt(mvp.getHorMovFirst().substring(6, 7)));
-
-        tempoProduzindo = dt2.getMillis() - dt1.getMillis();
-        System.out.println("TEMPO PRODUZINDO.. " + new Time(tempoProduzindo).getSeconds());
-        System.out.println("QUANTIDADE PRODUZIDA.. " + DadosRaspberry.QUANTIDADEPRODUZIDA);
-        System.out.println("CICLO ATUAL.. " + cicloAtual);
-        System.out.println("CICLO PADRÃO.. " + Math.ceil(ordemProducao.getCicPad()));
-
-        campoCicloPadraoAtual.setText((ordemProducao.getCicPad() + "seg").replace(".0", "") + "/" + new Time(cicloAtual).getSeconds() + "seg");
-
-        int performance = Integer.parseInt(Math.round(((Math.ceil(ordemProducao.getCicPad()) * 60) * DadosRaspberry.QUANTIDADEPRODUZIDA) / new Time(cicloAtual).getSeconds()) / 100 + "");
-        return performance;
-    }
-
-    public int calculoQualidade() {
-        int calculo = 100;/*((DadosRaspberry.QUANTIDADEPRODUZIDA - Integer.parseInt(campoQuantidadeRefugo.getText().replace("UN", "0"))) / DadosRaspberry.QUANTIDADEPRODUZIDA) * 100;*/
-        return calculo;
-    }
-
-    public void iniciarPorcentagemQualidade() {
-        int dif = calculoQualidade();
-
-        progressBarQualidade.setValue(dif);
-        progressBarQualidade.setString(dif + "%");
-        progressBarQualidade.setFont(new Font("Arial", Font.BOLD, 15));
-        progressBarQualidade.setIndeterminate(false);
-        progressBarQualidade.setStringPainted(true);
-
-        if (dif >= 0 && dif < 30) {
-            progressBarQualidade.setForeground(Color.red);
-        } else if (dif >= 30 && dif < 90) {
-            progressBarQualidade.setForeground(Color.ORANGE);
-        } else if (dif > 90 && dif <= 100) {
-            progressBarQualidade.setForeground(Color.green);
-        }
-    }
-
-    public void iniciarPorcentagemPerformance() {
-        int dif = calculoPerformance();
-
-        progressBarPerformance.setValue(dif);
-        progressBarPerformance.setString(dif + "%");
-        progressBarPerformance.setFont(new Font("Arial", Font.BOLD, 15));
-        progressBarPerformance.setIndeterminate(false);
-        progressBarPerformance.setStringPainted(true);
-
-        if (dif > 0 && dif < 30) {
-            progressBarPerformance.setForeground(Color.red);
-        } else if (dif > 30 && dif < 90) {
-            progressBarPerformance.setForeground(Color.ORANGE);
-        } else if (dif > 90 && dif < 100) {
-            progressBarPerformance.setForeground(Color.green);
-        }
-    }
-
-    public void iniciarPorcentagemEficiencia() {
-        int dif = 100;
-
-        progressBarEficiencia.setValue(dif);
-        progressBarEficiencia.setString(dif + "%");
-        progressBarEficiencia.setFont(new Font("Arial", Font.BOLD, 15));
-        progressBarEficiencia.setIndeterminate(false);
-        progressBarEficiencia.setStringPainted(true);
-
-        if (dif > 0 && dif < 30) {
-            progressBarPerformance.setForeground(Color.red);
-        } else if (dif > 30 && dif < 90) {
-            progressBarPerformance.setForeground(Color.ORANGE);
-        } else if (dif > 90 && dif < 100) {
-            progressBarPerformance.setForeground(Color.green);
-        }
     }
 }

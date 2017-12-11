@@ -44,6 +44,22 @@ public class Consulta {
         return "VAZIO";
     }
 
+    public static void UPDATE(String tabela, String valores, String where) {
+        String sql = "UPDATE  " + tabela + " SET " + valores + " WHERE " + where + "";
+        try {
+            PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
+            try {
+                enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");
+            } catch (MessagingException ex) {
+                Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     public static int CONSULTAINT(String tabela, String coluna, String where) {
         String sql = "SELECT " + coluna + " FROM " + tabela + " WHERE " + where + "";
         try {

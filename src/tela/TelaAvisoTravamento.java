@@ -5,10 +5,13 @@
  */
 package tela;
 
+import componente.MensagensSistema;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import javax.swing.ImageIcon;
@@ -36,38 +39,44 @@ public class TelaAvisoTravamento extends JInternalFrame {
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
 
     JLabel lbParada = new JLabel("PARADA DE MÁQUINA");
-    JLabel lbTempo = new JLabel("01:29:35");
-    JLabel lbTipo = new JLabel("1023 - FALTA DE INSUMOS");
+    JLabel lbTempo = new JLabel("00:00:00");
+    public JLabel lbTipo = new JLabel("");
 
     URL urlTimeWarning = getClass().getResource("/imagens/icons8-expired_1.png");
     ImageIcon icoWarning = new ImageIcon(urlTimeWarning);
 
     JLabel iconeWarning = new JLabel(icoWarning);
     JButton btnIniciar = new JButton("INICIAR");
+    JButton btnVoltar = new JButton("VOLTAR");
     public static TelaAvisoTravamento telaAviso;
 
     public TelaAvisoTravamento() {
+
         JPanel painelInfo = new JPanel();
         setVisible(true);
         setResizable(false);
         setTitle("AVISO");
-        btnIniciar.setPreferredSize(new Dimension(80, 40));
 
-        lbParada.setFont(new Font("Arial", Font.BOLD, 20));
-        lbTempo.setFont(new Font("Arial", Font.BOLD, 16));
-        lbTipo.setFont(new Font("Arial", Font.BOLD, 16));
-
+        btnIniciar.setPreferredSize(new Dimension(700, 60));
+        btnVoltar.setPreferredSize(new Dimension(700, 60));
+        lbParada.setFont(new Font("Arial", Font.BOLD, 42));
+        lbTempo.setFont(new Font("Arial", Font.BOLD, 30));
+        lbTipo.setFont(new Font("Arial", Font.BOLD, 30));
+        btnIniciar.setFont(new Font("Arial", Font.BOLD, 40));
+        btnVoltar.setFont(new Font("Arial", Font.BOLD, 40));
         painelInfo.setLayout(new MigLayout());
         this.setFrameIcon(iconeprincipal);
         painelInfo.add(iconeWarning, "align center,wrap");
         painelInfo.add(lbParada, "align center,wrap");
         painelInfo.add(lbTempo, "align center,wrap");
         painelInfo.add(lbTipo, "align center, wrap");
-        painelInfo.add(btnIniciar, "align center");
+        painelInfo.add(btnIniciar, "align center, wrap");
+        painelInfo.add(btnVoltar, "align center");
         add(painelInfo);
         listener();
         travarTela();
         setTitle("Aviso travamento operacional");
+        setPreferredSize(new Dimension(700, 400));
         pack();
     }
 
@@ -101,41 +110,52 @@ public class TelaAvisoTravamento extends JInternalFrame {
         } else {
             Modal.telaPai = telaAviso;
         }
-        Enums.setSTATUSTELA(Enums.AVISOTRAVAMENTO);
+        Enums.setSTATUSTELA(Enums.APONTAMENTODEPARADA);
         return telaAviso;
     }
 
     public void listener() {
+        btnVoltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                TelaApontamentoParada.getTela();
+            }
+        });
+
         btnIniciar.addActionListener((ActionEvent e) -> {
             dispose();
             Modal.getTela(telaAviso).dispose();
-            TecladoVirtual tela = TecladoVirtual.getTela("Digite o Operador", "");
+            TecladoVirtual tela = TecladoVirtual.getTela("DIGITE O OPERADOR", "");
             tela.addInternalFrameListener(new InternalFrameAdapter() {
                 @Override
                 public void internalFrameClosed(InternalFrameEvent e) {
                     if (!tela.meuCampoValor.getText().isEmpty()) {
+
                         String nomeOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NOMOPE", "" + tela.meuCampoValor.getText() + " = NUMCAD");
                         String codigoOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NUMCAD", "" + tela.meuCampoValor.getText() + " = NUMCAD");
 
                         if (codigoOperador.equals("VAZIO")) {
                             Notificacao.infoBox("Operador não encontrado!", false);
-                            TecladoVirtual.getTela("Digite o Operador", Enums.TELAOP);
+                            TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
                             return;
                         }
-
                         int options;
-                        options = JOptionPane.showConfirmDialog(null, "" + codigoOperador + " - " + "" + nomeOperador + "", "OPERADOR SELECIONADO", JOptionPane.YES_NO_OPTION);
-                        if (options == JOptionPane.YES_OPTION) {
+
+                        String operador = "" + codigoOperador + " - " + "" + nomeOperador + "";
+                        if (MensagensSistema.MensagemConfirmarOperacao1(operador).equals("SIM")) {
                             TelaOP.getTela().labelOperador.setText("" + codigoOperador + " - " + "" + nomeOperador + "");
+                            TelaOP.getTela().operadorPOJO.setNumCad(Integer.parseInt(codigoOperador));
                             TelaAvisoInicioProducao.getTela();
                         } else {
                             TelaAvisoTravamento.getTela();
                         }
                     } else {
-                        TelaAvisoTravamento.getTela();
+                        TelaApontamentoParada.getTela();
                     }
                 }
-            });
+            }
+            );
         });
     }
 }

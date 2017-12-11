@@ -31,7 +31,6 @@ public class EnviarEmail extends Authenticator {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress("apontamento@nutriplan.com.br"));
             msg.setRecipient(Message.RecipientType.TO, new InternetAddress("diogo.melo@nutriplan.com.br"));
-            msg.setRecipient(Message.RecipientType.TO, new InternetAddress("sistema@nutriplan.com.br"));
             msg.setSubject(assunto);
             msg.setContent(bodyEmail, "text/plain ; charset=UTF-8");
             msg.setSentDate(new Date());

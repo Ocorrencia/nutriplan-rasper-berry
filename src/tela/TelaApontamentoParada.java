@@ -7,7 +7,6 @@ package tela;
 
 import com.alee.laf.list.WebList;
 import com.alee.laf.text.WebTextField;
-import dao.MotivoDao;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -29,6 +28,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
 import util.Enums;
+import util.ListModelMotivo;
 import util.Modal;
 import util.Notificacao;
 
@@ -37,37 +37,41 @@ import util.Notificacao;
  * @author diogo.melo
  */
 public class TelaApontamentoParada extends JInternalFrame {
-
+    
     public static TelaApontamentoParada telaAP;
-
+    
     JPanel painelCampo = new JPanel();
     JPanel painelLista = new JPanel();
-
+    
     URL urlTopo = getClass().getResource("/imagem/iconePrincipal.png");
     URL imagemOK = getClass().getResource("/imagens/icons8-enter-key.png");
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
-
+    
+    URL imagemApagar = getClass().getResource("/imagens/icons8-backspace-filled.png");
+    private final ImageIcon icoApagar = new ImageIcon(imagemApagar);
+    
     private ImageIcon icoOK = new ImageIcon(imagemOK);
-
+    
     final WebTextField campoApontamento = new WebTextField();
     JButton ok = new JButton("", icoOK);
-    MotivoDao motivoDao = new MotivoDao();
-
-    WebList webList = new WebList(motivoDao.consultar());
+    JButton apagar = new JButton("", icoApagar);
+    ListModelMotivo listMotivo = new ListModelMotivo();
+    WebList webList = new WebList(listMotivo.getElementos());
     JScrollPane js = new JScrollPane(webList);
-
+    
     public TelaApontamentoParada() {
         super("Apontamento de Parada", false, false, false);
         setVisible(true);
         this.setFrameIcon(iconeprincipal);
-        this.setSize(600, 320);
+        this.setSize(740, 450);
         initiComponents();
         lista();
         config();
         listener();
         travarTela();
+        webList.changeFontSize(22);
     }
-
+    
     public static TelaApontamentoParada getTela() {
         if (telaAP == null) {
             telaAP = new TelaApontamentoParada();
@@ -91,7 +95,7 @@ public class TelaApontamentoParada extends JInternalFrame {
         Enums.setSTATUSTELA(Enums.APONTAMENTODEPARADA);
         return telaAP;
     }
-
+    
     public void travarTela() {
         BasicInternalFrameUI ui = (javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI();
         Component cp = ui.getNorthPane();
@@ -101,30 +105,29 @@ public class TelaApontamentoParada extends JInternalFrame {
             cp.removeMouseMotionListener(actions[i]);
         }
     }
-
+    
     public void lista() {
         webList.setVisibleRowCount(4);
         webList.setSelectedIndex(0);
         webList.setEditable(false);
     }
-
+    
     public void listener() {
         campoApontamento.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if (campoApontamento.getText().isEmpty()) {
-                    TecladoVirtual tela = TecladoVirtual.getTela("Digite o código do apontamento de parada", "");
-                    tela.addInternalFrameListener(new InternalFrameAdapter() {
-                        @Override
-                        public void internalFrameClosed(InternalFrameEvent e) {
-                            if (!tela.meuCampoValor.getText().isEmpty()) {
-                                Modal.telaPai = telaAP;
-                                campoApontamento.setText(tela.meuCampoValor.getText());
-                            } else {
-                                Modal.telaPai = telaAP;
-                            }
+                TecladoVirtual tela = TecladoVirtual.getTela("DIGITE O CÓDIGO DA PARADA", "");
+                tela.addInternalFrameListener(new InternalFrameAdapter() {
+                    @Override
+                    public void internalFrameClosed(InternalFrameEvent e) {
+                        if (!tela.meuCampoValor.getText().isEmpty()) {
+                            Modal.telaPai = telaAP;
+                            webList.setSelectedIndex(listMotivo.getIndex(tela.meuCampoValor.getText()));
+                            campoApontamento.setText(listMotivo.getElemento(tela.meuCampoValor.getText()));
+                        } else {
+                            Modal.telaPai = telaAP;
                         }
-                    });
-                }
+                    }
+                });
             }
         });
         webList.addListSelectionListener(new ListSelectionListener() {
@@ -138,32 +141,44 @@ public class TelaApontamentoParada extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 if (!"".equals(campoApontamento.getText())) {
                     TelaApontamentoParada.getTela().dispose();
-                    TelaAvisoTravamento.getTela();
+                    TelaAvisoTravamento telaAvisoTravamento = TelaAvisoTravamento.getTela();
+                    telaAvisoTravamento.lbTipo.setText(webList.getSelectedValue().toString());
+                    telaAvisoTravamento.repaint();
                 } else {
-                    Notificacao.infoBox("Digite ou Selecione um código de parada!", false);
+                    Notificacao.infoBox("DIGITE OU SELECIONE UM CÓDIGO DE PARADA", false);
                 }
             }
         });
-
+        apagar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (campoApontamento.getText().length() > 0) {
+                    campoApontamento.setText(campoApontamento.getText().substring(0, campoApontamento.getText().length() - 1));
+                }
+            }
+        });
     }
-
+    
     public void config() {
-        campoApontamento.setPreferredSize(new Dimension(500, 40));
-        //webList.setPreferredSize(570, 190);
-        js.setPreferredSize(new Dimension(580, 190));
+        campoApontamento.setPreferredSize(new Dimension(550, 80));
+        ok.setPreferredSize(new Dimension(80, 80));
+        apagar.setPreferredSize(new Dimension(80, 80));
+        js.setPreferredSize(new Dimension(703, 300));
+        campoApontamento.setFont(new Font("Arial", Font.BOLD, 35));
     }
-
+    
     private void initiComponents() {
-        campoApontamento.setInputPrompt("Digite ou Selecione..");
-        campoApontamento.setInputPromptFont(campoApontamento.getFont().deriveFont(Font.ITALIC));
-
+        
+        js.getVerticalScrollBar().setPreferredSize(new Dimension(50, 0));
+        js.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 50));
         painelCampo.add(campoApontamento);
-        painelCampo.add(ok);
         painelLista.add(js);
-
+        
         setLayout(new MigLayout());
-        add(painelCampo, "wrap");
-        add(painelLista);
+        add(painelCampo);
+        add(apagar);
+        add(ok, "wrap");
+        add(painelLista, "span");
     }
-
+    
 }

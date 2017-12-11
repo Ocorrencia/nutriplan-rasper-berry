@@ -81,7 +81,7 @@
 
         <!-- don't edit below this line -->
 
-        <property name="store.dir" value="C:\Users\diogo.melo\Documents\NetBeansProjects\NutriplanRB\store"/>
+        <property name="store.dir" value="\\10.1.6.103/jar/Nutriplan"/>
         <property name="store.jar" value="${store.dir}/${store.jar.name}.jar"/>
 
         <echo message="Packaging ${application.title} into a single JAR at ${store.jar}"/>

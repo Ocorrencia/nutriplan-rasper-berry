@@ -19,13 +19,29 @@ public class TurnoTrabalho {
     String statusRegistro;
     Integer codEtg;
     String desTrb;
-    Integer horFim;
-    Integer horIni;
+    String horFim;
+    String horIni;
     Integer seqHtr;
     String tipHtr;
     Integer turTrb;
 
     List<TurnoTrabalho> itensTurnoTrabalho = new ArrayList<TurnoTrabalho>();
+
+    public String getHorFim() {
+        return horFim;
+    }
+
+    public void setHorFim(String horFim) {
+        this.horFim = horFim;
+    }
+
+    public String getHorIni() {
+        return horIni;
+    }
+
+    public void setHorIni(String horIni) {
+        this.horIni = horIni;
+    }
 
     public String getStatusRegistro() {
         return statusRegistro;
@@ -65,22 +81,6 @@ public class TurnoTrabalho {
 
     public void setDesTrb(String desTrb) {
         this.desTrb = desTrb;
-    }
-
-    public Integer getHorFim() {
-        return horFim;
-    }
-
-    public void setHorFim(Integer horFim) {
-        this.horFim = horFim;
-    }
-
-    public Integer getHorIni() {
-        return horIni;
-    }
-
-    public void setHorIni(Integer horIni) {
-        this.horIni = horIni;
     }
 
     public Integer getSeqHtr() {

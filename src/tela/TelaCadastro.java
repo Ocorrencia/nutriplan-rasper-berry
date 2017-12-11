@@ -31,11 +31,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
 import net.miginfocom.swing.MigLayout;
 import util.Enums;
-import util.Modal;
-import util.Notificacao;
-import util.Sincronizacao;
 
 /**
  *
@@ -144,6 +142,7 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
 
     public void migLayout(int coluna, int linha, int tamanhoFonte, int tamanhoCampoLargura, int tamanhoCampoAltura, int alturaPainel, int larguraPainel, JComponent componente, String tituloPainel, String alinhamento) {
         JPanel painel = new JPanel();
+        painel.setBorder(null);
         if (componente instanceof MeuComponente) {
             campos.add((MeuComponente) componente);
             String nomeRotulo = "<html><body>" + ((MeuComponente) componente).getDica();
@@ -162,14 +161,14 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
             painel.add(rotulo);
             painel.add(componente);
             painelComponentes.add(painel, "cell " + coluna + " " + linha + " " + tamanhoCampoLargura + " " + tamanhoCampoAltura + "");
-            // painel.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            painel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
         } else {
             painel.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width - larguraPainel, alturaPainel));
             painel.add(componente);
             if (!"".equals(tituloPainel)) {
-                painel.setBorder(BorderFactory.createTitledBorder(tituloPainel));
+                painel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
             }
-            painelComponentes.add(painel, "cell " + coluna + " " + linha + " " + tamanhoCampoLargura + " " + tamanhoCampoAltura + "");
+            painelComponentes.add(painel, "cell " + coluna + " " + linha + " " + tamanhoCampoLargura + " " + tamanhoCampoAltura + ", span");
         }
     }
 
@@ -251,7 +250,7 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
 
         @Override
         public void run() {
-            
+
         }
     }
 

@@ -1,17 +1,19 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this temvplate file, choose Tools | Temvplates
+ * and open the temvplate in the editor.
  */
 package dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import pojo.MovimentoOrdemProducao;
 import util.ConexaoMysql;
+import util.DadosRaspberry;
 import util.EnviarEmail;
 import util.Notificacao;
 
@@ -21,50 +23,81 @@ import util.Notificacao;
  */
 public class MovimentoOrdemProducaoDao {
 
-    MovimentoOrdemProducao mp = new MovimentoOrdemProducao();
+    MovimentoOrdemProducao mvp = new MovimentoOrdemProducao();
     EnviarEmail enviarEmail = new EnviarEmail();
     private final String INCLUIRSQL = "INSERT INTO nutri_op.op900eoq (CODEMP,CODORI,NUMORP,CODPRO,CODDER,CODETG,SEQROT,SEQETR,SEQMOV,DATMOV,HORMOV,NUMCAD,QTDRE1,QTDRFG,EXPERP,CODDFT,TURTRB) VALUES(? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?,?)";
+    private final String CONSULTASQL = "SELECT MAX(SEQMOV) as SEQMOV, MAX(QTDRE1) AS QTDRE1, MAX(QTDRFG) AS QTDRFG  FROM nutri_op.op900eoq";
 
     public MovimentoOrdemProducaoDao(MovimentoOrdemProducao movimentoOrdemProducao) {
-        this.mp = movimentoOrdemProducao;
+        this.mvp = movimentoOrdemProducao;
     }
 
-    public MovimentoOrdemProducao getMp() {
-        return mp;
+    public MovimentoOrdemProducao getMvp() {
+        return mvp;
     }
 
-    public void setMp(MovimentoOrdemProducao mp) {
-        this.mp = mp;
+    public void setMvp(MovimentoOrdemProducao mvp) {
+        this.mvp = mvp;
     }
-    
+
+    public EnviarEmail getEnviarEmail() {
+        return enviarEmail;
+    }
+
+    public void setEnviarEmail(EnviarEmail enviarEmail) {
+        this.enviarEmail = enviarEmail;
+    }
+
+    public MovimentoOrdemProducao consultaMovimentoOrdemPRoducao() {
+        try {
+            PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(CONSULTASQL);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                mvp.setSeqMov(rs.getInt(1));
+                mvp.setQtdRe1(rs.getFloat(2));
+                mvp.setQtdRfg(rs.getFloat(3));
+            }
+            return mvp;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            Notificacao.infoBox("Ocorreu um Erro: Ordem Produção", true);
+            try {
+                enviarEmail.enviaEmail(e.getMessage(), "Erro ao consultar a ordem produção");
+            } catch (MessagingException ex) {
+                Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
 
     public void INCLUIR() {
         try {
             PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(INCLUIRSQL);
             ps.setInt(1, 1);
-            ps.setString(2, mp.getCodOri());
-            ps.setInt(3, mp.getNumOrp());
-            ps.setString(4, mp.getCodPro());
-            ps.setString(5, mp.getCodDer());
-            ps.setString(6, mp.getCodEtg());
-            ps.setInt(7, mp.getSeqRot());
-            ps.setInt(8, mp.getSeqEtr());
-            ps.setInt(9, mp.getSeqMov());
-            ps.setString(10, mp.getDatMov());
-            ps.setString(11, mp.getHorMov());
-            ps.setInt(12, mp.getNumCad());
-            ps.setDouble(13, mp.getQtdRe1());
-            ps.setDouble(14, mp.getQtdRfg());
-            ps.setInt(15, mp.getExpErp());
-            ps.setString(16, mp.getCodDdft());
-            ps.setInt(17, mp.getTurTrb());
+            ps.setString(2, mvp.getCodOri());
+            ps.setInt(3, mvp.getNumOrp());
+            ps.setString(4, mvp.getCodPro());
+            ps.setString(5, mvp.getCodDer());
+            ps.setString(6, mvp.getCodEtg());
+            ps.setInt(7, mvp.getSeqRot());
+            ps.setInt(8, mvp.getSeqEtr());
+            ps.setInt(9, DadosRaspberry.SEQUENCIA);
+            ps.setString(10, mvp.getDatMov());
+            ps.setString(11, mvp.getHorMov());
+            ps.setInt(12, mvp.getNumCad());
+            ps.setDouble(13, mvp.getQtdRe1());
+            ps.setDouble(14, mvp.getQtdRfg());
+            ps.setInt(15, mvp.getExpErp());
+            ps.setString(16, mvp.getCodDdft());
+            ps.setInt(17, 2);
             ps.executeUpdate();
             ConexaoMysql.FecharConexao();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro ao Incluir a Máquina", true);
+            e.printStackTrace();
+            Notificacao.infoBox("Ocorreu um Erro ao incluiro movimento", true);
             try {
-                enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir a Máquina");
+                enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o Movimento OP");
             } catch (MessagingException ex) {
                 Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
             }

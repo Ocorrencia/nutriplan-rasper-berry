@@ -8,7 +8,7 @@ import javax.swing.text.PlainDocument;
 public class MeuCampoDia extends MeuCampoGenerico {
 
     public MeuCampoDia(boolean obrigatorio, String dica, int tamanho) {
-        super(obrigatorio, dica, tamanho);
+          super(dica, obrigatorio, tamanho);
         setDocument(new PlainDocument() {
             @Override
             public void insertString(int offs, String str, AttributeSet a)

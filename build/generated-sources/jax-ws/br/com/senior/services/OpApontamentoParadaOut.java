@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="apontar" type="{http://services.senior.com.br}opApontamentoParadaOutApontar" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="erroExecucao" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="respostaApontar" type="{http://services.senior.com.br}opApontamentoParadaOutRespostaApontar" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
@@ -33,15 +34,47 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "opApontamentoParadaOut", propOrder = {
+    "apontar",
     "erroExecucao",
     "respostaApontar"
 })
 public class OpApontamentoParadaOut {
 
+    @XmlElement(nillable = true)
+    protected List<OpApontamentoParadaOutApontar> apontar;
     @XmlElementRef(name = "erroExecucao", type = JAXBElement.class, required = false)
     protected JAXBElement<String> erroExecucao;
     @XmlElement(nillable = true)
     protected List<OpApontamentoParadaOutRespostaApontar> respostaApontar;
+
+    /**
+     * Gets the value of the apontar property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the apontar property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getApontar().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link OpApontamentoParadaOutApontar }
+     * 
+     * 
+     */
+    public List<OpApontamentoParadaOutApontar> getApontar() {
+        if (apontar == null) {
+            apontar = new ArrayList<OpApontamentoParadaOutApontar>();
+        }
+        return this.apontar;
+    }
 
     /**
      * Obtém o valor da propriedade erroExecucao.

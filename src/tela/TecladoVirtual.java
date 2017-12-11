@@ -5,6 +5,7 @@
  */
 package tela;
 
+import componente.MensagensSistema;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -16,7 +17,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.InternalFrameAdapter;
@@ -94,6 +94,7 @@ public class TecladoVirtual extends JInternalFrame {
     public TecladoVirtual(String mensagem, String abrirTela) {
         super("Teclado Virtual", false, false, false, false);
         this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+        labelInfo.setFont(new Font("Arial", Font.BOLD, 30));
         this.labelInfo.setText(mensagem);
         this.abrirTela = abrirTela;
         montarTela();
@@ -114,19 +115,30 @@ public class TecladoVirtual extends JInternalFrame {
     }
 
     public void tamanhoBotao() {
-        um.setPreferredSize(new Dimension(60, 60));
-        dois.setPreferredSize(new Dimension(60, 40));
-        tres.setPreferredSize(new Dimension(60, 40));
-        quatro.setPreferredSize(new Dimension(60, 40));
-        cinco.setPreferredSize(new Dimension(60, 40));
-        seis.setPreferredSize(new Dimension(60, 40));
-        sete.setPreferredSize(new Dimension(60, 40));
-        oito.setPreferredSize(new Dimension(60, 40));
-        nove.setPreferredSize(new Dimension(60, 40));
-        voltar.setPreferredSize(new Dimension(60, 40));
-        ok.setPreferredSize(new Dimension(60, 40));
-        zero.setPreferredSize(new Dimension(60, 40));
-        apagar.setPreferredSize(new Dimension(55, 60));
+        um.setPreferredSize(new Dimension(100, 80));
+        dois.setPreferredSize(new Dimension(100, 80));
+        tres.setPreferredSize(new Dimension(100, 80));
+        quatro.setPreferredSize(new Dimension(100, 80));
+        cinco.setPreferredSize(new Dimension(100, 80));
+        seis.setPreferredSize(new Dimension(100, 80));
+        sete.setPreferredSize(new Dimension(100, 80));
+        oito.setPreferredSize(new Dimension(100, 80));
+        nove.setPreferredSize(new Dimension(100, 80));
+        voltar.setPreferredSize(new Dimension(100, 80));
+        ok.setPreferredSize(new Dimension(100, 80));
+        zero.setPreferredSize(new Dimension(100, 80));
+        apagar.setPreferredSize(new Dimension(70, 80));
+
+        um.setFont(new Font("Arial", Font.BOLD, 32));
+        dois.setFont(new Font("Arial", Font.BOLD, 32));
+        tres.setFont(new Font("Arial", Font.BOLD, 32));
+        quatro.setFont(new Font("Arial", Font.BOLD, 32));
+        cinco.setFont(new Font("Arial", Font.BOLD, 32));
+        seis.setFont(new Font("Arial", Font.BOLD, 32));
+        sete.setFont(new Font("Arial", Font.BOLD, 32));
+        oito.setFont(new Font("Arial", Font.BOLD, 32));
+        nove.setFont(new Font("Arial", Font.BOLD, 32));
+        zero.setFont(new Font("Arial", Font.BOLD, 32));
     }
 
     private void montarTela() {
@@ -134,11 +146,11 @@ public class TecladoVirtual extends JInternalFrame {
         setTitle("Teclado Virtual");
         this.setFrameIcon(iconeprincipal);
         tamanhoBotao();
-        this.setSize(new Dimension(400, 290));
+        this.setSize(new Dimension(630, 390));
         this.setLayout(migLayout);
 
-        meuCampoValor.setPreferredSize(new Dimension(300, 60));
-        meuCampoValor.setFont(new Font("Arial", Font.BOLD, 30));
+        meuCampoValor.setPreferredSize(new Dimension(520, 80));
+        meuCampoValor.setFont(new Font("Arial", Font.BOLD, 45));
         add(painelSuperior, "span, grow");
         add(painelTela, "wrap");
         add(painelBotoesMig);
@@ -154,15 +166,15 @@ public class TecladoVirtual extends JInternalFrame {
         painelBotoesGrid.add(dois);
         painelBotoesGrid.add(tres, "wrap");
         painelBotoesGrid.add(quatro);
-        painelBotoesGrid.add(cinco);
-        painelBotoesGrid.add(seis, "wrap");
+        painelBotoesGrid.add(ok);
+        painelBotoesGrid.add(voltar, "wrap");
         painelBotoesGrid.add(sete);
         painelBotoesGrid.add(oito);
         painelBotoesGrid.add(nove, "wrap");
         painelBotoesGrid.add(zero);
-        painelBotoesGrid.add(ok);
+        painelBotoesGrid.add(cinco);
 
-        painelBotoesGrid.add(voltar);
+        painelBotoesGrid.add(seis);
         //  pack();
     }
 
@@ -221,7 +233,7 @@ public class TecladoVirtual extends JInternalFrame {
                     /* -------------------------------------- */
                     if (abrirTela.equals(Enums.TELAOP)) {
                         if ("".equals(meuCampoValor.getText())) {
-                            TecladoVirtual.getTela("Digite o Operador", Enums.TELAOP);
+                            TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
                             return;
                         } else {
                             String nomeOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NOMOPE", "" + meuCampoValor.getText() + " = NUMCAD");
@@ -229,18 +241,11 @@ public class TecladoVirtual extends JInternalFrame {
 
                             if (codigoOperador.equals("VAZIO")) {
                                 Notificacao.infoBox("Operador não encontrado!", false);
-                                TecladoVirtual.getTela("Digite o Operador", Enums.TELAOP);
+                                TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
                                 return;
                             }
-
-                            int options;
-                            
                             String operador = "" + codigoOperador + " - " + "" + nomeOperador + "";
-                            JLabel labelOperador = new JLabel(operador);
-                            labelOperador.setFont(new Font("Arial", Font.BOLD, 16));
-                            
-                            options = JOptionPane.showConfirmDialog(null, labelOperador, "OPERADOR SELECIONADO", JOptionPane.YES_NO_OPTION);
-                            if (options == JOptionPane.YES_OPTION) {
+                            if (MensagensSistema.MensagemConfirmarOperacao1(operador).equals("SIM")) {
                                 Enums.setSTATUSTELA(Enums.getSTATUSTELA() == Enums.PRODUCAO ? Enums.PRODUCAO : Enums.FINALIZADO);
                                 Modal.getTela(tela).dispose();
                                 TelaOP.getTela();
@@ -248,7 +253,7 @@ public class TecladoVirtual extends JInternalFrame {
                                 TelaOP.getTela().operadorPOJO.setNumCad(Integer.parseInt(codigoOperador));
                                 TelaOP.getTela().operadorPOJO.setNomOpe(nomeOperador);
                             } else {
-                                TecladoVirtual.getTela("Selecione o Operador", Enums.TELAOP);
+                                TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
                             }
                         }
 
@@ -257,7 +262,7 @@ public class TecladoVirtual extends JInternalFrame {
                     if (abrirTela.equals(Enums.TELAMENU)) {
                         if (!meuCampoValor.getText().equals(Enums.SENHA)) {
                             Notificacao.infoBox("Código Incorreto", false);
-                            TecladoVirtual.getTela("Digite o Código", Enums.TELAMENU);
+                            TecladoVirtual.getTela("DIGITE O CÓDIGO", Enums.TELAMENU);
                             Enums.setSTATUSTELA(Enums.MENU);
                         } else if (Enums.getSTATUSTELA() == Enums.MENU) {
                             TelaOP.getTela().dispose();
@@ -267,18 +272,23 @@ public class TecladoVirtual extends JInternalFrame {
                         }
                     }
                     /* -------------------------------------- */
-                    if (abrirTela == null ? Enums.TELAAP == null : abrirTela.equals(Enums.TELAAP)) {
-                        int resp = JOptionPane.showConfirmDialog(null, "ESSE 1023 - FALTA DE INSUMOS. \n"
+ /*  if (labelInfo.getText().equals("DIGITE O CÓDIGO DA PARADA")) {
+                        // System.out.println("LISTA " + TelaApontamentoParada.telaAP.webList.get);
+                        int resp = JOptionPane.showConfirmDialog(null, "ESSE 1023 - FALTA DE ASDASDASD. \n"
                                 + "               Deseja Continuar?", "APONTAMENTO DE PARADA", JOptionPane.YES_OPTION);
                         if (resp == 0) {
                             TelaApontamentoParada.getTela().dispose();
                             Modal.getTela(telaOP).dispose();
                             TelaAvisoTravamento.getTela();
                         }
-                    }
-                    /* -------------------------------------- */
+                    }*/
+ /* -------------------------------------- */
                 } else {
-                    TecladoVirtual.getTela("Selecione o Operador", Enums.TELAOP);
+                    if (Enums.STATUSTELA == Enums.FINALIZADO) {
+                        TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
+                    } else {
+                        dispose();
+                    }
                 }
 
             }

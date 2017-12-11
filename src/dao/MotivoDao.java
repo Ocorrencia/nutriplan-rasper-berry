@@ -24,22 +24,25 @@ import util.Notificacao;
  */
 public class MotivoDao {
 
-    private final String CONSULTARSQL = "SELECT concat(codmtv, ' - ', desmtv) as motivo from nutri_op.op018mtv";
+    private final String CONSULTARSQL = "SELECT CODMTV, DESMTV from nutri_op.op018mtv";
 
     Motivo motivo = new Motivo();
     EnviarEmail enviarEmail = new EnviarEmail();
-    List<String> motivos = new ArrayList<String>();
+    List<Motivo> motivos = new ArrayList<Motivo>();
 
     public MotivoDao() {
     }
 
-    public List<String> consultar() {
+    public List<Motivo> consultar() {
         try {
             PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(CONSULTARSQL);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                motivos.add(rs.getString(1));
+                motivo = new Motivo();
+                motivo.setCodMtv(rs.getString(1));
+                motivo.setDesMtv(rs.getString(2));
+                motivos.add(motivo);
             }
         } catch (SQLException e) {
             e.printStackTrace();

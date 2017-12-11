@@ -46,8 +46,8 @@ public class EnviarDadosTurnoTrabalho {
                 ps.setString(3, turnoTrabalho.getCodCre());
                 ps.setInt(4, turnoTrabalho.getTurTrb());
                 ps.setInt(5, turnoTrabalho.getSeqHtr());
-                ps.setInt(6, turnoTrabalho.getHorIni());
-                ps.setInt(7, turnoTrabalho.getHorFim());
+                ps.setString(6, turnoTrabalho.getHorIni());
+                ps.setString(7, turnoTrabalho.getHorFim());
                 ps.setString(8, turnoTrabalho.getTipHtr());
                 ps.executeUpdate();
             }

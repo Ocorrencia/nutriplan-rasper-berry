@@ -21,8 +21,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="codCre" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="codEmp" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="codEtg" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
- *         &lt;element name="horFim" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
- *         &lt;element name="horIni" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="horFim" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="horIni" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="seqHtr" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="statusRegistro" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="tipHtr" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -56,9 +56,9 @@ public class OpTurnoDeTrabalhoXHorariosOutConsultar {
     @XmlElementRef(name = "codEtg", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> codEtg;
     @XmlElementRef(name = "horFim", type = JAXBElement.class, required = false)
-    protected JAXBElement<Integer> horFim;
+    protected JAXBElement<String> horFim;
     @XmlElementRef(name = "horIni", type = JAXBElement.class, required = false)
-    protected JAXBElement<Integer> horIni;
+    protected JAXBElement<String> horIni;
     @XmlElementRef(name = "seqHtr", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> seqHtr;
     @XmlElementRef(name = "statusRegistro", type = JAXBElement.class, required = false)
@@ -145,10 +145,10 @@ public class OpTurnoDeTrabalhoXHorariosOutConsultar {
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public JAXBElement<Integer> getHorFim() {
+    public JAXBElement<String> getHorFim() {
         return horFim;
     }
 
@@ -157,10 +157,10 @@ public class OpTurnoDeTrabalhoXHorariosOutConsultar {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public void setHorFim(JAXBElement<Integer> value) {
+    public void setHorFim(JAXBElement<String> value) {
         this.horFim = value;
     }
 
@@ -169,10 +169,10 @@ public class OpTurnoDeTrabalhoXHorariosOutConsultar {
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public JAXBElement<Integer> getHorIni() {
+    public JAXBElement<String> getHorIni() {
         return horIni;
     }
 
@@ -181,10 +181,10 @@ public class OpTurnoDeTrabalhoXHorariosOutConsultar {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public void setHorIni(JAXBElement<Integer> value) {
+    public void setHorIni(JAXBElement<String> value) {
         this.horIni = value;
     }
 

@@ -11,7 +11,7 @@ public class MeuCampoInteiro extends MeuCampoGenerico {
     int retorno;
 
     public MeuCampoInteiro(boolean obrigatorio, String dica, int tamanho, int maxChar) {
-        super(obrigatorio, dica, tamanho);
+        super(dica, obrigatorio, tamanho);
         iMaxLength = maxChar;
         setColumns(tamanho);
         setDocument(new PlainDocument() {

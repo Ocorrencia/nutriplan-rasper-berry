@@ -24,18 +24,14 @@ import util.Notificacao;
  */
 public class TurnoDao {
 
-    private final String CONSULTARSQL = "SELECT DISTINCT tur.TURTRB, tur.destrb,\n"
-            + "    REPLACE(CAST(LPAD(HORINI / 60, 2, '0') AS CHAR (50)),\n"
-            + "        '.',\n"
-            + "        '') AS HORINI,\n"
-            + "    REPLACE(CAST(LPAD(HORFIM / 60, 2, '0') AS CHAR (50)),\n"
-            + "        '.',\n"
-            + "        '') AS HORAFIM\n"
+    private final String CONSULTARSQL = "SELECT DISTINCT\n"
+            + "    tur.TURTRB, tur.destrb, trb.horini, trb.horfim\n"
             + "FROM\n"
-            + "    nutri_op.op803trb as trb INNER JOIN nutri_op.op000tur as tur ON (tur.turtrb = trb.turtrb);\n"
+            + "    nutri_op.op803trb AS trb\n"
+            + "        INNER JOIN\n"
+            + "    nutri_op.op000tur AS tur ON (tur.turtrb = trb.turtrb);\n"
             + "\n"
-            + "    \n"
-            + "    ";
+            + "";
 
     TurnoTrabalho turnoTrabalho = new TurnoTrabalho();
     EnviarEmail enviarEmail = new EnviarEmail();
@@ -53,8 +49,8 @@ public class TurnoDao {
                 turnoTrabalho = new TurnoTrabalho();
                 turnoTrabalho.setTurTrb(rs.getInt(1));
                 turnoTrabalho.setDesTrb(rs.getString(2));
-                turnoTrabalho.setHorIni(rs.getInt(3));
-                turnoTrabalho.setHorFim(rs.getInt(4));
+                turnoTrabalho.setHorIni(rs.getString(3));
+                turnoTrabalho.setHorFim(rs.getString(4));
                 itensTurnoTrabalho.add(turnoTrabalho);
             }
             turnoTrabalho.setItensTurnoTrabalho(itensTurnoTrabalho);

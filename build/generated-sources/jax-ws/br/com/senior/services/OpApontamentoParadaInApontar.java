@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="datMov" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="horMov" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="indDiv" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="mensagemRetorno" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="numCad" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="numOrp" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="numSep" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -42,6 +43,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="qtdRe3" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="qtdRfg" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *         &lt;element name="seqRot" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="sequenciaMovimento" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="tipOpr" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="turTrb" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *       &lt;/sequence>
@@ -69,6 +71,7 @@ import javax.xml.bind.annotation.XmlType;
     "datMov",
     "horMov",
     "indDiv",
+    "mensagemRetorno",
     "numCad",
     "numOrp",
     "numSep",
@@ -78,6 +81,7 @@ import javax.xml.bind.annotation.XmlType;
     "qtdRe3",
     "qtdRfg",
     "seqRot",
+    "sequenciaMovimento",
     "tipOpr",
     "turTrb"
 })
@@ -113,6 +117,8 @@ public class OpApontamentoParadaInApontar {
     protected JAXBElement<String> horMov;
     @XmlElementRef(name = "indDiv", type = JAXBElement.class, required = false)
     protected JAXBElement<String> indDiv;
+    @XmlElementRef(name = "mensagemRetorno", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> mensagemRetorno;
     @XmlElementRef(name = "numCad", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> numCad;
     @XmlElementRef(name = "numOrp", type = JAXBElement.class, required = false)
@@ -131,6 +137,8 @@ public class OpApontamentoParadaInApontar {
     protected JAXBElement<Double> qtdRfg;
     @XmlElementRef(name = "seqRot", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> seqRot;
+    @XmlElementRef(name = "sequenciaMovimento", type = JAXBElement.class, required = false)
+    protected JAXBElement<Integer> sequenciaMovimento;
     @XmlElementRef(name = "tipOpr", type = JAXBElement.class, required = false)
     protected JAXBElement<Integer> tipOpr;
     @XmlElementRef(name = "turTrb", type = JAXBElement.class, required = false)
@@ -497,6 +505,30 @@ public class OpApontamentoParadaInApontar {
     }
 
     /**
+     * Obtém o valor da propriedade mensagemRetorno.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getMensagemRetorno() {
+        return mensagemRetorno;
+    }
+
+    /**
+     * Define o valor da propriedade mensagemRetorno.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setMensagemRetorno(JAXBElement<String> value) {
+        this.mensagemRetorno = value;
+    }
+
+    /**
      * Obtém o valor da propriedade numCad.
      * 
      * @return
@@ -710,6 +742,30 @@ public class OpApontamentoParadaInApontar {
      */
     public void setSeqRot(JAXBElement<Integer> value) {
         this.seqRot = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade sequenciaMovimento.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public JAXBElement<Integer> getSequenciaMovimento() {
+        return sequenciaMovimento;
+    }
+
+    /**
+     * Define o valor da propriedade sequenciaMovimento.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     *     
+     */
+    public void setSequenciaMovimento(JAXBElement<Integer> value) {
+        this.sequenciaMovimento = value;
     }
 
     /**
