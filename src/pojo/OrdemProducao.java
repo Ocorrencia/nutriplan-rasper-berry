@@ -29,6 +29,7 @@ public class OrdemProducao {
     Double qtdMax;
     Double qtdPrv;
     Double qtdRfg;
+    Double qtdRfgn;
     Double qtdRe1;
     List<OrdemProducao> itensOrdemProducao = new ArrayList<OrdemProducao>();
     int codEmp;
@@ -39,6 +40,14 @@ public class OrdemProducao {
     int numPri;
     double pesPad;
     double capsMt;
+
+    public Double getQtdRfgn() {
+        return qtdRfgn;
+    }
+
+    public void setQtdRfgn(Double qtdRfgn) {
+        this.qtdRfgn = qtdRfgn;
+    }
 
     public double getPesPad() {
         return pesPad;
@@ -55,7 +64,7 @@ public class OrdemProducao {
     public void setCapsMt(double capsMt) {
         this.capsMt = capsMt;
     }
-    
+
     public Double getQtdRe1() {
         return qtdRe1;
     }

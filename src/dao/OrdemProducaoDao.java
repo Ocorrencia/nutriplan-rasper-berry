@@ -26,7 +26,7 @@ public class OrdemProducaoDao {
 
     EnviarEmail enviarEmail = new EnviarEmail();
     OrdemProducao ordemProducao = new OrdemProducao();
-    private final String CONSULTARSQL = "SELECT * FROM nutri_op.op900qdo order by numpri";
+    private final String CONSULTARSQL = "SELECT * FROM nutri_op.op900qdo order by numpri WHERE STATUS <> 3";
     private final String CONSULTAORDEMPRODUCAORSQL = "SELECT * FROM nutri_op.op900qdo where NUMORP = ?";
 
     public OrdemProducaoDao(OrdemProducao ordemProducao) {
@@ -104,6 +104,8 @@ public class OrdemProducaoDao {
                 ordemProducao.setDesPrxPro(rs.getString(18));
                 ordemProducao.setDesPrxDer(rs.getString(19));
                 ordemProducao.setNumPri(rs.getInt(20));
+                ordemProducao.setCapsMt(rs.getDouble(21));
+                ordemProducao.setPesPad(rs.getDouble(22));
             }
             return ordemProducao;
         } catch (SQLException e) {

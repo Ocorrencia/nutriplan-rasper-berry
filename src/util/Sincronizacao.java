@@ -6,6 +6,7 @@
 package util;
 
 import pojoWebService.CentroRecursoWebService;
+import pojoWebService.DefeitoWebService;
 import pojoWebService.FichaTecnicaWebService;
 import pojoWebService.MotivoParadaWebService;
 import pojoWebService.OperadorWebService;
@@ -52,5 +53,10 @@ public class Sincronizacao {
     public static boolean sincOrdemProducao() {
         OrdemProducaoWebService odemProducaoWebService = new OrdemProducaoWebService();
         return odemProducaoWebService.buscarOrdemProducaoSapiens();
+    }
+
+    public static boolean sincDefeito() {
+        DefeitoWebService defeitoWebService = new DefeitoWebService();
+        return defeitoWebService.buscarDefeitoSapiens();
     }
 }

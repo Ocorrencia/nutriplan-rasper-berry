@@ -41,6 +41,18 @@ public class ListModelMotivo {
         return "";
     }
 
+    public String getElementoConcatenado(String valor) {
+        String n1 = "";
+        for (Motivo itensMotivo : itensMotivos) {
+            n1 = itensMotivo.getCodMtv() + " - " + itensMotivo.getDesMtv();
+            if (n1.equals(valor)) {
+                return itensMotivo.getCodMtv();
+            }
+        }
+        Notificacao.infoBox("Motivo não encontrado", false);
+        return "";
+    }
+
     public int getIndex(String valor) {
 
         for (int i = 0; i < itensMotivos.size(); i++) {

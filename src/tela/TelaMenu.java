@@ -21,6 +21,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
@@ -162,6 +163,12 @@ public class TelaMenu extends JInternalFrame {
         iniciarListeners();
     }
 
+    public void mensagemErroSincronizacao(String msg) {
+        Notificacao.infoBox("Ocorreu um erro ao sincronizar o centro de recurso", false);
+        TelaLoading.getTela("").dispose();
+        Modal.getTela(null).dispose();
+    }
+
     public class MyRunnable implements Runnable {
 
         public void run() {
@@ -171,19 +178,29 @@ public class TelaMenu extends JInternalFrame {
             tela1.moveToFront();
             Modal.telaPai = tela1;
             if (!Sincronizacao.sincCentroRecurso()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar o centro de recurso", false);
+                mensagemErroSincronizacao("Ocorreu um erro ao sincronizar o centro de recurso");
+                return;
             } else if (!Sincronizacao.sincFichaTecnica()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar a ficha técnica", false);
+                mensagemErroSincronizacao("Ocorreu um erro ao sincronizar a ficha técnica");
+                return;
             } else if (!Sincronizacao.sincTurno()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar o turno", false);
+                mensagemErroSincronizacao("Ocorreu um erro ao sincronizar o turno");
+                return;
             } else if (!Sincronizacao.sintTurnoTrabalho()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar o turno de trabalho", false);
+                mensagemErroSincronizacao("Ocorreu um erro ao sincronizar o turno de trabalho");
+                return;
             } else if (!Sincronizacao.sincOperadores()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar os operadores", false);
+                mensagemErroSincronizacao("Ocorreu um erro ao sincronizar os operadores");
+                return;
             } else if (!Sincronizacao.sincMotivoParada()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar os motivo de parada", false);
+                mensagemErroSincronizacao("Ocorreu um erro ao sincronizar os motivo de parada");
+                return;
+            } else if (!Sincronizacao.sincDefeito()) {
+                mensagemErroSincronizacao("Ocorreu um erro ao sincronizar os defeitos");
+                return;
             } else if (!Sincronizacao.sincOrdemProducao()) {
-                Notificacao.infoBox("Ocorreu um erro ao sincronizar a ordem de produção", false);
+                mensagemErroSincronizacao("Ocorreu um erro ao sincronizar a ordem de produção");
+                return;
             } else if (true) {
                 Notificacao.infoBox("Sincronização Efetuada com Sucesso", true);
                 tela1.getTela("").dispose();
@@ -198,7 +215,11 @@ public class TelaMenu extends JInternalFrame {
             TelaMaquina.getTela();
         });
         btnOP.addActionListener((ActionEvent e) -> {
-            TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
+            this.dispose();
+
+            TecladoVirtual tela1 = TecladoVirtual.getTela("DIGITE O OPERADOR", "INICIO");
+            Modal.getTela(tela1);
+            tela1.moveToFront();
         });
         btnSair.addActionListener((ActionEvent e) -> {
             getTela().dispose();
@@ -221,18 +242,20 @@ public class TelaMenu extends JInternalFrame {
                 if (component1.equals(painelBotoes)) {
                     getContentPane().remove(painelBotoes);
                     getContentPane().add("Center", painelBotoes1);
-                    getContentPane().repaint();
+                    getContentPane().revalidate();
                 }
             }
+            getContentPane().repaint();
         });
         btnAnterior.addActionListener((ActionEvent e) -> {
             for (Component component1 : getContentPane().getComponents()) {
                 if (component1.equals(painelBotoes1)) {
                     getContentPane().remove(painelBotoes1);
                     getContentPane().add("Center", painelBotoes);
-                    getContentPane().repaint();
+                    getContentPane().revalidate();
                 }
             }
+            getContentPane().repaint();
         });
     }
 
@@ -290,7 +313,8 @@ public class TelaMenu extends JInternalFrame {
         //painelRodape.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
         statusBar.add(new WebStatusLabel());
         memoryBar.setPreferredWidth(memoryBar.getPreferredSize().width + 20);
-        statusBar.add(memoryBar, ToolbarLayout.END);
+        JLabel labelVersao = new JLabel("VERSÃO TESTE");
+        statusBar.add(labelVersao, ToolbarLayout.END);
         painelRodape.add(statusBar);
 
     }

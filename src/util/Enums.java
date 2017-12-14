@@ -33,6 +33,11 @@ public class Enums {
     public static String TIPOSISTEMA;
     public static String RASPERBERRY = "RASPERBERRY";
     public static String WINDOWS = "WINDOWS";
+    public static String CODIGOOPERADOR = "0";
+    public static String NOMEOPERADOR = "";
+    public static int CODIGOTURNO;
+    public static int SEQUENCIAAPONTAMENTO;
+
     public static int REFUGOSNAOIDENTIFICADOS = 0;
     public static int REFUGOSJUSTIFICADOS = 0;
 

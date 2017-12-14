@@ -27,7 +27,7 @@ import util.Enums;
  * @author diogo.melo
  */
 public class TelaMaquina extends TelaCadastro {
-    
+
     MeuComboBox campoNomeMaquina = new MeuComboBox("SELECT CODCRE, DESCRE FROM nutri_op.op725cre", true, "Máquina:");
     MeuCampoFormatado campoIpMaquina = new MeuCampoFormatado("IP:", true, 30);
     private static TelaMaquina tela;
@@ -35,7 +35,7 @@ public class TelaMaquina extends TelaCadastro {
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
     Maquina maquina = new Maquina();
     MaquinaDao maquinaDao = new MaquinaDao(maquina);
-    
+
     public static TelaMaquina getTela() {
         if (tela == null) {
             tela = new TelaMaquina();
@@ -54,7 +54,7 @@ public class TelaMaquina extends TelaCadastro {
         Enums.setSTATUSTELA(Enums.MENU);
         return tela;
     }
-    
+
     public TelaMaquina() {
         super("Tela Máquina");
         setVisible(true);
@@ -66,35 +66,35 @@ public class TelaMaquina extends TelaCadastro {
         iniciarComponentes();
         consultar();
     }
-    
+
     private void iniciarComponentes() {
         migLayout(0, 1, 20, 0, 1, 70, 60, campoNomeMaquina, "", "");
         migLayout(0, 2, 20, 0, 1, 70, 60, campoIpMaquina, "", "");
-        
+
         painelBotoes.add(btnIncluir);
         painelBotoes.add(btnAlterar);
         painelBotoes.add(btnExcluir);
         painelBotoes.add(botaocancelar);
-        
+
         campoIpMaquina.setFont(new Font("Arial", Font.BOLD, 20));
         campoNomeMaquina.setFont(new Font("Arial", Font.BOLD, 20));
         campoNomeMaquina.setPreferredSize(new Dimension(440, 60));
         campoIpMaquina.setPreferredSize(new Dimension(240, 60));
-        
+
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
     }
-    
+
     public void setPersistencia() {
         maquina.setCodCre((Integer) campoNomeMaquina.getValor());
         maquina.setIpMaq((String) campoIpMaquina.getValor());
     }
-    
+
     public void setGUI() {
         campoNomeMaquina.setValor((Integer) maquina.getCodCre());
         campoIpMaquina.setValor((String) maquina.getIpMaq());
     }
-    
+
     public void travarTela() {
         BasicInternalFrameUI ui = (javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI();
         Component cp = ui.getNorthPane();
@@ -104,14 +104,16 @@ public class TelaMaquina extends TelaCadastro {
             cp.removeMouseMotionListener(action);
         }
     }
-    
+
     public void consultar() {
         maquinaDao.consultar();
         setGUI();
     }
-    public void fechar(){
+
+    public void fechar() {
         this.dispose();
     }
+
     public void listener() {
         btnIncluir.addActionListener(new ActionListener() {
             @Override

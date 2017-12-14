@@ -25,8 +25,29 @@ public class MovimentoOrdemProducaoDao {
 
     MovimentoOrdemProducao mvp = new MovimentoOrdemProducao();
     EnviarEmail enviarEmail = new EnviarEmail();
-    private final String INCLUIRSQL = "INSERT INTO nutri_op.op900eoq (CODEMP,CODORI,NUMORP,CODPRO,CODDER,CODETG,SEQROT,SEQETR,SEQMOV,DATMOV,HORMOV,NUMCAD,QTDRE1,QTDRFG,EXPERP,CODDFT,TURTRB) VALUES(? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?,?)";
-    private final String CONSULTASQL = "SELECT MAX(SEQMOV) as SEQMOV, MAX(QTDRE1) AS QTDRE1, MAX(QTDRFG) AS QTDRFG  FROM nutri_op.op900eoq";
+    private final String INCLUIRSQL = "INSERT INTO nutri_op.op900eoq (CODEMP,CODORI,NUMORP,CODPRO,CODDER,CODETG,SEQROT,SEQETR,SEQMOV,DATMOV,HORMOV,NUMCAD,QTDRE1,QTDRFG,EXPERP,CODDFT,TURTRB, QTDRFGN) VALUES(?, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?,?)";
+    private final String CONSULTASQL = "SELECT \n"
+            + "    MAX(SEQMOV) AS SEQMOV,\n"
+            + "     (SELECT \n"
+            + "            QTDRE1\n"
+            + "        FROM\n"
+            + "            nutri_op.op900eoq\n"
+            + "        ORDER BY SEQMOV DESC\n"
+            + "        LIMIT 1) AS QTDRE1,\n"
+            + "    (SELECT \n"
+            + "            QTDRFG\n"
+            + "        FROM\n"
+            + "            nutri_op.op900eoq\n"
+            + "        ORDER BY SEQMOV DESC\n"
+            + "        LIMIT 1) AS QTDRFG,\n"
+            + "    (SELECT \n"
+            + "            QTDRFGN\n"
+            + "        FROM\n"
+            + "            nutri_op.op900eoq\n"
+            + "        ORDER BY SEQMOV DESC\n"
+            + "        LIMIT 1) AS QTDRFGN\n"
+            + "FROM\n"
+            + "    nutri_op.op900eoq";
 
     public MovimentoOrdemProducaoDao(MovimentoOrdemProducao movimentoOrdemProducao) {
         this.mvp = movimentoOrdemProducao;
@@ -40,14 +61,6 @@ public class MovimentoOrdemProducaoDao {
         this.mvp = mvp;
     }
 
-    public EnviarEmail getEnviarEmail() {
-        return enviarEmail;
-    }
-
-    public void setEnviarEmail(EnviarEmail enviarEmail) {
-        this.enviarEmail = enviarEmail;
-    }
-
     public MovimentoOrdemProducao consultaMovimentoOrdemPRoducao() {
         try {
             PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(CONSULTASQL);
@@ -56,6 +69,7 @@ public class MovimentoOrdemProducaoDao {
                 mvp.setSeqMov(rs.getInt(1));
                 mvp.setQtdRe1(rs.getFloat(2));
                 mvp.setQtdRfg(rs.getFloat(3));
+                mvp.setQtdRfgn(rs.getFloat(4));
             }
             return mvp;
         } catch (SQLException e) {
@@ -90,10 +104,11 @@ public class MovimentoOrdemProducaoDao {
             ps.setDouble(14, mvp.getQtdRfg());
             ps.setInt(15, mvp.getExpErp());
             ps.setString(16, mvp.getCodDdft());
-            ps.setInt(17, 2);
+            ps.setInt(17, mvp.getTurTrb());
+            ps.setDouble(18, mvp.getQtdRfgn());
             ps.executeUpdate();
             ConexaoMysql.FecharConexao();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Notificacao.infoBox("Ocorreu um Erro ao incluiro movimento", true);
             try {

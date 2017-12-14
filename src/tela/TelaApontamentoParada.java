@@ -140,10 +140,8 @@ public class TelaApontamentoParada extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!"".equals(campoApontamento.getText())) {
-                    TelaApontamentoParada.getTela().dispose();
-                    TelaAvisoTravamento telaAvisoTravamento = TelaAvisoTravamento.getTela();
-                    telaAvisoTravamento.lbTipo.setText(webList.getSelectedValue().toString());
-                    telaAvisoTravamento.repaint();
+                   Enums.setSTATUSTELA(Enums.APONTAMENTODEPARADA);
+                    TecladoVirtual.getTela("DIGITE O OPERADOR", "");
                 } else {
                     Notificacao.infoBox("DIGITE OU SELECIONE UM CÓDIGO DE PARADA", false);
                 }

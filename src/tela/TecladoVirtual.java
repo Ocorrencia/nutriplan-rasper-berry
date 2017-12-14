@@ -73,7 +73,9 @@ public class TecladoVirtual extends JInternalFrame {
             tela.addInternalFrameListener(new InternalFrameAdapter() {
                 @Override
                 public void internalFrameClosed(InternalFrameEvent e) {
-                    TelaSistema.jdp.remove(tela);
+                    if (tela != null) {
+                        TelaSistema.jdp.remove(tela);
+                    }
                     tela = null;
                 }
             });
@@ -85,7 +87,6 @@ public class TecladoVirtual extends JInternalFrame {
         } else {
             Modal.telaPai = tela;
         }
-
         TelaSistema.jdp.moveToFront(tela);
         TelaSistema.centraliza(tela);
         return tela;
@@ -210,11 +211,12 @@ public class TecladoVirtual extends JInternalFrame {
             meuCampoValor.setText(meuCampoValor.getText() + "0");
         });
         ok.addActionListener((ActionEvent e) -> {
-            getTela("", "").dispose();
+            tela.dispose();
         });
         voltar.addActionListener((ActionEvent e) -> {
             meuCampoValor.setText("");
-            getTela("", "").dispose();
+            Modal.getTela(tela).dispose();
+            tela.dispose();
         });
         apagar.addActionListener((ActionEvent e) -> {
             if (meuCampoValor.getText().length() > 0) {
@@ -228,8 +230,7 @@ public class TecladoVirtual extends JInternalFrame {
             @Override
             public void internalFrameClosed(InternalFrameEvent e) {
                 Modal.telaPai.moveToFront();
-
-                if (!meuCampoValor.getText().isEmpty()) {
+                if (!meuCampoValor.getText().isEmpty() || Enums.STATUSTELA == Enums.FINALIZADO || Enums.STATUSTELA == Enums.APONTAMENTODEPARADA) {
                     /* -------------------------------------- */
                     if (abrirTela.equals(Enums.TELAOP)) {
                         if ("".equals(meuCampoValor.getText())) {
@@ -246,14 +247,41 @@ public class TecladoVirtual extends JInternalFrame {
                             }
                             String operador = "" + codigoOperador + " - " + "" + nomeOperador + "";
                             if (MensagensSistema.MensagemConfirmarOperacao1(operador).equals("SIM")) {
-                                Enums.setSTATUSTELA(Enums.getSTATUSTELA() == Enums.PRODUCAO ? Enums.PRODUCAO : Enums.FINALIZADO);
-                                Modal.getTela(tela).dispose();
+                                Enums.setSTATUSTELA(Enums.FINALIZADO);
+                                Enums.CODIGOOPERADOR = codigoOperador;
+                                Enums.NOMEOPERADOR = nomeOperador;
+                                Modal.getTela(null).dispose();
                                 TelaOP.getTela();
                                 TelaOP.getTela().labelOperador.setText("" + codigoOperador + " - " + "" + nomeOperador + "");
-                                TelaOP.getTela().operadorPOJO.setNumCad(Integer.parseInt(codigoOperador));
-                                TelaOP.getTela().operadorPOJO.setNomOpe(nomeOperador);
                             } else {
                                 TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
+                            }
+                        }
+
+                    }
+                    if (abrirTela.equals("INICIO")) {
+                        if ("".equals(meuCampoValor.getText())) {
+                            TecladoVirtual.getTela("DIGITE O OPERADOR", "INICIO");
+                            return;
+                        } else {
+                            String nomeOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NOMOPE", "" + meuCampoValor.getText() + " = NUMCAD");
+                            String codigoOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NUMCAD", "" + meuCampoValor.getText() + " = NUMCAD");
+
+                            if (codigoOperador.equals("VAZIO")) {
+                                Notificacao.infoBox("Operador não encontrado!", false);
+                                TecladoVirtual.getTela("DIGITE O OPERADOR", "INICIO");
+                                return;
+                            }
+                            String operador = "" + codigoOperador + " - " + "" + nomeOperador + "";
+                            if (MensagensSistema.MensagemConfirmarOperacao1(operador).equals("SIM")) {
+                                Enums.setSTATUSTELA(Enums.FINALIZADO);
+                                Enums.CODIGOOPERADOR = codigoOperador;
+                                Enums.NOMEOPERADOR = nomeOperador;
+                                Modal.getTela(null).dispose();
+                                TelaOP.getTela();
+                                TelaOP.getTela().labelOperador.setText("" + codigoOperador + " - " + "" + nomeOperador + "");
+                            } else {
+                                TecladoVirtual.getTela("DIGITE O OPERADOR", "INICIO");
                             }
                         }
 
@@ -271,26 +299,36 @@ public class TecladoVirtual extends JInternalFrame {
                             return;
                         }
                     }
-                    /* -------------------------------------- */
- /*  if (labelInfo.getText().equals("DIGITE O CÓDIGO DA PARADA")) {
-                        // System.out.println("LISTA " + TelaApontamentoParada.telaAP.webList.get);
-                        int resp = JOptionPane.showConfirmDialog(null, "ESSE 1023 - FALTA DE ASDASDASD. \n"
-                                + "               Deseja Continuar?", "APONTAMENTO DE PARADA", JOptionPane.YES_OPTION);
-                        if (resp == 0) {
-                            TelaApontamentoParada.getTela().dispose();
-                            Modal.getTela(telaOP).dispose();
-                            TelaAvisoTravamento.getTela();
+                    if (Enums.STATUSTELA == Enums.APONTAMENTODEPARADA) {
+                        if (!meuCampoValor.getText().equals("")) {
+                            String nomeOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NOMOPE", "" + meuCampoValor.getText() + " = NUMCAD");
+                            String codigoOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NUMCAD", "" + meuCampoValor.getText() + " = NUMCAD");
+
+                            if (codigoOperador.equals("VAZIO")) {
+                                Notificacao.infoBox("Operador não encontrado!", false);
+                                TecladoVirtual.getTela("DIGITE O OPERADOR", "");
+                                return;
+                            }
+                            String operador = "" + codigoOperador + " - " + "" + nomeOperador + "";
+                            if (MensagensSistema.MensagemConfirmarOperacao1(operador).equals("SIM")) {
+                                Enums.CODIGOOPERADOR = codigoOperador;
+                                Enums.NOMEOPERADOR = nomeOperador;
+                                String paradaSelecionada = TelaApontamentoParada.telaAP.webList.getSelectedValue().toString();
+                                TelaApontamentoParada.getTela().dispose();
+                                TelaAvisoTravamento telaAvisoTravamento = TelaAvisoTravamento.getTela();
+                                telaAvisoTravamento.lbTipo.setText(paradaSelecionada);
+                                telaAvisoTravamento.repaint();
+                            } else {
+                                TelaApontamentoParada.getTela();
+                            }
+                            Enums.STATUSTELA = Enums.APONTAMENTODEPARADA;
                         }
-                    }*/
- /* -------------------------------------- */
-                } else {
-                    if (Enums.STATUSTELA == Enums.FINALIZADO) {
-                        TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
-                    } else {
-                        dispose();
+                        if (Enums.STATUSTELA == Enums.FINALIZADO) {
+                            TecladoVirtual.getTela("DIGITE O OPERADOR", "");
+                            Enums.STATUSTELA = Enums.FINALIZADO;
+                        }
                     }
                 }
-
             }
         }
         );

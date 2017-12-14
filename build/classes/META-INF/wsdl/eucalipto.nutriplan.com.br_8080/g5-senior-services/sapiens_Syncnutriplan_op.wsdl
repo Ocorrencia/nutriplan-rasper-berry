@@ -4,15 +4,6 @@
 <xsd:import namespace="http://services.senior.com.br" schemaLocation="http://eucalipto.nutriplan.com.br:8080/g5-senior-services/sapiens_Syncnutriplan_op?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="Usuario">
-<part name="user" type="xsd:string"/>
-<part name="password" type="xsd:string"/>
-<part name="encryption" type="xsd:int"/>
-<part name="parameters" type="tns:opUsuarioIn"/>
-</message>
-<message name="UsuarioResponse">
-<part name="result" type="tns:opUsuarioOut"/>
-</message>
 <message name="Operador">
 <part name="user" type="xsd:string"/>
 <part name="password" type="xsd:string"/>
@@ -21,6 +12,24 @@
 </message>
 <message name="OperadorResponse">
 <part name="result" type="tns:opOperadorOut"/>
+</message>
+<message name="FichaTecnica">
+<part name="user" type="xsd:string"/>
+<part name="password" type="xsd:string"/>
+<part name="encryption" type="xsd:int"/>
+<part name="parameters" type="tns:opFichaTecnicaIn"/>
+</message>
+<message name="FichaTecnicaResponse">
+<part name="result" type="tns:opFichaTecnicaOut"/>
+</message>
+<message name="MotivoParada">
+<part name="user" type="xsd:string"/>
+<part name="password" type="xsd:string"/>
+<part name="encryption" type="xsd:int"/>
+<part name="parameters" type="tns:opMotivoParadaIn"/>
+</message>
+<message name="MotivoParadaResponse">
+<part name="result" type="tns:opMotivoParadaOut"/>
 </message>
 <message name="EmpresaOP">
 <part name="user" type="xsd:string"/>
@@ -40,6 +49,15 @@
 <message name="OrdemProducaoResponse">
 <part name="result" type="tns:opOrdemProducaoOut"/>
 </message>
+<message name="Usuario">
+<part name="user" type="xsd:string"/>
+<part name="password" type="xsd:string"/>
+<part name="encryption" type="xsd:int"/>
+<part name="parameters" type="tns:opUsuarioIn"/>
+</message>
+<message name="UsuarioResponse">
+<part name="result" type="tns:opUsuarioOut"/>
+</message>
 <message name="ListaTurno">
 <part name="user" type="xsd:string"/>
 <part name="password" type="xsd:string"/>
@@ -48,69 +66,6 @@
 </message>
 <message name="ListaTurnoResponse">
 <part name="result" type="tns:opListaTurnoOut"/>
-</message>
-<message name="MotivoParada">
-<part name="user" type="xsd:string"/>
-<part name="password" type="xsd:string"/>
-<part name="encryption" type="xsd:int"/>
-<part name="parameters" type="tns:opMotivoParadaIn"/>
-</message>
-<message name="MotivoParadaResponse">
-<part name="result" type="tns:opMotivoParadaOut"/>
-</message>
-<message name="FichaTecnica">
-<part name="user" type="xsd:string"/>
-<part name="password" type="xsd:string"/>
-<part name="encryption" type="xsd:int"/>
-<part name="parameters" type="tns:opFichaTecnicaIn"/>
-</message>
-<message name="FichaTecnicaResponse">
-<part name="result" type="tns:opFichaTecnicaOut"/>
-</message>
-<message name="ApontamentoParada">
-<part name="user" type="xsd:string"/>
-<part name="password" type="xsd:string"/>
-<part name="encryption" type="xsd:int"/>
-<part name="parameters" type="tns:opApontamentoParadaIn"/>
-</message>
-<message name="ApontamentoParadaResponse">
-<part name="result" type="tns:opApontamentoParadaOut"/>
-</message>
-<message name="TurnoDeTrabalho_x_Horarios">
-<part name="user" type="xsd:string"/>
-<part name="password" type="xsd:string"/>
-<part name="encryption" type="xsd:int"/>
-<part name="parameters" type="tns:opTurnoDeTrabalhoXHorariosIn"/>
-</message>
-<message name="TurnoDeTrabalho_x_HorariosResponse">
-<part name="result" type="tns:opTurnoDeTrabalhoXHorariosOut"/>
-</message>
-<message name="DefeitoFabricacao">
-<part name="user" type="xsd:string"/>
-<part name="password" type="xsd:string"/>
-<part name="encryption" type="xsd:int"/>
-<part name="parameters" type="tns:opDefeitoFabricacaoIn"/>
-</message>
-<message name="DefeitoFabricacaoResponse">
-<part name="result" type="tns:opDefeitoFabricacaoOut"/>
-</message>
-<message name="CentroDeRecurso">
-<part name="user" type="xsd:string"/>
-<part name="password" type="xsd:string"/>
-<part name="encryption" type="xsd:int"/>
-<part name="parameters" type="tns:opCentroDeRecursoIn"/>
-</message>
-<message name="CentroDeRecursoResponse">
-<part name="result" type="tns:opCentroDeRecursoOut"/>
-</message>
-<message name="ApontamentoProducao">
-<part name="user" type="xsd:string"/>
-<part name="password" type="xsd:string"/>
-<part name="encryption" type="xsd:int"/>
-<part name="parameters" type="tns:opApontamentoProducaoIn"/>
-</message>
-<message name="ApontamentoProducaoResponse">
-<part name="result" type="tns:opApontamentoProducaoOut"/>
 </message>
 <message name="ListaExportado">
 <part name="user" type="xsd:string"/>
@@ -121,14 +76,63 @@
 <message name="ListaExportadoResponse">
 <part name="result" type="tns:opListaExportadoOut"/>
 </message>
+<message name="TurnoDeTrabalho_x_Horarios">
+<part name="user" type="xsd:string"/>
+<part name="password" type="xsd:string"/>
+<part name="encryption" type="xsd:int"/>
+<part name="parameters" type="tns:opTurnoDeTrabalhoXHorariosIn"/>
+</message>
+<message name="TurnoDeTrabalho_x_HorariosResponse">
+<part name="result" type="tns:opTurnoDeTrabalhoXHorariosOut"/>
+</message>
+<message name="CentroDeRecurso">
+<part name="user" type="xsd:string"/>
+<part name="password" type="xsd:string"/>
+<part name="encryption" type="xsd:int"/>
+<part name="parameters" type="tns:opCentroDeRecursoIn"/>
+</message>
+<message name="CentroDeRecursoResponse">
+<part name="result" type="tns:opCentroDeRecursoOut"/>
+</message>
+<message name="DefeitoFabricacao">
+<part name="user" type="xsd:string"/>
+<part name="password" type="xsd:string"/>
+<part name="encryption" type="xsd:int"/>
+<part name="parameters" type="tns:opDefeitoFabricacaoIn"/>
+</message>
+<message name="DefeitoFabricacaoResponse">
+<part name="result" type="tns:opDefeitoFabricacaoOut"/>
+</message>
+<message name="ApontamentoParada">
+<part name="user" type="xsd:string"/>
+<part name="password" type="xsd:string"/>
+<part name="encryption" type="xsd:int"/>
+<part name="parameters" type="tns:opApontamentoParadaIn"/>
+</message>
+<message name="ApontamentoParadaResponse">
+<part name="result" type="tns:opApontamentoParadaOut"/>
+</message>
+<message name="ApontamentoProducao">
+<part name="user" type="xsd:string"/>
+<part name="password" type="xsd:string"/>
+<part name="encryption" type="xsd:int"/>
+<part name="parameters" type="tns:opApontamentoProducaoIn"/>
+</message>
+<message name="ApontamentoProducaoResponse">
+<part name="result" type="tns:opApontamentoProducaoOut"/>
+</message>
 <portType name="sapiens_Syncnutriplan_op">
-<operation name="Usuario" parameterOrder="user password encryption parameters">
-<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/UsuarioRequest" message="tns:Usuario"/>
-<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/UsuarioResponse" message="tns:UsuarioResponse"/>
-</operation>
 <operation name="Operador" parameterOrder="user password encryption parameters">
 <input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/OperadorRequest" message="tns:Operador"/>
 <output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/OperadorResponse" message="tns:OperadorResponse"/>
+</operation>
+<operation name="FichaTecnica" parameterOrder="user password encryption parameters">
+<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/FichaTecnicaRequest" message="tns:FichaTecnica"/>
+<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/FichaTecnicaResponse" message="tns:FichaTecnicaResponse"/>
+</operation>
+<operation name="MotivoParada" parameterOrder="user password encryption parameters">
+<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/MotivoParadaRequest" message="tns:MotivoParada"/>
+<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/MotivoParadaResponse" message="tns:MotivoParadaResponse"/>
 </operation>
 <operation name="EmpresaOP" parameterOrder="user password encryption parameters">
 <input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/EmpresaOPRequest" message="tns:EmpresaOP"/>
@@ -138,46 +142,42 @@
 <input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/OrdemProducaoRequest" message="tns:OrdemProducao"/>
 <output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/OrdemProducaoResponse" message="tns:OrdemProducaoResponse"/>
 </operation>
+<operation name="Usuario" parameterOrder="user password encryption parameters">
+<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/UsuarioRequest" message="tns:Usuario"/>
+<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/UsuarioResponse" message="tns:UsuarioResponse"/>
+</operation>
 <operation name="ListaTurno" parameterOrder="user password encryption parameters">
 <input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/ListaTurnoRequest" message="tns:ListaTurno"/>
 <output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/ListaTurnoResponse" message="tns:ListaTurnoResponse"/>
-</operation>
-<operation name="MotivoParada" parameterOrder="user password encryption parameters">
-<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/MotivoParadaRequest" message="tns:MotivoParada"/>
-<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/MotivoParadaResponse" message="tns:MotivoParadaResponse"/>
-</operation>
-<operation name="FichaTecnica" parameterOrder="user password encryption parameters">
-<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/FichaTecnicaRequest" message="tns:FichaTecnica"/>
-<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/FichaTecnicaResponse" message="tns:FichaTecnicaResponse"/>
-</operation>
-<operation name="ApontamentoParada" parameterOrder="user password encryption parameters">
-<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoParadaRequest" message="tns:ApontamentoParada"/>
-<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoParadaResponse" message="tns:ApontamentoParadaResponse"/>
-</operation>
-<operation name="TurnoDeTrabalho_x_Horarios" parameterOrder="user password encryption parameters">
-<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/TurnoDeTrabalho_x_HorariosRequest" message="tns:TurnoDeTrabalho_x_Horarios"/>
-<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/TurnoDeTrabalho_x_HorariosResponse" message="tns:TurnoDeTrabalho_x_HorariosResponse"/>
-</operation>
-<operation name="DefeitoFabricacao" parameterOrder="user password encryption parameters">
-<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/DefeitoFabricacaoRequest" message="tns:DefeitoFabricacao"/>
-<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/DefeitoFabricacaoResponse" message="tns:DefeitoFabricacaoResponse"/>
-</operation>
-<operation name="CentroDeRecurso" parameterOrder="user password encryption parameters">
-<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/CentroDeRecursoRequest" message="tns:CentroDeRecurso"/>
-<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/CentroDeRecursoResponse" message="tns:CentroDeRecursoResponse"/>
-</operation>
-<operation name="ApontamentoProducao" parameterOrder="user password encryption parameters">
-<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoProducaoRequest" message="tns:ApontamentoProducao"/>
-<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoProducaoResponse" message="tns:ApontamentoProducaoResponse"/>
 </operation>
 <operation name="ListaExportado" parameterOrder="user password encryption parameters">
 <input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/ListaExportadoRequest" message="tns:ListaExportado"/>
 <output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/ListaExportadoResponse" message="tns:ListaExportadoResponse"/>
 </operation>
+<operation name="TurnoDeTrabalho_x_Horarios" parameterOrder="user password encryption parameters">
+<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/TurnoDeTrabalho_x_HorariosRequest" message="tns:TurnoDeTrabalho_x_Horarios"/>
+<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/TurnoDeTrabalho_x_HorariosResponse" message="tns:TurnoDeTrabalho_x_HorariosResponse"/>
+</operation>
+<operation name="CentroDeRecurso" parameterOrder="user password encryption parameters">
+<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/CentroDeRecursoRequest" message="tns:CentroDeRecurso"/>
+<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/CentroDeRecursoResponse" message="tns:CentroDeRecursoResponse"/>
+</operation>
+<operation name="DefeitoFabricacao" parameterOrder="user password encryption parameters">
+<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/DefeitoFabricacaoRequest" message="tns:DefeitoFabricacao"/>
+<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/DefeitoFabricacaoResponse" message="tns:DefeitoFabricacaoResponse"/>
+</operation>
+<operation name="ApontamentoParada" parameterOrder="user password encryption parameters">
+<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoParadaRequest" message="tns:ApontamentoParada"/>
+<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoParadaResponse" message="tns:ApontamentoParadaResponse"/>
+</operation>
+<operation name="ApontamentoProducao" parameterOrder="user password encryption parameters">
+<input wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoProducaoRequest" message="tns:ApontamentoProducao"/>
+<output wsam:Action="http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoProducaoResponse" message="tns:ApontamentoProducaoResponse"/>
+</operation>
 </portType>
 <binding name="sapiens_Syncnutriplan_opPortBinding" type="tns:sapiens_Syncnutriplan_op">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc"/>
-<operation name="Usuario">
+<operation name="Operador">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal" namespace="http://services.senior.com.br"/>
@@ -186,7 +186,16 @@
 <soap:body use="literal" namespace="http://services.senior.com.br"/>
 </output>
 </operation>
-<operation name="Operador">
+<operation name="FichaTecnica">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal" namespace="http://services.senior.com.br"/>
+</input>
+<output>
+<soap:body use="literal" namespace="http://services.senior.com.br"/>
+</output>
+</operation>
+<operation name="MotivoParada">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal" namespace="http://services.senior.com.br"/>
@@ -213,6 +222,15 @@
 <soap:body use="literal" namespace="http://services.senior.com.br"/>
 </output>
 </operation>
+<operation name="Usuario">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal" namespace="http://services.senior.com.br"/>
+</input>
+<output>
+<soap:body use="literal" namespace="http://services.senior.com.br"/>
+</output>
+</operation>
 <operation name="ListaTurno">
 <soap:operation soapAction=""/>
 <input>
@@ -222,25 +240,7 @@
 <soap:body use="literal" namespace="http://services.senior.com.br"/>
 </output>
 </operation>
-<operation name="MotivoParada">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal" namespace="http://services.senior.com.br"/>
-</input>
-<output>
-<soap:body use="literal" namespace="http://services.senior.com.br"/>
-</output>
-</operation>
-<operation name="FichaTecnica">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal" namespace="http://services.senior.com.br"/>
-</input>
-<output>
-<soap:body use="literal" namespace="http://services.senior.com.br"/>
-</output>
-</operation>
-<operation name="ApontamentoParada">
+<operation name="ListaExportado">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal" namespace="http://services.senior.com.br"/>
@@ -258,15 +258,6 @@
 <soap:body use="literal" namespace="http://services.senior.com.br"/>
 </output>
 </operation>
-<operation name="DefeitoFabricacao">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal" namespace="http://services.senior.com.br"/>
-</input>
-<output>
-<soap:body use="literal" namespace="http://services.senior.com.br"/>
-</output>
-</operation>
 <operation name="CentroDeRecurso">
 <soap:operation soapAction=""/>
 <input>
@@ -276,7 +267,7 @@
 <soap:body use="literal" namespace="http://services.senior.com.br"/>
 </output>
 </operation>
-<operation name="ApontamentoProducao">
+<operation name="DefeitoFabricacao">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal" namespace="http://services.senior.com.br"/>
@@ -285,7 +276,16 @@
 <soap:body use="literal" namespace="http://services.senior.com.br"/>
 </output>
 </operation>
-<operation name="ListaExportado">
+<operation name="ApontamentoParada">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal" namespace="http://services.senior.com.br"/>
+</input>
+<output>
+<soap:body use="literal" namespace="http://services.senior.com.br"/>
+</output>
+</operation>
+<operation name="ApontamentoProducao">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal" namespace="http://services.senior.com.br"/>

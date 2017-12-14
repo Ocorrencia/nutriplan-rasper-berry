@@ -17,7 +17,7 @@ import util.ConexaoMysql;
  */
 public class EnviarDadosOrdemProducao {
 
-    private final String INCLUIRSQL = "INSERT INTO nutri_op_sinc.op900qdo VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private final String INCLUIRSQL = "INSERT INTO nutri_op_sinc.op900qdo VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final String ATUALIZARTABELAPADRAO = "INSERT IGNORE\n"
             + "   INTO nutri_op.op900qdo\n"
             + " SELECT *\n"
@@ -60,6 +60,7 @@ public class EnviarDadosOrdemProducao {
                 ps.setInt(20, op.getNumPri());
                 ps.setDouble(21, op.getCapsMt());
                 ps.setDouble(22, op.getPesPad());
+                ps.setString(23, op.getStatusRegistro());
                 ps.executeUpdate();
             }
             ConexaoMysql.FecharConexao();

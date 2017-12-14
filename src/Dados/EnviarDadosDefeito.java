@@ -18,7 +18,7 @@ import util.ConexaoMysql;
  */
 public class EnviarDadosDefeito {
 
-    private final String INCLUIRSQL = "INSERT INTO nutri_op_sinc.op011def VALUES(?,?,?,?)";
+    private final String INCLUIRSQL = "INSERT INTO nutri_op_sinc.op011def VALUES(?,?,?)";
     private final String ATUALIZARTABELAPADRAO = "INSERT IGNORE\n"
             + "   INTO nutri_op.op011def\n"
             + " SELECT *\n"
@@ -41,7 +41,7 @@ public class EnviarDadosDefeito {
             for (Defeito objDefeito : defeito) {
                 ps.setInt(1, objDefeito.getCodEmp());
                 ps.setString(2, objDefeito.getCodDft());
-                ps.setString(4, objDefeito.getDesDft());
+                ps.setString(3, objDefeito.getDesDft());
                 ps.executeUpdate();
             }
             ConexaoMysql.FecharConexao();

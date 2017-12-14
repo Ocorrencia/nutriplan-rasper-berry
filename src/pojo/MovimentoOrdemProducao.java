@@ -26,9 +26,18 @@ public class MovimentoOrdemProducao {
     int numCad;
     float qtdRe1;
     float qtdRfg;
+    float qtdRfgn;
     int expErp;
     String codDdft;
     int turTrb;
+
+    public float getQtdRfgn() {
+        return qtdRfgn;
+    }
+
+    public void setQtdRfgn(float qtdRfgn) {
+        this.qtdRfgn = qtdRfgn;
+    }
 
     public String getHorMovFirst() {
         return horMovFirst;

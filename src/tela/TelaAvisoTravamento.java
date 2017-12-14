@@ -5,8 +5,7 @@
  */
 package tela;
 
-import componente.MensagensSistema;
-import java.awt.Color;
+import dao.ApontamentoParadaDao;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -14,20 +13,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
+import pojo.ApontamentoParada;
+import pojoWebService.ApontamentoParadaWebService;
 import util.Consulta;
 import util.Enums;
+import util.ListModelMotivo;
 import util.Modal;
-import util.Notificacao;
 
 /**
  *
@@ -39,7 +42,7 @@ public class TelaAvisoTravamento extends JInternalFrame {
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
 
     JLabel lbParada = new JLabel("PARADA DE MÁQUINA");
-    JLabel lbTempo = new JLabel("00:00:00");
+    JLabel lbTempo = new JLabel(getTime());
     public JLabel lbTipo = new JLabel("");
 
     URL urlTimeWarning = getClass().getResource("/imagens/icons8-expired_1.png");
@@ -49,6 +52,10 @@ public class TelaAvisoTravamento extends JInternalFrame {
     JButton btnIniciar = new JButton("INICIAR");
     JButton btnVoltar = new JButton("VOLTAR");
     public static TelaAvisoTravamento telaAviso;
+    ListModelMotivo listMotivo = new ListModelMotivo();
+    ApontamentoParadaWebService apontamentoParadaWebService = new ApontamentoParadaWebService();
+    ApontamentoParada ap = new ApontamentoParada();
+    ApontamentoParadaDao apDao = new ApontamentoParadaDao();
 
     public TelaAvisoTravamento() {
 
@@ -114,6 +121,18 @@ public class TelaAvisoTravamento extends JInternalFrame {
         return telaAviso;
     }
 
+    public String getDate() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public String getTime() {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
     public void listener() {
         btnVoltar.addActionListener(new ActionListener() {
             @Override
@@ -124,38 +143,48 @@ public class TelaAvisoTravamento extends JInternalFrame {
         });
 
         btnIniciar.addActionListener((ActionEvent e) -> {
+
             dispose();
             Modal.getTela(telaAviso).dispose();
-            TecladoVirtual tela = TecladoVirtual.getTela("DIGITE O OPERADOR", "");
-            tela.addInternalFrameListener(new InternalFrameAdapter() {
-                @Override
-                public void internalFrameClosed(InternalFrameEvent e) {
-                    if (!tela.meuCampoValor.getText().isEmpty()) {
 
-                        String nomeOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NOMOPE", "" + tela.meuCampoValor.getText() + " = NUMCAD");
-                        String codigoOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NUMCAD", "" + tela.meuCampoValor.getText() + " = NUMCAD");
-
-                        if (codigoOperador.equals("VAZIO")) {
-                            Notificacao.infoBox("Operador não encontrado!", false);
-                            TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
-                            return;
-                        }
-                        int options;
-
-                        String operador = "" + codigoOperador + " - " + "" + nomeOperador + "";
-                        if (MensagensSistema.MensagemConfirmarOperacao1(operador).equals("SIM")) {
-                            TelaOP.getTela().labelOperador.setText("" + codigoOperador + " - " + "" + nomeOperador + "");
-                            TelaOP.getTela().operadorPOJO.setNumCad(Integer.parseInt(codigoOperador));
-                            TelaAvisoInicioProducao.getTela();
-                        } else {
-                            TelaAvisoTravamento.getTela();
-                        }
-                    } else {
-                        TelaApontamentoParada.getTela();
-                    }
-                }
-            }
-            );
+            TelaOP tela = TelaOP.getTela();
+            tela.labelOperador.setText(Enums.NOMEOPERADOR);
+            tela.operadorPOJO.setNumCad(Integer.parseInt(Enums.CODIGOOPERADOR));
+            setPersistencia();
+            TelaAvisoInicioProducao telaAviso = TelaAvisoInicioProducao.getTela();
+            Modal.getTela(telaAviso);
+            telaAviso.moveToFront();
+            telaAviso.setAp(ap);
         });
+    }
+
+    public void setPersistencia() {
+        Integer codCre = Consulta.CONSULTAINT("nutri_op.op000maq", "CODCRE", "1 = 1");
+        Integer codEtg = Consulta.CONSULTAINT("nutri_op.op725cre", "CODETG", "CODCRE = " + codCre + "");
+        Integer numOrp = Consulta.CONSULTAINT("nutri_op.op900qdo", "NUMORP", "STATUS = 1");
+        Integer seqRot = Consulta.CONSULTAINT("nutri_op.op900qdo", "SEQROT", "STATUS = 1");
+        Integer codOri = Consulta.CONSULTAINT("nutri_op.op900qdo", "CODORI", "STATUS = 1");
+        Enums.SEQUENCIAAPONTAMENTO = Consulta.CONSULTAINT("nutri_op.op000seq", "VLRSEQAP", "IDSEQ = 1") + 1;
+        Consulta.UPDATE("nutri_op.op000seq", "VLRSEQAP = " + Enums.SEQUENCIAAPONTAMENTO + "", "IDSEQ = 1");
+
+        ap.setCodCre(codCre);
+        ap.setCodEtg(codEtg);
+        ap.setCodMtv(listMotivo.getElementoConcatenado(lbTipo.getText()));
+        ap.setDatPar(getDate());
+        ap.setHorIni(getTime());
+        ap.setHorFim("");
+        ap.setNumOrp(numOrp);
+        ap.setSeqMpr(Enums.SEQUENCIAAPONTAMENTO);
+        ap.setTurTrb(Enums.CODIGOTURNO);
+        ap.setSeqRot(seqRot);
+        ap.setCodOri(codOri + "");
+        ap.setNumCad(Integer.parseInt(Enums.CODIGOOPERADOR));
+        ap.setExpErp("1");
+        incluir();
+    }
+
+    private void incluir() {
+        apDao.setApontamentoParada(ap);
+        apDao.INCLUIR();
     }
 }

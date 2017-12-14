@@ -67,7 +67,6 @@ public class OrdemProducaoWebService {
         OrdemProducao ordemProducao = new OrdemProducao();
         for (OpOrdemProducaoOutConsultar ordemProducaoobj : result.getConsultar()) {
             ordemProducao = new OrdemProducao();
-            System.out.println("Ordem produção" + (ordemProducaoobj.getDesDer().getValue()));
             ordemProducao.setCicPad(ordemProducaoobj.getCicPad().getValue());
             ordemProducao.setCodDer(ordemProducaoobj.getCodDer().getValue());
             ordemProducao.setCodEmp(ordemProducaoobj.getCodEmp().getValue());
@@ -91,7 +90,7 @@ public class OrdemProducaoWebService {
             ordemProducao.setQtdRfg(ordemProducaoobj.getQtdRfg().getValue());
             ordemProducao.setPesPad(ordemProducaoobj.getPesPad().getValue());
             ordemProducao.setCapsMt(ordemProducaoobj.getCapSmt().getValue());
-            ordemProducao.setStatusRegistro(ordemProducaoobj.getStatusRegistro().getValue());
+            ordemProducao.setStatusRegistro("0");
             itensOrdemProducao.add(ordemProducao);
         }
         enviarDados.EnviarDadosOrdemProducao(itensOrdemProducao);

@@ -6,14 +6,19 @@
 package tela;
 
 import componente.MeuComboBox;
+import dao.ApontamentoParadaDao;
 import dao.MovimentoOrdemProducaoDao;
 import dao.OrdemProducaoDao;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -23,6 +28,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import net.miginfocom.swing.MigLayout;
+import pojo.ApontamentoParada;
 import pojo.MovimentoOrdemProducao;
 import pojo.OrdemProducao;
 import util.Consulta;
@@ -31,6 +37,7 @@ import util.DadosRaspberry;
 import util.Enums;
 import util.Modal;
 import util.Notificacao;
+import util.Sincronizacao;
 
 /**
  *
@@ -41,25 +48,33 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
     URL urlTopo = getClass().getResource("/imagem/iconePrincipal.png");
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
 
+    URL urlRefresh = getClass().getResource("/imagens/icons8-available-updates-40.png");
+    ImageIcon iconeRefresh = new ImageIcon(urlRefresh);
+
     JLabel lbParada = new JLabel("INÍCIO DE PRODUÇÃO");
-    JLabel lbTempo = new JLabel("00:00:00");
+    JLabel lbTempo = new JLabel(getTime());
     JLabel lbTipo = new JLabel("");
     JLabel lbOrdemProducao = new JLabel("ORDEM DE PRODUÇÃO");
 
-    URL urlTimeWarning = getClass().getResource("/imagens/icons8-potted-plant.png");
+    URL urlTimeWarning = getClass().getResource("/imagens/nutriplan-superior-logo-80x80.png");
     ImageIcon icoWarning = new ImageIcon(urlTimeWarning);
 
     JLabel iconeWarning = new JLabel(icoWarning);
     JButton btnIniciar = new JButton("INICIAR");
+    JButton btnAtualizar = new JButton(iconeRefresh);
     public static TelaAvisoInicioProducao telaInicio;
 
-    MeuComboBox comboOp = new MeuComboBox("SELECT NUMORP ,CONCAT(CODDER, ' - ', CODPRO, ' - ', DESPRO, ' ', DESDER) as PRODUTO  FROM nutri_op.op900qdo order by numpri", true, "OPS");
+    MeuComboBox comboOp = new MeuComboBox("SELECT NUMORP ,CONCAT(CODDER, ' - ', CODPRO, ' - ', DESPRO, ' ', DESDER) as PRODUTO  FROM nutri_op.op900qdo WHERE STATUS <> 3 order by numpri", true, "OPS");
 
     OrdemProducao ordemProducao = new OrdemProducao();
     OrdemProducaoDao ordemProducaoDao = new OrdemProducaoDao(ordemProducao);
 
     MovimentoOrdemProducao mvp = new MovimentoOrdemProducao();
     MovimentoOrdemProducaoDao mvpDao = new MovimentoOrdemProducaoDao(mvp);
+
+    ApontamentoParada ap = new ApontamentoParada();
+    ApontamentoParadaDao apDao = new ApontamentoParadaDao();
+    String sequenciaUltimaParada;
 
     public TelaAvisoInicioProducao() {
         JPanel painelInfo = new JPanel();
@@ -81,26 +96,37 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         painelInfo.add(lbTempo, "align center,wrap");
         painelInfo.add(new JLabel(" "), "align center,wrap");
         painelInfo.add(lbOrdemProducao, "align center, wrap");
-        painelInfo.add(comboOp, "align center, wrap");
+        painelInfo.add(comboOp, "align center");
+        painelInfo.add(btnAtualizar, "align center, wrap");
         painelInfo.add(lbTipo, "align center, wrap");
-        painelInfo.add(btnIniciar, "align center");
+        painelInfo.add(btnIniciar, "align center,span");
         add(painelInfo);
         listener();
         travarTela();
         setTitle("INÍCIO DE PRODUÇÃO");
-
         comboOp.setFont(new Font("Arial", Font.BOLD, 30));
-        comboOp.setPreferredSize(new Dimension(700, 60));
-        btnIniciar.setPreferredSize(new Dimension(700, 60));
+        comboOp.setPreferredSize(new Dimension(660, 60));
+        btnIniciar.setPreferredSize(new Dimension(740, 60));
+        btnAtualizar.setPreferredSize(new Dimension(40, 60));
         comboOp.setSelectedIndex(-1);
         verificarOps();
+        verificarParada();
         pack();
+        this.repaint();
+    }
+
+    public ApontamentoParada getAp() {
+        return ap;
+    }
+
+    public void setAp(ApontamentoParada ap) {
+        this.ap = ap;
     }
 
     private void verificarOps() {
         String numOrp = Consulta.CONSULTASTRING("nutri_op.op900qdo", "NUMORP", "STATUS = 1");
         if (!"VAZIO".equals(numOrp)) {
-            comboOp.setSql("SELECT NUMORP ,CONCAT(CODDER, ' - ', CODPRO, ' - ', DESPRO, ' ', DESDER) as PRODUTO FROM nutri_op.op900qdo WHERE NUMORP = " + numOrp + " order by numpri");
+            comboOp.setSql("SELECT NUMORP ,CONCAT(CODDER, ' - ', CODPRO, ' - ', DESPRO, ' ', DESDER) as PRODUTO FROM nutri_op.op900qdo WHERE NUMORP = " + numOrp + " AND STATUS <> 3 order by numpri");
         }
     }
 
@@ -135,32 +161,74 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         } else {
             Modal.telaPai = telaInicio;
         }
-        Enums.setSTATUSTELA(Enums.FINALIZADO);
+        Enums.setSTATUSTELA(Enums.AVISOINICIOPRODUCAO);
         return telaInicio;
     }
 
+    public String getDate() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public String getTime() {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
     public void listener() {
+        btnAtualizar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Sincronizacao.sincOrdemProducao();
+                comboOp.setSql("SELECT NUMORP ,CONCAT(CODDER, ' - ', CODPRO, ' - ', DESPRO, ' ', DESDER) as PRODUTO  FROM nutri_op.op900qdo WHERE STATUS <> 3 order by numpri");
+                ordemProducao.setNumOrp((Integer) comboOp.getValor());
+                ordemProducao = ordemProducaoDao.consultaOrdemProducao(ordemProducao.getNumOrp());
+
+                dispose();
+                Modal.getTela(telaInicio).setVisible(false);
+                Cronometro.iniciaCronometro(3600000);
+                Enums.setSTATUSTELA(Enums.LIBERADOPRODUCAO);
+                ordemProducao.setNumOrp((Integer) comboOp.getValor());
+                Consulta.UPDATE("nutri_op.op900qdo", "STATUS = 1", "NUMORP = " + ordemProducao.getNumOrp() + "");
+                ordemProducao = ordemProducaoDao.consultaOrdemProducao(ordemProducao.getNumOrp());
+
+            }
+        });
         btnIniciar.addActionListener((ActionEvent e) -> {
             if (comboOp.getSelectedIndex() == -1) {
                 Notificacao.infoBox("Selecione uma Ordem de Produção", false);
                 return;
             }
+            if (ap.getCodCre() != null) {
+                ap.setHorIni(getTime());
+                ap.setDatPar(getDate());
+                apDao.setApontamentoParada(ap);
+                //TODO FAZER TRATAMENTO DE RETORNO
+                if (sequenciaUltimaParada == null) {
+                    apDao.INCLUIR();
+                } else {
+                    Consulta.UPDATE("nutri_op.op930mpr", "HORFIM = '" + getTime() + "'", "HORFIM = ''");
+                }
+            }
 
             dispose();
             Modal.getTela(telaInicio).setVisible(false);
             Cronometro.iniciaCronometro(3600000);
-
             Enums.setSTATUSTELA(Enums.LIBERADOPRODUCAO);
 
             ordemProducao.setNumOrp((Integer) comboOp.getValor());
+            if (ordemProducao.getNumOrp() != null) {
+                Consulta.UPDATE("nutri_op.op900qdo", "STATUS = 1", "NUMORP = " + ordemProducao.getNumOrp() + "");
+                ordemProducao = ordemProducaoDao.consultaOrdemProducao(ordemProducao.getNumOrp());
+                mvp = mvpDao.consultaMovimentoOrdemPRoducao();
 
-            Consulta.UPDATE("nutri_op.op900qdo", "STATUS = 1", "NUMORP = " + ordemProducao.getNumOrp() + "");
-
-            ordemProducao = ordemProducaoDao.consultaOrdemProducao(ordemProducao.getNumOrp());
-
-            mvp = mvpDao.consultaMovimentoOrdemPRoducao();
-            DadosRaspberry.QUANTIDADEPRODUZIDA = (int) mvp.getQtdRe1();
-            DadosRaspberry.SEQUENCIA = (int) mvp.getSeqMov();
+                DadosRaspberry.SEQUENCIA = (int) mvp.getSeqMov();
+                Enums.REFUGOSJUSTIFICADOS = (int) mvp.getQtdRfg();
+                Enums.REFUGOSNAOIDENTIFICADOS = (int) mvp.getQtdRfgn();
+                DadosRaspberry.QUANTIDADEPRODUZIDA = (int) mvp.getQtdRe1();
+            }
 
             TelaOP.getTela().campoOp.setText(ordemProducao.getCodDer() + " - " + ordemProducao.getCodPro() + " - " + ordemProducao.getDesPro() + " " + ordemProducao.getDesDer());
             TelaOP.tela.setMvp(mvp);
@@ -179,4 +247,10 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         Date date = new Date();
         return dateFormat.format(date);
     }*/
+    private void verificarParada() {
+        sequenciaUltimaParada = Consulta.CONSULTASTRING("nutri_op.op930mpr", "MAX(SEQMPR)", "HORFIM = ''");
+        if (sequenciaUltimaParada != null) {
+            ap = apDao.consultar(sequenciaUltimaParada);
+        }
+    }
 }

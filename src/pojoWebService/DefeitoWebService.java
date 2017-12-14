@@ -26,7 +26,7 @@ public class DefeitoWebService {
     EnviarEmail enviarEmail = new EnviarEmail();
     EnviarDadosDefeito enviarDados = new EnviarDadosDefeito();
 
-    public boolean buscarOperadoresSapiens() {
+    public boolean buscarDefeitoSapiens() {
         try {
             br.com.senior.services.G5SeniorServices service = new br.com.senior.services.G5SeniorServices();
             br.com.senior.services.SapiensSyncnutriplanOp port = service.getSapiensSyncnutriplanOpPort();
@@ -42,7 +42,7 @@ public class DefeitoWebService {
                     return false;
                 }
             } else {
-                return preencherOperador(result);
+                return preencherDefeito(result);
             }
         } catch (Exception e) {
             try {
@@ -54,7 +54,7 @@ public class DefeitoWebService {
         return false;
     }
 
-    public boolean preencherOperador(br.com.senior.services.OpDefeitoFabricacaoOut result) {
+    public boolean preencherDefeito(br.com.senior.services.OpDefeitoFabricacaoOut result) {
         List<Defeito> itensDefeito = new ArrayList<Defeito>();
         Defeito objDefeito = new Defeito();
         for (OpDefeitoFabricacaoOutConsultar defeito : result.getConsultar()) {

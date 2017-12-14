@@ -1,4 +1,3 @@
-
 package componente;
 
 import java.awt.Color;
@@ -10,6 +9,7 @@ import javax.swing.JOptionPane;
 import util.ConexaoMysql;
 
 public class MeuComboBox extends JComboBox<Object> implements MeuComponente {
+
     private String sql;
     private boolean obrigatorio;
     private String dica;

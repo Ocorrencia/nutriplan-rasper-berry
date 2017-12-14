@@ -7,14 +7,12 @@ package pojoWebService;
 
 import Dados.EnviarDadosCentroRecurso;
 import br.com.senior.services.OpCentroDeRecursoOutConsultar;
-import br.com.senior.services.OpOperadorOutConsultar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import pojo.CentroRecurso;
-import pojo.Operador;
 import util.EnviarEmail;
 import util.Notificacao;
 

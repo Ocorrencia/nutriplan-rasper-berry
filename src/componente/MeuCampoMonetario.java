@@ -65,7 +65,7 @@ public class MeuCampoMonetario extends MeuCampoFormatado {
             } else if (valor instanceof Double) {
                 novoValor = Double.toString((Double) valor);
             } else if (valor instanceof BigDecimal) {
-                DecimalFormat df = new DecimalFormat("0.00", new DecimalFormatSymbols(new Locale("pt", "BR")));
+                DecimalFormat df = new DecimalFormat("0", new DecimalFormatSymbols(new Locale("pt", "BR")));
                 df.setParseBigDecimal(true);
                 novoValor = df.format((BigDecimal) valor);
             } else {

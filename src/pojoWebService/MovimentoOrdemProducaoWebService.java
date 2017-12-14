@@ -11,9 +11,11 @@ import br.com.senior.services.OpApontamentoProducaoOutRespostaApontar;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import javax.mail.MessagingException;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
+import pojo.Refugo;
 import util.ConexaoMysql;
 import util.EnviarEmail;
 import util.Notificacao;
@@ -28,6 +30,9 @@ public class MovimentoOrdemProducaoWebService {
     EnviarEmail enviarEmail = new EnviarEmail();
     String codCre;
     EnviarDadosMotivoParada enviarDados = new EnviarDadosMotivoParada();
+    Refugo refugo;
+    NumberFormat nf = NumberFormat.getInstance();
+    double number;
     private final String CONSULTARSQL = "SELECT\n"
             + "    op900eoq.CODORI,\n"
             + "    op900eoq.NUMORP,\n"
@@ -51,8 +56,9 @@ public class MovimentoOrdemProducaoWebService {
     JAXBElement<Integer> jaxbSeqMov = new JAXBElement(new QName("", "sequenciaMovimento"), Integer.class, 0);
     JAXBElement<String> jaxbDatMov = new JAXBElement(new QName("", "datMov"), String.class, "");
     JAXBElement<String> jaxbHorMov = new JAXBElement(new QName("", "horMov"), String.class, "");
-    JAXBElement<Double> laxbQtdRe1 = new JAXBElement(new QName("", "qtdRe1"), Double.class, 0);
-    JAXBElement<Double> laxbQtdRfg = new JAXBElement(new QName("", "qtdRfg"), Double.class, 0);
+    JAXBElement<Double> jaxbQtdRe1 = new JAXBElement(new QName("", "qtdRe1"), Double.class, 0);
+    JAXBElement<Double> jaxbQtdRfg = new JAXBElement(new QName("", "qtdRfg"), Double.class, 0);
+    JAXBElement<String> jaxbcodDft = new JAXBElement(new QName("", "codDft"), String.class, "");
 
     public void limpar() {
         jaxbCodOri = new JAXBElement(new QName("", "codOri"), String.class, "");
@@ -64,8 +70,9 @@ public class MovimentoOrdemProducaoWebService {
         jaxbSeqMov = new JAXBElement(new QName("", "sequenciaMovimento"), Integer.class, 0);
         jaxbDatMov = new JAXBElement(new QName("", "datMov"), String.class, "");
         jaxbHorMov = new JAXBElement(new QName("", "horMov"), String.class, "");
-        laxbQtdRe1 = new JAXBElement(new QName("", "qtdRe1"), Double.class, 0);
-        laxbQtdRfg = new JAXBElement(new QName("", "qtdRfg"), Double.class, 0);
+        jaxbcodDft = new JAXBElement(new QName("", "codDft"), String.class, "");
+        jaxbQtdRe1 = new JAXBElement(new QName("", "qtdRe1"), Double.class, 0);
+        jaxbQtdRfg = new JAXBElement(new QName("", "qtdRfg"), Double.class, 0);
     }
 
     public boolean enviarMovimentoOrdemProducaoSapiens() {
@@ -76,7 +83,6 @@ public class MovimentoOrdemProducaoWebService {
 
             PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(CONSULTARSQL);
             ResultSet rs = ps.executeQuery();
-            int cont = 0;
             while (rs.next()) {
                 OpApontamentoProducaoInApontar objApontar = new OpApontamentoProducaoInApontar();
                 jaxbCodOri.setValue(rs.getString(1));
@@ -86,10 +92,13 @@ public class MovimentoOrdemProducaoWebService {
                 jaxbDatMov.setValue(rs.getString(5));
                 jaxbHorMov.setValue(rs.getString(6));
                 laxbNumcad.setValue(rs.getInt(7));
-                laxbQtdRe1.setValue(rs.getDouble(8));
-                laxbQtdRfg.setValue(rs.getDouble(9));
+                jaxbQtdRe1.setValue(rs.getDouble(8));
+                jaxbQtdRfg.setValue(Refugo.getQuantidade() == null ? Double.parseDouble("0") : Refugo.getQuantidade());
+                Refugo.setQuantidade(Double.parseDouble("0"));
                 jaxbturTrb.setValue(rs.getInt(10));
                 jaxbSeqMov.setValue(rs.getInt(11));
+                jaxbcodDft.setValue(Refugo.getCodDft() + "");
+                Refugo.setCodDft(0);
 
                 objApontar.setCodOri(jaxbCodOri);
                 objApontar.setNumOrp(jaxbNumOrp);
@@ -98,9 +107,10 @@ public class MovimentoOrdemProducaoWebService {
                 objApontar.setDatMov(jaxbDatMov);
                 objApontar.setHorMov(jaxbHorMov);
                 objApontar.setNumCad(laxbNumcad);
-                objApontar.setQtdRe1(laxbQtdRe1);
-                objApontar.setQtdRfg(laxbQtdRfg);
+                objApontar.setQtdRe1(jaxbQtdRe1);
+                objApontar.setQtdRfg(jaxbQtdRfg);
                 objApontar.setTurTrb(jaxbturTrb);
+                objApontar.setCodDft(jaxbcodDft);
                 objApontar.setSequenciaMovimento(jaxbSeqMov);
 
                 parameters.getApontar().add(objApontar);

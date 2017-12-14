@@ -14,9 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import util.Enums;
 import util.Servidor;
@@ -52,17 +50,15 @@ public class TelaSistema extends JFrame {
             telaSistema = new TelaSistema();
             System.gc();
             Enums.STATUSTELA = Enums.getSTATUSTELA();
-
+            UIManager.put("ScrollBar.width", 50);
+            if (Enums.STATUSTELA == Enums.AVISOINICIOPRODUCAO) {
+                TelaAvisoInicioProducao telaAviso = TelaAvisoInicioProducao.getTela();
+                telaAviso.moveToFront();
+            }
             if (Enums.STATUSTELA == Enums.PRODUCAO || Enums.STATUSTELA == Enums.APONTAMENTODEPARADA) {
                 TelaOP.getTela();
             } else if (Enums.getSTATUSTELA() == Enums.MENU) {
                 TelaMenu.getTela();
-                TelaMenu.tela.addInternalFrameListener(new InternalFrameAdapter() {
-                    @Override
-                    public void internalFrameClosed(InternalFrameEvent e) {
-                        telaSistema.dispose();
-                    }
-                });
             } else if (Enums.getSTATUSTELA() == Enums.FINALIZADO) {
                 TecladoVirtual teclado = TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
             }

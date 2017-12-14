@@ -8,13 +8,11 @@ package tela;
 import com.alee.extended.panel.GroupPanel;
 import componente.MeuCampoFormatado;
 import componente.MeuCampoGenerico;
-import componente.MeuCampoTexto;
 import dao.MovimentoOrdemProducaoDao;
 import dao.OrdemProducaoDao;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.text.DateFormat;
@@ -26,7 +24,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import net.miginfocom.swing.MigLayout;
@@ -36,8 +33,10 @@ import util.Modal;
 import util.Notificacao;
 import pojo.TurnoTrabalho;
 import dao.TurnoDao;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.util.Calendar;
-import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 import org.joda.time.DateTime;
 import pojo.MovimentoOrdemProducao;
@@ -45,6 +44,7 @@ import pojo.Operador;
 import pojo.OrdemProducao;
 import pojoWebService.MovimentoOrdemProducaoWebService;
 import util.DadosRaspberry;
+import util.Servidor;
 
 public class TelaOP extends TelaCadastro {
 
@@ -77,12 +77,15 @@ public class TelaOP extends TelaCadastro {
     JButton btnParadaMaquina = new JButton("PARADA");
     JButton btnMotivosRefugo = new JButton("REFUGO");
     JButton btnFichaTecnica = new JButton("FICHA TÉCNICA");
+    JButton btnAtualizar = new JButton("R");
     JButton btnStatus = new JButton(iconeInformacao);
 
     GroupPanel gpPanel = new GroupPanel();
 
-    public MeuCampoTexto campoHoras = new MeuCampoTexto(false, "");
-    public MeuCampoTexto campoProximoProduto = new MeuCampoTexto(false, "");
+    DecimalFormat dfKG = new DecimalFormat("##,##0.000 KG");
+
+    public MeuCampoGenerico campoHoras = new MeuCampoGenerico("", false, 20);
+    public MeuCampoGenerico campoProximoProduto = new MeuCampoGenerico("", false, 50);
 
     URL iconeOperador = getClass().getResource("/imagem/operador.gif");
     Icon iconeUser = new ImageIcon(iconeOperador);
@@ -203,6 +206,7 @@ public class TelaOP extends TelaCadastro {
                         if (dataAtual.getTimeInMillis() >= dt3.getMillis() && dataAtual.getTimeInMillis() < dt4.getMillis()) {
                             campoTurno.setText(turnoTrabalho1.getDesTrb());
                             codigoTurno = turnoTrabalho1.getTurTrb();
+                            Enums.CODIGOTURNO = turnoTrabalho1.getTurTrb();
                         }
                     }
                 } catch (Exception e) {
@@ -234,6 +238,7 @@ public class TelaOP extends TelaCadastro {
                 if (dataAtual.getTimeInMillis() >= dt3.getMillis() && dataAtual.getTimeInMillis() < dt4.getMillis()) {
                     campoTurno.setText(turnoTrabalho1.getDesTrb());
                     codigoTurno = turnoTrabalho1.getTurTrb();
+                    Enums.CODIGOTURNO = turnoTrabalho1.getTurTrb();
                 }
             }
         } catch (Exception e) {
@@ -266,25 +271,24 @@ public class TelaOP extends TelaCadastro {
     }
 
     public void controleTelas() {
-        if (Enums.STATUSTELA == Enums.PRODUCAO || Enums.STATUSTELA == Enums.APONTAMENTODEPARADA) {
-            TelaApontamentoParada.getTela().moveToFront();
-        } else if (Enums.getSTATUSTELA() == Enums.MENU) {
-        } else if (Enums.STATUSTELA == Enums.FINALIZADO) {
+        if (Enums.STATUSTELA == Enums.FINALIZADO) {
             Modal.getTela(tela).setVisible(true);
             TelaAvisoInicioProducao.getTela();
+        } else if (Enums.getSTATUSTELA() == Enums.MENU) {
+        } else if (Enums.STATUSTELA == Enums.PRODUCAO || Enums.STATUSTELA == Enums.APONTAMENTODEPARADA) {
+            TelaApontamentoParada.getTela().moveToFront();
         }
     }
 
     private void setGUI() {
         campoProximoProduto.setText("PRÓXIMO PRODUTO: " + ordemProducao.getPrxDer() + " - " + ordemProducao.getPrxPro() + " - " + ordemProducao.getDesPrxDer() + " " + ordemProducao.getDesPrxPro());
-        campoQuantidadeProgramada.setText(ordemProducao.getQtdPrv() + "UN");
-        campoQuantidadeRefugo.setText(ordemProducao.getQtdRfg() + "UN");
-        campoCicloPadraoAtual.setText(ordemProducao.getCicPad() + "S");
+        campoQuantidadeRefugo.setText(Enums.REFUGOSJUSTIFICADOS + Enums.REFUGOSNAOIDENTIFICADOS + " UN");
+        campoCicloPadraoAtual.setText(ordemProducao.getCicPad().intValue() + "S");
         campoQuantidadeProgramada.setText(((int) Math.round(ordemProducao.getQtdPrv())) + " UN");
         campoHoras.setFont(new Font("Arial", Font.BOLD, 15));
         campoProximoProduto.setFont(new Font("Arial", Font.BOLD, 15));
         campoOp.setFont(new Font("Arial", Font.BOLD, 30));
-        campoPesoPadrao.setText(ordemProducao.getPesPad() + " KG");
+        campoPesoPadrao.setText(dfKG.format(ordemProducao.getPesPad()));
         campoPadraoUA.setText(((int) Math.round(ordemProducao.getQtdMax())) + " UN");
         campoQuantidadeRealizada.setText(DadosRaspberry.QUANTIDADEPRODUZIDA + " UN");
         calcularHorasRestantes();
@@ -432,7 +436,7 @@ public class TelaOP extends TelaCadastro {
         btnParadaMaquina.setFont(new Font("Arial", Font.BOLD, 12));
         btnMotivosRefugo.setFont(new Font("Arial", Font.BOLD, 12));
         btnFichaTecnica.setFont(new Font("Arial", Font.BOLD, 12));
-        
+
         btnTrocaOperador.setFont(new Font("Arial", Font.BOLD, 17));
         btnQualidade.setFont(new Font("Arial", Font.BOLD, 17));
         btnParadaMaquina.setFont(new Font("Arial", Font.BOLD, 17));
@@ -446,11 +450,10 @@ public class TelaOP extends TelaCadastro {
         campoQuantidadeRealizada.setFont(new Font("Arial", Font.BOLD, 45));
         campoPadraoUA.setFont(new Font("Arial", Font.BOLD, 45));
         campoQuantidadeRefugo.setFont(new Font("Arial", Font.BOLD, 45));
+        campoQuantidadeRefugo.setForeground(Color.RED);
         campoCicloPadraoAtual.setFont(new Font("Arial", Font.BOLD, 45));
         campoPesoPadrao.setFont(new Font("Arial", Font.BOLD, 45));
 
-        
-        
         removerFundo(campoQuantidadeProgramada);
         removerFundo(campoQuantidadeRealizada);
         removerFundo(campoPadraoUA);
@@ -468,36 +471,10 @@ public class TelaOP extends TelaCadastro {
         btnTrocaOperador.addActionListener((ActionEvent e) -> {
             if (Enums.REFUGOSNAOIDENTIFICADOS > 0) {
                 Notificacao.infoBox("Existem Refugos não Justificados!", false);
-
             } else {
-                TecladoVirtual tela1 = TecladoVirtual.getTela("DIGITE O OPERADOR", null);
-                tela1.addInternalFrameListener(new InternalFrameAdapter() {
-                    @Override
-                    public void internalFrameClosed(InternalFrameEvent e) {
-                        if (!tela1.meuCampoValor.getText().isEmpty()) {
-                            String nomeOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NOMOPE", "" + tela1.meuCampoValor.getText() + " = NUMCAD");
-                            String codigoOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NUMCAD", "" + tela1.meuCampoValor.getText() + " = NUMCAD");
-
-                            if (codigoOperador.equals("VAZIO")) {
-                                Notificacao.infoBox("Operador não encontrado!", false);
-                                TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
-                                return;
-                            }
-
-                            int options;
-                            options = JOptionPane.showConfirmDialog(null, "" + codigoOperador + " - " + "" + nomeOperador + "", "OPERADOR SELECIONADO", JOptionPane.YES_NO_OPTION);
-                            if (options == JOptionPane.YES_OPTION) {
-                                TelaOP.getTela().labelOperador.setText("" + codigoOperador + " - " + "" + nomeOperador + "");
-                                Modal.getTela(tela1).dispose();
-                            } else {
-                                Modal.getTela(tela1).dispose();
-                            }
-                        } else {
-                            Notificacao.infoBox("Nenhum operador Selecionado!", false);
-                            Modal.getTela(tela1).dispose();
-                        }
-                    }
-                });
+                TecladoVirtual telaTeclado = TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
+                Modal.getTela(telaTeclado).setVisible(true);
+                telaTeclado.moveToFront();
             }
         });
 
@@ -533,30 +510,51 @@ public class TelaOP extends TelaCadastro {
             TelaApontamentoParada.getTela();
         });
 
+        campoOp.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+        });
+
     }
 
     public void controleProducao() {
-        mvp = new MovimentoOrdemProducao();
-        mvp.setCodDer(ordemProducao.getCodDer());
-        mvp.setCodEmp(1);
-        mvp.setCodEtg(ordemProducao.getCodEtg() + "");
-        mvp.setCodOri(ordemProducao.getCodOri());
-        mvp.setCodPro(ordemProducao.getCodPro());
-        mvp.setDatMov(getDate());
-        mvp.setExpErp(0);
-        mvp.setHorMov(getTime());
-        mvp.setNumCad(operadorPOJO.getNumCad());
-        mvp.setNumOrp(ordemProducao.getNumOrp());
-        campoQuantidadeRealizada.setText(DadosRaspberry.QUANTIDADEPRODUZIDA + " UN");
-        DadosRaspberry.SEQUENCIA = DadosRaspberry.SEQUENCIA + 1;
-        mvp.setQtdRe1(Float.parseFloat(campoQuantidadeRealizada.getText().replace("UN", "")));
-        mvp.setQtdRfg(Float.parseFloat(campoQuantidadeRefugo.getText().replace("UN", "")));
-        mvp.setSeqEtr(ordemProducao.getSeqEtr());
-        mvp.setSeqRot(ordemProducao.getSeqRot());
-        mvp.setTurTrb(codigoTurno);
-        mvpDao.setMvp(mvp);
-        mvpDao.INCLUIR();
-        calcularHorasRestantes();
+        try {
+            if (Integer.parseInt(TelaOP.tela.campoQuantidadeRealizada.getText().replace("UN", "").trim()) == Integer.parseInt(TelaOP.tela.campoQuantidadeProgramada.getText().replace("UN", "").trim())) {
+                TelaAvisoInicioProducao telaAviso = TelaAvisoInicioProducao.getTela();
+                Consulta.UPDATE("nutri_op.op900qdo", "STATUS = 3", "STATUS = 1");
+                Servidor.servidor.close();
+                telaAviso.moveToFront();
+                return;
+            }
+            mvp = new MovimentoOrdemProducao();
+            mvp.setCodDer(ordemProducao.getCodDer());
+            mvp.setCodEmp(1);
+            mvp.setCodEtg(ordemProducao.getCodEtg() + "");
+            mvp.setCodOri(ordemProducao.getCodOri());
+            mvp.setCodPro(ordemProducao.getCodPro());
+            mvp.setDatMov(getDate());
+            mvp.setExpErp(0);
+            mvp.setHorMov(getTime());
+            mvp.setNumCad(Integer.parseInt(Enums.CODIGOOPERADOR));
+            mvp.setNumOrp(ordemProducao.getNumOrp());
+            campoQuantidadeRealizada.setText(DadosRaspberry.QUANTIDADEPRODUZIDA  + " UN");
+            DadosRaspberry.SEQUENCIA = Consulta.CONSULTAINT("nutri_op.op000seq", "VLRSEQMOV", "IDSEQ = 0") + 1;
+            Consulta.UPDATE("nutri_op.op000seq", "VLRSEQMOV = " + DadosRaspberry.SEQUENCIA + "", "IDSEQ = 0");
+            mvp.setQtdRe1(DadosRaspberry.QUANTIDADEPRODUZIDA);
+            mvp.setQtdRfg(Enums.REFUGOSJUSTIFICADOS);
+            mvp.setQtdRfgn(Enums.REFUGOSNAOIDENTIFICADOS);
+            mvp.setSeqEtr(ordemProducao.getSeqEtr());
+            mvp.setSeqRot(ordemProducao.getSeqRot());
+            mvp.setTurTrb(codigoTurno);
+            mvpDao.setMvp(mvp);
+            mvpDao.INCLUIR();
+            calcularHorasRestantes();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void enviarApontamentoProducao() {
