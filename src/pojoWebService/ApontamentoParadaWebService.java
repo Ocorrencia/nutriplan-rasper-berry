@@ -11,6 +11,9 @@ import br.com.senior.services.OpApontamentoParadaOutRespostaApontar;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.mail.MessagingException;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -45,9 +48,7 @@ public class ApontamentoParadaWebService {
             + "    SEQROT,\n"
             + "    NUMCAD\n"
             + "FROM\n"
-            + "    nutri_op.op930mpr\n"
-            + "WHERE\n"
-            + "    EXPERP = 0;";
+            + "    nutri_op.op930mpr\n WHERE EXPERP = 0";
 
     JAXBElement<Integer> jaxbCodCre = new JAXBElement(new QName("", "codCre"), Integer.class, 0);
     JAXBElement<Integer> jaxbCodEtg = new JAXBElement(new QName("", "codEtg"), Integer.class, 0);
@@ -81,7 +82,7 @@ public class ApontamentoParadaWebService {
         jaxbNumCad = new JAXBElement(new QName("", "numCad"), Integer.class, 0);
     }
 
-    public boolean enviarMovimentoOrdemProducaoSapiens() {
+    public boolean enviarApontamentoParadaSapiens() {
         try {
             br.com.senior.services.G5SeniorServices service = new br.com.senior.services.G5SeniorServices();
             br.com.senior.services.SapiensSyncnutriplanOp port = service.getSapiensSyncnutriplanOpPort();
@@ -91,7 +92,7 @@ public class ApontamentoParadaWebService {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 OpApontamentoParadaInApontar objApontar = new OpApontamentoParadaInApontar();
-                
+
                 jaxbCodCre.setValue(rs.getInt(2));
                 jaxbCodEtg.setValue(rs.getInt(3));
                 jaxbCodMtv.setValue(rs.getString(4));
@@ -134,7 +135,6 @@ public class ApontamentoParadaWebService {
             } else {
                 for (OpApontamentoParadaOutRespostaApontar itens : result.getRespostaApontar()) {
                     if ("OK".equals(itens.getMensagemRetorno().getValue())) {
-                        Consulta.UPDATE("nutri_op.op930mpr", "EXPERP = 1", "SEQMPR =  " + itens.getSequenciaMovimento().getValue() + " ");
                     }
                 }
                 return true;
@@ -149,5 +149,11 @@ public class ApontamentoParadaWebService {
             }
         }
         return false;
+    }
+
+    public String getTime() {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }

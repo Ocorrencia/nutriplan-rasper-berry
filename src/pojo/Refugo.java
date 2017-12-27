@@ -11,19 +11,27 @@ package pojo;
  */
 public class Refugo {
 
-    static Double quantidade;
+    static Integer quantidade = 0;
     static String expErp;
     static int codDft;
+    static int numorp;
 
-    public static Double getQuantidade() {
+    public static Integer getQuantidade() {
         return quantidade;
     }
 
-    public static void setQuantidade(Double quantidade) {
+    public static void setQuantidade(Integer quantidade) {
         Refugo.quantidade = quantidade;
     }
 
-    
+    public static int getNumorp() {
+        return numorp;
+    }
+
+    public static void setNumorp(int numorp) {
+        Refugo.numorp = numorp;
+    }
+
     public static int getCodDft() {
         return codDft;
     }
@@ -32,7 +40,6 @@ public class Refugo {
         Refugo.codDft = codDft;
     }
 
-  
     public static String getExpErp() {
         return expErp;
     }

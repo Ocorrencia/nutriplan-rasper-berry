@@ -31,12 +31,14 @@ import net.miginfocom.swing.MigLayout;
 import pojo.ApontamentoParada;
 import pojo.MovimentoOrdemProducao;
 import pojo.OrdemProducao;
+import pojoWebService.ApontamentoParadaWebService;
 import util.Consulta;
 import util.Cronometro;
 import util.DadosRaspberry;
 import util.Enums;
 import util.Modal;
 import util.Notificacao;
+import util.Servidor;
 import util.Sincronizacao;
 
 /**
@@ -75,6 +77,8 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
     ApontamentoParada ap = new ApontamentoParada();
     ApontamentoParadaDao apDao = new ApontamentoParadaDao();
     String sequenciaUltimaParada;
+
+    ApontamentoParadaWebService apWebService = new ApontamentoParadaWebService();
 
     public TelaAvisoInicioProducao() {
         JPanel painelInfo = new JPanel();
@@ -183,17 +187,6 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 Sincronizacao.sincOrdemProducao();
                 comboOp.setSql("SELECT NUMORP ,CONCAT(CODDER, ' - ', CODPRO, ' - ', DESPRO, ' ', DESDER) as PRODUTO  FROM nutri_op.op900qdo WHERE STATUS <> 3 order by numpri");
-                ordemProducao.setNumOrp((Integer) comboOp.getValor());
-                ordemProducao = ordemProducaoDao.consultaOrdemProducao(ordemProducao.getNumOrp());
-
-                dispose();
-                Modal.getTela(telaInicio).setVisible(false);
-                Cronometro.iniciaCronometro(3600000);
-                Enums.setSTATUSTELA(Enums.LIBERADOPRODUCAO);
-                ordemProducao.setNumOrp((Integer) comboOp.getValor());
-                Consulta.UPDATE("nutri_op.op900qdo", "STATUS = 1", "NUMORP = " + ordemProducao.getNumOrp() + "");
-                ordemProducao = ordemProducaoDao.consultaOrdemProducao(ordemProducao.getNumOrp());
-
             }
         });
         btnIniciar.addActionListener((ActionEvent e) -> {
@@ -206,10 +199,11 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
                 ap.setDatPar(getDate());
                 apDao.setApontamentoParada(ap);
                 //TODO FAZER TRATAMENTO DE RETORNO
-                if (sequenciaUltimaParada == null) {
-                    apDao.INCLUIR();
+                if (sequenciaUltimaParada != null) {
+                    apWebService.enviarApontamentoParadaSapiens();
+                    Consulta.UPDATE("nutri_op.op930mpr", "HORFIM = '" + getTime() + "', EXPERP = 1", "HORFIM = ''");
                 } else {
-                    Consulta.UPDATE("nutri_op.op930mpr", "HORFIM = '" + getTime() + "'", "HORFIM = ''");
+                    apDao.INCLUIR();
                 }
             }
 
@@ -222,12 +216,10 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
             if (ordemProducao.getNumOrp() != null) {
                 Consulta.UPDATE("nutri_op.op900qdo", "STATUS = 1", "NUMORP = " + ordemProducao.getNumOrp() + "");
                 ordemProducao = ordemProducaoDao.consultaOrdemProducao(ordemProducao.getNumOrp());
-                mvp = mvpDao.consultaMovimentoOrdemPRoducao();
-
-                DadosRaspberry.SEQUENCIA = (int) mvp.getSeqMov();
-                Enums.REFUGOSJUSTIFICADOS = (int) mvp.getQtdRfg();
-                Enums.REFUGOSNAOIDENTIFICADOS = (int) mvp.getQtdRfgn();
-                DadosRaspberry.QUANTIDADEPRODUZIDA = (int) mvp.getQtdRe1();
+                DadosRaspberry.SEQUENCIA = Consulta.CONSULTAINT("nutri_op.op900eoq eoq INNER JOIN nutri_op.op900qdo qdo ON (qdo.NUMORP = eoq.NUMORP) ", "eoq.SEQMOV", "qdo.STATUS <> 3 ORDER BY SEQMOV DESC");
+                Enums.REFUGOSJUSTIFICADOS = (int) Math.round(ordemProducao.getQtdRfg());
+                Enums.REFUGOSNAOIDENTIFICADOS = (int) Math.round(ordemProducao.getQtdRfgn());
+                DadosRaspberry.QUANTIDADEPRODUZIDA = (int) Math.round(ordemProducao.getQtdRe1());
             }
 
             TelaOP.getTela().campoOp.setText(ordemProducao.getCodDer() + " - " + ordemProducao.getCodPro() + " - " + ordemProducao.getDesPro() + " " + ordemProducao.getDesDer());
@@ -248,7 +240,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         return dateFormat.format(date);
     }*/
     private void verificarParada() {
-        sequenciaUltimaParada = Consulta.CONSULTASTRING("nutri_op.op930mpr", "MAX(SEQMPR)", "HORFIM = ''");
+        sequenciaUltimaParada = Consulta.CONSULTASTRING("nutri_op.op930mpr", "MAX(SEQMPR)", "HORFIM = '' AND EXPERP = 0");
         if (sequenciaUltimaParada != null) {
             ap = apDao.consultar(sequenciaUltimaParada);
         }

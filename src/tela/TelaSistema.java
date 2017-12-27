@@ -14,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import util.Enums;
 import util.Servidor;
@@ -52,8 +51,7 @@ public class TelaSistema extends JFrame {
             Enums.STATUSTELA = Enums.getSTATUSTELA();
             UIManager.put("ScrollBar.width", 50);
             if (Enums.STATUSTELA == Enums.AVISOINICIOPRODUCAO) {
-                TelaAvisoInicioProducao telaAviso = TelaAvisoInicioProducao.getTela();
-                telaAviso.moveToFront();
+                TecladoVirtual teclado = TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
             }
             if (Enums.STATUSTELA == Enums.PRODUCAO || Enums.STATUSTELA == Enums.APONTAMENTODEPARADA) {
                 TelaOP.getTela();

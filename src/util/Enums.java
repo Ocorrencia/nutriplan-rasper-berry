@@ -40,6 +40,7 @@ public class Enums {
 
     public static int REFUGOSNAOIDENTIFICADOS = 0;
     public static int REFUGOSJUSTIFICADOS = 0;
+    public static int LIMITEREFUGO = 0;
 
     static ControleOperacao controleOperacao = new ControleOperacao();
     static ControleOperacaoDao controleOperacaoDao = new ControleOperacaoDao(controleOperacao);

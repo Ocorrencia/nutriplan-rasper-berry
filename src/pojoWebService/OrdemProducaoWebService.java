@@ -78,9 +78,7 @@ public class OrdemProducaoWebService {
             ordemProducao.setDesEtg(ordemProducaoobj.getDesEtg().getValue());
             ordemProducao.setDesPro(ordemProducaoobj.getDesPro().getValue());
             ordemProducao.setDesPrxDer(ordemProducaoobj.getDesPrxDer().getValue());
-            System.out.println("getDesPrxDer" + (ordemProducaoobj.getDesPrxDer().getValue()));
             ordemProducao.setDesPrxPro(ordemProducaoobj.getDesPrxPro().getValue());
-            System.out.println("getDesPrxPro" + (ordemProducaoobj.getDesPrxPro().getValue()));
             ordemProducao.setNumOrp(ordemProducaoobj.getNumOrp().getValue());
             ordemProducao.setNumPri(ordemProducaoobj.getNumPri().getValue());
             ordemProducao.setPrxDer(ordemProducaoobj.getPrxDer().getValue());

@@ -28,6 +28,15 @@ public class OrdemProducaoDao {
     OrdemProducao ordemProducao = new OrdemProducao();
     private final String CONSULTARSQL = "SELECT * FROM nutri_op.op900qdo order by numpri WHERE STATUS <> 3";
     private final String CONSULTAORDEMPRODUCAORSQL = "SELECT * FROM nutri_op.op900qdo where NUMORP = ?";
+    private final String UPDATEQDP = "UPDATE nutri_op.op900qdo SET QTDRE1 = ?, QTDRFG = ?, QTDRFGN = ? WHERE NUMORP = ?";
+
+    public OrdemProducao getOrdemProducao() {
+        return ordemProducao;
+    }
+
+    public void setOrdemProducao(OrdemProducao ordemProducao) {
+        this.ordemProducao = ordemProducao;
+    }
 
     public OrdemProducaoDao(OrdemProducao ordemProducao) {
         this.ordemProducao = ordemProducao;
@@ -106,6 +115,8 @@ public class OrdemProducaoDao {
                 ordemProducao.setNumPri(rs.getInt(20));
                 ordemProducao.setCapsMt(rs.getDouble(21));
                 ordemProducao.setPesPad(rs.getDouble(22));
+                ordemProducao.setStatusRegistro(rs.getString(23));
+                ordemProducao.setQtdRfgn(rs.getDouble(24));
             }
             return ordemProducao;
         } catch (SQLException e) {
@@ -118,6 +129,25 @@ public class OrdemProducaoDao {
             }
         }
         return null;
+    }
+
+    public void atualizar() {
+        try {
+            PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(UPDATEQDP);
+            ps.setDouble(1, ordemProducao.getQtdRe1());
+            ps.setDouble(2, ordemProducao.getQtdRfg());
+            ps.setDouble(3, ordemProducao.getQtdRfgn());
+            ps.setInt(4, ordemProducao.getNumOrp());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Notificacao.infoBox("Ocorreu um Erro ao atualizar a ordem de produção", true);
+            try {
+                enviarEmail.enviaEmail(e.getMessage(), "Erro ao atualizar a ordem de produção");
+            } catch (MessagingException ex) {
+                Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
 }

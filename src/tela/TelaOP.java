@@ -33,18 +33,20 @@ import util.Modal;
 import util.Notificacao;
 import pojo.TurnoTrabalho;
 import dao.TurnoDao;
+import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import javax.swing.JTextField;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 import org.joda.time.DateTime;
 import pojo.MovimentoOrdemProducao;
 import pojo.Operador;
 import pojo.OrdemProducao;
 import pojoWebService.MovimentoOrdemProducaoWebService;
 import util.DadosRaspberry;
-import util.Servidor;
 
 public class TelaOP extends TelaCadastro {
 
@@ -103,7 +105,7 @@ public class TelaOP extends TelaCadastro {
     TurnoTrabalho turnoTrabalho = new TurnoTrabalho();
     TurnoDao turnoDao = new TurnoDao(turnoTrabalho);
 
-    OrdemProducao ordemProducao = new OrdemProducao();
+    public OrdemProducao ordemProducao = new OrdemProducao();
     OrdemProducaoDao ordemProducaoDao = new OrdemProducaoDao(ordemProducao);
 
     MovimentoOrdemProducao mvp = new MovimentoOrdemProducao();
@@ -157,10 +159,22 @@ public class TelaOP extends TelaCadastro {
         campoOp.setFocusable(false);
         new Thread(new Relogio()).start();
         tela = this;
+        btnFichaTecnica.setEnabled(false);
         controleTelas();
         consultarTurno();
         enviarApontamentoProducao();
         iniciarVerificacaoTurno();
+        travarTela();
+    }
+
+    public void travarTela() {
+        BasicInternalFrameUI ui = (javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI();
+        Component cp = ui.getNorthPane();
+        MouseMotionListener[] actions
+                = (MouseMotionListener[]) cp.getListeners(MouseMotionListener.class);
+        for (MouseMotionListener action : actions) {
+            cp.removeMouseMotionListener(action);
+        }
     }
 
     public MovimentoOrdemProducao getMvp() {
@@ -491,17 +505,6 @@ public class TelaOP extends TelaCadastro {
                     Enums.setSTATUSTELA(Enums.LIBERADOPRODUCAO);
                 }
             });
-            /* TecladoVirtual tela = tecladoVirtual.getTela();
-            tela.set("Digite o código de parada");
-            tela.addInternalFrameListener(new InternalFrameAdapter() {
-            @Override
-            public void internalFrameClosed(InternalFrameEvent e) {
-            telaRef.dispose();
-            JOptionPane.showConfirmDialog(null, "187 - FALTA DE INSUMOS. \n"
-            + "               Deseja Continuar?", "Operador Selecionado", JOptionPane.YES_OPTION);
-            
-            }
-            });*/
         });
         btnCancelar.addActionListener((ActionEvent e) -> {
         });
@@ -516,18 +519,43 @@ public class TelaOP extends TelaCadastro {
 
             }
         });
+    }
 
+    public void adicionarRefugo(int qtdRfg) {
+        mvp = new MovimentoOrdemProducao();
+        mvp.setCodDer(ordemProducao.getCodDer());
+        mvp.setCodEmp(1);
+        mvp.setCodEtg(ordemProducao.getCodEtg() + "");
+        mvp.setCodOri(ordemProducao.getCodOri());
+        mvp.setCodPro(ordemProducao.getCodPro());
+        mvp.setDatMov(getDate());
+        mvp.setExpErp(0);
+        mvp.setHorMov(getTime());
+        mvp.setNumCad(Integer.parseInt(Enums.CODIGOOPERADOR));
+        mvp.setNumOrp(ordemProducao.getNumOrp());
+        DadosRaspberry.SEQUENCIA = Consulta.CONSULTAINT("nutri_op.op000seq", "VLRSEQMOV", "IDSEQ = 0") + 1;
+        Consulta.UPDATE("nutri_op.op000seq", "VLRSEQMOV = " + DadosRaspberry.SEQUENCIA + "", "IDSEQ = 0");
+        mvp.setQtdRe1(0);
+        mvp.setQtdRfg(qtdRfg);
+
+        mvp.setSeqEtr(ordemProducao.getSeqEtr());
+        mvp.setSeqRot(ordemProducao.getSeqRot());
+        mvp.setTurTrb(codigoTurno);
+
+        ordemProducao.setQtdRe1((double) DadosRaspberry.QUANTIDADEPRODUZIDA);
+        ordemProducao.setQtdRfg((double) Enums.REFUGOSJUSTIFICADOS);
+        ordemProducao.setQtdRfgn((double) Enums.REFUGOSNAOIDENTIFICADOS);
+        ordemProducaoDao.setOrdemProducao(ordemProducao);
+        ordemProducaoDao.atualizar();
+
+        mvpDao.setMvp(mvp);
+        mvpDao.INCLUIR();
+
+        calcularHorasRestantes();
     }
 
     public void controleProducao() {
         try {
-            if (Integer.parseInt(TelaOP.tela.campoQuantidadeRealizada.getText().replace("UN", "").trim()) == Integer.parseInt(TelaOP.tela.campoQuantidadeProgramada.getText().replace("UN", "").trim())) {
-                TelaAvisoInicioProducao telaAviso = TelaAvisoInicioProducao.getTela();
-                Consulta.UPDATE("nutri_op.op900qdo", "STATUS = 3", "STATUS = 1");
-                Servidor.servidor.close();
-                telaAviso.moveToFront();
-                return;
-            }
             mvp = new MovimentoOrdemProducao();
             mvp.setCodDer(ordemProducao.getCodDer());
             mvp.setCodEmp(1);
@@ -539,26 +567,45 @@ public class TelaOP extends TelaCadastro {
             mvp.setHorMov(getTime());
             mvp.setNumCad(Integer.parseInt(Enums.CODIGOOPERADOR));
             mvp.setNumOrp(ordemProducao.getNumOrp());
-            campoQuantidadeRealizada.setText(DadosRaspberry.QUANTIDADEPRODUZIDA  + " UN");
+            campoQuantidadeRealizada.setText(DadosRaspberry.QUANTIDADEPRODUZIDA + " UN");
             DadosRaspberry.SEQUENCIA = Consulta.CONSULTAINT("nutri_op.op000seq", "VLRSEQMOV", "IDSEQ = 0") + 1;
             Consulta.UPDATE("nutri_op.op000seq", "VLRSEQMOV = " + DadosRaspberry.SEQUENCIA + "", "IDSEQ = 0");
-            mvp.setQtdRe1(DadosRaspberry.QUANTIDADEPRODUZIDA);
-            mvp.setQtdRfg(Enums.REFUGOSJUSTIFICADOS);
-            mvp.setQtdRfgn(Enums.REFUGOSNAOIDENTIFICADOS);
+            mvp.setQtdRe1((float) ordemProducao.getCapsMt());
+            mvp.setQtdRfg(0);
+
             mvp.setSeqEtr(ordemProducao.getSeqEtr());
             mvp.setSeqRot(ordemProducao.getSeqRot());
             mvp.setTurTrb(codigoTurno);
+
+            ordemProducao.setQtdRe1((double) DadosRaspberry.QUANTIDADEPRODUZIDA);
+            ordemProducao.setQtdRfg((double) Enums.REFUGOSJUSTIFICADOS);
+            ordemProducao.setQtdRfgn((double) Enums.REFUGOSNAOIDENTIFICADOS);
+            ordemProducaoDao.setOrdemProducao(ordemProducao);
+            ordemProducaoDao.atualizar();
+
             mvpDao.setMvp(mvp);
             mvpDao.INCLUIR();
+
             calcularHorasRestantes();
+
+            if (DadosRaspberry.QUANTIDADEPRODUZIDA == Integer.parseInt(TelaOP.tela.campoQuantidadeProgramada.getText().replace("UN", "").trim())) {
+                ordemProducao = new OrdemProducao();
+                mvp = new MovimentoOrdemProducao();
+                Consulta.UPDATE("nutri_op.op900qdo", "STATUS = 3", "STATUS = 1");
+                DadosRaspberry.QUANTIDADEPRODUZIDA = 0;
+                Enums.REFUGOSJUSTIFICADOS = 0;
+                Enums.REFUGOSNAOIDENTIFICADOS = 0;
+                TelaAvisoInicioProducao telaAviso = TelaAvisoInicioProducao.getTela();
+                telaAviso.moveToFront();
+                return;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void enviarApontamentoProducao() {
-        final long time = 40000; // a cada X ms
+        final long time = 60000; // a cada X ms
         Timer timer = new Timer();
 
         TimerTask tarefa = new TimerTask() {

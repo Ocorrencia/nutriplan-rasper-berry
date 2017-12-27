@@ -235,6 +235,7 @@ public class TecladoVirtual extends JInternalFrame {
                     if (abrirTela.equals(Enums.TELAOP)) {
                         if ("".equals(meuCampoValor.getText())) {
                             TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
+                            Notificacao.infoBox("Digite o código do operador!", false);
                             return;
                         } else {
                             String nomeOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NOMOPE", "" + meuCampoValor.getText() + " = NUMCAD");

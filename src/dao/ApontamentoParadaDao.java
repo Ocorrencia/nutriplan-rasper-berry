@@ -61,7 +61,7 @@ public class ApontamentoParadaDao {
             ps.setInt(15, apontamentoParada.getNumCad() == null ? 0 : apontamentoParada.getNumCad());
             ps.executeUpdate();
             ConexaoMysql.FecharConexao();
-            apWebService.enviarMovimentoOrdemProducaoSapiens();
+            apWebService.enviarApontamentoParadaSapiens();
             return true;
         } catch (Exception e) {
             e.printStackTrace();

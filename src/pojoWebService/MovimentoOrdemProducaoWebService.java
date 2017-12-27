@@ -5,9 +5,9 @@
  */
 package pojoWebService;
 
-import Dados.EnviarDadosMotivoParada;
 import br.com.senior.services.OpApontamentoProducaoInApontar;
 import br.com.senior.services.OpApontamentoProducaoOutRespostaApontar;
+import dao.RefugoDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,23 +29,49 @@ public class MovimentoOrdemProducaoWebService {
 
     EnviarEmail enviarEmail = new EnviarEmail();
     String codCre;
-    EnviarDadosMotivoParada enviarDados = new EnviarDadosMotivoParada();
     Refugo refugo;
     NumberFormat nf = NumberFormat.getInstance();
     double number;
-    private final String CONSULTARSQL = "SELECT\n"
-            + "    op900eoq.CODORI,\n"
-            + "    op900eoq.NUMORP,\n"
-            + "    op900eoq.CODETG,\n"
-            + "    op900eoq.SEQROT,\n"
-            + "    op900eoq.DATMOV,\n"
-            + "    op900eoq.HORMOV,\n"
-            + "    op900eoq.NUMCAD,\n"
-            + "    op900eoq.QTDRE1,\n"
-            + "    op900eoq.QTDRFG,\n"
-            + "    op900eoq.TURTRB,\n"
-            + "    op900eoq.SEQMOV\n"
-            + "FROM nutri_op.op900eoq WHERE op900eoq.EXPERP = 0";
+    RefugoDao refugoDao = new RefugoDao();
+
+    private final String CONSULTARSQL = "SELECT \n"
+            + "    eoq.CODORI,\n"
+            + "    eoq.NUMORP,\n"
+            + "    eoq.CODETG,\n"
+            + "    eoq.SEQROT,\n"
+            + "    eoq.DATMOV,\n"
+            + "    eoq.HORMOV,\n"
+            + "    eoq.NUMCAD,\n"
+            + "    eoq.QTDRE1,\n"
+            + "    eoq.QTDRFG,\n"
+            + "    eoq.TURTRB,\n"
+            + "    eoq.SEQMOV,\n"
+            + "    eoq.CODDFT\n"
+            + "FROM\n"
+            + "    nutri_op.op900eoq eoq\n"
+            + "        INNER JOIN\n"
+            + "    nutri_op.op900qdo qdo ON (eoq.NUMORP = qdo.NUMORP)\n"
+            + "WHERE\n"
+            + "    eoq.EXPERP = 0 AND eoq.QTDRE1 > 0 \n"
+            + "UNION ALL SELECT \n"
+            + "    eoq.CODORI,\n"
+            + "    eoq.NUMORP,\n"
+            + "    eoq.CODETG,\n"
+            + "    eoq.SEQROT,\n"
+            + "    eoq.DATMOV,\n"
+            + "    eoq.HORMOV,\n"
+            + "    eoq.NUMCAD,\n"
+            + "    eoq.QTDRE1,\n"
+            + "    eoq.QTDRFG,\n"
+            + "    eoq.TURTRB,\n"
+            + "    eoq.SEQMOV,\n"
+            + "    eoq.CODDFT\n"
+            + "FROM\n"
+            + "    nutri_op.op900eoq eoq\n"
+            + "        INNER JOIN\n"
+            + "    nutri_op.op900qdo qdo ON (eoq.NUMORP = qdo.NUMORP)\n"
+            + "WHERE\n"
+            + "    eoq.EXPERP = 0 AND eoq.QTDRFG > 0 AND eoq.CODDFT IS NOT NULL";
 
     JAXBElement<String> jaxbCodOri = new JAXBElement(new QName("", "codOri"), String.class, "");
     JAXBElement<Integer> jaxbNumOrp = new JAXBElement(new QName("", "numOrp"), Integer.class, 0);
@@ -77,6 +103,7 @@ public class MovimentoOrdemProducaoWebService {
 
     public boolean enviarMovimentoOrdemProducaoSapiens() {
         try {
+
             br.com.senior.services.G5SeniorServices service = new br.com.senior.services.G5SeniorServices();
             br.com.senior.services.SapiensSyncnutriplanOp port = service.getSapiensSyncnutriplanOpPort();
             br.com.senior.services.OpApontamentoProducaoIn parameters = new br.com.senior.services.OpApontamentoProducaoIn();
@@ -93,11 +120,11 @@ public class MovimentoOrdemProducaoWebService {
                 jaxbHorMov.setValue(rs.getString(6));
                 laxbNumcad.setValue(rs.getInt(7));
                 jaxbQtdRe1.setValue(rs.getDouble(8));
-                jaxbQtdRfg.setValue(Refugo.getQuantidade() == null ? Double.parseDouble("0") : Refugo.getQuantidade());
-                Refugo.setQuantidade(Double.parseDouble("0"));
+                jaxbQtdRfg.setValue(rs.getDouble(9));
+                Refugo.setQuantidade(0);
                 jaxbturTrb.setValue(rs.getInt(10));
                 jaxbSeqMov.setValue(rs.getInt(11));
-                jaxbcodDft.setValue(Refugo.getCodDft() + "");
+                jaxbcodDft.setValue(rs.getString(12));
                 Refugo.setCodDft(0);
 
                 objApontar.setCodOri(jaxbCodOri);
@@ -120,6 +147,7 @@ public class MovimentoOrdemProducaoWebService {
             if (result.getErroExecucao().getValue() != null) {
                 try {
                     System.out.println("" + result.getErroExecucao().getValue());
+                    System.out.println("ERRO : " + result.getErroExecucao().getValue());
                     Notificacao.infoBox("Não foi possivel enviar apontamento de producao", false);
                     enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Motivo Parada");
                     return false;

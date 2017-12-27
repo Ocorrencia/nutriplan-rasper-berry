@@ -41,12 +41,36 @@ public class OrdemProducao {
     double pesPad;
     double capsMt;
 
+    public Double getQtdPrv() {
+        return qtdPrv;
+    }
+
+    public void setQtdPrv(Double qtdPrv) {
+        this.qtdPrv = qtdPrv;
+    }
+
+    public Double getQtdRfg() {
+        return qtdRfg;
+    }
+
+    public void setQtdRfg(Double qtdRfg) {
+        this.qtdRfg = qtdRfg;
+    }
+
     public Double getQtdRfgn() {
         return qtdRfgn;
     }
 
     public void setQtdRfgn(Double qtdRfgn) {
         this.qtdRfgn = qtdRfgn;
+    }
+
+    public Double getQtdRe1() {
+        return qtdRe1;
+    }
+
+    public void setQtdRe1(Double qtdRe1) {
+        this.qtdRe1 = qtdRe1;
     }
 
     public double getPesPad() {
@@ -63,14 +87,6 @@ public class OrdemProducao {
 
     public void setCapsMt(double capsMt) {
         this.capsMt = capsMt;
-    }
-
-    public Double getQtdRe1() {
-        return qtdRe1;
-    }
-
-    public void setQtdRe1(Double qtdRe1) {
-        this.qtdRe1 = qtdRe1;
     }
 
     public int getNumPri() {
@@ -233,22 +249,6 @@ public class OrdemProducao {
 
     public void setQtdMax(Double qtdMax) {
         this.qtdMax = qtdMax;
-    }
-
-    public Double getQtdPrv() {
-        return qtdPrv;
-    }
-
-    public void setQtdPrv(Double qtdPrv) {
-        this.qtdPrv = qtdPrv;
-    }
-
-    public Double getQtdRfg() {
-        return qtdRfg;
-    }
-
-    public void setQtdRfg(Double qtdRfg) {
-        this.qtdRfg = qtdRfg;
     }
 
     public List<OrdemProducao> getItensOrdemProducao() {

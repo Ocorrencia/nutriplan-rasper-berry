@@ -179,7 +179,6 @@ public class TelaAvisoTravamento extends JInternalFrame {
         ap.setSeqRot(seqRot);
         ap.setCodOri(codOri + "");
         ap.setNumCad(Integer.parseInt(Enums.CODIGOOPERADOR));
-        ap.setExpErp("1");
         incluir();
     }
 
