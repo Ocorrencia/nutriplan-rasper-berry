@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import tela.TelaSistema;
 
 public class MensagensSistema {
@@ -54,8 +55,9 @@ public class MensagensSistema {
         jop.setOptions(new Object[]{jbSim, jbNao});
 
         JDialog dialog = jop.createDialog(TelaSistema.jdp, "OPERADOR SELECIONADO");
+        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.setVisible(true);
-
+        dialog.setAlwaysOnTop(true);
         return (String) jop.getValue();
     }
 

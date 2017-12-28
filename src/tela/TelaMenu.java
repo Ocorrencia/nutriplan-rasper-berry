@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import util.Consulta;
 import util.Enums;
 import util.Modal;
 import util.Notificacao;
@@ -215,11 +216,14 @@ public class TelaMenu extends JInternalFrame {
             TelaMaquina.getTela();
         });
         btnOP.addActionListener((ActionEvent e) -> {
-            this.dispose();
-
-            TecladoVirtual tela1 = TecladoVirtual.getTela("DIGITE O OPERADOR", "INICIO");
-            Modal.getTela(tela1);
-            tela1.moveToFront();
+            if (Consulta.CONSULTASTRING("nutri_op.op000maq", "CODCRE", "1 = 1") != "VAZIO") {
+                this.dispose();
+                TecladoVirtual tela1 = TecladoVirtual.getTela("DIGITE O OPERADOR", "INICIO");
+                Modal.getTela(tela1);
+                tela1.moveToFront();
+            }else{
+                Notificacao.infoBox("não foi encontrado um Centro de recurso para o Software", false);
+            }
         });
         btnSair.addActionListener((ActionEvent e) -> {
             getTela().dispose();

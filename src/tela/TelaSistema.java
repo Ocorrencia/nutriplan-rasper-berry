@@ -4,6 +4,8 @@ import com.alee.laf.progressbar.WebProgressBar;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.net.URL;
@@ -21,13 +23,60 @@ import util.Servidor;
 public class TelaSistema extends JFrame {
 
     public static MeuJDesktopPane jdp = new MeuJDesktopPane();
+    public static TelaSistema telaSistema;
+
+    public static void main(String args[]) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        try {
+            telaSistema = new TelaSistema();
+            System.gc();
+            Enums.STATUSTELA = Enums.getSTATUSTELA();
+            UIManager.put("ScrollBar.width", 50);
+            if (Enums.STATUSTELA == Enums.AVISOINICIOPRODUCAO) {
+                TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
+            }
+            if (Enums.STATUSTELA == Enums.PRODUCAO || Enums.STATUSTELA == Enums.APONTAMENTODEPARADA) {
+                TelaOP.getTela();
+            } else if (Enums.getSTATUSTELA() == Enums.MENU) {
+                TelaMenu.getTela();
+            } else if (Enums.getSTATUSTELA() == Enums.FINALIZADO) {
+                TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void centraliza(JInternalFrame janela) {
+        int larguraDesk = jdp.getWidth();
+        int alturaDesk = jdp.getHeight();
+        int larguraIFrame = janela.getWidth();
+        int alturaIFrame = janela.getHeight();
+        janela.setLocation(larguraDesk / 2 - larguraIFrame / 2, alturaDesk / 2 - alturaIFrame / 2);
+    }
+
+    public static void centralizaJPanel(JPanel janela) {
+        int larguraDesk = jdp.getWidth();
+        int alturaDesk = jdp.getHeight();
+        int larguraIFrame = janela.getWidth();
+        int alturaIFrame = janela.getHeight();
+        janela.setLocation(larguraDesk / 2 - larguraIFrame / 2, alturaDesk / 2 - alturaIFrame / 2);
+    }
+
+    public static void centralizaJDialog(JDialog janela) {
+        int larguraDesk = jdp.getWidth();
+        int alturaDesk = jdp.getHeight();
+        int larguraIFrame = janela.getWidth();
+        int alturaIFrame = janela.getHeight();
+        janela.setLocation(larguraDesk / 2 - larguraIFrame / 2, alturaDesk / 2 - alturaIFrame / 2);
+    }
     final WebProgressBar progressBar = new WebProgressBar(0, 100);
     JPanel jPanelProgressBar = new JPanel();
     URL urlTopo = getClass().getResource("/imagem/iconePrincipal.png");
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
-    public static TelaSistema telaSistema;
     Enums consta;
     Servidor servidor = new Servidor();
+    //   ListenGPIO listenGPIO = new ListenGPIO();
 
     public TelaSistema() {
         getContentPane().add(jdp);
@@ -42,28 +91,6 @@ public class TelaSistema extends JFrame {
         servidor.iniciarServidor();
         // verificarTurno.inicarVerificacao();
         travar();
-    }
-
-    public static void main(String args[]) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        try {
-            telaSistema = new TelaSistema();
-            System.gc();
-            Enums.STATUSTELA = Enums.getSTATUSTELA();
-            UIManager.put("ScrollBar.width", 50);
-            if (Enums.STATUSTELA == Enums.AVISOINICIOPRODUCAO) {
-                TecladoVirtual teclado = TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
-            }
-            if (Enums.STATUSTELA == Enums.PRODUCAO || Enums.STATUSTELA == Enums.APONTAMENTODEPARADA) {
-                TelaOP.getTela();
-            } else if (Enums.getSTATUSTELA() == Enums.MENU) {
-                TelaMenu.getTela();
-            } else if (Enums.getSTATUSTELA() == Enums.FINALIZADO) {
-                TecladoVirtual teclado = TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     public void controleDeOperacao() {
@@ -98,30 +125,16 @@ public class TelaSistema extends JFrame {
                 northPane.removeMouseMotionListener(listener);
             }
         }
-    }
+        this.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+              //  TecladoVirtual teclado = TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
+            }
 
-    public static void centraliza(JInternalFrame janela) {
-        int larguraDesk = jdp.getWidth();
-        int alturaDesk = jdp.getHeight();
-        int larguraIFrame = janela.getWidth();
-        int alturaIFrame = janela.getHeight();
-        janela.setLocation(larguraDesk / 2 - larguraIFrame / 2, alturaDesk / 2 - alturaIFrame / 2);
-    }
-
-    public static void centralizaJPanel(JPanel janela) {
-        int larguraDesk = jdp.getWidth();
-        int alturaDesk = jdp.getHeight();
-        int larguraIFrame = janela.getWidth();
-        int alturaIFrame = janela.getHeight();
-        janela.setLocation(larguraDesk / 2 - larguraIFrame / 2, alturaDesk / 2 - alturaIFrame / 2);
-    }
-
-    public static void centralizaJDialog(JDialog janela) {
-        int larguraDesk = jdp.getWidth();
-        int alturaDesk = jdp.getHeight();
-        int larguraIFrame = janela.getWidth();
-        int alturaIFrame = janela.getHeight();
-        janela.setLocation(larguraDesk / 2 - larguraIFrame / 2, alturaDesk / 2 - alturaIFrame / 2);
+            @Override
+            public void focusLost(FocusEvent e) {
+            }
+        });
     }
 
 }

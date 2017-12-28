@@ -38,7 +38,6 @@ import util.DadosRaspberry;
 import util.Enums;
 import util.Modal;
 import util.Notificacao;
-import util.Servidor;
 import util.Sincronizacao;
 
 /**
@@ -110,6 +109,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         setTitle("INÍCIO DE PRODUÇÃO");
         comboOp.setFont(new Font("Arial", Font.BOLD, 30));
         comboOp.setPreferredSize(new Dimension(660, 60));
+        comboOp.setMaximumSize(new Dimension(660, 60));
         btnIniciar.setPreferredSize(new Dimension(740, 60));
         btnAtualizar.setPreferredSize(new Dimension(40, 60));
         comboOp.setSelectedIndex(-1);

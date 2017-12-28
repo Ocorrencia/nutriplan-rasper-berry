@@ -15,6 +15,7 @@ import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,6 +32,7 @@ import util.Consulta;
 import util.Enums;
 import util.ListModelMotivo;
 import util.Modal;
+import util.Notificacao;
 
 /**
  *
@@ -62,7 +64,6 @@ public class TelaAvisoTravamento extends JInternalFrame {
         JPanel painelInfo = new JPanel();
         setVisible(true);
         setResizable(false);
-        setTitle("AVISO");
 
         btnIniciar.setPreferredSize(new Dimension(700, 60));
         btnVoltar.setPreferredSize(new Dimension(700, 60));
@@ -82,7 +83,7 @@ public class TelaAvisoTravamento extends JInternalFrame {
         add(painelInfo);
         listener();
         travarTela();
-        setTitle("Aviso travamento operacional");
+        setTitle("Aviso de Travamento Operacional");
         setPreferredSize(new Dimension(700, 400));
         pack();
     }
@@ -143,6 +144,15 @@ public class TelaAvisoTravamento extends JInternalFrame {
         });
 
         btnIniciar.addActionListener((ActionEvent e) -> {
+            ArrayList<String> horas = Consulta.CONSULTAARRAYSTRING("nutri_op.op930mpr", "HORINI", "1 = 1");
+            String horaAtual = getTime();
+            for (String hora : horas) {
+                if (hora.substring(0, 5).equals(horaAtual.substring(0, 5))){
+                    System.out.println("sim");
+                    Notificacao.infoBox("Já existem apontamento parada neste minuto", false);
+                    return;
+                }
+            }
 
             dispose();
             Modal.getTela(telaAviso).dispose();
@@ -159,6 +169,7 @@ public class TelaAvisoTravamento extends JInternalFrame {
     }
 
     public void setPersistencia() {
+
         Integer codCre = Consulta.CONSULTAINT("nutri_op.op000maq", "CODCRE", "1 = 1");
         Integer codEtg = Consulta.CONSULTAINT("nutri_op.op725cre", "CODETG", "CODCRE = " + codCre + "");
         Integer numOrp = Consulta.CONSULTAINT("nutri_op.op900qdo", "NUMORP", "STATUS = 1");

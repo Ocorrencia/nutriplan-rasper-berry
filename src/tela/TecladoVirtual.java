@@ -211,7 +211,11 @@ public class TecladoVirtual extends JInternalFrame {
             meuCampoValor.setText(meuCampoValor.getText() + "0");
         });
         ok.addActionListener((ActionEvent e) -> {
-            tela.dispose();
+            if ("".equals(meuCampoValor.getText())) {
+                Notificacao.infoBox("Digite um valor", false);
+            }else{
+                tela.dispose();
+            }
         });
         voltar.addActionListener((ActionEvent e) -> {
             meuCampoValor.setText("");
