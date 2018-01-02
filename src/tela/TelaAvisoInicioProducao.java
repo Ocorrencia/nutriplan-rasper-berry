@@ -5,6 +5,7 @@
  */
 package tela;
 
+import componente.MensagensSistema;
 import componente.MeuComboBox;
 import dao.ApontamentoParadaDao;
 import dao.MovimentoOrdemProducaoDao;
@@ -18,7 +19,10 @@ import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -32,6 +36,7 @@ import pojo.ApontamentoParada;
 import pojo.MovimentoOrdemProducao;
 import pojo.OrdemProducao;
 import pojoWebService.ApontamentoParadaWebService;
+import static tela.TelaOP.tela;
 import util.Consulta;
 import util.Cronometro;
 import util.DadosRaspberry;
@@ -62,6 +67,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
 
     JLabel iconeWarning = new JLabel(icoWarning);
     JButton btnIniciar = new JButton("INICIAR");
+    JButton btnParada = new JButton("PARADA DE MÁQUINA");
     JButton btnAtualizar = new JButton(iconeRefresh);
     public static TelaAvisoInicioProducao telaInicio;
 
@@ -78,31 +84,35 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
     String sequenciaUltimaParada;
 
     ApontamentoParadaWebService apWebService = new ApontamentoParadaWebService();
+    public long seg = 1;
+    public long minuto = 0;
+    public long horas = 0;
 
     public TelaAvisoInicioProducao() {
         JPanel painelInfo = new JPanel();
         setVisible(true);
         setResizable(false);
         setTitle("AVISO");
-        btnIniciar.setPreferredSize(new Dimension(80, 40));
 
         lbParada.setFont(new Font("Arial", Font.BOLD, 42));
         lbTempo.setFont(new Font("Arial", Font.BOLD, 30));
         lbTipo.setFont(new Font("Arial", Font.BOLD, 40));
         lbOrdemProducao.setFont(new Font("Arial", Font.BOLD, 30));
         btnIniciar.setFont(new Font("Arial", Font.BOLD, 40));
+        btnParada.setFont(new Font("Arial", Font.BOLD, 40));
 
         painelInfo.setLayout(new MigLayout());
         this.setFrameIcon(iconeprincipal);
-        painelInfo.add(iconeWarning, "align center,wrap");
-        painelInfo.add(lbParada, "align center,wrap");
-        painelInfo.add(lbTempo, "align center,wrap");
-        painelInfo.add(new JLabel(" "), "align center,wrap");
-        painelInfo.add(lbOrdemProducao, "align center, wrap");
+        painelInfo.add(iconeWarning, "align center,span,wrap");
+        painelInfo.add(lbParada, "align center,span,wrap");
+        painelInfo.add(lbTempo, "align center,span,wrap");
+        painelInfo.add(new JLabel(" "), "align center,span,wrap");
+        painelInfo.add(lbOrdemProducao, "align center,span, wrap");
         painelInfo.add(comboOp, "align center");
-        painelInfo.add(btnAtualizar, "align center, wrap");
-        painelInfo.add(lbTipo, "align center, wrap");
-        painelInfo.add(btnIniciar, "align center,span");
+        painelInfo.add(btnAtualizar, "align center,wrap");
+        painelInfo.add(lbTipo, "align center,span, wrap");
+        painelInfo.add(btnIniciar, "align center,span, wrap");
+        painelInfo.add(btnParada, "align center,span");
         add(painelInfo);
         listener();
         travarTela();
@@ -111,12 +121,14 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         comboOp.setPreferredSize(new Dimension(660, 60));
         comboOp.setMaximumSize(new Dimension(660, 60));
         btnIniciar.setPreferredSize(new Dimension(740, 60));
+        btnParada.setPreferredSize(new Dimension(740, 60));
         btnAtualizar.setPreferredSize(new Dimension(40, 60));
         comboOp.setSelectedIndex(-1);
         verificarOps();
         verificarParada();
         pack();
         this.repaint();
+        cronos();
     }
 
     public ApontamentoParada getAp() {
@@ -132,6 +144,31 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         if (!"VAZIO".equals(numOrp)) {
             comboOp.setSql("SELECT NUMORP ,CONCAT(CODDER, ' - ', CODPRO, ' - ', DESPRO, ' ', DESDER) as PRODUTO FROM nutri_op.op900qdo WHERE NUMORP = " + numOrp + " AND STATUS <> 3 order by numpri");
         }
+    }
+
+    public void cronos() {
+        final long time = 1000; // a cada X ms
+        Timer timer = new Timer();
+
+        TimerTask tarefa = new TimerTask() {
+            public void run() {
+                try {
+                    seg++;
+                    if (seg >= 59) {
+                        seg = 00;
+                        minuto++;
+                    }
+                    if (minuto >= 59) {
+                        minuto = 00;
+                        horas++;
+                    }
+                    lbTempo.setText((horas < 10 ? "0" + horas : horas) + ":" + (minuto < 10 ? "0" + minuto : "") + ":" + (seg < 10 ? "0" + seg : seg));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(tarefa, time, time);
     }
 
     public void travarTela() {
@@ -189,6 +226,16 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
                 comboOp.setSql("SELECT NUMORP ,CONCAT(CODDER, ' - ', CODPRO, ' - ', DESPRO, ' ', DESDER) as PRODUTO  FROM nutri_op.op900qdo WHERE STATUS <> 3 order by numpri");
             }
         });
+        btnParada.addActionListener((ActionEvent e) -> {
+            String lista = Consulta.CONSULTASTRING("nutri_op.op930mpr mpr INNER JOIN nutri_op.op018mtv mtv ON (mpr.CODMTV = mtv.CODMTV)", "CONCAT(mtv.CODMTV,' - ',DESMTV) AS MOTIVO", "HORFIM = ''");
+            if (!lista.equals("VAZIO")) {
+                Notificacao.infoBox("Existem apontamento de parada em aberto \n " + lista + "", false);
+                return;
+            }
+
+            Modal.getTela(tela).setVisible(true);
+            TelaApontamentoParada.getTela();
+        });
         btnIniciar.addActionListener((ActionEvent e) -> {
             if (comboOp.getSelectedIndex() == -1) {
                 Notificacao.infoBox("Selecione uma Ordem de Produção", false);
@@ -199,6 +246,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
                 ap.setDatPar(getDate());
                 apDao.setApontamentoParada(ap);
                 //TODO FAZER TRATAMENTO DE RETORNO
+                verificarParada();
                 if (sequenciaUltimaParada != null) {
                     apWebService.enviarApontamentoParadaSapiens();
                     Consulta.UPDATE("nutri_op.op930mpr", "HORFIM = '" + getTime() + "', EXPERP = 1", "HORFIM = ''");
@@ -222,7 +270,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
                 DadosRaspberry.QUANTIDADEPRODUZIDA = (int) Math.round(ordemProducao.getQtdRe1());
             }
 
-            TelaOP.getTela().campoOp.setText(ordemProducao.getCodDer() + " - " + ordemProducao.getCodPro() + " - " + ordemProducao.getDesPro() + " " + ordemProducao.getDesDer());
+            TelaOP.getTela().campoOp.setText(ordemProducao.getCodDer() + " - " + ordemProducao.getCodPro() + " - " + ordemProducao.getDesPro().substring(0, 8) + " " + ordemProducao.getDesDer().substring(0, 8));
             TelaOP.tela.setMvp(mvp);
             TelaOP.tela.setOrdemProducao(ordemProducao);
         });

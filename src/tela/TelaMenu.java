@@ -26,8 +26,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import util.ConexaoMysql;
 import util.Consulta;
 import util.Enums;
+import util.Limpar;
 import util.Modal;
 import util.Notificacao;
 import util.Sincronizacao;
@@ -51,6 +53,7 @@ public class TelaMenu extends JInternalFrame {
 
     private final ImageIcon iconeMaquina = new ImageIcon(imagemMaquina);
     private final ImageIcon icoSinc = new ImageIcon(imagemSinc);
+    private final ImageIcon icoClean = new ImageIcon(imagemSinc);
     private final ImageIcon icoRede = new ImageIcon(imagemRede);
     private final ImageIcon icoNext = new ImageIcon(imagemNext);
     private final ImageIcon icoBack = new ImageIcon(imagemBack);
@@ -71,6 +74,7 @@ public class TelaMenu extends JInternalFrame {
 
     JButton btnOP = new JButton("ORDEM \n PRODUÇÃO", icoPlay);
     JButton btnSincronizacao = new JButton("SINCRONIZAÇÃO", icoSinc);
+    JButton btnReiniciarBanco = new JButton("LIMPAR APP", icoClean);
     JButton btnRede = new JButton("REDE", icoRede);
     JButton tecladoVitrual = new JButton("Teclado", icoSinc);
     JButton btnSair = new JButton("SAIR", icoSair);
@@ -148,7 +152,7 @@ public class TelaMenu extends JInternalFrame {
         painelBotoes.add(btnSair);
 
         painelBotoes1.add(btnMaquina);
-        painelBotoes1.add(new JButton());
+        painelBotoes1.add(btnReiniciarBanco);
         painelBotoes1.add(new JButton());
         painelBotoes1.add(new JButton());
 
@@ -221,7 +225,7 @@ public class TelaMenu extends JInternalFrame {
                 TecladoVirtual tela1 = TecladoVirtual.getTela("DIGITE O OPERADOR", "INICIO");
                 Modal.getTela(tela1);
                 tela1.moveToFront();
-            }else{
+            } else {
                 Notificacao.infoBox("não foi encontrado um Centro de recurso para o Software", false);
             }
         });
@@ -261,6 +265,10 @@ public class TelaMenu extends JInternalFrame {
             }
             getContentPane().repaint();
         });
+        btnReiniciarBanco.addActionListener((ActionEvent e) -> {
+            Limpar limpar = new Limpar();
+            limpar.executeSqlScript();
+        });
     }
 
     private void alinhamentoBotoes() {
@@ -290,6 +298,9 @@ public class TelaMenu extends JInternalFrame {
 
         btnMaquina.setVerticalTextPosition(SwingConstants.BOTTOM);
         btnMaquina.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        btnReiniciarBanco.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnReiniciarBanco.setHorizontalTextPosition(SwingConstants.CENTER);
     }
 
     private void configTitulo() {
@@ -304,6 +315,7 @@ public class TelaMenu extends JInternalFrame {
         //painelBotoes.setBorder(BorderFactory.createLineBorder(Color.GREEN));
         btnSair.setFont(new Font("Arial", Font.BOLD, 22));
         btnSincronizacao.setFont(new Font("Arial", Font.BOLD, 22));
+        btnReiniciarBanco.setFont(new Font("Arial", Font.BOLD, 22));
         btnRede.setFont(new Font("Arial", Font.BOLD, 22));
         tecladoVitrual.setFont(new Font("Arial", Font.BOLD, 22));
         btnOP.setFont(new Font("Arial", Font.BOLD, 22));

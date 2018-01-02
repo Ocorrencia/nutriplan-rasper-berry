@@ -33,7 +33,7 @@ public class Consulta {
                 return "VAZIO";
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");
@@ -50,7 +50,7 @@ public class Consulta {
             PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(sql);
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");
@@ -71,7 +71,7 @@ public class Consulta {
                 return 0;
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");
@@ -92,7 +92,7 @@ public class Consulta {
                 lista.add(rs.getInt(1));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");
@@ -102,7 +102,7 @@ public class Consulta {
         }
         return lista;
     }
-    
+
     public static ArrayList<String> CONSULTAARRAYSTRING(String tabela, String coluna, String where) {
         String sql = "SELECT " + coluna + " FROM " + tabela + " WHERE " + where + "";
         ArrayList<String> lista = new ArrayList<String>();
@@ -113,7 +113,7 @@ public class Consulta {
                 lista.add(rs.getString(1));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");

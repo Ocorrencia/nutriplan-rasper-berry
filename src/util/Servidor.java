@@ -28,7 +28,7 @@ public class Servidor {
 
     public Servidor() {
         try {
-              System.out.println("SERVIDOR RASPERBERRY INICIADO...");
+            System.out.println("SERVIDOR RASPERBERRY INICIADO...");
             InetAddress addr = InetAddress.getByName("10.1.1.234");
             servidor = new ServerSocket(12000, 1000, addr);
             //  iniciarServidor();
@@ -52,7 +52,6 @@ public class Servidor {
 
     public void iniciarServidor() {
         try {
-          
             new Thread() {
                 @Override
                 public void run() {

@@ -6,6 +6,7 @@
 package util;
 
 import java.util.TimerTask;
+import org.apache.commons.lang.time.StopWatch;
 import tela.TelaApontamentoParada;
 
 /**
@@ -23,5 +24,13 @@ public class Cronometro {
                 Modal.telaPai.moveToFront();
             }
         }, tempo);
+    }
+
+    public void contador() {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        // Do something
+        stopWatch.stop();
+        System.out.println(stopWatch.getTime());;
     }
 }

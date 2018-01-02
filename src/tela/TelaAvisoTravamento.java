@@ -5,6 +5,7 @@
  */
 package tela;
 
+import componente.MensagensSistema;
 import dao.ApontamentoParadaDao;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -147,13 +148,17 @@ public class TelaAvisoTravamento extends JInternalFrame {
             ArrayList<String> horas = Consulta.CONSULTAARRAYSTRING("nutri_op.op930mpr", "HORINI", "1 = 1");
             String horaAtual = getTime();
             for (String hora : horas) {
-                if (hora.substring(0, 5).equals(horaAtual.substring(0, 5))){
+                if (hora.substring(0, 5).equals(horaAtual.substring(0, 5))) {
                     System.out.println("sim");
                     Notificacao.infoBox("Já existem apontamento parada neste minuto", false);
                     return;
                 }
             }
-
+            String lista = Consulta.CONSULTASTRING("nutri_op.op930mpr mpr INNER JOIN nutri_op.op018mtv mtv ON (mpr.CODMTV = mtv.CODMTV)", "CONCAT(mtv.CODMTV,' - ',DESMTV) AS MOTIVO", "HORFIM = ''");
+            if (!lista.equals("VAZIO")) {
+                MensagensSistema.MensagemAtencao("Existem apontamentos de parada não finalizado \n " + lista + "");
+                return;
+            }
             dispose();
             Modal.getTela(telaAviso).dispose();
 
