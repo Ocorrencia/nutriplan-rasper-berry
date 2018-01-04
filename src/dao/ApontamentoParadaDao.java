@@ -65,7 +65,7 @@ public class ApontamentoParadaDao {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            Notificacao.infoBox("Ocorreu um Erro ao incluir o apontamento de parada", true);
+            Notificacao.infoBox("ERRO AO INCLUIR PARAD. MAQ. /68 APD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o Apontamento de parada");
                 return false;
@@ -101,7 +101,7 @@ public class ApontamentoParadaDao {
             return new ApontamentoParada();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro: Controle de Operação", true);
+            Notificacao.infoBox("ERRO AO CONSULTAR AP. PARADA /104APD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o controle de operação");
             } catch (MessagingException ex) {

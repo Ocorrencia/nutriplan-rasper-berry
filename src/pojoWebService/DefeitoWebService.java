@@ -35,7 +35,7 @@ public class DefeitoWebService {
 
             if (result.getErroExecucao().getValue() != null) {
                 try {
-                    Notificacao.infoBox("Não foi possivel executar a sincronização de defeitos", false);
+                    Notificacao.infoBox("ERRO AO SINCRONIZAR DEFEITOS /38DWS", false);
                     enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Defeitos");
                     return false;
                 } catch (MessagingException e) {

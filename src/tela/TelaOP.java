@@ -64,12 +64,12 @@ public class TelaOP extends TelaCadastro {
     ImageIcon iconeInformacao = new ImageIcon(urlIconeInformacao);
     ImageIcon icoPlay = new ImageIcon(urlIconePlay);
 
-    MeuCampoGenerico campoQuantidadeProgramada = new MeuCampoGenerico("Quantidade Programada:", false, 20);
-    MeuCampoGenerico campoQuantidadeRefugo = new MeuCampoGenerico("Quantidade Refugos:", false, 20);
-    MeuCampoGenerico campoQuantidadeRealizada = new MeuCampoGenerico("Quantidade Realizada:", false, 20);
-    MeuCampoGenerico campoCicloPadraoAtual = new MeuCampoGenerico("Ciclo Padrão/Atual:", false, 20);
-    MeuCampoGenerico campoPadraoUA = new MeuCampoGenerico("Padrão U.A:", false, 20);
-    MeuCampoGenerico campoPesoPadrao = new MeuCampoGenerico("Peso Padrão:", false, 20);
+    public MeuCampoGenerico campoQuantidadeProgramada = new MeuCampoGenerico("Quantidade Programada:", false, 20);
+    public MeuCampoGenerico campoQuantidadeRefugo = new MeuCampoGenerico("Quantidade Refugos:", false, 20);
+    public MeuCampoGenerico campoQuantidadeRealizada = new MeuCampoGenerico("Quantidade Realizada:", false, 20);
+    public MeuCampoGenerico campoCicloPadraoAtual = new MeuCampoGenerico("Ciclo Padrão/Atual:", false, 20);
+    public MeuCampoGenerico campoPadraoUA = new MeuCampoGenerico("Padrão U.A:", false, 20);
+    public MeuCampoGenerico campoPesoPadrao = new MeuCampoGenerico("Peso Padrão:", false, 20);
 
     MeuCampoFormatado operador = new MeuCampoFormatado("Operador:", false, 20);
 
@@ -299,10 +299,10 @@ public class TelaOP extends TelaCadastro {
             campoProximoProduto.setText("PRÓXIMO PRODUTO: *****************************************");
         } else {
             campoProximoProduto.setText("PRÓXIMO PRODUTO: "
-                    + ordemProducao.getPrxDer().substring(0, 10)
-                    + " - " + ordemProducao.getPrxPro().substring(0, 10)
-                    + " - " + ordemProducao.getDesPrxDer().substring(0, 10)
-                    + " " + ordemProducao.getDesPrxPro().substring(0, 10));
+                    + ordemProducao.getPrxDer()
+                    + " - " + ordemProducao.getPrxPro()
+                    + " - " + ordemProducao.getDesPrxDer()
+                    + " " + ordemProducao.getDesPrxPro());
         }
 
         campoQuantidadeRefugo.setText(Enums.REFUGOSJUSTIFICADOS + Enums.REFUGOSNAOIDENTIFICADOS + " UN");
@@ -489,12 +489,12 @@ public class TelaOP extends TelaCadastro {
     public void adicionarListener() {
         campoOp.addActionListener((ActionEvent e) -> {
             if (Enums.REFUGOSNAOIDENTIFICADOS > 0) {
-                Notificacao.infoBox("Existem Refugos não Justificados!", false);
+                Notificacao.infoBox("EXISTEM REFG. NÃO JUSTIFICADOS", false);
             }
         });
         btnTrocaOperador.addActionListener((ActionEvent e) -> {
             if (Enums.REFUGOSNAOIDENTIFICADOS > 0) {
-                Notificacao.infoBox("Existem Refugos não Justificados!", false);
+                Notificacao.infoBox("EXISTEM REFG. NÃO JUSTIFICADOS", false);
             } else {
                 TecladoVirtual telaTeclado = TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
                 Modal.getTela(telaTeclado).setVisible(true);

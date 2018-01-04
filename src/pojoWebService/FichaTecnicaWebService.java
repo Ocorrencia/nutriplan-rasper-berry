@@ -42,8 +42,8 @@ public class FichaTecnicaWebService {
 
         if (result.getErroExecucao().getValue() != null) {
             try {
-                Notificacao.infoBox("Não foi possivel executar a sincronização de operadores", false);
-                enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Operadores");
+                Notificacao.infoBox("ERRO AO SINCRONIZAR FICHA TÉCN. /45FTWS", false);
+                enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Ficha Técnica");
                 return false;
             } catch (MessagingException e) {
                 return false;

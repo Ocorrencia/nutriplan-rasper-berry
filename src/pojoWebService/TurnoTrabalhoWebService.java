@@ -44,7 +44,7 @@ public class TurnoTrabalhoWebService {
 
         if (result.getErroExecucao().getValue() != null) {
             try {
-                Notificacao.infoBox("Não foi possivel executar a sincronização dos turnos de tralho", false);
+                Notificacao.infoBox("ERRO AO SINCRONIZAR TURN. DE TRABA. /47TTWS", false);
                 enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Turno Trabalho");
                 return false;
             } catch (MessagingException e) {

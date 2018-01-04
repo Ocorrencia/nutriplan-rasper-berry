@@ -64,7 +64,7 @@ public class MovimentoOrdemProducaoDao {
             ConexaoMysql.FecharConexao();
         } catch (Exception e) {
             e.printStackTrace();
-            Notificacao.infoBox("Ocorreu um Erro ao incluiro movimento", true);
+            Notificacao.infoBox("ERRO AO INCLUIR MOVM PRODUÇÃO /67MOPD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o Movimento OP");
             } catch (MessagingException ex) {

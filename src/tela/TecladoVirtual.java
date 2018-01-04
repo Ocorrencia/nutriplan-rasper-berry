@@ -212,15 +212,21 @@ public class TecladoVirtual extends JInternalFrame {
         });
         ok.addActionListener((ActionEvent e) -> {
             if ("".equals(meuCampoValor.getText())) {
-                Notificacao.infoBox("Digite um valor", false);
-            }else{
+                Notificacao.infoBox("DIGITE UM VALOR", false);
+            } else {
                 tela.dispose();
             }
         });
         voltar.addActionListener((ActionEvent e) -> {
-            meuCampoValor.setText("");
+            if ("".equals(meuCampoValor.getText())) {
+                Notificacao.infoBox("DIGITE UM VALOR", false);
+                return;
+            } else {
+                Notificacao.infoBox("OPERAÇÃO NÃO PERMITIDA", false);
+            }
+            /*            meuCampoValor.setText("");
             Modal.getTela(tela).dispose();
-            tela.dispose();
+            tela.dispose();*/
         });
         apagar.addActionListener((ActionEvent e) -> {
             if (meuCampoValor.getText().length() > 0) {
@@ -239,14 +245,14 @@ public class TecladoVirtual extends JInternalFrame {
                     if (abrirTela.equals(Enums.TELAOP)) {
                         if ("".equals(meuCampoValor.getText())) {
                             TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
-                            Notificacao.infoBox("Digite o código do operador!", false);
+                            Notificacao.infoBox("DIGITE O CÓD. DO OPERADOR", false);
                             return;
                         } else {
                             String nomeOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NOMOPE", "" + meuCampoValor.getText() + " = NUMCAD");
                             String codigoOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NUMCAD", "" + meuCampoValor.getText() + " = NUMCAD");
 
                             if (codigoOperador.equals("VAZIO")) {
-                                Notificacao.infoBox("Operador não encontrado!", false);
+                                Notificacao.infoBox("OPERADOR NÃO ENCONTRADO", false);
                                 TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
                                 return;
                             }
@@ -273,7 +279,7 @@ public class TecladoVirtual extends JInternalFrame {
                             String codigoOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NUMCAD", "" + meuCampoValor.getText() + " = NUMCAD");
 
                             if (codigoOperador.equals("VAZIO")) {
-                                Notificacao.infoBox("Operador não encontrado!", false);
+                                Notificacao.infoBox("OPERADOR NÃO ENCONTRADO", false);
                                 TecladoVirtual.getTela("DIGITE O OPERADOR", "INICIO");
                                 return;
                             }
@@ -294,7 +300,7 @@ public class TecladoVirtual extends JInternalFrame {
                     /* -------------------------------------- */
                     if (abrirTela.equals(Enums.TELAMENU)) {
                         if (!meuCampoValor.getText().equals(Enums.SENHA)) {
-                            Notificacao.infoBox("Código Incorreto", false);
+                            Notificacao.infoBox("CÓDIGO INCORRETO", false);
                             TecladoVirtual.getTela("DIGITE O CÓDIGO", Enums.TELAMENU);
                             Enums.setSTATUSTELA(Enums.MENU);
                         } else if (Enums.getSTATUSTELA() == Enums.MENU) {
@@ -310,7 +316,7 @@ public class TecladoVirtual extends JInternalFrame {
                             String codigoOperador = Consulta.CONSULTASTRING("nutri_op.op906ope", "NUMCAD", "" + meuCampoValor.getText() + " = NUMCAD");
 
                             if (codigoOperador.equals("VAZIO")) {
-                                Notificacao.infoBox("Operador não encontrado!", false);
+                                Notificacao.infoBox("OPERADOR NÃO ENCONTRADO", false);
                                 TecladoVirtual.getTela("DIGITE O OPERADOR", "");
                                 return;
                             }

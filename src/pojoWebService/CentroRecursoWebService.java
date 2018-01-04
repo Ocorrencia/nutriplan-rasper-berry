@@ -38,7 +38,7 @@ public class CentroRecursoWebService {
             br.com.senior.services.OpCentroDeRecursoOut result = port.centroDeRecurso("integracao.op", "ERPintegracao.4651", 0, parameters);
             if (result.getErroExecucao().getValue() != null) {
                 try {
-                    Notificacao.infoBox("Não foi possivel executar a sincronização do centro de recurso", false);
+                    Notificacao.infoBox("EO AO SINCRONIZAR CENTRO. REC /41CRWS", false);
                     enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Centro de Recurso");
                     return false;
                 } catch (MessagingException e) {

@@ -169,7 +169,7 @@ public class TelaMenu extends JInternalFrame {
     }
 
     public void mensagemErroSincronizacao(String msg) {
-        Notificacao.infoBox("Ocorreu um erro ao sincronizar o centro de recurso", false);
+        Notificacao.infoBox("ERRO AO SINCRONIZAR CENTRO REC. /172TM", false);
         TelaLoading.getTela("").dispose();
         Modal.getTela(null).dispose();
     }
@@ -207,7 +207,7 @@ public class TelaMenu extends JInternalFrame {
                 mensagemErroSincronizacao("Ocorreu um erro ao sincronizar a ordem de produção");
                 return;
             } else if (true) {
-                Notificacao.infoBox("Sincronização Efetuada com Sucesso", true);
+                Notificacao.infoBox("SINCRONIZADA FINALIZADA", true);
                 tela1.getTela("").dispose();
                 Modal.getTela(tela1).dispose();
             }
@@ -226,7 +226,7 @@ public class TelaMenu extends JInternalFrame {
                 Modal.getTela(tela1);
                 tela1.moveToFront();
             } else {
-                Notificacao.infoBox("não foi encontrado um Centro de recurso para o Software", false);
+                Notificacao.infoBox("NÃO VINCULADO CENTRO DE REC.", false);
             }
         });
         btnSair.addActionListener((ActionEvent e) -> {

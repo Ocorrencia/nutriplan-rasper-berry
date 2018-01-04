@@ -46,7 +46,7 @@ public class ConfiguracaoBancoDao {
                 ps.setString(6, configBanco.getSenBan());
                 ps.executeUpdate();
                 ConexaoMysql.FecharConexao();
-                Notificacao.infoBox("Gravado com Sucesso", true);
+                Notificacao.infoBox("SALVO COM SUCESSO", true);
             } else {
                 PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(ALTERARSQL);
                 ps.setString(1, configBanco.getSerBan());
@@ -56,11 +56,11 @@ public class ConfiguracaoBancoDao {
                 ps.setString(5, configBanco.getSenBan());
                 ps.executeUpdate();
                 ConexaoMysql.FecharConexao();
-                Notificacao.infoBox("Alterado com Sucesso", true);
+                Notificacao.infoBox("ALTERADO COM SUCESSO", true);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro: Configuração do banco", true);
+            Notificacao.infoBox("ERRO AO INCLUIR CONFG BANCO /63CBD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o banco");
             } catch (MessagingException ex) {
@@ -81,11 +81,11 @@ public class ConfiguracaoBancoDao {
                 configBanco.setSenBan(rs.getString(5));
                 return true;
             }
-            Notificacao.infoBox("Não foi encontrado nenhum dado", true);
+            Notificacao.infoBox("NÃO HÁ DADOS", true);
             return false;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro: Configuração do banco", true);
+            Notificacao.infoBox("ERRO AO CONSULTAR CONFG. BANCO /88CBD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao consultar o banco");
             } catch (MessagingException ex) {

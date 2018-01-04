@@ -148,8 +148,8 @@ public class MovimentoOrdemProducaoWebService {
                 try {
                     System.out.println("" + result.getErroExecucao().getValue());
                     System.out.println("ERRO : " + result.getErroExecucao().getValue());
-                    Notificacao.infoBox("Não foi possivel enviar apontamento de producao", false);
-                    enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Motivo Parada");
+                    Notificacao.infoBox("ERRO AO ENVIAR MOV. DE PROD. /151MOPWS", false);
+                    enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Movimento Ordem Produção");
                     return false;
                 } catch (MessagingException e) {
                     return false;
@@ -164,9 +164,9 @@ public class MovimentoOrdemProducaoWebService {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro: ao consultar o movimento de apontamento", true);
+            Notificacao.infoBox("ERRO AO CONSULTAR MOV. DE PROD. /167MOPWS", true);
             try {
-                enviarEmail.enviaEmail(e.getMessage(), "Erro ao consultar o movimento de apontametno");
+                enviarEmail.enviaEmail(e.getMessage(), "Erro WebService Movimento Ordem Produção");
             } catch (MessagingException ex) {
                 // Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -44,7 +44,7 @@ public class OperadorWebService {
 
             if (result.getErroExecucao().getValue() != null) {
                 try {
-                    Notificacao.infoBox("Não foi possivel executar a sincronização de operadores", false);
+                    Notificacao.infoBox("ERRO AO SINCRONIZAR OPERADORES /47OWS", false);
                     enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Operadores");
                     return false;
                 } catch (MessagingException e) {

@@ -34,7 +34,7 @@ public class Limpar {
                     currentStatement.executeUpdate(rawStatement);
                 } catch (SQLException e) {
                     if (e.getMessage().contains("Query was empty")) {
-                        Notificacao.infoBox("Banco Reinicializado com Sucesso!", true);
+                        Notificacao.infoBox("DADOS REINICIALIZADOS", true);
                     }else{
                       enviarEmail.enviaEmail(e.getMessage(), "Erro ao realizar refresh");
                     }

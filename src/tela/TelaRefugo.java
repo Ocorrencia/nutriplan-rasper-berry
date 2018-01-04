@@ -46,7 +46,7 @@ public class TelaRefugo extends JInternalFrame {
     
     JPanel panelRefugoJustificado = new JPanel();
     JLabel lbQuantidadeNaoJustificados = new JLabel("REFUGOS NÃO JUSTIFICADOS");
-    JLabel campoQuantidadeNaoJustificados = new JLabel();
+    public JLabel campoQuantidadeNaoJustificados = new JLabel();
     
     JPanel panelRefugoNaoJustificado = new JPanel();
     JLabel lbQuantidadeInformado = new JLabel("REFUGOS JUSTIFICADOS");
@@ -63,7 +63,6 @@ public class TelaRefugo extends JInternalFrame {
     public JTextField campoJustificativaRefugo = new JTextField();
 
     //TODO REMOVER BOTAO DEPOIS DE FINALIZADO O APP
-    TelaBotaoRefugo botaoRefugo = new TelaBotaoRefugo();
     
     Refugo refugo;
     
@@ -111,7 +110,6 @@ public class TelaRefugo extends JInternalFrame {
         initiComponente();
         
         listener();
-        botaoRefugo.setVisible(true);
         
         campoQuantidadeNaoJustificados.setText("0" + Enums.REFUGOSNAOIDENTIFICADOS);
         campoQuantidadeInformado.setText("0" + Enums.REFUGOSJUSTIFICADOS);
@@ -179,26 +177,23 @@ public class TelaRefugo extends JInternalFrame {
                 String quantidadeJustificativaRefugo = campoJustificativaRefugo.getText() == "" ? "0" : campoJustificativaRefugo.getText();
                 
                 if ("".equals(campoJustificativaRefugo.getText())) {
-                    Notificacao.infoBox("Quantidade de Refugo não informada", false);
+                    Notificacao.infoBox("QUANTIDADE DE REFG. NÃO INFORMADA", false);
                 } else if (comboMotivoRefugo.getSelectedIndex() == -1) {
-                    Notificacao.infoBox("Selecione um Motivo de Refugo!", false);
+                    Notificacao.infoBox("SELECIONE O MTV. DE REFUGO", false);
                 } else if (Enums.REFUGOSNAOIDENTIFICADOS == 0) {
-                    Notificacao.infoBox("Não existem Refugos para Justificar!", false);
+                    Notificacao.infoBox("NÃO EXISTEM REFUGOS PARA JUST.", false);
                 } else if ("".equals(campoJustificativaRefugo.getText())) {
-                    Notificacao.infoBox("Valor Inválido", false);
+                    Notificacao.infoBox("VALOR INVÁLIDO", false);
                 } else if ("0".equals(campoJustificativaRefugo.getText())) {
-                    Notificacao.infoBox("Valor Inválido", false);
+                    Notificacao.infoBox("VALOR INVÁLIDO", false);
                 } else if (Integer.parseInt(quantidadeNaoJustificada) < Integer.parseInt(quantidadeJustificativaRefugo)) {
-                    Notificacao.infoBox("Quantidade Inválida!", false);
+                    Notificacao.infoBox("QUANTIDADE INVÁLIDA!", false);
                 } else {
                     if (Integer.parseInt(TelaOP.tela.campoQuantidadeRealizada.getText().replace("UN", "").trim()) != 0) {
                         ArrayList<Integer> listaItens = Consulta.CONSULTAARRAYINT("nutri_op.op900eoq", "SEQMOV", "QTDRFG = 1 AND EXPERP = 0");
                         for (int i = 0; i < Integer.parseInt(campoJustificativaRefugo.getText()); i++) {
                             Consulta.UPDATE("nutri_op.op900eoq", "CODDFT = " + comboMotivoRefugo.getValor() + "", "QTDRFG = 1 AND EXPERP = 0 AND SEQMOV = " + listaItens.get(i) + "");
                         }
-                        //   int total = Integer.parseInt(TelaOP.tela.campoQuantidadeRealizada.getText().replace("UN", "").trim()) - Integer.parseInt(campoJustificativaRefugo.getText());
-                        //  DadosRaspberry.QUANTIDADEPRODUZIDA = DadosRaspberry.QUANTIDADEPRODUZIDA - Integer.parseInt(campoJustificativaRefugo.getText());
-                        //  TelaOP.tela.campoQuantidadeRealizada.setText(total + " UN");
                     }
                     calcular();
                 }
@@ -211,11 +206,11 @@ public class TelaRefugo extends JInternalFrame {
             public void mouseClicked(MouseEvent e
             ) {
                 if (comboMotivoRefugo.getSelectedIndex() == -1) {
-                    Notificacao.infoBox("Selecione um Motivo de Refugo!", false);
+                    Notificacao.infoBox("SELECIONE O MTV. DE REFUGO", false);
                 } else if (Enums.REFUGOSNAOIDENTIFICADOS == 0) {
-                    Notificacao.infoBox("Não existem Refugos para Justificar!", false);
+                    Notificacao.infoBox("NÃO EXISTEM REFG. PARA JUSTIFICAR", false);
                 } else {
-                    TecladoVirtual teclado = TecladoVirtual.getTela("Digite a Quantidade", null);
+                    TecladoVirtual teclado = TecladoVirtual.getTela("DIGITE A QUANTIDADE", null);
                     teclado.addInternalFrameListener(new InternalFrameAdapter() {
                         @Override
                         public void internalFrameClosed(InternalFrameEvent e) {

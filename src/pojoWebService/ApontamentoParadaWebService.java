@@ -126,7 +126,7 @@ public class ApontamentoParadaWebService {
             if (result.getErroExecucao().getValue() != null) {
                 try {
                     System.out.println("" + result.getErroExecucao().getValue());
-                    Notificacao.infoBox("Não foi possivel enviar apontamento de producao", false);
+                    Notificacao.infoBox("ERRO AO ENVIAR AP. PARADA /129 APWS", false);
                     enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Motivo Parada");
                     return false;
                 } catch (MessagingException e) {
@@ -141,7 +141,7 @@ public class ApontamentoParadaWebService {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro: ao consultar o movimento de apontamento de parada", true);
+            Notificacao.infoBox("ERRO AO CONSULTAR AP. PARADA /144APWS", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao consultar o movimento de apontamento de parada");
             } catch (MessagingException ex) {

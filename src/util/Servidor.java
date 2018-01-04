@@ -5,6 +5,8 @@
  */
 package util;
 
+import dao.EventosDao;
+import dao.RefugoDao;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.InetAddress;
@@ -12,10 +14,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
+import pojo.Refugo;
 import tela.TelaApontamentoParada;
 import tela.TelaOP;
 import static tela.TelaOP.tela;
+import tela.TelaRefugo;
 
 /**
  *
@@ -25,6 +32,9 @@ public class Servidor {
 
     public static ServerSocket servidor;
     public static Socket cliente;
+    Refugo refugo;
+    RefugoDao refugoDao = new RefugoDao();
+    EnviarEmail enviarEmail = new EnviarEmail();
 
     public Servidor() {
         try {
@@ -74,7 +84,23 @@ public class Servidor {
                                                 TelaApontamentoParada.getTela();
                                                 break;
                                             case "3":
-                                                break;
+                                                if (Integer.parseInt(TelaOP.tela.campoQuantidadeProgramada.getText().replace("UN", "").trim()) <= Enums.REFUGOSJUSTIFICADOS + Enums.REFUGOSNAOIDENTIFICADOS) {
+                                                    Notificacao.infoBox("QUANTIDADE EXCEDE A PROGRAMADA", false);
+                                                } else if (Integer.parseInt(TelaOP.tela.campoQuantidadeRealizada.getText().replace("UN", "").trim()) == 0) {
+                                                    Notificacao.infoBox("QUANTIDADE REALIZADA AINDA É 0", false);
+                                                } else if (Enums.REFUGOSNAOIDENTIFICADOS > Consulta.CONSULTAINT("nutri_op.op900eoq", "SUM(QTDRE1)", "EXPERP = 0 AND QTDRE1 = 1")) {
+                                                    Notificacao.infoBox("NÃO HÁ SALDO PARA REFUGO", false);
+                                                } else if (Integer.parseInt(TelaOP.tela.campoQuantidadeProgramada.getText().replace("UN", "").trim()) <= Integer.parseInt(TelaOP.tela.campoQuantidadeRealizada.getText().replace("UN", "").trim())) {
+                                                } else {
+                                                    Enums.REFUGOSNAOIDENTIFICADOS = Enums.REFUGOSNAOIDENTIFICADOS + 1;
+                                                    if (TelaRefugo.tela != null) {
+                                                        TelaRefugo.tela.campoQuantidadeNaoJustificados.setText("0" + Enums.REFUGOSNAOIDENTIFICADOS);
+                                                    }
+                                                    TelaOP.tela.campoQuantidadeRefugo.setText(Enums.REFUGOSJUSTIFICADOS + Enums.REFUGOSNAOIDENTIFICADOS + " UN");
+                                                    TelaOP.tela.adicionarRefugo(1);
+                                                    Refugo.setQuantidade(1);
+                                                    refugoDao.atualizar();
+                                                }
                                             case "4":
                                                 break;
                                             case "5":
@@ -91,6 +117,11 @@ public class Servidor {
                             iniciarServidor();
                         }
                     } catch (IOException e) {
+                        try {
+                            enviarEmail.enviaEmail("ERRO CRÍTICO O SERVIDOR DE COMUNICAÇÃO COM A MAQUINA PAROU DE FUNCIONAR", "ERRO CRÍTICO");
+                        } catch (MessagingException ex) {
+                            Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             }.start();

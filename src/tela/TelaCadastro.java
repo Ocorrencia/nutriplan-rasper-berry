@@ -209,22 +209,6 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         btnVoltar.addActionListener((ActionEvent e) -> {
             Enums.setSTATUSTELA(Enums.MENU);
             TecladoVirtual.getTela("Digite o Código", Enums.TELAMENU);
-            //   Enums.setSTATUSTELA(Enums.MENU);
-
-            /*TecladoVirtual tela = tecladoVirtual.getTela();
-            tela.set("Digite o Código");
-            tela.addInternalFrameListener(new InternalFrameAdapter() {
-            @Override
-            public void internalFrameClosed(InternalFrameEvent e) {
-            if (!tela.meuCampoValor.getText().equals(Enums.SENHA)) {
-            Notificacao.infoBox("Código Incorreto", false);
-            } else if (Enums.getSTATUSTELA() == Enums.PRODUCAO) {
-            TelaOP.getTela();
-            } else if (Enums.getSTATUSTELA() == Enums.MENU) {
-            TelaOP.getTela().dispose();
-            }
-            }
-            });*/
         });
     }
 

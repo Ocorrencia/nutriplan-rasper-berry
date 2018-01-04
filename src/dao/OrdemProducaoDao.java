@@ -76,7 +76,7 @@ public class OrdemProducaoDao {
             return itensOrdemProducao;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro: Ordem Produção", true);
+            Notificacao.infoBox("ERRO AO CONSULTAR ORDEM PROD. /79OPD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao consultar a ordem produção");
             } catch (MessagingException ex) {
@@ -121,7 +121,7 @@ public class OrdemProducaoDao {
             return ordemProducao;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro: Ordem Produção", true);
+            Notificacao.infoBox("ERRO AO CONSULTA ORDEM PROD /124OPD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao consultar a ordem produção");
             } catch (MessagingException ex) {
@@ -141,7 +141,7 @@ public class OrdemProducaoDao {
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-            Notificacao.infoBox("Ocorreu um Erro ao atualizar a ordem de produção", true);
+            Notificacao.infoBox("ERRO AO ATUALIZAR ORDEM PROD. /144OPD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao atualizar a ordem de produção");
             } catch (MessagingException ex) {

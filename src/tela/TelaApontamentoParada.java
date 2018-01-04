@@ -143,7 +143,7 @@ public class TelaApontamentoParada extends JInternalFrame {
                    Enums.setSTATUSTELA(Enums.APONTAMENTODEPARADA);
                     TecladoVirtual.getTela("DIGITE O OPERADOR", "");
                 } else {
-                    Notificacao.infoBox("DIGITE OU SELECIONE UM CÓDIGO DE PARADA", false);
+                    Notificacao.infoBox("DIGITE OU SELECIONE UM CÓD. DE PARADA", false);
                 }
             }
         });

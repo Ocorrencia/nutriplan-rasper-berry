@@ -43,7 +43,7 @@ public class OrdemProducaoWebService {
 
             if (result.getErroExecucao().getValue() != null) {
                 try {
-                    Notificacao.infoBox("Não foi possivel executar a sincronização da ordem de produção", false);
+                    Notificacao.infoBox("ERRO AO SINCRONIZAR ORDEM DE PROD. /46OPWS", false);
                     enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Ordem Produção");
                     return false;
                 } catch (MessagingException e) {

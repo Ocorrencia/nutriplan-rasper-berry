@@ -49,7 +49,7 @@ public class ControleOperacaoDao {
             ConexaoMysql.FecharConexao();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro: Controle de Operação", true);
+            Notificacao.infoBox("ERRO AO CONSULTAR CNTRO. OP. /52COD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o controle de operação");
             } catch (MessagingException ex) {
@@ -73,7 +73,7 @@ public class ControleOperacaoDao {
             return false;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro: Controle de Operação", true);
+            Notificacao.infoBox("ERRO AO CONSULTAR CNTRO. OP. /76COD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o controle de operação");
             } catch (MessagingException ex) {

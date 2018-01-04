@@ -43,19 +43,19 @@ public class MaquinaDao {
                 ps.setInt(2, maq.getCodCre());
                 ps.setString(3, maq.getIpMaq());
                 ps.executeUpdate();
-                Notificacao.infoBox("Gravado com Sucesso", true);
+                Notificacao.infoBox("SALVO COM SUCESSO", true);
                 ConexaoMysql.FecharConexao();
             } else {
                 PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(ALTERARSQL);
                 ps.setInt(1, maq.getCodCre());
                 ps.setString(2, maq.getIpMaq());
                 ps.executeUpdate();
-                Notificacao.infoBox("Alterado com Sucesso", true);
+                Notificacao.infoBox("ALTERADO COM SUCESSO", true);
                 ConexaoMysql.FecharConexao();
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro ao Incluir a Máquina", true);
+            Notificacao.infoBox("ERRO AO INCLUIR CENTRO DE REC. /58MD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir a Máquina");
             } catch (MessagingException ex) {
@@ -80,7 +80,7 @@ public class MaquinaDao {
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro: ao consultar a máquina", true);
+            Notificacao.infoBox("ERRO AO CONSULTAR MAQ. /83MD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao consultar a máquina");
             } catch (MessagingException ex) {

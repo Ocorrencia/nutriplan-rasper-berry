@@ -150,7 +150,7 @@ public class TelaAvisoTravamento extends JInternalFrame {
             for (String hora : horas) {
                 if (hora.substring(0, 5).equals(horaAtual.substring(0, 5))) {
                     System.out.println("sim");
-                    Notificacao.infoBox("Já existem apontamento parada neste minuto", false);
+                    Notificacao.infoBox("EXISTE AP. DE PARADA NESTE MINUTO", false);
                     return;
                 }
             }

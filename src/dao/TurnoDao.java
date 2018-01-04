@@ -57,7 +57,7 @@ public class TurnoDao {
             return turnoTrabalho.getItensTurnoTrabalho();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro: ao consultar de turno de trabalho", true);
+            Notificacao.infoBox("ERRO AO CONSULTAR TURNO /60TD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao consultar o turno de trabalho");
             } catch (MessagingException ex) {

@@ -31,26 +31,7 @@ public class TelaBotaoRefugo extends JFrame {
         setVisible(true);
         add(botaoRefugo);
         botaoRefugo.addActionListener((ActionEvent e) -> {
-            if (Integer.parseInt(TelaOP.tela.campoQuantidadeProgramada.getText().replace("UN", "").trim()) <= Enums.REFUGOSJUSTIFICADOS + Enums.REFUGOSNAOIDENTIFICADOS) {
-                Notificacao.infoBox("Quantidade Excede a quantidade programada", false);
-                return;
-            }
-            if (Integer.parseInt(TelaOP.tela.campoQuantidadeRealizada.getText().replace("UN", "").trim()) == 0) {
-                Notificacao.infoBox("Quantidade Realizada ainda é 0", false);
-                return;
-            }
-            if (Enums.REFUGOSNAOIDENTIFICADOS > Consulta.CONSULTAINT("nutri_op.op900eoq", "SUM(QTDRE1)", "EXPERP = 0 AND QTDRE1 = 1")) {
-                 Notificacao.infoBox("Não há saldo para refugos", false);
-                return;
-            }
-            Enums.REFUGOSNAOIDENTIFICADOS = Enums.REFUGOSNAOIDENTIFICADOS + 1;
-            if (TelaRefugo.tela != null) {
-                TelaRefugo.tela.campoQuantidadeNaoJustificados.setText("0" + Enums.REFUGOSNAOIDENTIFICADOS);
-            }
-            TelaOP.tela.campoQuantidadeRefugo.setText(Enums.REFUGOSJUSTIFICADOS + Enums.REFUGOSNAOIDENTIFICADOS + " UN");
-            TelaOP.tela.adicionarRefugo(1);
-            Refugo.setQuantidade(1);
-            refugoDao.atualizar();
+          
         });
     }
 }

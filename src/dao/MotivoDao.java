@@ -47,7 +47,7 @@ public class MotivoDao {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro: ao consultar os motivos de parada", true);
+            Notificacao.infoBox("ERRO AO CONSUNTAR MTV. PARADA /50MD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao consultar os motivos de parada");
             } catch (MessagingException ex) {

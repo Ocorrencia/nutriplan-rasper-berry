@@ -37,7 +37,7 @@ public class ListModelMotivo {
                 return itensMotivo.getCodMtv() + " - " + itensMotivo.getDesMtv();
             }
         }
-        Notificacao.infoBox("Motivo não encontrado", false);
+        Notificacao.infoBox("MOTIVO NÃO ENCONTRADO", false);
         return "";
     }
 
@@ -49,7 +49,7 @@ public class ListModelMotivo {
                 return itensMotivo.getCodMtv();
             }
         }
-        Notificacao.infoBox("Motivo não encontrado", false);
+        Notificacao.infoBox("MOTIVO NÃO ENCONTRADO", false);
         return "";
     }
 

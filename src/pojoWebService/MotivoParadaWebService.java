@@ -35,7 +35,7 @@ public class MotivoParadaWebService {
 
             if (result.getErroExecucao().getValue() != null) {
                 try {
-                    Notificacao.infoBox("Não foi possivel executar a sincronização de motivo parada", false);
+                    Notificacao.infoBox("ERRO AO SINCRONIZAR MOTIVOS DE PARAD. /38MPWS", false);
                     enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Motivo Parada");
                     return false;
                 } catch (MessagingException e) {

@@ -40,7 +40,7 @@ public class EventosDao {
             ConexaoMysql.FecharConexao();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
+            Notificacao.infoBox("ERRO AO INCLUIR EVENTO /43ED", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");
             } catch (MessagingException ex) {

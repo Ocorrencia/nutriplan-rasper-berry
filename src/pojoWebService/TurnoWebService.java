@@ -35,7 +35,7 @@ public class TurnoWebService {
 
             if (result.getErroExecucao().getValue() != null) {
                 try {
-                    Notificacao.infoBox("Não foi possivel executar a sincronização de Turno", false);
+                    Notificacao.infoBox("ERRO AO SINCRONIZAR TURNO /38TWS", false);
                     enviarEmail.enviaEmail(result.getErroExecucao().getValue(), "Erro WebService Turno");
                     return false;
                 } catch (MessagingException e) {

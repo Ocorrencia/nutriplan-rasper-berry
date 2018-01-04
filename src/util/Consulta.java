@@ -34,9 +34,9 @@ public class Consulta {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
+            Notificacao.infoBox("ERRO NA CONSULTA /37C", true);
             try {
-                enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");
+                enviarEmail.enviaEmail(e.getMessage(), "ERRO NO CONSULTA STRING");
             } catch (MessagingException ex) {
                 Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -51,9 +51,9 @@ public class Consulta {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
+            Notificacao.infoBox("ERRO NO UPDATE /54C", true);
             try {
-                enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");
+                enviarEmail.enviaEmail(e.getMessage(), "ERRO NO UPDATE");
             } catch (MessagingException ex) {
                 Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -72,9 +72,9 @@ public class Consulta {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
+            Notificacao.infoBox("ERRO NA CONSULTA /75C", true);
             try {
-                enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");
+                enviarEmail.enviaEmail(e.getMessage(), "ERRO NO CONSULTA INT");
             } catch (MessagingException ex) {
                 Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -93,9 +93,9 @@ public class Consulta {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
+            Notificacao.infoBox("ERRO NA CONSULTA /96C", true);
             try {
-                enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");
+                enviarEmail.enviaEmail(e.getMessage(), "ERRO NA CONSULTA ARRAY INT");
             } catch (MessagingException ex) {
                 Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -114,14 +114,13 @@ public class Consulta {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            Notificacao.infoBox("Ocorreu um Erro ao Incluir o Evento", true);
+            Notificacao.infoBox("ERRO NA CONSULTA /117C", true);
             try {
-                enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o evento");
+                enviarEmail.enviaEmail(e.getMessage(), "ERRO NA CONSULTA ARRAY STRING");
             } catch (MessagingException ex) {
                 Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return lista;
     }
-
 }

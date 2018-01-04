@@ -39,7 +39,7 @@ public class EnviarEmail extends Authenticator {
             if (transport.isConnected()) {
                 Transport.send(msg);
             } else {
-                Notificacao.infoBox("Erro na classe de Email", false);
+                Notificacao.infoBox("ERRO NA CLASSE DE EMAIL", false);
             }
         } catch (MessagingException e) {
         }

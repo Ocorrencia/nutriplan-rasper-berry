@@ -29,7 +29,7 @@ public class RefugoDao {
             Consulta.UPDATE("nutri_op.op900eoq", "QTDRE1 = 0", "SEQMOV = " + realizado+"");
         } catch (Exception e) {
             e.printStackTrace();
-            Notificacao.infoBox("Ocorreu um Erro ao atualiza os refugos", true);
+            Notificacao.infoBox("ERRO AO ATUALIZAR REFG. /32RD", true);
             try {
                 enviarEmail.enviaEmail(e.getMessage(), "Erro ao atualizar Refugo");
             } catch (MessagingException ex) {

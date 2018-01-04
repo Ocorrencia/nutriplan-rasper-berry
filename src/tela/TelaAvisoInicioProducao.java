@@ -229,7 +229,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         btnParada.addActionListener((ActionEvent e) -> {
             String lista = Consulta.CONSULTASTRING("nutri_op.op930mpr mpr INNER JOIN nutri_op.op018mtv mtv ON (mpr.CODMTV = mtv.CODMTV)", "CONCAT(mtv.CODMTV,' - ',DESMTV) AS MOTIVO", "HORFIM = ''");
             if (!lista.equals("VAZIO")) {
-                Notificacao.infoBox("Existem apontamento de parada em aberto \n " + lista + "", false);
+                Notificacao.infoBox("EXISTEM AP. EM ABERTO \n " + lista + "", false);
                 return;
             }
 
@@ -238,7 +238,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         });
         btnIniciar.addActionListener((ActionEvent e) -> {
             if (comboOp.getSelectedIndex() == -1) {
-                Notificacao.infoBox("Selecione uma Ordem de Produção", false);
+                Notificacao.infoBox("SELECIONE UMA ORDEM DE PROD.", false);
                 return;
             }
             if (ap.getCodCre() != null) {
@@ -270,7 +270,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
                 DadosRaspberry.QUANTIDADEPRODUZIDA = (int) Math.round(ordemProducao.getQtdRe1());
             }
 
-            TelaOP.getTela().campoOp.setText(ordemProducao.getCodDer() + " - " + ordemProducao.getCodPro() + " - " + ordemProducao.getDesPro().substring(0, 8) + " " + ordemProducao.getDesDer().substring(0, 8));
+            TelaOP.getTela().campoOp.setText(ordemProducao.getCodDer() + " - " + ordemProducao.getCodPro() + " - " + ordemProducao.getDesPro() + " " + ordemProducao.getDesDer());
             TelaOP.tela.setMvp(mvp);
             TelaOP.tela.setOrdemProducao(ordemProducao);
         });

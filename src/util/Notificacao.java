@@ -9,16 +9,22 @@ import com.alee.extended.time.ClockType;
 import com.alee.extended.time.WebClock;
 import com.alee.managers.notification.NotificationIcon;
 import com.alee.managers.notification.NotificationManager;
+import java.awt.Font;
+import javax.swing.JLabel;
 
 public class Notificacao {
 
-    public static void infoBox(String infoMessage, boolean sucess) {
+    static JLabel infMessage = new JLabel();
 
+    public static void infoBox(String infoMessage, boolean sucess) {
+        
+        infMessage.setFont(new Font("Arial", Font.BOLD, 30));
+        infMessage.setText(infoMessage);
         NotificationManager.setLocation(NotificationManager.LEFT);
         if (sucess) {
-            NotificationManager.showInnerNotification(infoMessage, NotificationIcon.information.getIcon());
+            NotificationManager.showInnerNotification(infMessage, NotificationIcon.information.getIcon());
         } else {
-            NotificationManager.showInnerNotification(infoMessage, NotificationIcon.error.getIcon());
+            NotificationManager.showInnerNotification(infMessage, NotificationIcon.error.getIcon());
         }
         new Thread() {
 
