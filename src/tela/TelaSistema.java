@@ -18,12 +18,13 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import util.Enums;
-import util.Servidor;
+import util.ListenGPIO;
 
 public class TelaSistema extends JFrame {
 
     public static MeuJDesktopPane jdp = new MeuJDesktopPane();
     public static TelaSistema telaSistema;
+  //  ListenGPIO listenGPIO = new ListenGPIO();
 
     public static void main(String args[]) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         try {
@@ -75,8 +76,6 @@ public class TelaSistema extends JFrame {
     URL urlTopo = getClass().getResource("/imagem/iconePrincipal.png");
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
     Enums consta;
-    Servidor servidor = new Servidor();
-    //   ListenGPIO listenGPIO = new ListenGPIO();
 
     public TelaSistema() {
         getContentPane().add(jdp);
@@ -88,8 +87,8 @@ public class TelaSistema extends JFrame {
         setVisible(true);
         controleDeOperacao();
         setLocationRelativeTo(null);
-        servidor.iniciarServidor();
         // verificarTurno.inicarVerificacao();
+      //  ListenGPIO.relay(true);
         travar();
     }
 
@@ -128,7 +127,7 @@ public class TelaSistema extends JFrame {
         this.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-              //  TecladoVirtual teclado = TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
+                //  TecladoVirtual teclado = TecladoVirtual.getTela("DIGITE O OPERADOR", Enums.TELAOP);
             }
 
             @Override

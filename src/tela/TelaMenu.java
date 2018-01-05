@@ -75,7 +75,6 @@ public class TelaMenu extends JInternalFrame {
     JButton btnOP = new JButton("ORDEM \n PRODUÇÃO", icoPlay);
     JButton btnSincronizacao = new JButton("SINCRONIZAÇÃO", icoSinc);
     JButton btnReiniciarBanco = new JButton("LIMPAR APP", icoClean);
-    JButton btnRede = new JButton("REDE", icoRede);
     JButton tecladoVitrual = new JButton("Teclado", icoSinc);
     JButton btnSair = new JButton("SAIR", icoSair);
     JButton btnProximo = new JButton("PRÓXIMO", icoNext);
@@ -148,7 +147,7 @@ public class TelaMenu extends JInternalFrame {
         // adicionando botoes
         painelBotoes.add(btnOP);
         painelBotoes.add(btnSincronizacao);
-        painelBotoes.add(btnRede);
+        painelBotoes.add(new JButton());
         painelBotoes.add(btnSair);
 
         painelBotoes1.add(btnMaquina);
@@ -241,10 +240,6 @@ public class TelaMenu extends JInternalFrame {
         btnSincronizacao.addActionListener((ActionEvent e) -> {
             new Thread(new MyRunnable()).start();
         });
-
-        btnRede.addActionListener((ActionEvent e) -> {
-            TelaRede.getTela();
-        });
         btnProximo.addActionListener((ActionEvent e) -> {
             for (Component component1 : getContentPane().getComponents()) {
                 if (component1.equals(painelBotoes)) {
@@ -290,9 +285,6 @@ public class TelaMenu extends JInternalFrame {
         btnSincronizacao.setVerticalTextPosition(SwingConstants.BOTTOM);
         btnSincronizacao.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        btnRede.setVerticalTextPosition(SwingConstants.BOTTOM);
-        btnRede.setHorizontalTextPosition(SwingConstants.CENTER);
-
         btnOP.setVerticalTextPosition(SwingConstants.BOTTOM);
         btnOP.setHorizontalTextPosition(SwingConstants.CENTER);
 
@@ -316,7 +308,6 @@ public class TelaMenu extends JInternalFrame {
         btnSair.setFont(new Font("Arial", Font.BOLD, 22));
         btnSincronizacao.setFont(new Font("Arial", Font.BOLD, 22));
         btnReiniciarBanco.setFont(new Font("Arial", Font.BOLD, 22));
-        btnRede.setFont(new Font("Arial", Font.BOLD, 22));
         tecladoVitrual.setFont(new Font("Arial", Font.BOLD, 22));
         btnOP.setFont(new Font("Arial", Font.BOLD, 22));
         btnMaquina.setFont(new Font("Arial", Font.BOLD, 22));
