@@ -27,7 +27,6 @@ import javax.swing.event.InternalFrameEvent;
 import net.miginfocom.swing.MigLayout;
 import pojo.Refugo;
 import util.Consulta;
-import util.DadosRaspberry;
 import util.Enums;
 import util.Modal;
 import util.Notificacao;
@@ -37,35 +36,36 @@ import util.Notificacao;
  * @author diogo.melo
  */
 public class TelaRefugo extends JInternalFrame {
-    
+
     URL urlTopo = getClass().getResource("/imagem/iconePrincipal.png");
     ImageIcon iconeprincipal = new ImageIcon(urlTopo);
-    
+
     JPanel painelGeral = new JPanel();
     public static TelaRefugo tela;
-    
+
     JPanel panelRefugoJustificado = new JPanel();
     JLabel lbQuantidadeNaoJustificados = new JLabel("REFUGOS NÃO JUSTIFICADOS");
     public JLabel campoQuantidadeNaoJustificados = new JLabel();
-    
+
     JPanel panelRefugoNaoJustificado = new JPanel();
     JLabel lbQuantidadeInformado = new JLabel("REFUGOS JUSTIFICADOS");
     JLabel campoQuantidadeInformado = new JLabel();
-    
+
     JPanel panelMotivoRefugo = new JPanel();
     MeuComboBox comboMotivoRefugo = new MeuComboBox("SELECT CODDFT, DESDFT FROM nutri_op.op011def;", false, "Motivo Refugo");
-    
+
     JLabel lbMotivoRefugo = new JLabel(comboMotivoRefugo.getDica());
     JButton btnMotivosRefugo = new JButton("JUSTIFICAR");
-    
+
+    JButton btnFechar = new JButton("FECHAR");
+
     JPanel panelJustificativaRefugo = new JPanel();
     JLabel lbJustificativaRefugo = new JLabel("QUANTIDADE");
     public JTextField campoJustificativaRefugo = new JTextField();
 
     //TODO REMOVER BOTAO DEPOIS DE FINALIZADO O APP
-    
     Refugo refugo;
-    
+
     public static TelaRefugo getTela() {
         if (tela == null) {
             tela = new TelaRefugo();
@@ -91,10 +91,10 @@ public class TelaRefugo extends JInternalFrame {
         Enums.setSTATUSTELA(Enums.PRODUCAO);
         return tela;
     }
-    
+
     public TelaRefugo() {
-        super("Refugo", false, true, false, false);
-        setSize(new Dimension(700, 400));
+        super("Refugo", false, false, false, false);
+        setSize(new Dimension(700, 465));
         tamanhoFontes();
         panelRefugoNaoJustificado.setPreferredSize(new Dimension(350, 133));
         panelRefugoJustificado.setPreferredSize(new Dimension(700, 133));
@@ -106,35 +106,35 @@ public class TelaRefugo extends JInternalFrame {
         panelJustificativaRefugo.setBorder(BorderFactory.createTitledBorder(""));
         panelRefugoNaoJustificado.setBorder(BorderFactory.createTitledBorder(""));
         panelMotivoRefugo.setBorder(BorderFactory.createTitledBorder("Justificar Motivos do Refugo"));
-        
+
         initiComponente();
-        
+
         listener();
-        
+
         campoQuantidadeNaoJustificados.setText("0" + Enums.REFUGOSNAOIDENTIFICADOS);
         campoQuantidadeInformado.setText("0" + Enums.REFUGOSJUSTIFICADOS);
         comboMotivoRefugo.setSelectedIndex(-1);
     }
-    
+
     private void initiComponente() {
         //   panelJustificados.setLayout(new GridLayout(2,0));
         setLayout(new MigLayout());
         panelRefugoNaoJustificado.setLayout(new BoxLayout(panelRefugoNaoJustificado, BoxLayout.Y_AXIS));
         panelJustificativaRefugo.setLayout(new BoxLayout(panelJustificativaRefugo, BoxLayout.Y_AXIS));
         panelRefugoJustificado.setLayout(new BoxLayout(panelRefugoJustificado, BoxLayout.Y_AXIS));
-        panelMotivoRefugo.setLayout(new BoxLayout(panelMotivoRefugo, BoxLayout.Y_AXIS));
+        panelMotivoRefugo.setLayout(new MigLayout());
         //  panelJustificados.setLayout(new MigLayout());
         //  panelJustificados.setLayout(new MigLayout());
 
         panelJustificativaRefugo.add(lbJustificativaRefugo);
         panelJustificativaRefugo.add(campoJustificativaRefugo);
-        
+
         panelRefugoNaoJustificado.add(lbQuantidadeNaoJustificados);
         panelRefugoNaoJustificado.add(campoQuantidadeNaoJustificados);
-        
+
         lbQuantidadeNaoJustificados.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         campoQuantidadeNaoJustificados.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        
+
         lbQuantidadeInformado.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         campoQuantidadeInformado.setAlignmentX(JTextField.CENTER_ALIGNMENT);
         btnMotivosRefugo.setAlignmentX(JButton.CENTER_ALIGNMENT);
@@ -142,17 +142,18 @@ public class TelaRefugo extends JInternalFrame {
         //     lbMotivoRefugo.setAlignmentX(JButton.CENTER_ALIGNMENT);
         panelRefugoJustificado.add(lbQuantidadeInformado);
         panelRefugoJustificado.add(campoQuantidadeInformado);
-        
-        panelMotivoRefugo.add(lbMotivoRefugo);
-        panelMotivoRefugo.add(comboMotivoRefugo);
-        panelMotivoRefugo.add(btnMotivosRefugo);
-        
+
+        panelMotivoRefugo.add(lbMotivoRefugo, "wrap");
+        panelMotivoRefugo.add(comboMotivoRefugo, "wrap");
+        panelMotivoRefugo.add(btnMotivosRefugo, "span");
+        panelMotivoRefugo.add(btnFechar, "span");
+
         add(panelMotivoRefugo, "span, wrap");
         add(panelRefugoNaoJustificado);
         add(panelJustificativaRefugo, "wrap");
-        add(panelRefugoJustificado, "span");
+        add(panelRefugoJustificado, "span, wrap");
     }
-    
+
     public void tamanhoFontes() {
         lbQuantidadeInformado.setFont(new Font("Arial", Font.BOLD, 20));
         campoQuantidadeInformado.setFont(new Font("Arial", Font.BOLD, 60));
@@ -162,20 +163,22 @@ public class TelaRefugo extends JInternalFrame {
         lbJustificativaRefugo.setFont(new Font("Arial", Font.BOLD, 20));
         campoJustificativaRefugo.setFont(new Font("Arial", Font.BOLD, 60));
         campoJustificativaRefugo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        
+
         btnMotivosRefugo.setFont(new Font("Arial", Font.BOLD, 35));
         btnMotivosRefugo.setPreferredSize(new Dimension(700, 80));
+        btnFechar.setFont(new Font("Arial", Font.BOLD, 35));
+        btnFechar.setPreferredSize(new Dimension(700, 80));
         comboMotivoRefugo.setFont(new Font("Arial", Font.BOLD, 35));
         comboMotivoRefugo.setPreferredSize(new Dimension(700, 80));
     }
-    
+
     private void listener() {
         btnMotivosRefugo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String quantidadeNaoJustificada = campoQuantidadeNaoJustificados.getText() == "" ? "0" : campoQuantidadeNaoJustificados.getText();
                 String quantidadeJustificativaRefugo = campoJustificativaRefugo.getText() == "" ? "0" : campoJustificativaRefugo.getText();
-                
+
                 if ("".equals(campoJustificativaRefugo.getText())) {
                     Notificacao.infoBox("QUANTIDADE DE REFG. NÃO INFORMADA", false);
                 } else if (comboMotivoRefugo.getSelectedIndex() == -1) {
@@ -224,20 +227,30 @@ public class TelaRefugo extends JInternalFrame {
             }
         }
         );
+        btnFechar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fechar();
+            }
+        });
     }
-    
+
+    public void fechar() {
+        this.dispose();
+    }
+
     public void calcular() {
-        
+
         int resto = Integer.parseInt(campoJustificativaRefugo.getText()) - Integer.parseInt(campoQuantidadeNaoJustificados.getText());
         resto = resto < 0 ? resto * -1 : resto;
         int justificado = Enums.REFUGOSJUSTIFICADOS + Integer.parseInt(campoJustificativaRefugo.getText());
-        
+
         Enums.REFUGOSJUSTIFICADOS = justificado;
         Enums.REFUGOSNAOIDENTIFICADOS = resto;
-        
+
         campoQuantidadeInformado.setText("0" + justificado);
         campoQuantidadeNaoJustificados.setText("0" + resto);
-        
+
         campoJustificativaRefugo.setText("");
         TelaOP.tela.campoQuantidadeRefugo.setText((Enums.REFUGOSJUSTIFICADOS + Enums.REFUGOSNAOIDENTIFICADOS) + " UN");
         /*int calculo = Enums.REFUGOSJUSTIFICADOS + Enums.REFUGOSNAOIDENTIFICADOS - Integer.parseInt(campoJustificativaRefugo.getText());

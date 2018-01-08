@@ -26,7 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-import util.ConexaoMysql;
 import util.Consulta;
 import util.Enums;
 import util.Limpar;

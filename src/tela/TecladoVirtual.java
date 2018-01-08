@@ -62,7 +62,6 @@ public class TecladoVirtual extends JInternalFrame {
     public JLabel labelInfo = new JLabel("");
     MigLayout migLayout = new MigLayout();
     private static TecladoVirtual tela;
-    private static TelaOP telaOP;
     String abrirTela;
 
     static String STATUSTELA = "";
