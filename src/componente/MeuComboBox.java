@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import util.ConexaoMysql;
+import util.Notificacao;
 
 public class MeuComboBox extends JComboBox<Object> implements MeuComponente {
 
@@ -98,7 +99,7 @@ public class MeuComboBox extends JComboBox<Object> implements MeuComponente {
             }
         }
         if (getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "Não foi possível selecionar um valor em " + getDica());
+            System.out.println("Não foi possível selecionar um valor em " + getDica());
         }
     }
 

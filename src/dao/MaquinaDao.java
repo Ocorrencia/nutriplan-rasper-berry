@@ -17,6 +17,7 @@ import util.ConexaoMysql;
 import util.Consulta;
 import util.EnviarEmail;
 import util.Notificacao;
+import util.Sincronizacao;
 
 /**
  *
@@ -24,7 +25,7 @@ import util.Notificacao;
  */
 public class MaquinaDao {
 
-    private final String INCLUIRSQL = "INSERT INTO nutri_op.op000maq VALUES(?,?,?)";
+    private final String INCLUIRSQL = "INSERT INTO nutri_op.op000maq VALUES(?,?,?, ?)";
     private final String ALTERARSQL = "UPDATE nutri_op.op000maq SET CODCRE = ?, IPMAQ = ? WHERE CODMAQ = 1";
     private final String CONSULTARSQL = "SELECT * FROM nutri_op.op000maq";
 
@@ -42,9 +43,11 @@ public class MaquinaDao {
                 ps.setInt(1, 1);
                 ps.setInt(2, maq.getCodCre());
                 ps.setString(3, maq.getIpMaq());
+                ps.setInt(4, 0);
                 ps.executeUpdate();
                 Notificacao.infoBox("SALVO COM SUCESSO", true);
                 ConexaoMysql.FecharConexao();
+                Sincronizacao.sincPrioridade();
             } else {
                 PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(ALTERARSQL);
                 ps.setInt(1, maq.getCodCre());
@@ -52,6 +55,7 @@ public class MaquinaDao {
                 ps.executeUpdate();
                 Notificacao.infoBox("ALTERADO COM SUCESSO", true);
                 ConexaoMysql.FecharConexao();
+                Sincronizacao.sincPrioridade();
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -72,6 +76,7 @@ public class MaquinaDao {
                 maq.setCodMaq(rs.getInt(1));
                 maq.setCodCre(rs.getInt(2));
                 maq.setIpMaq(rs.getString(3));
+                maq.setPrioridade(rs.getInt(4));
                 return true;
             } else {
                 maq.setCodCre(-1);

@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package util;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
-import com.pi4j.io.gpio.GpioPin;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinPullResistance;
@@ -37,6 +31,8 @@ public class ListenGPIO {
     EnviarEmail enviarEmail = new EnviarEmail();
     boolean b1 = false;
     boolean b2 = false;
+    CicloAtual ciclo = new CicloAtual();
+    Thread thr = new Thread(ciclo);
 
     public ListenGPIO() {
         try {
@@ -44,10 +40,11 @@ public class ListenGPIO {
                 @Override
                 public void run() {
                     final GpioController gpio = GpioFactory.getInstance();
-                    final GpioPinDigitalInput botaoRefugo = gpio.provisionDigitalInputPin(RaspiPin.GPIO_02, PinPullResistance.PULL_DOWN);
-                    final GpioPinDigitalInput botao1 = gpio.provisionDigitalInputPin(RaspiPin.GPIO_25, PinPullResistance.PULL_DOWN);
-                    final GpioPinDigitalInput botao2 = gpio.provisionDigitalInputPin(RaspiPin.GPIO_05, PinPullResistance.PULL_DOWN);
+                    final GpioPinDigitalInput botaoRefugo = gpio.provisionDigitalInputPin(RaspiPin.GPIO_05, PinPullResistance.PULL_DOWN);
+                    final GpioPinDigitalInput botao1 = gpio.provisionDigitalInputPin(RaspiPin.GPIO_22, PinPullResistance.PULL_DOWN);
+                    final GpioPinDigitalInput botao2 = gpio.provisionDigitalInputPin(RaspiPin.GPIO_21, PinPullResistance.PULL_DOWN);
                     final GpioPinDigitalInput botao3 = gpio.provisionDigitalInputPin(RaspiPin.GPIO_06, PinPullResistance.PULL_DOWN);
+
                     botaoRefugo.setShutdownOptions(true);
                     botaoRefugo.addListener(new GpioPinListenerDigital() {
                         @Override
@@ -60,42 +57,21 @@ public class ListenGPIO {
                     botao1.addListener(new GpioPinListenerDigital() {
                         @Override
                         public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
-                            if (event.getState() == PinState.HIGH && event.getPin() == botao1) {
-                                b1 = true;
-                            }
-                        }
-                    });
-                    botao2.addListener(new GpioPinListenerDigital() {
-                        @Override
-                        public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
-                            if (event.getState() == PinState.HIGH && event.getPin() == botao2) {
-                                if (b1) {
-                                    b2 = true;
-                                } else {
-                                    Notificacao.infoBox("ORDEM DE INJEÇÃO INCORRETA", false);
-                                    try {
-                                        enviarEmail.enviaEmail("INJETORA COM PROBLEMA", "ORDEM INCORRETA NA INJEÇÃO DE PLÁSTICO");
-                                    } catch (MessagingException ex) {
-                                        Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-                                  //  relay(false);
-                                }
-                            }
+                            new Thread(ciclo).start();
                         }
                     });
                     botao3.addListener(new GpioPinListenerDigital() {
                         @Override
                         public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
-                            System.out.println("b3");
-                            if (event.getState() == PinState.HIGH && event.getPin() == botao3 && b1 && b2) {
-                                DadosRaspberry.QUANTIDADEPRODUZIDA = DadosRaspberry.QUANTIDADEPRODUZIDA + 1;
-                                TelaOP.getTela().controleProducao();
-                                b1 = false;
-                                b2 = false;
-                                System.out.println("b3 ok");
-                            } else {
-                                b1 = false;
-                                b2 = false;
+                            if (botao1.getState() == PinState.HIGH && botao2.getState() == PinState.HIGH && botao3.getState() == PinState.HIGH) {
+                                    DadosRaspberry.QUANTIDADEPRODUZIDA = DadosRaspberry.QUANTIDADEPRODUZIDA + 1;
+                                    TelaOP.getTela().controleProducao();
+                                    if (!thr.isAlive()) {
+                                        thr.start();
+                                        CicloAtual.stopWatch.start();
+                                    } else {
+                                        ciclo.ciclo();
+                                    }
                             }
                         }
                     });
@@ -125,9 +101,11 @@ public class ListenGPIO {
         final GpioPinDigitalOutput pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_23, "RELAY", PinState.LOW);
 
         if (energy) {
+            System.out.println("ligado");
             pin.setShutdownOptions(true, PinState.HIGH);
             pin.low();
         } else {
+            System.out.println("desligado");
             pin.toggle();
         }
     }

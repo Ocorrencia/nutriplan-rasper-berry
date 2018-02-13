@@ -28,9 +28,10 @@ public class OrdemProducaoWebService {
     EnviarEmail enviarEmail = new EnviarEmail();
     EnviarDadosOrdemProducao enviarDados = new EnviarDadosOrdemProducao();
     String codCre;
-
-    public boolean buscarOrdemProducaoSapiens() {
+    boolean atualizarParcial;
+    public boolean buscarOrdemProducaoSapiens(boolean atualizarParcial) {
         try {
+            this.atualizarParcial = atualizarParcial;
             codCre = Consulta.CONSULTASTRING("nutri_op.op000maq", "CODCRE", "1 = 1");
 
             JAXBElement<String> jaxbCodCre = new JAXBElement(new QName("", "codCre"), String.class, codCre);
@@ -91,7 +92,7 @@ public class OrdemProducaoWebService {
             ordemProducao.setStatusRegistro("0");
             itensOrdemProducao.add(ordemProducao);
         }
-        enviarDados.EnviarDadosOrdemProducao(itensOrdemProducao);
+        enviarDados.EnviarDadosOrdemProducao(itensOrdemProducao, atualizarParcial);
         return true;
     }
 }

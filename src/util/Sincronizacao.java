@@ -11,6 +11,7 @@ import pojoWebService.FichaTecnicaWebService;
 import pojoWebService.MotivoParadaWebService;
 import pojoWebService.OperadorWebService;
 import pojoWebService.OrdemProducaoWebService;
+import pojoWebService.PrioridadeMaquinaWebService;
 import pojoWebService.TurnoTrabalhoWebService;
 import pojoWebService.TurnoWebService;
 
@@ -50,13 +51,18 @@ public class Sincronizacao {
         return motivoParadaWebService.buscarMotivoParadaSapiens();
     }
 
-    public static boolean sincOrdemProducao() {
+    public static boolean sincOrdemProducao(boolean atualizarParcial) {
         OrdemProducaoWebService odemProducaoWebService = new OrdemProducaoWebService();
-        return odemProducaoWebService.buscarOrdemProducaoSapiens();
+        return odemProducaoWebService.buscarOrdemProducaoSapiens(atualizarParcial);
     }
 
     public static boolean sincDefeito() {
         DefeitoWebService defeitoWebService = new DefeitoWebService();
         return defeitoWebService.buscarDefeitoSapiens();
+    }
+    
+      public static boolean sincPrioridade() {
+          PrioridadeMaquinaWebService prioridadeWebService = new PrioridadeMaquinaWebService();
+        return prioridadeWebService.buscarPrioridadeSapiens();
     }
 }

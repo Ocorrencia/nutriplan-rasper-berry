@@ -103,6 +103,32 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="opOperadorIn">
+<xs:sequence>
+<xs:element name="codCre" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="flowInstanceID" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="flowName" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="opOperadorOut">
+<xs:sequence>
+<xs:element name="consultar" type="tns:opOperadorOutConsultar" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="erroExecucao" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="mensagemRetorno" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="opOperadorOutConsultar">
+<xs:sequence>
+<xs:element name="codEmp" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="nomOpe" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="numCad" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="statusRegistro" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="turTrb" type="xs:int" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="opApontamentoProducaoIn">
 <xs:sequence>
 <xs:element name="apontar" type="tns:opApontamentoProducaoInApontar" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -156,32 +182,6 @@
 <xs:sequence>
 <xs:element name="mensagemRetorno" type="xs:string" nillable="true" minOccurs="0"/>
 <xs:element name="sequenciaMovimento" type="xs:int" nillable="true" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="opOperadorIn">
-<xs:sequence>
-<xs:element name="codCre" type="xs:string" nillable="true" minOccurs="0"/>
-<xs:element name="flowInstanceID" type="xs:string" nillable="true" minOccurs="0"/>
-<xs:element name="flowName" type="xs:string" nillable="true" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="opOperadorOut">
-<xs:sequence>
-<xs:element name="consultar" type="tns:opOperadorOutConsultar" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
-<xs:element name="erroExecucao" type="xs:string" nillable="true" minOccurs="0"/>
-<xs:element name="mensagemRetorno" type="xs:string" nillable="true" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="opOperadorOutConsultar">
-<xs:sequence>
-<xs:element name="codEmp" type="xs:int" nillable="true" minOccurs="0"/>
-<xs:element name="nomOpe" type="xs:string" nillable="true" minOccurs="0"/>
-<xs:element name="numCad" type="xs:int" nillable="true" minOccurs="0"/>
-<xs:element name="statusRegistro" type="xs:string" nillable="true" minOccurs="0"/>
-<xs:element name="turTrb" type="xs:int" nillable="true" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -241,10 +241,45 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="opCentroDeRecursoIn">
+<xs:complexType name="opPrioridadeCentroDeRecursoIn">
 <xs:sequence>
+<xs:element name="codCre" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="codEmp" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="datPrg" type="xs:string" nillable="true" minOccurs="0"/>
 <xs:element name="flowInstanceID" type="xs:string" nillable="true" minOccurs="0"/>
 <xs:element name="flowName" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="turTrb" type="xs:int" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="opPrioridadeCentroDeRecursoOut">
+<xs:sequence>
+<xs:element name="consultar" type="tns:opPrioridadeCentroDeRecursoOutConsultar" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="erroExecucao" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="mensagemRetorno" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="opPrioridadeCentroDeRecursoOutConsultar">
+<xs:sequence>
+<xs:element name="seqPri" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="tipoRetorno" type="xs:int" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="opCentroDeRecursoIn">
+<xs:sequence>
+<xs:element name="definirCentroDeRecurso" type="tns:opCentroDeRecursoInDefinirCentroDeRecurso" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="flowInstanceID" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="flowName" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="opCentroDeRecursoInDefinirCentroDeRecurso">
+<xs:sequence>
+<xs:element name="codCre" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="codEmp" type="xs:int" nillable="true" minOccurs="0"/>
+<xs:element name="enderecoIP" type="xs:string" nillable="true" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

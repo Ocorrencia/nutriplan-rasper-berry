@@ -14,6 +14,15 @@ public class Maquina {
     int codMaq;
     int codCre;
     String ipMaq;
+    int prioridade;
+
+    public int getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(int prioridade) {
+        this.prioridade = prioridade;
+    }
 
     public int getCodMaq() {
         return codMaq;

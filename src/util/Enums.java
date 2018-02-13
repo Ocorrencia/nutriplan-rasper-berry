@@ -25,7 +25,7 @@ public class Enums {
     public static int CONFIGURACAO = 6;
     public static int REFUGO = 7;
     public static int AVISOINICIOPRODUCAO = 9;
-
+    public static int PRIORIDADE;
     public static String SENHA = "00";
     public static String TELAOP = "TELAOP";
     public static String TELAMENU = "TELAMENU";
@@ -41,6 +41,7 @@ public class Enums {
     public static int REFUGOSNAOIDENTIFICADOS = 0;
     public static int REFUGOSJUSTIFICADOS = 0;
     public static int LIMITEREFUGO = 0;
+    public static int CICLOATUAL = 0;
 
     static ControleOperacao controleOperacao = new ControleOperacao();
     static ControleOperacaoDao controleOperacaoDao = new ControleOperacaoDao(controleOperacao);

@@ -19,10 +19,7 @@ import util.ConexaoMysql;
 import util.EnviarEmail;
 import util.Notificacao;
 
-/**
- *
- * @author diogo.melo
- */
+
 public class ControleOperacaoDao {
 
     ControleOperacao controleOperacao = new ControleOperacao();
@@ -72,6 +69,16 @@ public class ControleOperacaoDao {
             }
             return false;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Notificacao.infoBox("ERRO AO CONSULTAR CNTRO. OP. /76COD", true);
+            try {
+                enviarEmail.enviaEmail(e.getMessage(), "Erro ao incluir o controle de operação");
+            } catch (MessagingException ex) {
+                Logger.getLogger(EventosDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
             System.out.println(e.getMessage());
             Notificacao.infoBox("ERRO AO CONSULTAR CNTRO. OP. /76COD", true);
             try {

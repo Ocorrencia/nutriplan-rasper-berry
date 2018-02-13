@@ -31,12 +31,12 @@ public interface SapiensSyncnutriplanOp {
      * @param user
      * @param parameters
      * @return
-     *     returns br.com.senior.services.OpOperadorOut
+     *     returns br.com.senior.services.OpCentroDeRecursoOut
      */
-    @WebMethod(operationName = "Operador")
+    @WebMethod(operationName = "CentroDeRecurso")
     @WebResult(name = "result", partName = "result")
-    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/OperadorRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/OperadorResponse")
-    public OpOperadorOut operador(
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/CentroDeRecursoRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/CentroDeRecursoResponse")
+    public OpCentroDeRecursoOut centroDeRecurso(
         @WebParam(name = "user", partName = "user")
         String user,
         @WebParam(name = "password", partName = "password")
@@ -44,7 +44,7 @@ public interface SapiensSyncnutriplanOp {
         @WebParam(name = "encryption", partName = "encryption")
         int encryption,
         @WebParam(name = "parameters", partName = "parameters")
-        OpOperadorIn parameters);
+        OpCentroDeRecursoIn parameters);
 
     /**
      * 
@@ -53,12 +53,12 @@ public interface SapiensSyncnutriplanOp {
      * @param user
      * @param parameters
      * @return
-     *     returns br.com.senior.services.OpFichaTecnicaOut
+     *     returns br.com.senior.services.OpDefeitoFabricacaoOut
      */
-    @WebMethod(operationName = "FichaTecnica")
+    @WebMethod(operationName = "DefeitoFabricacao")
     @WebResult(name = "result", partName = "result")
-    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/FichaTecnicaRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/FichaTecnicaResponse")
-    public OpFichaTecnicaOut fichaTecnica(
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/DefeitoFabricacaoRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/DefeitoFabricacaoResponse")
+    public OpDefeitoFabricacaoOut defeitoFabricacao(
         @WebParam(name = "user", partName = "user")
         String user,
         @WebParam(name = "password", partName = "password")
@@ -66,7 +66,7 @@ public interface SapiensSyncnutriplanOp {
         @WebParam(name = "encryption", partName = "encryption")
         int encryption,
         @WebParam(name = "parameters", partName = "parameters")
-        OpFichaTecnicaIn parameters);
+        OpDefeitoFabricacaoIn parameters);
 
     /**
      * 
@@ -75,12 +75,12 @@ public interface SapiensSyncnutriplanOp {
      * @param user
      * @param parameters
      * @return
-     *     returns br.com.senior.services.OpMotivoParadaOut
+     *     returns br.com.senior.services.OpListaExportadoOut
      */
-    @WebMethod(operationName = "MotivoParada")
+    @WebMethod(operationName = "ListaExportado")
     @WebResult(name = "result", partName = "result")
-    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/MotivoParadaRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/MotivoParadaResponse")
-    public OpMotivoParadaOut motivoParada(
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ListaExportadoRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ListaExportadoResponse")
+    public OpListaExportadoOut listaExportado(
         @WebParam(name = "user", partName = "user")
         String user,
         @WebParam(name = "password", partName = "password")
@@ -88,7 +88,95 @@ public interface SapiensSyncnutriplanOp {
         @WebParam(name = "encryption", partName = "encryption")
         int encryption,
         @WebParam(name = "parameters", partName = "parameters")
-        OpMotivoParadaIn parameters);
+        OpListaExportadoIn parameters);
+
+    /**
+     * 
+     * @param password
+     * @param encryption
+     * @param user
+     * @param parameters
+     * @return
+     *     returns br.com.senior.services.OpApontamentoParadaOut
+     */
+    @WebMethod(operationName = "ApontamentoParada")
+    @WebResult(name = "result", partName = "result")
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoParadaRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoParadaResponse")
+    public OpApontamentoParadaOut apontamentoParada(
+        @WebParam(name = "user", partName = "user")
+        String user,
+        @WebParam(name = "password", partName = "password")
+        String password,
+        @WebParam(name = "encryption", partName = "encryption")
+        int encryption,
+        @WebParam(name = "parameters", partName = "parameters")
+        OpApontamentoParadaIn parameters);
+
+    /**
+     * 
+     * @param password
+     * @param encryption
+     * @param user
+     * @param parameters
+     * @return
+     *     returns br.com.senior.services.OpApontamentoProducaoOut
+     */
+    @WebMethod(operationName = "ApontamentoProducao")
+    @WebResult(name = "result", partName = "result")
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoProducaoRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoProducaoResponse")
+    public OpApontamentoProducaoOut apontamentoProducao(
+        @WebParam(name = "user", partName = "user")
+        String user,
+        @WebParam(name = "password", partName = "password")
+        String password,
+        @WebParam(name = "encryption", partName = "encryption")
+        int encryption,
+        @WebParam(name = "parameters", partName = "parameters")
+        OpApontamentoProducaoIn parameters);
+
+    /**
+     * 
+     * @param password
+     * @param encryption
+     * @param user
+     * @param parameters
+     * @return
+     *     returns br.com.senior.services.OpTurnoDeTrabalhoXHorariosOut
+     */
+    @WebMethod(operationName = "TurnoDeTrabalho_x_Horarios")
+    @WebResult(name = "result", partName = "result")
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/TurnoDeTrabalho_x_HorariosRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/TurnoDeTrabalho_x_HorariosResponse")
+    public OpTurnoDeTrabalhoXHorariosOut turnoDeTrabalhoXHorarios(
+        @WebParam(name = "user", partName = "user")
+        String user,
+        @WebParam(name = "password", partName = "password")
+        String password,
+        @WebParam(name = "encryption", partName = "encryption")
+        int encryption,
+        @WebParam(name = "parameters", partName = "parameters")
+        OpTurnoDeTrabalhoXHorariosIn parameters);
+
+    /**
+     * 
+     * @param password
+     * @param encryption
+     * @param user
+     * @param parameters
+     * @return
+     *     returns br.com.senior.services.OpPrioridadeCentroDeRecursoOut
+     */
+    @WebMethod(operationName = "PrioridadeCentroDeRecurso")
+    @WebResult(name = "result", partName = "result")
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/PrioridadeCentroDeRecursoRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/PrioridadeCentroDeRecursoResponse")
+    public OpPrioridadeCentroDeRecursoOut prioridadeCentroDeRecurso(
+        @WebParam(name = "user", partName = "user")
+        String user,
+        @WebParam(name = "password", partName = "password")
+        String password,
+        @WebParam(name = "encryption", partName = "encryption")
+        int encryption,
+        @WebParam(name = "parameters", partName = "parameters")
+        OpPrioridadeCentroDeRecursoIn parameters);
 
     /**
      * 
@@ -119,12 +207,12 @@ public interface SapiensSyncnutriplanOp {
      * @param user
      * @param parameters
      * @return
-     *     returns br.com.senior.services.OpOrdemProducaoOut
+     *     returns br.com.senior.services.OpMotivoParadaOut
      */
-    @WebMethod(operationName = "OrdemProducao")
+    @WebMethod(operationName = "MotivoParada")
     @WebResult(name = "result", partName = "result")
-    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/OrdemProducaoRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/OrdemProducaoResponse")
-    public OpOrdemProducaoOut ordemProducao(
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/MotivoParadaRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/MotivoParadaResponse")
+    public OpMotivoParadaOut motivoParada(
         @WebParam(name = "user", partName = "user")
         String user,
         @WebParam(name = "password", partName = "password")
@@ -132,7 +220,7 @@ public interface SapiensSyncnutriplanOp {
         @WebParam(name = "encryption", partName = "encryption")
         int encryption,
         @WebParam(name = "parameters", partName = "parameters")
-        OpOrdemProducaoIn parameters);
+        OpMotivoParadaIn parameters);
 
     /**
      * 
@@ -185,12 +273,12 @@ public interface SapiensSyncnutriplanOp {
      * @param user
      * @param parameters
      * @return
-     *     returns br.com.senior.services.OpListaExportadoOut
+     *     returns br.com.senior.services.OpFichaTecnicaOut
      */
-    @WebMethod(operationName = "ListaExportado")
+    @WebMethod(operationName = "FichaTecnica")
     @WebResult(name = "result", partName = "result")
-    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ListaExportadoRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ListaExportadoResponse")
-    public OpListaExportadoOut listaExportado(
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/FichaTecnicaRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/FichaTecnicaResponse")
+    public OpFichaTecnicaOut fichaTecnica(
         @WebParam(name = "user", partName = "user")
         String user,
         @WebParam(name = "password", partName = "password")
@@ -198,7 +286,7 @@ public interface SapiensSyncnutriplanOp {
         @WebParam(name = "encryption", partName = "encryption")
         int encryption,
         @WebParam(name = "parameters", partName = "parameters")
-        OpListaExportadoIn parameters);
+        OpFichaTecnicaIn parameters);
 
     /**
      * 
@@ -207,12 +295,12 @@ public interface SapiensSyncnutriplanOp {
      * @param user
      * @param parameters
      * @return
-     *     returns br.com.senior.services.OpTurnoDeTrabalhoXHorariosOut
+     *     returns br.com.senior.services.OpOperadorOut
      */
-    @WebMethod(operationName = "TurnoDeTrabalho_x_Horarios")
+    @WebMethod(operationName = "Operador")
     @WebResult(name = "result", partName = "result")
-    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/TurnoDeTrabalho_x_HorariosRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/TurnoDeTrabalho_x_HorariosResponse")
-    public OpTurnoDeTrabalhoXHorariosOut turnoDeTrabalhoXHorarios(
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/OperadorRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/OperadorResponse")
+    public OpOperadorOut operador(
         @WebParam(name = "user", partName = "user")
         String user,
         @WebParam(name = "password", partName = "password")
@@ -220,7 +308,7 @@ public interface SapiensSyncnutriplanOp {
         @WebParam(name = "encryption", partName = "encryption")
         int encryption,
         @WebParam(name = "parameters", partName = "parameters")
-        OpTurnoDeTrabalhoXHorariosIn parameters);
+        OpOperadorIn parameters);
 
     /**
      * 
@@ -229,12 +317,12 @@ public interface SapiensSyncnutriplanOp {
      * @param user
      * @param parameters
      * @return
-     *     returns br.com.senior.services.OpCentroDeRecursoOut
+     *     returns br.com.senior.services.OpOrdemProducaoOut
      */
-    @WebMethod(operationName = "CentroDeRecurso")
+    @WebMethod(operationName = "OrdemProducao")
     @WebResult(name = "result", partName = "result")
-    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/CentroDeRecursoRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/CentroDeRecursoResponse")
-    public OpCentroDeRecursoOut centroDeRecurso(
+    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/OrdemProducaoRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/OrdemProducaoResponse")
+    public OpOrdemProducaoOut ordemProducao(
         @WebParam(name = "user", partName = "user")
         String user,
         @WebParam(name = "password", partName = "password")
@@ -242,72 +330,6 @@ public interface SapiensSyncnutriplanOp {
         @WebParam(name = "encryption", partName = "encryption")
         int encryption,
         @WebParam(name = "parameters", partName = "parameters")
-        OpCentroDeRecursoIn parameters);
-
-    /**
-     * 
-     * @param password
-     * @param encryption
-     * @param user
-     * @param parameters
-     * @return
-     *     returns br.com.senior.services.OpDefeitoFabricacaoOut
-     */
-    @WebMethod(operationName = "DefeitoFabricacao")
-    @WebResult(name = "result", partName = "result")
-    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/DefeitoFabricacaoRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/DefeitoFabricacaoResponse")
-    public OpDefeitoFabricacaoOut defeitoFabricacao(
-        @WebParam(name = "user", partName = "user")
-        String user,
-        @WebParam(name = "password", partName = "password")
-        String password,
-        @WebParam(name = "encryption", partName = "encryption")
-        int encryption,
-        @WebParam(name = "parameters", partName = "parameters")
-        OpDefeitoFabricacaoIn parameters);
-
-    /**
-     * 
-     * @param password
-     * @param encryption
-     * @param user
-     * @param parameters
-     * @return
-     *     returns br.com.senior.services.OpApontamentoParadaOut
-     */
-    @WebMethod(operationName = "ApontamentoParada")
-    @WebResult(name = "result", partName = "result")
-    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoParadaRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoParadaResponse")
-    public OpApontamentoParadaOut apontamentoParada(
-        @WebParam(name = "user", partName = "user")
-        String user,
-        @WebParam(name = "password", partName = "password")
-        String password,
-        @WebParam(name = "encryption", partName = "encryption")
-        int encryption,
-        @WebParam(name = "parameters", partName = "parameters")
-        OpApontamentoParadaIn parameters);
-
-    /**
-     * 
-     * @param password
-     * @param encryption
-     * @param user
-     * @param parameters
-     * @return
-     *     returns br.com.senior.services.OpApontamentoProducaoOut
-     */
-    @WebMethod(operationName = "ApontamentoProducao")
-    @WebResult(name = "result", partName = "result")
-    @Action(input = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoProducaoRequest", output = "http://services.senior.com.br/sapiens_Syncnutriplan_op/ApontamentoProducaoResponse")
-    public OpApontamentoProducaoOut apontamentoProducao(
-        @WebParam(name = "user", partName = "user")
-        String user,
-        @WebParam(name = "password", partName = "password")
-        String password,
-        @WebParam(name = "encryption", partName = "encryption")
-        int encryption,
-        @WebParam(name = "parameters", partName = "parameters")
-        OpApontamentoProducaoIn parameters);
+        OpOrdemProducaoIn parameters);
 
 }

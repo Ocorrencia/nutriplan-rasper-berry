@@ -33,13 +33,15 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import net.miginfocom.swing.MigLayout;
+import static tela.TelaOP.tela;
 import util.Enums;
+import util.Modal;
 
 /**
  *
  * @author diogo.melo
  */
-public class TelaCadastro extends JInternalFrame implements ActionListener {
+public class TelaCadastro extends JInternalFrame {
 
     //Paineis
     public JPanel painelBotoes = new JPanel();
@@ -63,15 +65,15 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
 
     URL urlSobre = getClass().getResource("/imagem/iconeSobre.png");
     URL urlBackTela = getClass().getResource("/imagem/backTela.gif");
-    URL urlCancelar = getClass().getResource("/imagem/cancela.gif");
+    URL urlAtualizar = getClass().getResource("/imagem/atualizar.png");
 
     Icon iconeSobre = new ImageIcon(urlSobre);
     Icon iconeBackTela = new ImageIcon(urlBackTela);
-    Icon iconeCancelar = new ImageIcon(urlCancelar);
+    Icon iconeAtualizar = new ImageIcon(urlAtualizar);
 
     WebToolBar tollBarBotoes = new WebToolBar(WebToolBar.VERTICAL);
     WebButton btnVoltar = new WebButton(iconeBackTela);
-    WebButton btnCancelar = new WebButton(iconeCancelar);
+    WebButton btnAtualizar = new WebButton(iconeAtualizar);
 
     URL urlIncluir = getClass().getResource("/imagens/iconeincluir.png");
     URL urlAlterar = getClass().getResource("/imagens/iconealterar.png");
@@ -200,16 +202,25 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         tollBarBotoes.setFloatable(false);
         tollBarBotoes.add(btnVoltar);
         tollBarBotoes.addSeparator();
-        tollBarBotoes.add(btnCancelar);
+        tollBarBotoes.add(btnAtualizar);
 
-        btnCancelar.addActionListener((ActionEvent e) -> {
-            // JOptionPane.showMessageDialog(null, "OPERADOR: 204.417 - JANETE MENDES M ACHADO \n PRIORIDADE MÁQUINA: 6º");
+        btnAtualizar.addActionListener((ActionEvent e) -> {
+            Modal.getTela(TelaAtualizacao.getTela()).setVisible(true);
+            new Thread(new MyRunnable()).start();
         });
 
         btnVoltar.addActionListener((ActionEvent e) -> {
             Enums.setSTATUSTELA(Enums.MENU);
-            TecladoVirtual.getTela("Digite o Código", Enums.TELAMENU);
+            TecladoVirtual.getTela("DIGITE A SENHA", Enums.TELAMENU);
         });
+    }
+
+    public class MyRunnable implements Runnable {
+
+        @Override
+        public void run() {
+            TelaAtualizacao.getTela();
+        }
     }
 
     public void adicionarBotoes(JPanel painel, JButton botao) {
@@ -223,19 +234,6 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     public void pack() {
         super.pack();
         setSize(getSize().width, getSize().height + 10);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
-    public class MyRunnable implements Runnable {
-
-        @Override
-        public void run() {
-
-        }
     }
 
     private void configLabelsStatus() {

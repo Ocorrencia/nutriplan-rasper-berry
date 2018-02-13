@@ -21,15 +21,39 @@ public class EnviarDadosOrdemProducao {
     private final String ATUALIZARTABELAPADRAO = "INSERT IGNORE\n"
             + "   INTO nutri_op.op900qdo\n"
             + " SELECT *\n"
-            + "   FROM nutri_op_sinc.op900qdo\n"
-            + "      ;\n"
-            + "      \n"
-            + "      ";
-    private final String LIMPARTABELA = "DELETE FROM nutri_op_sinc.op900qdo";
-    List<OrdemProducao> ordemProducao = new ArrayList<OrdemProducao>();
+            + "   FROM nutri_op_sinc.op900qdo";
 
-    public void EnviarDadosOrdemProducao(List<OrdemProducao> ordemProducaoObj) {
+   
+    private final String LIMPARTABELA = "DELETE FROM nutri_op_sinc.op900qdo";
+    private final String UPDATEQDO = "UPDATE nutri_op.op900qdo prod\n"
+            + "        INNER JOIN\n"
+            + "    nutri_op_sinc.op900qdo sinc ON prod.NUMORP = sinc.NUMORP \n"
+            + "SET \n"
+            + "    prod.CAPSMT = sinc.CAPSMT,\n"
+            + "    prod.CICPAD = sinc.CICPAD,\n"
+            + "    prod.CODDER = sinc.CODDER,\n"
+            + "    prod.CODEMP = sinc.CODEMP,\n"
+            + "    prod.CODETG = sinc.CODETG,\n"
+            + "    prod.CODORI = sinc.CODORI,\n"
+            + "    prod.CODPRO = sinc.CODPRO,\n"
+            + "    prod.DESDER = sinc.DESDER,\n"
+            + "    prod.DESPRO = sinc.DESPRO,\n"
+            + "    prod.DESPRXDER = sinc.DESPRXDER,\n"
+            + "    prod.DESPRXPRO = sinc.DESPRXPRO,\n"
+            + "    prod.NUMORP = sinc.NUMORP,\n"
+            + "    prod.NUMPRI = sinc.NUMPRI,\n"
+            + "    prod.PESPAD = sinc.PESPAD,\n"
+            + "    prod.PRXDER = sinc.PRXDER,\n"
+            + "    prod.PRXPRO = sinc.PRXPRO,\n"
+            + "    prod.QTDMAX = sinc.QTDMAX,\n"
+            + "    prod.QTDPRV = sinc.QTDPRV,\n"
+            + "    prod.SEQETR = sinc.SEQETR,\n"
+            + "    prod.SEQROT = sinc.SEQROT";
+    List<OrdemProducao> ordemProducao = new ArrayList<OrdemProducao>();
+    boolean atualizarParcial;
+    public void EnviarDadosOrdemProducao(List<OrdemProducao> ordemProducaoObj,boolean atualizarParcial) {
         this.ordemProducao = ordemProducaoObj;
+        this.atualizarParcial = atualizarParcial;
         enviarDados();
     }
 
@@ -65,7 +89,11 @@ public class EnviarDadosOrdemProducao {
                 ps.executeUpdate();
             }
             ConexaoMysql.FecharConexao();
-            atualizarTabelaPadrao();
+            if (atualizarParcial) {
+                atualizarQDO();
+            }else{
+                atualizarTabelaPadrao();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,6 +102,16 @@ public class EnviarDadosOrdemProducao {
     public void atualizarTabelaPadrao() {
         try {
             PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(ATUALIZARTABELAPADRAO);
+            ps.executeUpdate();
+            ConexaoMysql.FecharConexao();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void atualizarQDO() {
+        try {
+            PreparedStatement ps = ConexaoMysql.getConexaoMySQL().prepareStatement(UPDATEQDO);
             ps.executeUpdate();
             ConexaoMysql.FecharConexao();
         } catch (Exception e) {

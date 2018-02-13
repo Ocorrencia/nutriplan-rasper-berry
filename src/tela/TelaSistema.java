@@ -24,7 +24,7 @@ public class TelaSistema extends JFrame {
 
     public static MeuJDesktopPane jdp = new MeuJDesktopPane();
     public static TelaSistema telaSistema;
-    ListenGPIO listenGPIO = new ListenGPIO();
+    //ListenGPIO listenGPIO = new ListenGPIO();
 
     public static void main(String args[]) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         try {
@@ -45,7 +45,6 @@ public class TelaSistema extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public static void centraliza(JInternalFrame janela) {
@@ -88,7 +87,6 @@ public class TelaSistema extends JFrame {
         controleDeOperacao();
         setLocationRelativeTo(null);
         // verificarTurno.inicarVerificacao();
-        ListenGPIO.relay(true);
         travar();
     }
 
@@ -108,8 +106,8 @@ public class TelaSistema extends JFrame {
     }*/
     }
 
-    public void fecharTela() {
-        this.dispose();
+    public static void fecharTela() {
+        telaSistema.dispose();
     }
 
     public void travar() {
@@ -134,5 +132,4 @@ public class TelaSistema extends JFrame {
             }
         });
     }
-
 }

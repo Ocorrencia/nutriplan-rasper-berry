@@ -167,7 +167,7 @@ public class TelaMenu extends JInternalFrame {
     }
 
     public void mensagemErroSincronizacao(String msg) {
-        Notificacao.infoBox("ERRO AO SINCRONIZAR CENTRO REC. /172TM", false);
+        Notificacao.infoBox(msg, false);
         TelaLoading.getTela("").dispose();
         Modal.getTela(null).dispose();
     }
@@ -201,8 +201,11 @@ public class TelaMenu extends JInternalFrame {
             } else if (!Sincronizacao.sincDefeito()) {
                 mensagemErroSincronizacao("Ocorreu um erro ao sincronizar os defeitos");
                 return;
-            } else if (!Sincronizacao.sincOrdemProducao()) {
+            } else if (!Sincronizacao.sincOrdemProducao(false)) {
                 mensagemErroSincronizacao("Ocorreu um erro ao sincronizar a ordem de produção");
+                return;
+            } else if (!Sincronizacao.sincPrioridade()) {
+                mensagemErroSincronizacao("Ocorreu um erro ao sincronizar a prioridade");
                 return;
             } else if (true) {
                 Notificacao.infoBox("SINCRONIZADA FINALIZADA", true);
@@ -228,7 +231,7 @@ public class TelaMenu extends JInternalFrame {
             }
         });
         btnSair.addActionListener((ActionEvent e) -> {
-            getTela().dispose();
+            TelaSistema.fecharTela();
         });
         btnConfig.addActionListener((ActionEvent e) -> {
             TelaConfig.getTela();

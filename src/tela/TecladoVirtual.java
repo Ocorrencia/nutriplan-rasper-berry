@@ -166,15 +166,14 @@ public class TecladoVirtual extends JInternalFrame {
         painelBotoesGrid.add(dois);
         painelBotoesGrid.add(tres, "wrap");
         painelBotoesGrid.add(quatro);
-        painelBotoesGrid.add(ok);
-        painelBotoesGrid.add(voltar, "wrap");
+        painelBotoesGrid.add(cinco);
+        painelBotoesGrid.add(seis, "wrap");
         painelBotoesGrid.add(sete);
         painelBotoesGrid.add(oito);
         painelBotoesGrid.add(nove, "wrap");
         painelBotoesGrid.add(zero);
-        painelBotoesGrid.add(cinco);
-
-        painelBotoesGrid.add(seis);
+        painelBotoesGrid.add(ok);
+        painelBotoesGrid.add(voltar);
         //  pack();
     }
 
@@ -213,7 +212,9 @@ public class TecladoVirtual extends JInternalFrame {
             if ("".equals(meuCampoValor.getText())) {
                 Notificacao.infoBox("DIGITE UM VALOR", false);
             } else {
-                tela.dispose();
+                if (tela != null) {
+                    tela.dispose();
+                }
             }
         });
         voltar.addActionListener((ActionEvent e) -> {

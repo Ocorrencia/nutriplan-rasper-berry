@@ -121,7 +121,7 @@ public class MeuComboPesquisa extends JPanel implements MeuComponente {
             }
         }
         if (combo.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "Não foi possível selecionar um valor em " + getDica());
+            System.out.println("Não foi possível selecionar um valor em " + getDica());
         }
     }
 

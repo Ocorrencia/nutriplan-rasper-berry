@@ -70,6 +70,5 @@ public class CentroRecursoWebService {
         centroRecurso.setItensCentroRecurso(centroRecursoObj);
         enviarDados.EnviarDadosCentroRecurso(centroRecursoObj);
         return true;
-        //TODO: enviar dados(itensOperadores) para o dao e executar a inclusao no banco
     }
 }

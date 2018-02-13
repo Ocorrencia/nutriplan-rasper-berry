@@ -5,7 +5,6 @@
  */
 package tela;
 
-import componente.MensagensSistema;
 import componente.MeuComboBox;
 import dao.ApontamentoParadaDao;
 import dao.MovimentoOrdemProducaoDao;
@@ -19,7 +18,6 @@ import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,7 +36,6 @@ import pojo.OrdemProducao;
 import pojoWebService.ApontamentoParadaWebService;
 import static tela.TelaOP.tela;
 import util.Consulta;
-import util.Cronometro;
 import util.DadosRaspberry;
 import util.Enums;
 import util.Modal;
@@ -71,7 +68,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
     JButton btnAtualizar = new JButton(iconeRefresh);
     public static TelaAvisoInicioProducao telaInicio;
 
-    MeuComboBox comboOp = new MeuComboBox("SELECT NUMORP ,CONCAT(CODDER, ' - ', CODPRO, ' - ', DESPRO, ' ', DESDER) as PRODUTO  FROM nutri_op.op900qdo WHERE STATUS <> 3 order by numpri", true, "OPS");
+    MeuComboBox comboOp = new MeuComboBox("SELECT NUMORP ,CONCAT(CODPRO, ' - ',  CODDER, ' - ', DESPRO, ' ', DESDER) as PRODUTO  FROM nutri_op.op900qdo WHERE STATUS <> 3 order by numpri", true, "OPS");
 
     OrdemProducao ordemProducao = new OrdemProducao();
     OrdemProducaoDao ordemProducaoDao = new OrdemProducaoDao(ordemProducao);
@@ -140,9 +137,14 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
     }
 
     private void verificarOps() {
-        String numOrp = Consulta.CONSULTASTRING("nutri_op.op900qdo", "NUMORP", "STATUS = 1");
+        String numOrp = Consulta.CONSULTASTRING(" nutri_op.op900qdo qdo INNER JOIN nutri_op.op930mpr mpr ON mpr.NUMORP = qdo.NUMORP", "qdo.NUMORP", "qdo.STATUS = '1' AND mpr.HORFIM = '' AND CODMTV <> 1001");
         if (!"VAZIO".equals(numOrp)) {
-            comboOp.setSql("SELECT NUMORP ,CONCAT(CODDER, ' - ', CODPRO, ' - ', DESPRO, ' ', DESDER) as PRODUTO FROM nutri_op.op900qdo WHERE NUMORP = " + numOrp + " AND STATUS <> 3 order by numpri");
+            comboOp.setSql("SELECT NUMORP ,CONCAT(CODPRO, ' - ', CODDER, ' - ', DESPRO, ' ', DESDER) as PRODUTO FROM nutri_op.op900qdo WHERE NUMORP = " + numOrp + " AND STATUS <> 3 order by numpri");
+        } else {
+            if (!"VAZIO".equals(numOrp)) {
+                Consulta.UPDATE("nutri_op.op900qdo", "STATUS = 0", "NUMORP = " + numOrp + "");
+            }
+            comboOp.setSql("SELECT NUMORP ,CONCAT(CODPRO, ' - ',  CODDER, ' - ', DESPRO, ' ', DESDER) as PRODUTO  FROM nutri_op.op900qdo WHERE STATUS <> 3 order by numpri");
         }
     }
 
@@ -222,8 +224,8 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         btnAtualizar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Sincronizacao.sincOrdemProducao();
-                comboOp.setSql("SELECT NUMORP ,CONCAT(CODDER, ' - ', CODPRO, ' - ', DESPRO, ' ', DESDER) as PRODUTO  FROM nutri_op.op900qdo WHERE STATUS <> 3 order by numpri");
+                Sincronizacao.sincOrdemProducao(true);
+                comboOp.setSql("SELECT NUMORP ,CONCAT(CODPRO , ' - ', CODDER, ' - ', DESPRO, ' ', DESDER) as PRODUTO  FROM nutri_op.op900qdo WHERE STATUS <> 3 order by numpri");
             }
         });
         btnParada.addActionListener((ActionEvent e) -> {
@@ -257,7 +259,6 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
 
             dispose();
             Modal.getTela(telaInicio).setVisible(false);
-            Cronometro.iniciaCronometro(3600000);
             Enums.setSTATUSTELA(Enums.LIBERADOPRODUCAO);
 
             ordemProducao.setNumOrp((Integer) comboOp.getValor());
@@ -270,7 +271,7 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
                 DadosRaspberry.QUANTIDADEPRODUZIDA = (int) Math.round(ordemProducao.getQtdRe1());
             }
 
-            TelaOP.getTela().campoOp.setText(ordemProducao.getCodDer() + " - " + ordemProducao.getCodPro() + " - " + ordemProducao.getDesPro() + " " + ordemProducao.getDesDer());
+            TelaOP.getTela().campoOp.setText(ordemProducao.getCodPro() + " - " + ordemProducao.getCodDer() + " - " + ordemProducao.getDesPro() + " " + ordemProducao.getDesDer());
             TelaOP.tela.setMvp(mvp);
             TelaOP.tela.setOrdemProducao(ordemProducao);
         });
@@ -291,6 +292,13 @@ public class TelaAvisoInicioProducao extends JInternalFrame {
         sequenciaUltimaParada = Consulta.CONSULTASTRING("nutri_op.op930mpr", "MAX(SEQMPR)", "HORFIM = '' AND EXPERP = 0");
         if (sequenciaUltimaParada != null) {
             ap = apDao.consultar(sequenciaUltimaParada);
+            btnIniciar.setText("FINALIZAR");
+            lbParada.setText("FINALIZAR PARADA");
+            btnParada.setEnabled(false);
+        } else {
+            btnParada.setEnabled(true);
+            btnIniciar.setText("INICIAR");
+            lbParada.setText("INÍCIO DE PRODUÇÃO");
         }
     }
 }
